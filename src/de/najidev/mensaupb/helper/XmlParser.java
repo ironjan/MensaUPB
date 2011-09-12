@@ -96,7 +96,7 @@ public class XmlParser
 								menu.addSide(value);
 						}
 
-						if (!menu.getName().equals("Tagesangebot"))
+						if (!menu.getTitle().equals("Tages - Tipp"))
 							list.add(menu);
 					}
 				}
