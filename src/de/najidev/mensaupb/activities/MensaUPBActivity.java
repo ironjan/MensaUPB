@@ -1,7 +1,6 @@
 package de.najidev.mensaupb.activities;
 
 import android.app.TabActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.widget.TabHost;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import de.najidev.mensaupb.R;
 import de.najidev.mensaupb.helper.DateHelper;
