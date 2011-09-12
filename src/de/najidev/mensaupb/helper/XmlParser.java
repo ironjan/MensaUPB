@@ -28,24 +28,49 @@ import de.najidev.mensaupb.entity.Menu;
 
 public class XmlParser
 {
-	final static String url  = "http://www.studentenwerk-pb.de/fileadmin/xml/mensa.xml";
+	protected static XmlParser instance;
+
+	protected URL url     = null;
+	protected String file = "mensa.xml";
+
+	protected XmlParser()
+	{
+		try
+		{
+			url = new URL("http://www.studentenwerk-pb.de/fileadmin/xml/mensa.xml");
+		}
+		catch (Exception ignored) { }
+	}
 
 	public static List<Menu> getMenus(int week)
+	{
+		if (null == instance)
+			instance = new XmlParser();
+
+		return instance._getMenus(week);
+	}
+
+	protected List<Menu> _getMenus(int week)
 	{
 		Context context = Application.getContext();
 		FileInputStream is = null;
 
-		// open file - download it before, if necessary
+		// open file
 		try
 		{
-			is = context.openFileInput(week + ".xml");
+			is = context.openFileInput(file);
+
+			// if the xml has not the correct kw-attribute, throw a
+			// FileNotFoundException to go into the catch
+			if (week != getWeek(is))
+				throw new FileNotFoundException();
 		}
+		// file not available
 		catch (FileNotFoundException e1)
 		{
-			downloadFile(week);
 			try
 			{
-				is = context.openFileInput(week + ".xml");
+				DownloadHelper.downloadFile(url, context.openFileOutput(file, Context.MODE_PRIVATE));
 			}
 			catch (FileNotFoundException e2) { }
 		}
@@ -55,6 +80,8 @@ public class XmlParser
 		// parse file
 		try
 		{
+			is = context.openFileInput(file);
+
 			Document document = DocumentBuilderFactory
 				.newInstance()
 				.newDocumentBuilder()
@@ -106,16 +133,15 @@ public class XmlParser
 		catch (Exception e) { }
 
 
-		return list;
+		return list;		
 	}
 
-	protected static void downloadFile(int week)
+	protected void downloadFile(int week)
 	{
 		try
 		{
 			Context context = Application.getContext();
-	
-			URL url  = new URL(XmlParser.url);
+
 			url.openConnection();
 	
 			// Copy resource to local file, use remote file
@@ -137,7 +163,7 @@ public class XmlParser
 		}
 	}
 
-	protected static InputSource changeEncoding(InputStream in, String from, String to) throws IOException
+	protected InputSource changeEncoding(InputStream in, String from, String to) throws IOException
 	{
 		from = from.toLowerCase();
 		to   = to.toLowerCase();
@@ -152,5 +178,25 @@ public class XmlParser
 
 		br.close();
 		return new InputSource(new StringReader(sb.toString()));
+	}
+
+	protected int getWeek(InputStream is)
+	{
+		try
+		{
+			return Integer.parseInt(
+				DocumentBuilderFactory
+					.newInstance()
+					.newDocumentBuilder()
+					.parse(changeEncoding(is, "windows-1252", "utf-8"))
+					.getElementsByTagName("kw")
+					.item(0)
+					.getTextContent()
+			);
+		}
+		catch (Exception e)
+		{
+			return 0;
+		}
 	}
 }
