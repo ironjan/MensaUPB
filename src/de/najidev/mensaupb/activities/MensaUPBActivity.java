@@ -20,15 +20,12 @@ public class MensaUPBActivity extends TabActivity
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.main);
 
-	    
-
 	    Resources res = getResources(); // Resource object to get Drawables
 	    TabHost tabHost = getTabHost();  // The activity TabHost
 	    TabHost.TabSpec spec;  // Resusable TabSpec for each tab
 	    Intent intent = new Intent().setClass(this, DayActivity.class);
 	    int resId = 0;
 
-	    int i = 0;
 	    for (Date date : DateHelper.getInstance().getDates())
 	    {
 	    	switch (date.getDay())
@@ -52,7 +49,7 @@ public class MensaUPBActivity extends TabActivity
 	    			resId = -1;
 	    	}
 
-		    spec = tabHost.newTabSpec("tab"+i)
+		    spec = tabHost.newTabSpec("tab"+date.getDay())
 	    			.setIndicator(
 	    				date.getDate() + "." + date.getMonth() + ".",
 	    				res.getDrawable(resId)
@@ -60,7 +57,6 @@ public class MensaUPBActivity extends TabActivity
 	    			.setContent(intent);
 
 		    tabHost.addTab(spec);
-	    	i++;
 	    }
 
 	    tabHost.setCurrentTab(DateHelper.getInstance().getCurrentDateIndex());

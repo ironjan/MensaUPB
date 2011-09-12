@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -24,32 +25,36 @@ import android.util.Log;
 
 import de.najidev.mensaupb.Application;
 import de.najidev.mensaupb.entity.Menu;
+import de.najidev.mensaupb.entity.MenuRepository;
 
 public class XmlParser
 {
 	final static String url  = "http://www.studentenwerk-pb.de/fileadmin/xml/mensa.xml";
-	final static String file = "";
 
-	public static List<Menu> getMenus(int kw)
+	public static List<Menu> getMenus(int week)
 	{
 		Context context = Application.getContext();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		FileInputStream is = null;
 
+		// open file - download it before, if necessary
 		try
 		{
-			is = context.openFileInput("mensa.xml");
+			is = context.openFileInput(week + ".xml");
 		}
 		catch (FileNotFoundException e1)
 		{
-			downloadFile();
+			downloadFile(week);
 			try
 			{
-				is = context.openFileInput("mensa.xml");
+				is = context.openFileInput(week + ".xml");
 			}
 			catch (FileNotFoundException e2) { }
 		}
 
+
+		List<Menu> list = new ArrayList<Menu>();
+		// parse file
 		try
 		{
 			try
@@ -60,14 +65,32 @@ public class XmlParser
 
 				for (int i = 0; i < ndList.getLength(); i++)
 				{
-					Log.w("xml", ndList.item(i).getNodeName() + " ");
 					NodeList menuList = ndList.item(i).getChildNodes();
 
 					for (int k = 0; k < menuList.getLength(); k++)
 					{
+						Log.w("xml",  "sda");
 						if ("menue" == menuList.item(k).getNodeName())
 						{
-							
+							NodeList menuDetails = menuList.item(k).getChildNodes();
+							Menu menu   = new Menu();
+							menu.setDate(new Date(ndList.item(i).getChildNodes().item(0).getNodeValue()));
+
+							for (int j = 0; j < menuDetails.getLength(); j++)
+							{
+								Node detail = menuList.item(j);
+								if ("menu" == detail.getNodeName())
+								{
+									menu.setName(detail.getNodeValue());
+								}
+								else if ("beilage" == detail.getNodeName())
+								{
+									menu.addSide(detail.getNodeValue());
+								}
+							}
+							Log.w("xml", menu.getName());
+
+							list.add(menu);
 						}
 					}
 				}
@@ -89,31 +112,29 @@ public class XmlParser
 			e.printStackTrace();
 		}
 
-		List<Menu> list = new ArrayList<Menu>();
 
 		return list;
 	}
 
-	protected static void downloadFile()
+	protected static void downloadFile(int week)
 	{
 		try
 		{
 			Context context = Application.getContext();
 	
 			URL url  = new URL(XmlParser.url);
-			URLConnection urlC = url.openConnection();
+			url.openConnection();
 	
 			// Copy resource to local file, use remote file
 			// if no local file name specified
 			InputStream is = url.openStream();
 			
-			FileOutputStream fos= context.openFileOutput("mensa.xml", Context.MODE_PRIVATE);
+			FileOutputStream fos= context.openFileOutput(week + ".xml", Context.MODE_PRIVATE);
 	
-			int oneChar, count=0;
+			int oneChar;
 			while ((oneChar=is.read()) != -1)
 			{
 				fos.write(oneChar);
-				count++;
 			}
 			is.close();
 			fos.close();

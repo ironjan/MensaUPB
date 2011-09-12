@@ -11,6 +11,7 @@ public class DateHelper
 	protected static DateHelper instance;
 	protected List<Date> dates;
 	protected int currentDateIndex;
+	protected int week;
 
 	private DateHelper()
 	{
@@ -24,6 +25,7 @@ public class DateHelper
 	    		gc.add(Calendar.DAY_OF_MONTH, 1);
 	    		break;
 	    }
+	    week = gc.get(Calendar.WEEK_OF_YEAR);
 
 	    currentDateIndex = gc.get(Calendar.DAY_OF_WEEK) - 2;
 
@@ -58,5 +60,10 @@ public class DateHelper
 	public int getCurrentDateIndex()
 	{
 		return currentDateIndex;
+	}
+
+	public int getWeek()
+	{
+		return this.week;
 	}
 }

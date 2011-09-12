@@ -11,6 +11,11 @@ public class Menu
 	protected String type;
 	protected List<String> sides;
 
+	public Menu()
+	{
+		sides = new ArrayList<String>();
+	}
+
 	public Menu(Date date, String name, String type)
 	{
 		setDate(date);
