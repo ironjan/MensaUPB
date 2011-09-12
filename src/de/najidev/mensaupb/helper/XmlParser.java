@@ -1,31 +1,30 @@
 package de.najidev.mensaupb.helper;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.URL;
-import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import org.xml.sax.InputSource;
 
 import android.content.Context;
-import android.util.Log;
 
 import de.najidev.mensaupb.Application;
 import de.najidev.mensaupb.entity.Menu;
-import de.najidev.mensaupb.entity.MenuRepository;
 
 public class XmlParser
 {
@@ -34,7 +33,6 @@ public class XmlParser
 	public static List<Menu> getMenus(int week)
 	{
 		Context context = Application.getContext();
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		FileInputStream is = null;
 
 		// open file - download it before, if necessary
@@ -57,60 +55,51 @@ public class XmlParser
 		// parse file
 		try
 		{
-			try
+			Document document = DocumentBuilderFactory
+				.newInstance()
+				.newDocumentBuilder()
+				.parse(
+					changeEncoding(is, "windows-1252", "utf-8")
+				);
+			
+			NodeList dayList = document.getElementsByTagName("tag");
+
+			for (int i = 0; i < dayList.getLength(); i++)
 			{
-				DocumentBuilder builder = factory.newDocumentBuilder();
-				Document document = builder.parse((InputStream) is);
-				NodeList ndList = document.getElementsByTagName("tag");
-
-				for (int i = 0; i < ndList.getLength(); i++)
+				Date date = null;
+				for (int k = 0; k < dayList.item(i).getChildNodes().getLength(); k++)
 				{
-					NodeList menuList = ndList.item(i).getChildNodes();
-
-					for (int k = 0; k < menuList.getLength(); k++)
+					Node node = dayList.item(i).getChildNodes().item(k);
+					if (node.getNodeName().equals("datum"))
+						date = new SimpleDateFormat("dd.MM.yyyy").parse(node.getTextContent());
+					else if (node.getNodeName().equals("menue"))
 					{
-						Log.w("xml",  "sda");
-						if ("menue" == menuList.item(k).getNodeName())
+						NodeList menuDetails = node.getChildNodes();
+						Menu menu   = new Menu();
+						menu.setDate(date);
+
+						for (int j = 0; j < menuDetails.getLength(); j++)
 						{
-							NodeList menuDetails = menuList.item(k).getChildNodes();
-							Menu menu   = new Menu();
-							menu.setDate(new Date(ndList.item(i).getChildNodes().item(0).getNodeValue()));
+							String name  = menuDetails.item(j).getNodeName();
+							String value = menuDetails.item(j).getTextContent();
 
-							for (int j = 0; j < menuDetails.getLength(); j++)
-							{
-								Node detail = menuList.item(j);
-								if ("menu" == detail.getNodeName())
-								{
-									menu.setName(detail.getNodeValue());
-								}
-								else if ("beilage" == detail.getNodeName())
-								{
-									menu.addSide(detail.getNodeValue());
-								}
-							}
-							Log.w("xml", menu.getName());
-
-							list.add(menu);
+							if (name.equals("menu"))
+								menu.setTitle(value);
+							else if (name.equals("text"))
+								menu.setName(value);
+							else if (name.equals("speisentyp"))
+								menu.setType(value);
+							else if (name.equals("beilage"))
+								menu.addSide(value);
 						}
+
+						list.add(menu);
 					}
 				}
 			}
-			catch (SAXException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
-		catch (ParserConfigurationException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		// if an error occures, we can't do anything against it...
+		catch (Exception e) { }
 
 
 		return list;
@@ -142,5 +131,22 @@ public class XmlParser
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected static InputSource changeEncoding(InputStream in, String from, String to) throws IOException
+	{
+		from = from.toLowerCase();
+		to   = to.toLowerCase();
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(in, from));
+		StringBuilder sb = new StringBuilder();
+
+		String l = br.readLine().toLowerCase().replace(from, to);
+		sb.append(l + "\n");
+		while ((l = br.readLine()) != null)
+			sb.append(l);
+
+		br.close();
+		return new InputSource(new StringReader(sb.toString()));
 	}
 }

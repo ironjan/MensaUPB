@@ -39,7 +39,7 @@ public class MenuAdapter extends ArrayAdapter<Menu> {
 			TextView tt = (TextView) v.findViewById(R.id.toptext);
 			TextView bt = (TextView) v.findViewById(R.id.bottomtext);
 			if (tt != null)
-				tt.setText("Name: " + m.getName());
+				tt.setText("Name: " + m.getTitle());
 			if(bt != null)
 				bt.setText("Typ: "+ m.getType());
 		}

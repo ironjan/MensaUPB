@@ -28,7 +28,7 @@ public class MenuRepository
 		List<Menu> list = new ArrayList<Menu>();
 
 		for (Menu menu : menus)
-			if (menu.getDate().equals(date))
+			if (menu.getDate().getDate() == date.getDate())
 				list.add(menu);
 
 		return list;

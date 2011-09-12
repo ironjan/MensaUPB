@@ -7,6 +7,7 @@ import java.util.List;
 public class Menu
 {
 	protected Date date;
+	protected String title;
 	protected String name;
 	protected String type;
 	protected List<String> sides;
@@ -32,6 +33,16 @@ public class Menu
 	public void setDate(Date date)
 	{
 		this.date = date;
+	}
+
+	public String getTitle()
+	{
+		return title;
+	}
+
+	public void setTitle(String title)
+	{
+		this.title = title;
 	}
 
 	public String getName()
