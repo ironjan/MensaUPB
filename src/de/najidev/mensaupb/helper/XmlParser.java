@@ -81,7 +81,10 @@ public class XmlParser
 						for (int j = 0; j < menuDetails.getLength(); j++)
 						{
 							String name  = menuDetails.item(j).getNodeName();
-							String value = menuDetails.item(j).getTextContent();
+							String value = menuDetails.item(j)
+									.getTextContent()
+									.replaceAll("\\(.+\\)( \\*)?$", "")
+									.trim();
 
 							if (name.equals("menu"))
 								menu.setTitle(value);
@@ -93,7 +96,8 @@ public class XmlParser
 								menu.addSide(value);
 						}
 
-						list.add(menu);
+						if (!menu.getName().equals("Tagesangebot"))
+							list.add(menu);
 					}
 				}
 			}

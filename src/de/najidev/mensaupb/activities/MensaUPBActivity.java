@@ -16,7 +16,8 @@ import de.najidev.mensaupb.helper.DateHelper;
 
 public class MensaUPBActivity extends TabActivity
 {
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.main);
 

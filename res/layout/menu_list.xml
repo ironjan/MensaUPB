@@ -9,17 +9,26 @@
         android:layout_weight="1"
         android:layout_height="fill_parent">
         <TextView
-            android:id="@+id/toptext"
+            android:id="@+id/title"
             android:layout_width="fill_parent"
-            android:layout_height="0dip"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_vertical"
+            android:textStyle="bold"
         />
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="0dip"
+            android:layout_height="wrap_content"
             android:layout_weight="1" 
-            android:id="@+id/bottomtext"
+            android:id="@+id/name"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+        />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" 
+            android:id="@+id/sides"
             android:singleLine="true"
             android:ellipsize="marquee"
         />

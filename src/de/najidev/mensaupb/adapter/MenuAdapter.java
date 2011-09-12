@@ -35,13 +35,26 @@ public class MenuAdapter extends ArrayAdapter<Menu> {
 
 		Menu m = items.get(position);
 
-		if (m != null) {
-			TextView tt = (TextView) v.findViewById(R.id.toptext);
-			TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-			if (tt != null)
-				tt.setText("Name: " + m.getTitle());
-			if(bt != null)
-				bt.setText("Typ: "+ m.getType());
+		if (m != null)
+		{
+			TextView title = (TextView) v.findViewById(R.id.title);
+			TextView name  = (TextView) v.findViewById(R.id.name);
+			TextView sides = (TextView) v.findViewById(R.id.sides);
+
+			if (title != null)
+				title.setText(m.getTitle());
+
+			if(name != null)
+				name.setText(m.getName());
+
+			if(sides != null)
+			{
+				StringBuilder sb = new StringBuilder();
+				for (String side : m.getSides())
+				    sb.append(side).append(", ");
+
+				sides.setText(sb.toString().replaceAll(", $", ""));
+			}
 		}
 		return v;
 	}
