@@ -44,8 +44,6 @@ public class MensaUPBActivity extends TabActivity
 	    		case Calendar.FRIDAY:
 	    			resId = R.drawable.ic_tab_fri;
 	    			break;
-	    		default:
-	    			resId = -1;
 	    	}
 
 		    spec = tabHost.newTabSpec("tab"+date.getDay())
@@ -57,7 +55,12 @@ public class MensaUPBActivity extends TabActivity
 
 		    tabHost.addTab(spec);
 	    }
+	}
 
-	    tabHost.setCurrentTab(DateHelper.getInstance().getCurrentDateIndex());
+	protected void onResume()
+	{
+		super.onResume();
+
+	    getTabHost().setCurrentTab(DateHelper.getInstance().getCurrentDateIndex());
 	}
 }
