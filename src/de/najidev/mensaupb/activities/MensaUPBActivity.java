@@ -48,7 +48,7 @@ public class MensaUPBActivity extends TabActivity
 
 		    spec = tabHost.newTabSpec("tab"+date.getDay())
 	    			.setIndicator(
-	    				date.getDate() + "." + date.getMonth() + ".",
+	    				date.getDate() + "." + (date.getMonth() + 1) + ".",
 	    				res.getDrawable(resId)
 	    			)
 	    			.setContent(intent);
