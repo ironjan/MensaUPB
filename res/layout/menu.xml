@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/location"
+        android:title="Ort auswählen" />
+    <item android:id="@+id/openingtime"
+        android:title="Öffnungszeiten" />
+</menu>
