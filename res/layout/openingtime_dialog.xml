@@ -33,7 +33,7 @@
     		  android:layout_width="wrap_content" 
     		  android:textSize="24px"
     		  android:paddingBottom="10dip"
-    		  android:text="Mo-Do: 08:00 - 24:00 Uhr\nFr: 08:00 - 18:00 Uhr\nMittagessen: Mo-Fr: 11:30 - 14:00 Uhr"
+    		  android:text="Mo-Do: 08:00 - 24:00 Uhr\nFr: 08:00 - 18:00 Uhr\nMittagessen:\nMo-Fr: 11:30 - 14:00 Uhr"
     		  />
     <TextView android:layout_height="wrap_content" 
     		  android:layout_width="wrap_content" 

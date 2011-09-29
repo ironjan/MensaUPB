@@ -1,6 +1,5 @@
 package de.najidev.mensaupb.activities;
 
-import android.app.Dialog;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -8,12 +7,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.TabHost;
-import android.widget.Toast;
 import java.util.Calendar;
 import java.util.Date;
 import de.najidev.mensaupb.R;
+import de.najidev.mensaupb.dialogs.OpeningTimeDialog;
 import de.najidev.mensaupb.helper.DateHelper;
 
 public class MensaUPBActivity extends TabActivity
@@ -86,11 +84,7 @@ public class MensaUPBActivity extends TabActivity
 				
 				break;
 			case R.id.openingtime:
-				Dialog dialog = new Dialog(this);
-				//dialog.setTitle("Öffnungszeiten");
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		    	dialog.setContentView(R.layout.openingtime_dialog);
-		    	dialog.show();
+				new OpeningTimeDialog(this).show();
 				break;
 		}
 		return true;
