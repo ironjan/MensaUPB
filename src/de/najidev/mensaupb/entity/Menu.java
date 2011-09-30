@@ -1,8 +1,6 @@
 package de.najidev.mensaupb.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Menu
 {
@@ -10,20 +8,8 @@ public class Menu
 	protected String title;
 	protected String name;
 	protected String type;
-	protected List<String> sides;
-
-	public Menu()
-	{
-		sides = new ArrayList<String>();
-	}
-
-	public Menu(Date date, String name, String type)
-	{
-		setDate(date);
-		setName(name);
-		setType(type);
-		sides = new ArrayList<String>();
-	}
+	protected String sides;
+	protected String location;
 
 	public Date getDate()
 	{
@@ -63,13 +49,26 @@ public class Menu
 		this.type = type;
 	}
 
-	public List<String> getSides()
+	public String getSides()
 	{
 		return sides;
 	}
 
 	public void addSide(String side)
 	{
-		sides.add(side);
+		if (null == sides)
+			sides = side;
+		else
+			sides += ", " + side;
+	}
+
+	public String getLocation()
+	{
+		return location;
+	}
+
+	public void setLocation(String location)
+	{
+		this.location = location;
 	}
 }

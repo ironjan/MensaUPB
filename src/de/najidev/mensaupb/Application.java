@@ -1,18 +1,27 @@
 package de.najidev.mensaupb;
 
-import android.content.Context;
+import java.util.List;
 
-public class Application extends android.app.Application
+import com.google.inject.AbstractModule;
+import com.google.inject.Module;
+
+import de.najidev.mensaupb.entity.MenuRepository;
+
+import roboguice.application.RoboApplication;
+
+public class Application extends RoboApplication
 {
-    private static Application instance;
-
-    public Application()
-    {
-        instance = this;
-    }
-
-    public static Context getContext()
-    {
-        return instance;
-    }
+	@Override
+	protected void addApplicationModules(List<Module> modules)
+	{
+		modules.add(new AbstractModule()
+		{	
+			@Override
+			protected void configure()
+			{
+				requestStaticInjection(MenuRepository.class);
+				requestInjection(MenuRepository.class);
+			}
+		});
+	}
 }

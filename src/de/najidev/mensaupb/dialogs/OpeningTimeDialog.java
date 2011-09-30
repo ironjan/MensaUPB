@@ -1,13 +1,13 @@
 package de.najidev.mensaupb.dialogs;
 
-import de.najidev.mensaupb.R;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Window;
 
-public class OpeningTimeDialog extends Dialog 
+import de.najidev.mensaupb.R;
+
+public class OpeningTimeDialog extends Dialog
 {
-	
 	public OpeningTimeDialog(Context context) 
 	{
 		super(context);
@@ -15,5 +15,4 @@ public class OpeningTimeDialog extends Dialog
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.setContentView(R.layout.openingtime_dialog);
 	}
-
 }

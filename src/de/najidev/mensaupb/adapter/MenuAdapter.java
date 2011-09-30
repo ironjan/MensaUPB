@@ -13,8 +13,8 @@ import de.najidev.mensaupb.R;
 import de.najidev.mensaupb.entity.Menu;
 
 
-public class MenuAdapter extends ArrayAdapter<Menu> {
-
+public class MenuAdapter extends ArrayAdapter<Menu>
+{
 	private List<Menu> items;
 
 	public MenuAdapter(Context context, int textViewResourceId, List<Menu> items) 
@@ -48,13 +48,7 @@ public class MenuAdapter extends ArrayAdapter<Menu> {
 				name.setText(m.getName());
 
 			if(sides != null)
-			{
-				StringBuilder sb = new StringBuilder();
-				for (String side : m.getSides())
-				    sb.append(side).append(", ");
-
-				sides.setText(sb.toString().replaceAll(", $", ""));
-			}
+				sides.setText(m.getSides());
 		}
 		return v;
 	}
