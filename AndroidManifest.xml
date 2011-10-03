@@ -8,7 +8,7 @@
     <application android:name=".Application"
     			 android:icon="@drawable/icon"
     			 android:label="@string/app_name">
-        <activity android:name=".activities.MensaUPBActivity"
+        <activity android:name=".activities.SplashActivity"
         		  android:label="@string/app_name"
 		          android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
@@ -16,7 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".activities.MainActivity"
+        		  android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        
         <activity android:name=".activities.DayActivity"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

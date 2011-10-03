@@ -20,7 +20,7 @@ import de.najidev.mensaupb.dialogs.OpeningTimeDialog;
 import de.najidev.mensaupb.entity.MenuRepository;
 import de.najidev.mensaupb.helper.DateHelper;
 
-public class MensaUPBActivity extends RoboTabActivity
+public class MainActivity extends RoboTabActivity
 {
 	@Inject
 	MenuRepository repo;
@@ -66,8 +66,8 @@ public class MensaUPBActivity extends RoboTabActivity
 					.setIndicator(
 							date.getDate() + "." + (date.getMonth()) + ".",
 							res.getDrawable(resId)
-							)
-							.setContent(intent);
+					)
+					.setContent(intent);
 
 			tabHost.addTab(spec);
 		}
