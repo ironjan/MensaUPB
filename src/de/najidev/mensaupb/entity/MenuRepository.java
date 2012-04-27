@@ -13,8 +13,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
+import de.najidev.mensaupb.ApplicationContext;
 import de.najidev.mensaupb.helper.DatabaseHelper;
-import de.najidev.mensaupb.helper.DateHelper;
 import de.najidev.mensaupb.helper.DownloadHelper;
 import de.najidev.mensaupb.helper.XmlParser;
 
@@ -23,13 +23,17 @@ public class MenuRepository
 {
 	@Inject
 	protected XmlParser xmlParser;
-	@Inject
-	protected DateHelper dateHelper;
+	
+	
 	@Inject
 	protected DownloadHelper downloadHelper;
+	
 	@Inject
 	protected static Provider<Context> contextProvider;
 	protected Context context = contextProvider.get();
+	
+	@Inject
+	protected ApplicationContext applicationContext;
 
 	protected DatabaseHelper databaseHelper;
 
@@ -88,7 +92,7 @@ public class MenuRepository
 		int lines = databaseHelper.getReadableDatabase()
 				.rawQuery(
 						"SELECT name FROM menu WHERE date=? LIMIT 1",
-						new String[] { String.valueOf(dateHelper.getDates().get(0).getTime()) }
+						new String[] { String.valueOf(this.applicationContext.getAvailableDates()[0].getTime()) }
 						)
 						.getCount();
 
@@ -97,11 +101,10 @@ public class MenuRepository
 
 	public void fetchActualData()
 	{
-		String[] locations = { "mensa" };
 		List<Menu> menus = new ArrayList<Menu>();
 		List<Menu> tmp;
 
-		for (String location : locations)
+		for (String location : this.applicationContext.getAvailableLocations().values())
 		{
 			tmp = xmlParser.getMenus(
 					downloadHelper.downloadFile("http://www.studentenwerk-pb.de/fileadmin/xml/" + location + ".xml")

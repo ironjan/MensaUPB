@@ -1,5 +1,8 @@
 package de.najidev.mensaupb.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -7,42 +10,49 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 import roboguice.activity.RoboTabActivity;
 
 import com.google.inject.Inject;
 
+import de.najidev.mensaupb.ApplicationContext;
 import de.najidev.mensaupb.R;
 import de.najidev.mensaupb.dialogs.OpeningTimeDialog;
 import de.najidev.mensaupb.entity.MenuRepository;
-import de.najidev.mensaupb.helper.DateHelper;
 
-public class MainActivity extends RoboTabActivity
+public class MainActivity extends RoboTabActivity implements OnClickListener, OnTabChangeListener
 {
 	@Inject
 	MenuRepository repo;
-
+	
 	@Inject
-	DateHelper dateHelper;
+	ApplicationContext applicationContext;
 
 	public void onCreate(Bundle savedInstanceState)
-	{
+	{		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		Resources res = getResources(); // Resource object to get Drawables
-		TabHost tabHost = getTabHost();  // The activity TabHost
-		TabHost.TabSpec spec;  // Resusable TabSpec for each tab
+		// Resource object to get Draw-able
+		Resources res = getResources();
+		
+		// The activity TabHost
+		TabHost tabHost = getTabHost();
+		
+		// Reusable TabSpec for each tab
+		TabHost.TabSpec spec;
 		Intent intent = new Intent().setClass(this, DayActivity.class);
-		int resId = 0;
+		int resId;
 
-		for (Date date : dateHelper.getDates())
+		// for each of the available dates, we build a tab
+		for (Date date : applicationContext.getAvailableDates())
 		{
-			// we use +1 here, as for monday: date.getDay() + 1 == Calendar.Monday
-			// according to the docs, this shouldn't be... but it is....
+			// we use +1 here, as for Monday: date.getDay() + 1 == Calendar.Monday
 			switch (date.getDay() + 1)
 			{
 				case Calendar.MONDAY:
@@ -58,19 +68,25 @@ public class MainActivity extends RoboTabActivity
 					resId = R.drawable.ic_tab_thu;
 					break;
 				case Calendar.FRIDAY:
+				default:
 					resId = R.drawable.ic_tab_fri;
 					break;
 			}
 
-			spec = tabHost.newTabSpec("tab"+date.getDay())
+			spec = tabHost
+					.newTabSpec(String.valueOf(date.getDay()))
+					// as indicator: the date, which the tab represents and the tab image
 					.setIndicator(
-							date.getDate() + "." + (date.getMonth()) + ".",
-							res.getDrawable(resId)
+						date.getDate() + "." + (date.getMonth() + 1) + ".",
+						res.getDrawable(resId)
 					)
+					// add as content the date and the current location
 					.setContent(intent);
 
 			tabHost.addTab(spec);
 		}
+		
+		tabHost.setOnTabChangedListener(this);
 	}
 
 	protected void onResume()
@@ -79,8 +95,12 @@ public class MainActivity extends RoboTabActivity
 
 		if (!repo.hasActualData())
 			repo.fetchActualData();
+		
+		// get current date
+		Date currentDate = this.applicationContext.getCurrentDate();
 
-		getTabHost().setCurrentTab(dateHelper.getCurrentDateIndex());
+		// set current tab by the current date
+		getTabHost().setCurrentTabByTag(String.valueOf(currentDate.getDay()));
 	}
 
 	@Override
@@ -97,12 +117,44 @@ public class MainActivity extends RoboTabActivity
 		switch(item.getItemId())
 		{
 			case R.id.location:
-				// TODO
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				Set<String> locationSet = this.applicationContext.getAvailableLocations().keySet();
+				builder.setItems(locationSet.toArray(new String[locationSet.size()]), this);
+				AlertDialog alert = builder.create();
+				alert.show();
 				break;
 			case R.id.openingtime:
 				new OpeningTimeDialog(this).show();
 				break;
 		}
 		return true;
+	}
+
+	public void onClick(DialogInterface dialog, int locationId)
+	{
+		// set location
+		Set<String> locationSet = this.applicationContext.getAvailableLocations().keySet();
+		this.applicationContext.setCurrentLocation(locationSet.toArray(new String[locationSet.size()])[locationId]);
+		
+		// redraw current tab
+		this.redrawTab(getTabHost().getCurrentTabTag());
+	}
+
+	public void onTabChanged(String tabId)
+	{
+		for (Date date : this.applicationContext.getAvailableDates())
+			if (String.valueOf(date.getDay()).equals(tabId))
+				this.applicationContext.setCurrentDate(date);
+
+		this.redrawTab(tabId);
+	}
+
+	protected void redrawTab(String tabTag)
+	{
+		// get the activity by the local activity manager
+		DayActivity tabActivity = (DayActivity) this.getLocalActivityManager().getActivity(tabTag);
+		
+		// draw the user interface
+		tabActivity.drawUserInterface();	
 	}
 }

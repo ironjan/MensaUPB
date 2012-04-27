@@ -21,6 +21,7 @@ public class Application extends RoboApplication
 			{
 				requestStaticInjection(MenuRepository.class);
 				requestInjection(MenuRepository.class);
+				requestInjection(ApplicationContext.class);
 			}
 		});
 	}
