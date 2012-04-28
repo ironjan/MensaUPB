@@ -19,7 +19,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import de.najidev.mensaupb.ApplicationContext;
 import de.najidev.mensaupb.entity.Menu;
 import de.najidev.mensaupb.entity.MenuRepository;
 
@@ -32,7 +31,7 @@ import android.os.AsyncTask;
 public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void>
 {
 	TabActivity activity;
-	ApplicationContext applicationContext;
+	Context applicationContext;
 	MenuRepository menuRepository;
 	ProgressDialog dialog;
 
@@ -40,7 +39,7 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void>
 	protected final String charsetWanted   = "utf-8";
 	
 	public PrepareMenuRepositoryTask(final TabActivity activity,
-			ApplicationContext applicationContext,
+			Context applicationContext,
 			MenuRepository menuRepository)
 	{
 		this.activity           = activity;

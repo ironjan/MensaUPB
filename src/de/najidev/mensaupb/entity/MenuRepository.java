@@ -7,36 +7,29 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.Singleton;
-
-import de.najidev.mensaupb.ApplicationContext;
+import de.najidev.mensaupb.helper.Context;
 import de.najidev.mensaupb.helper.DatabaseHelper;
 
-@Singleton
 public class MenuRepository
 {
-	protected final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	
-	@Inject
-	protected static Provider<Context> contextProvider;
-	protected Context context = contextProvider.get();
-	
-	@Inject
-	protected ApplicationContext applicationContext;
-
+	protected Context context;
 	protected DatabaseHelper databaseHelper;
 
+	protected final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	protected List<Menu> menus = new ArrayList<Menu>();
-
-	public MenuRepository()
+	
+	public MenuRepository(Context context, DatabaseHelper databaseHelper)
 	{
-		databaseHelper = new DatabaseHelper(context);
+		this.context        = context;
+		this.databaseHelper = databaseHelper;
+	}
+
+	public List<Menu> getMenusBasedOnContext()
+	{
+		return this.getMenus(context.getCurrentLocation(), context.getCurrentDate());
 	}
 
 	public List<Menu> getMenus(String location, Date date)
@@ -92,7 +85,7 @@ public class MenuRepository
 		int lines = databaseHelper.getReadableDatabase()
 				.rawQuery(
 						"SELECT name FROM menu WHERE date=? LIMIT 1",
-						new String[] { dateFormat.format(this.applicationContext.getAvailableDates()[0]) }
+						new String[] { dateFormat.format(this.context.getAvailableDates()[0]) }
 						)
 						.getCount();
 

@@ -1,6 +1,9 @@
 package de.najidev.mensaupb.activities;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.LocalActivityManager;
+import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -9,33 +12,49 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
-import roboguice.activity.RoboTabActivity;
-
-import com.google.inject.Inject;
-
-import de.najidev.mensaupb.ApplicationContext;
 import de.najidev.mensaupb.R;
-import de.najidev.mensaupb.dialogs.OpeningTimeDialog;
+import de.najidev.mensaupb.adapter.MenuAdapter;
 import de.najidev.mensaupb.entity.MenuRepository;
+import de.najidev.mensaupb.helper.Context;
 import de.najidev.mensaupb.helper.PrepareMenuRepositoryTask;
+import de.najidev.mensaupb.helper.ServiceContainer;
 
-public class MainActivity extends RoboTabActivity implements OnClickListener, OnTabChangeListener
+public class MainActivity extends TabActivity implements OnClickListener, OnTabChangeListener
 {
-	@Inject
-	MenuRepository repo;
+	MenuRepository menuRepository;
+	Context context;
 	
-	@Inject
-	ApplicationContext applicationContext;
 
 	public void onCreate(Bundle savedInstanceState)
-	{		
+	{
+		ServiceContainer container = null;
+		try
+		{
+			container = ServiceContainer.getInstance().initialize(this.getApplicationContext());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+		this.menuRepository = container.getMenuRepository();
+		this.context        = container.getContext();
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
@@ -50,9 +69,9 @@ public class MainActivity extends RoboTabActivity implements OnClickListener, On
 		TabHost.TabSpec spec;
 		Intent intent = new Intent().setClass(this, DayActivity.class);
 		int resId;
-
+		
 		// for each of the available dates, we build a tab
-		for (Date date : applicationContext.getAvailableDates())
+		for (Date date : context.getAvailableDates())
 		{
 			// we use +1 here, as for Monday: date.getDay() + 1 == Calendar.Monday
 			switch (date.getDay() + 1)
@@ -98,10 +117,10 @@ public class MainActivity extends RoboTabActivity implements OnClickListener, On
 		super.onStart();
 
 		// set to current tab
-		getTabHost().setCurrentTab(this.applicationContext.getCurrentDate().getDay() - 1);
+		getTabHost().setCurrentTab(this.context.getCurrentDate().getDay() - 1);
 		
-		if (!this.repo.dataIsLocallyAvailable())
-			new PrepareMenuRepositoryTask(this, applicationContext, repo).execute();
+		if (!this.menuRepository.dataIsLocallyAvailable())
+			new PrepareMenuRepositoryTask(this, context, menuRepository).execute();
 	}
 
 	@Override
@@ -119,14 +138,16 @@ public class MainActivity extends RoboTabActivity implements OnClickListener, On
 		{
 			case R.id.location:
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				Set<String> locationSet = this.applicationContext.getAvailableLocations().keySet();
+				Set<String> locationSet = this.context.getAvailableLocations().keySet();
 				builder.setItems(locationSet.toArray(new String[locationSet.size()]), this);
 				AlertDialog alert = builder.create();
 				alert.show();
 				break;
 			case R.id.openingtime:
-				new OpeningTimeDialog(this).show();
-				break;
+				Dialog dialog = new Dialog(this);
+				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				dialog.setContentView(R.layout.openingtime_dialog);
+				dialog.show();
 		}
 		return true;
 	}
@@ -134,8 +155,8 @@ public class MainActivity extends RoboTabActivity implements OnClickListener, On
 	public void onClick(DialogInterface dialog, int locationId)
 	{
 		// set location
-		Set<String> locationSet = this.applicationContext.getAvailableLocations().keySet();
-		this.applicationContext.setCurrentLocation(locationSet.toArray(new String[locationSet.size()])[locationId]);
+		Set<String> locationSet = this.context.getAvailableLocations().keySet();
+		this.context.setCurrentLocation(locationSet.toArray(new String[locationSet.size()])[locationId]);
 		
 		getTabHost().setCurrentTabByTag(getTabHost().getCurrentTabTag());
 		// redraw current tab
@@ -144,9 +165,9 @@ public class MainActivity extends RoboTabActivity implements OnClickListener, On
 
 	public void onTabChanged(String tabId)
 	{
-		for (Date date : this.applicationContext.getAvailableDates())
+		for (Date date : this.context.getAvailableDates())
 			if (String.valueOf(date.getDay()).equals(tabId))
-				this.applicationContext.setCurrentDate(date);
+				this.context.setCurrentDate(date);
 
 		this.redrawTab(tabId);
 	}
@@ -157,6 +178,6 @@ public class MainActivity extends RoboTabActivity implements OnClickListener, On
 		DayActivity tabActivity = (DayActivity) this.getLocalActivityManager().getActivity(tabTag);
 		
 		// draw the user interface
-		tabActivity.drawUserInterface();	
+		tabActivity.drawUserInterface();
 	}
 }
