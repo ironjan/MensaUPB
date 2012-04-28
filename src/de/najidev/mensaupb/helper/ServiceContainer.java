@@ -57,5 +57,10 @@ public class ServiceContainer
 	public void setMenuRepository(MenuRepository menuRepository)
 	{
 		this.menuRepository = menuRepository;
-	}	
+	}
+
+	public boolean isInitialized()
+	{
+		return this.initialized;
+	}
 }

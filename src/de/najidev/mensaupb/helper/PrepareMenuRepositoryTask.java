@@ -72,11 +72,6 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void>
 		
 		if (dialog.isShowing())
 			dialog.dismiss();
-
-		// following will switch to another tab and back. this definitely will throw a onTabChanged and the tab will be repainted
-		int day = this.applicationContext.getCurrentDate().getDay();
-		activity.getTabHost().setCurrentTab(day % (this.applicationContext.getAvailableDates().length - 1));
-		activity.getTabHost().setCurrentTab(day - 1);
 	}
 	
 	@Override

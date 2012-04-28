@@ -2,7 +2,6 @@ package de.najidev.mensaupb.activities;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.LocalActivityManager;
 import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -12,22 +11,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import de.najidev.mensaupb.R;
-import de.najidev.mensaupb.adapter.MenuAdapter;
 import de.najidev.mensaupb.entity.MenuRepository;
 import de.najidev.mensaupb.helper.Context;
 import de.najidev.mensaupb.helper.PrepareMenuRepositoryTask;
@@ -41,21 +32,23 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 
 	public void onCreate(Bundle savedInstanceState)
 	{
-		ServiceContainer container = null;
-		try
-		{
-			container = ServiceContainer.getInstance().initialize(this.getApplicationContext());
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		super.onCreate(savedInstanceState);
 		
+		ServiceContainer container = ServiceContainer.getInstance();
+		if (!container.isInitialized())
+			try
+			{
+				container = ServiceContainer.getInstance().initialize(this.getApplicationContext());
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				this.finish();
+		}
 		
 		this.menuRepository = container.getMenuRepository();
 		this.context        = container.getContext();
 		
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
 		// Resource object to get Draw-able
@@ -73,26 +66,17 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 		// for each of the available dates, we build a tab
 		for (Date date : context.getAvailableDates())
 		{
-			// we use +1 here, as for Monday: date.getDay() + 1 == Calendar.Monday
-			switch (date.getDay() + 1)
-			{
-				case Calendar.MONDAY:
-					resId = R.drawable.ic_tab_mon;
-					break;
-				case Calendar.TUESDAY:
-					resId = R.drawable.ic_tab_tue;
-					break;
-				case Calendar.WEDNESDAY:
-					resId = R.drawable.ic_tab_wed;
-					break;
-				case Calendar.THURSDAY:
-					resId = R.drawable.ic_tab_thu;
-					break;
-				case Calendar.FRIDAY:
-				default:
-					resId = R.drawable.ic_tab_fri;
-					break;
-			}
+			//  (0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
+			if (1 == date.getDay())
+				resId = R.drawable.ic_tab_mon;
+			else if (2 == date.getDay())
+				resId = R.drawable.ic_tab_tue;
+			else if (3 == date.getDay())
+				resId = R.drawable.ic_tab_wed;
+			else if (4 == date.getDay())
+				resId = R.drawable.ic_tab_thu;
+			else
+				resId = R.drawable.ic_tab_fri;
 
 			spec = tabHost
 					.newTabSpec(String.valueOf(date.getDay()))
@@ -106,7 +90,7 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 
 			tabHost.addTab(spec);
 		}
-		
+
 		tabHost.setOnTabChangedListener(this);
 	}
 	
@@ -116,11 +100,12 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 	{
 		super.onStart();
 
-		// set to current tab
-		getTabHost().setCurrentTab(this.context.getCurrentDate().getDay() - 1);
+		getTabHost().setCurrentTab(this.context.getCurrentDate().getDay()-1);
 		
 		if (!this.menuRepository.dataIsLocallyAvailable())
 			new PrepareMenuRepositoryTask(this, context, menuRepository).execute();
+		
+		this.redrawTab();
 	}
 
 	@Override
@@ -157,10 +142,9 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 		// set location
 		Set<String> locationSet = this.context.getAvailableLocations().keySet();
 		this.context.setCurrentLocation(locationSet.toArray(new String[locationSet.size()])[locationId]);
-		
-		getTabHost().setCurrentTabByTag(getTabHost().getCurrentTabTag());
+
 		// redraw current tab
-		this.redrawTab(getTabHost().getCurrentTabTag());
+		this.redrawTab();
 	}
 
 	public void onTabChanged(String tabId)
@@ -169,15 +153,13 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 			if (String.valueOf(date.getDay()).equals(tabId))
 				this.context.setCurrentDate(date);
 
-		this.redrawTab(tabId);
+		this.redrawTab();
 	}
 
-	protected void redrawTab(String tabTag)
+	protected void redrawTab()
 	{
-		// get the activity by the local activity manager
-		DayActivity tabActivity = (DayActivity) this.getLocalActivityManager().getActivity(tabTag);
-		
-		// draw the user interface
-		tabActivity.drawUserInterface();
+		this.getApplicationContext().sendBroadcast(
+				new Intent().setAction("de.najidev.mensaupb.UPDATE_TAB")
+		);
 	}
 }
