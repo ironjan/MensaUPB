@@ -27,20 +27,33 @@ public class ApplicationContext
 	
 	public ApplicationContext()
 	{
-		this.currentDate = new Date();
-		
 		Calendar calendar = Calendar.getInstance();
+		
 		this.firstDayOfWeek = new Date();
 		
 		// adjust calendar to point to first day of week
-		if (2 < calendar.get(Calendar.DAY_OF_WEEK))
-			while (2 != calendar.get(Calendar.DAY_OF_WEEK))
-				calendar.add(Calendar.DATE, -1);
-		else
-			while (2 != calendar.get(Calendar.DAY_OF_WEEK))
-				calendar.add(Calendar.DATE, +1);
+		{
+			switch (calendar.get(Calendar.DAY_OF_WEEK))
+			{
+				// if you're working on friday and the xml for next week is online,
+				// following case will help you testing
+				/*
+					case Calendar.FRIDAY:
+						calendar.add(Calendar.DAY_OF_MONTH, 1);
+				 */
+				case Calendar.SATURDAY:
+					calendar.add(Calendar.DAY_OF_MONTH, 1);
+				case Calendar.SUNDAY:
+					calendar.add(Calendar.DAY_OF_MONTH, 1);
+					break;
+			}
+			
+			while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY)
+				calendar.add(Calendar.DAY_OF_WEEK, -1);	
+		}
 		
 		this.firstDayOfWeek = calendar.getTime();
+		this.currentDate    = calendar.getTime();
 	}
 	
 	

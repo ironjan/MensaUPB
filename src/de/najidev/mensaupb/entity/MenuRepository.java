@@ -1,5 +1,7 @@
 package de.najidev.mensaupb.entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,18 +17,11 @@ import com.google.inject.Singleton;
 
 import de.najidev.mensaupb.ApplicationContext;
 import de.najidev.mensaupb.helper.DatabaseHelper;
-import de.najidev.mensaupb.helper.DownloadHelper;
-import de.najidev.mensaupb.helper.XmlParser;
 
 @Singleton
 public class MenuRepository
 {
-	@Inject
-	protected XmlParser xmlParser;
-	
-	
-	@Inject
-	protected DownloadHelper downloadHelper;
+	protected final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
 	@Inject
 	protected static Provider<Context> contextProvider;
@@ -68,7 +63,12 @@ public class MenuRepository
 				menu.setName(c.getString(name));
 				menu.setType(c.getString(type));
 				menu.addSide(c.getString(sides));
-				menu.setDate(new Date(c.getLong(dateI)));
+				try {
+					menu.setDate(this.dateFormat.parse(c.getString(dateI)));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				menu.setLocation(c.getString(locationI));
 
 				menus.add(menu);
@@ -81,42 +81,32 @@ public class MenuRepository
 		List<Menu> list = new ArrayList<Menu>();
 
 		for (Menu menu : menus)
-			if (date.getDate() == menu.getDate().getDate() && location.equals(menu.getLocation()))
+			if (dateFormat.format(date).equals(dateFormat.format(menu.getDate())) && location.equals(menu.getLocation()))
 				list.add(menu);
 
 				return list;
 	}
-
-	public boolean hasActualData()
+	
+	public boolean dataIsLocallyAvailable()
 	{
 		int lines = databaseHelper.getReadableDatabase()
 				.rawQuery(
 						"SELECT name FROM menu WHERE date=? LIMIT 1",
-						new String[] { String.valueOf(this.applicationContext.getAvailableDates()[0].getTime()) }
+						new String[] { dateFormat.format(this.applicationContext.getAvailableDates()[0]) }
 						)
 						.getCount();
 
 		return (lines == 1);
 	}
 
-	public void fetchActualData()
+	/**
+	 * Reset the menus of the MenuRepository instance to menus and persists them in the Database
+	 * @param menus
+	 */
+	public void persistMenus(List<Menu> menus)
 	{
-		List<Menu> menus = new ArrayList<Menu>();
-		List<Menu> tmp;
-
-		for (String location : this.applicationContext.getAvailableLocations().values())
-		{
-			tmp = xmlParser.getMenus(
-					downloadHelper.downloadFile("http://www.studentenwerk-pb.de/fileadmin/xml/" + location + ".xml")
-					);
-
-			for (Menu menu : tmp)
-			{
-				menu.setLocation(location);
-				menus.add(menu);
-			}
-		}
-
+		this.menus = menus;
+		
 		SQLiteDatabase database = databaseHelper.getWritableDatabase();
 		database.beginTransaction();
 		database.delete("menu", null, null);
@@ -129,13 +119,13 @@ public class MenuRepository
 			values.put("name", menu.getName());
 			values.put("type", menu.getType());
 			values.put("location", menu.getLocation());
-			values.put("date", menu.getDate().getTime());
+			values.put("date", dateFormat.format(menu.getDate()));
 			values.put("sides", menu.getSides());
 			database.insert("menu", null, values);
 		}
 
 		database.setTransactionSuccessful();
 		database.endTransaction();
-		database.close();
+		database.close();	
 	}
 }

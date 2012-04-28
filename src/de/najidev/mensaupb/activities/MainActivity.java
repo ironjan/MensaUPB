@@ -24,6 +24,7 @@ import de.najidev.mensaupb.ApplicationContext;
 import de.najidev.mensaupb.R;
 import de.najidev.mensaupb.dialogs.OpeningTimeDialog;
 import de.najidev.mensaupb.entity.MenuRepository;
+import de.najidev.mensaupb.helper.PrepareMenuRepositoryTask;
 
 public class MainActivity extends RoboTabActivity implements OnClickListener, OnTabChangeListener
 {
@@ -43,6 +44,7 @@ public class MainActivity extends RoboTabActivity implements OnClickListener, On
 		
 		// The activity TabHost
 		TabHost tabHost = getTabHost();
+
 		
 		// Reusable TabSpec for each tab
 		TabHost.TabSpec spec;
@@ -88,19 +90,18 @@ public class MainActivity extends RoboTabActivity implements OnClickListener, On
 		
 		tabHost.setOnTabChangedListener(this);
 	}
-
-	protected void onResume()
+	
+	
+	@Override
+	protected void onStart()
 	{
-		super.onResume();
+		super.onStart();
 
-		if (!repo.hasActualData())
-			repo.fetchActualData();
+		// set to current tab
+		getTabHost().setCurrentTab(this.applicationContext.getCurrentDate().getDay() - 1);
 		
-		// get current date
-		Date currentDate = this.applicationContext.getCurrentDate();
-
-		// set current tab by the current date
-		getTabHost().setCurrentTabByTag(String.valueOf(currentDate.getDay()));
+		if (!this.repo.dataIsLocallyAvailable())
+			new PrepareMenuRepositoryTask(this, applicationContext, repo).execute();
 	}
 
 	@Override
@@ -136,6 +137,7 @@ public class MainActivity extends RoboTabActivity implements OnClickListener, On
 		Set<String> locationSet = this.applicationContext.getAvailableLocations().keySet();
 		this.applicationContext.setCurrentLocation(locationSet.toArray(new String[locationSet.size()])[locationId]);
 		
+		getTabHost().setCurrentTabByTag(getTabHost().getCurrentTabTag());
 		// redraw current tab
 		this.redrawTab(getTabHost().getCurrentTabTag());
 	}

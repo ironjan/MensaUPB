@@ -15,12 +15,9 @@ import de.najidev.mensaupb.entity.Menu;
 
 public class MenuAdapter extends ArrayAdapter<Menu>
 {
-	private List<Menu> items;
-
 	public MenuAdapter(Context context, int textViewResourceId, List<Menu> items) 
 	{
 		super(context, textViewResourceId, items);
-		this.items = items;
 	}
 
 	@Override
@@ -33,7 +30,7 @@ public class MenuAdapter extends ArrayAdapter<Menu>
 			v = vi.inflate(R.layout.menu_list, null);
 		}
 
-		Menu m = items.get(position);
+		Menu m = this.getItem(position);
 
 		if (m != null)
 		{
