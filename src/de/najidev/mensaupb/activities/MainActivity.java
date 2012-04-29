@@ -15,10 +15,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.TabHost;
+import android.widget.Toast;
 import android.widget.TabHost.OnTabChangeListener;
 
 import java.util.Date;
 import java.util.Set;
+
+import android.renderscript.Sampler;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockActivity;
 
 import de.najidev.mensaupb.R;
 import de.najidev.mensaupb.entity.MenuRepository;
@@ -26,11 +35,10 @@ import de.najidev.mensaupb.helper.Context;
 import de.najidev.mensaupb.helper.PrepareMenuRepositoryTask;
 import de.najidev.mensaupb.helper.ServiceContainer;
 
-public class MainActivity extends TabActivity implements OnClickListener, OnTabChangeListener
+public class MainActivity extends TabActivity implements OnTabChangeListener, OnClickListener/*SherlockActivity implements ActionBar.TabListener*/
 {
 	MenuRepository menuRepository;
 	Context context;
-	
 
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -50,9 +58,8 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 		
 		this.menuRepository = container.getMenuRepository();
 		this.context        = container.getContext();
-		
-		setContentView(R.layout.main);
 
+		
 		// Resource object to get Draw-able
 		Resources res = getResources();
 		
@@ -95,8 +102,71 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 
 		tabHost.setOnTabChangedListener(this);
 	}
+
+	/*
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+        setTheme(com.actionbarsherlock.R.style.Theme_Sherlock);
+
+		super.onCreate(savedInstanceState);		
+		setContentView(R.layout.main);
+		
+		ServiceContainer container = ServiceContainer.getInstance();
+		if (!container.isInitialized())
+			try
+			{
+				container = ServiceContainer.getInstance().initialize(this.getApplicationContext());
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				this.finish();
+		}
+		
+		this.menuRepository = container.getMenuRepository();
+		this.context        = container.getContext();
+		
+		this.getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		
+		int resId;
+		for (Date date : context.getAvailableDates())
+		{
+			ActionBar.Tab tab = this.getSupportActionBar().newTab();
+			tab.setText("Mon\n" + date.getDate() + "." + (date.getMonth() + 1) + ".");
+
+			if (1 == date.getDay())
+				resId = R.drawable.ic_tab_mon;
+			else if (2 == date.getDay())
+				resId = R.drawable.ic_tab_tue;
+			else if (3 == date.getDay())
+				resId = R.drawable.ic_tab_wed;
+			else if (4 == date.getDay())
+				resId = R.drawable.ic_tab_thu;
+			else
+				resId = R.drawable.ic_tab_fri;
+			
+			//tab.setIcon(resId);
+			tab.setTag(date.getDay());
+			tab.setTabListener(this);
+	    	tab.setCustomView(R.layout.menu_list);
+			this.getSupportActionBar().addTab(tab);
+		}
+		
+		this.getSupportActionBar().setTitle("Mensa UPB - Mensa");
+	}
 	
+    public void onTabReselected(Tab tab, FragmentTransaction transaction) { }
+
+    public void onTabSelected(Tab tab, FragmentTransaction transaction)
+    {
+    }
+
+    public void onTabUnselected(Tab tab, FragmentTransaction transaction) {
+    }
+    */
 	
+
 	@Override
 	protected void onStart()
 	{
@@ -107,6 +177,7 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 		if (!this.menuRepository.dataIsLocallyAvailable())
 			new PrepareMenuRepositoryTask(this, context, menuRepository).execute();
 		
+		Toast.makeText(this, String.valueOf(this.context.getCurrentDate().getDay()), Toast.LENGTH_SHORT);
 		this.redrawTab(String.valueOf(this.context.getCurrentDate().getDay()));
 	}
 
