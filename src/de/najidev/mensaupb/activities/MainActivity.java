@@ -8,9 +8,11 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
@@ -55,7 +57,7 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 		Resources res = getResources();
 		
 		// The activity TabHost
-		TabHost tabHost = getTabHost();
+		final TabHost tabHost = getTabHost();
 
 		
 		// Reusable TabSpec for each tab
@@ -105,7 +107,7 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 		if (!this.menuRepository.dataIsLocallyAvailable())
 			new PrepareMenuRepositoryTask(this, context, menuRepository).execute();
 		
-		this.redrawTab();
+		this.redrawTab(String.valueOf(this.context.getCurrentDate().getDay()));
 	}
 
 	@Override
@@ -144,7 +146,7 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 		this.context.setCurrentLocation(locationSet.toArray(new String[locationSet.size()])[locationId]);
 
 		// redraw current tab
-		this.redrawTab();
+		this.redrawTab(String.valueOf(this.context.getCurrentDate().getDay()));
 	}
 
 	public void onTabChanged(String tabId)
@@ -153,13 +155,15 @@ public class MainActivity extends TabActivity implements OnClickListener, OnTabC
 			if (String.valueOf(date.getDay()).equals(tabId))
 				this.context.setCurrentDate(date);
 
-		this.redrawTab();
+		this.redrawTab(tabId);
 	}
 
-	protected void redrawTab()
+	protected void redrawTab(String tabId)
 	{
-		this.getApplicationContext().sendBroadcast(
-				new Intent().setAction("de.najidev.mensaupb.UPDATE_TAB")
-		);
+		// get the activity by the local activity manager
+		DayActivity tabActivity = (DayActivity) this.getLocalActivityManager().getActivity(tabId);
+
+		// draw the user interface
+		tabActivity.drawUserInterface();  
 	}
 }

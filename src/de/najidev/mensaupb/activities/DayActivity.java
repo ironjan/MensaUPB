@@ -7,10 +7,7 @@ import de.najidev.mensaupb.entity.Menu;
 import de.najidev.mensaupb.entity.MenuRepository;
 import de.najidev.mensaupb.helper.ServiceContainer;
 import android.app.ListActivity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,21 +19,6 @@ public class DayActivity extends ListActivity
 {
 	MenuRepository menuRepository = ServiceContainer.getInstance().getMenuRepository();
 	List<Menu> menuList;
-	
-	private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
-	{	
-		@SuppressWarnings("unchecked")
-		@Override
-		public void onReceive(Context context, Intent intent)
-		{			
-			menuList.clear();
-			
-			for (Menu menu : menuRepository.getMenusBasedOnContext())
-				menuList.add(menu);
-
-			((ArrayAdapter<Menu>) getListAdapter()).notifyDataSetChanged();
-		}
-	};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -80,16 +62,17 @@ public class DayActivity extends ListActivity
 			);
 	}
 	
+	public void drawUserInterface()
+	{
+		menuList.clear();
+		menuList.addAll(menuRepository.getMenusBasedOnContext());
+		((ArrayAdapter<Menu>) getListAdapter()).notifyDataSetChanged();
+	}
+	
 	@Override
 	protected void onResume()
 	{
 		super.onResume();
-		this.registerReceiver(broadcastReceiver, new IntentFilter("de.najidev.mensaupb.UPDATE_TAB"));
-	}
-
-	protected void onPause()
-	{
-		super.onPause();
-		this.unregisterReceiver(broadcastReceiver);
+		this.drawUserInterface();
 	}
 }
