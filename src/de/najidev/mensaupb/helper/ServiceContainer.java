@@ -9,14 +9,14 @@ public class ServiceContainer
 	protected boolean initialized = false;
 	protected Context context;
 	protected MenuRepository menuRepository;
-	
+
 	private ServiceContainer() { }
 
 	public static ServiceContainer getInstance()
 	{
 		if (null == ServiceContainer.instance)
 			ServiceContainer.instance = new ServiceContainer();
-		
+
 		return ServiceContainer.instance;
 	}
 
@@ -24,18 +24,18 @@ public class ServiceContainer
 	{
 		if (this.initialized)
 			throw new Exception("Service container can only once be initialized");
-		
+
 		// prepare context
 		this.context = new Context();
 
 		// prepare menu repository
 		this.menuRepository = new MenuRepository(
-			this.context,
-			new DatabaseHelper(applicationContext)
-		);
-		
+				this.context,
+				new DatabaseHelper(applicationContext)
+				);
+
 		this.initialized = true;
-		
+
 		return this;
 	}
 

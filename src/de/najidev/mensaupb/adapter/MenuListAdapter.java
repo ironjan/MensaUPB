@@ -1,7 +1,6 @@
 package de.najidev.mensaupb.adapter;
 
 import java.util.Date;
-import java.util.List;
 
 import de.najidev.mensaupb.R;
 import de.najidev.mensaupb.entity.Menu;
@@ -14,16 +13,16 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class MenuListAdapter extends ArrayAdapter<Menu>
-{
-	Date date;
-	String location;
-	
-	public MenuListAdapter(Context context, int textViewResourceId, Date date, String location)
+{	
+	public MenuListAdapter(Context context, int textViewResourceId, Date date)
 	{
 		super(context, textViewResourceId);
 
-		this.date = date;
-		this.setLocation(location);
+		// fill list
+		String location = ServiceContainer.getInstance().getContext().getCurrentLocation();
+		this.clear();
+		for (Menu menu : ServiceContainer.getInstance().getMenuRepository().getMenus(location, date))
+			this.add(menu);
 	}
 
 	@Override
@@ -54,20 +53,5 @@ public class MenuListAdapter extends ArrayAdapter<Menu>
 				sides.setText(m.getSides());
 		}
 		return v;
-	}
-	
-	public void setLocation(String location)
-	{
-		this.location = location;
-		this.refreshList();
-	}
-
-	protected void refreshList()
-	{
-		this.clear();
-		for (Menu menu : ServiceContainer.getInstance().getMenuRepository().getMenus(this.location, this.date))
-			this.add(menu);
-
-		this.notifyDataSetChanged();
 	}
 }

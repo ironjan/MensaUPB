@@ -19,46 +19,46 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import de.najidev.mensaupb.activities.MainActivity;
 import de.najidev.mensaupb.entity.Menu;
 import de.najidev.mensaupb.entity.MenuRepository;
 
 import android.app.ProgressDialog;
-import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.AsyncTask;
 
 public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void>
 {
-	TabActivity activity;
+	MainActivity activity;
 	Context applicationContext;
 	MenuRepository menuRepository;
 	ProgressDialog dialog;
 
 	protected final String charsetOriginal = "windows-1252";
 	protected final String charsetWanted   = "utf-8";
-	
-	public PrepareMenuRepositoryTask(final TabActivity activity,
+
+	public PrepareMenuRepositoryTask(final MainActivity activity,
 			Context applicationContext,
 			MenuRepository menuRepository)
 	{
 		this.activity           = activity;
 		this.applicationContext = applicationContext;
 		this.menuRepository     = menuRepository;
-		
+
 		this.dialog             = new ProgressDialog(activity);
 		this.dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		this.dialog.setMessage("Download des Mensaplans...");
-		
+
 		this.dialog.setOnCancelListener(new OnCancelListener() {
-			
+
 			public void onCancel(DialogInterface dialog)
 			{
 				activity.finish();
 			}
 		});
 	}
-	
+
 	@Override
 	protected void onPreExecute()
 	{
@@ -69,11 +69,13 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void>
 	protected void onPostExecute(Void result)
 	{
 		super.onPostExecute(result);
-		
+
+		this.activity.getDayPagerAdapter().notifyDataSetChanged();
+
 		if (dialog.isShowing())
 			dialog.dismiss();
 	}
-	
+
 	@Override
 	protected Void doInBackground(Void... params)
 	{
@@ -84,21 +86,21 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void>
 		for (String location : this.applicationContext.getAvailableLocations().values())
 		{
 			tmp = this.parseXML(this.downloadFile("http://www.studentenwerk-pb.de/fileadmin/xml/" + location + ".xml"));
-			
+
 			for (Menu menu : tmp)
 				menu.setLocation(location);
-			
+
 			// add to menu list
 			menus.addAll(tmp);
-					
+
 		}
 
 		// put results to repository
 		this.menuRepository.persistMenus(menus);
-		
+
 		return null;
 	}
-	
+
 	public InputSource downloadFile(String url)
 	{
 		try
