@@ -20,16 +20,11 @@ public class MenuRepository
 
 	protected final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	protected List<Menu> menus = new ArrayList<Menu>();
-	
+
 	public MenuRepository(Context context, DatabaseHelper databaseHelper)
 	{
 		this.context        = context;
 		this.databaseHelper = databaseHelper;
-	}
-
-	public List<Menu> getMenusBasedOnContext()
-	{
-		return this.getMenus(context.getCurrentLocation(), context.getCurrentDate());
 	}
 
 	public List<Menu> getMenus(String location, Date date)
@@ -79,7 +74,7 @@ public class MenuRepository
 
 				return list;
 	}
-	
+
 	public boolean dataIsLocallyAvailable()
 	{
 		int lines = databaseHelper.getReadableDatabase()
@@ -99,7 +94,7 @@ public class MenuRepository
 	public void persistMenus(List<Menu> menus)
 	{
 		this.menus = menus;
-		
+
 		SQLiteDatabase database = databaseHelper.getWritableDatabase();
 		database.beginTransaction();
 		database.delete("menu", null, null);
