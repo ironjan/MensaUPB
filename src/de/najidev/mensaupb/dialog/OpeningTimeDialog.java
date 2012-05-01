@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.activities;
+package de.najidev.mensaupb.dialog;
 
 import android.os.Bundle;
 
@@ -6,7 +6,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 
 import de.najidev.mensaupb.R;
 
-public class OpeningTimeActivity extends SherlockActivity
+public class OpeningTimeDialog extends SherlockActivity
 {
 	@Override
 	protected void onCreate(Bundle savedInstanceState)

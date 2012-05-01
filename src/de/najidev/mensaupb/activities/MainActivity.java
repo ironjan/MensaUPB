@@ -2,7 +2,6 @@ package de.najidev.mensaupb.activities;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Set;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -14,23 +13,20 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.najidev.mensaupb.R;
 import de.najidev.mensaupb.adapter.DayPagerAdapter;
+import de.najidev.mensaupb.dialog.ChooseLocationDialog;
+import de.najidev.mensaupb.dialog.OpeningTimeDialog;
 import de.najidev.mensaupb.entity.MenuRepository;
 import de.najidev.mensaupb.helper.Context;
 import de.najidev.mensaupb.helper.PrepareMenuRepositoryTask;
 import de.najidev.mensaupb.helper.ServiceContainer;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.Window;
 
 
-public class MainActivity extends SherlockActivity implements OnPageChangeListener, TabListener, OnClickListener
+public class MainActivity extends SherlockActivity implements OnPageChangeListener, TabListener
 {
 	String actionBarTitle;
 	ViewPager dayPager;
@@ -109,33 +105,23 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 		switch(item.getItemId())
 		{
 			case R.id.location:
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-				Set<String> locationSet = this.context.getAvailableLocations().keySet();
-				builder.setItems(locationSet.toArray(new String[locationSet.size()]), this);
-				AlertDialog alert = builder.create();
-				alert.show();
+				this.startActivityForResult(new Intent().setClass(this, ChooseLocationDialog.class), 1);
 				break;
 			case R.id.openingtime:
-				this.startActivity(new Intent().setClass(this, OpeningTimeActivity.class));
-				/*
-				Dialog dialog = new Dialog(this);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				dialog.setContentView(R.layout.openingtime_dialog);
-				dialog.show();
-				*/
+				this.startActivity(new Intent().setClass(this, OpeningTimeDialog.class));
+				break;
 		}
 
 		return true;
 	}
-
-	public void onClick(DialogInterface dialog, int locationId)
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		// set location
-		Set<String> locationSet = this.context.getAvailableLocations().keySet();
-		this.context.setCurrentLocation(locationSet.toArray(new String[locationSet.size()])[locationId]);
-
-		// notify pagerAdapter
-		this.changedLocation();
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if (1 == requestCode && 1 == resultCode)
+			this.changedLocation();
 	}
 
 	protected void changedLocation()
