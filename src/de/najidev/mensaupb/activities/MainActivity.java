@@ -8,7 +8,6 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import de.najidev.mensaupb.R;
@@ -40,8 +39,6 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 		setTheme(com.actionbarsherlock.R.style.Theme_Sherlock);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
-		this.actionBarTitle = (String) this.getSupportActionBar().getTitle();
 
 		ServiceContainer container = ServiceContainer.getInstance();
 		if (!container.isInitialized())
@@ -94,23 +91,31 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		MenuInflater inflater = getSupportMenuInflater();
-		inflater.inflate(R.layout.menu, menu);
+		menu.add("Ortswechsel")
+			.setIcon(R.drawable.location_place_dark_holo)
+			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		
+		menu.add("Öffnungszeiten")
+			.setIcon(R.drawable.action_about_dark_holo)
+			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		
+		/*
+		menu.add("Einstellungen")
+			.setIcon(R.drawable.action_settings_dark_holo)
+			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		*/
+
 		return true;
+		
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		switch(item.getItemId())
-		{
-			case R.id.location:
-				this.startActivityForResult(new Intent().setClass(this, ChooseLocationDialog.class), 1);
-				break;
-			case R.id.openingtime:
-				this.startActivity(new Intent().setClass(this, OpeningTimeDialog.class));
-				break;
-		}
+		if (item.getTitle().equals("Ortswechsel"))
+			this.startActivityForResult(new Intent().setClass(this, ChooseLocationDialog.class), 1);
+		else if (item.getTitle().equals("Öffnungszeiten"))
+			this.startActivity(new Intent().setClass(this, OpeningTimeDialog.class));
 
 		return true;
 	}
@@ -119,14 +124,14 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-		
+
 		if (1 == requestCode && 1 == resultCode)
 			this.changedLocation();
 	}
 
 	protected void changedLocation()
 	{
-		this.getSupportActionBar().setTitle(this.actionBarTitle + " - " + this.context.getCurrentLocationTitle());
+		this.getSupportActionBar().setTitle(this.context.getCurrentLocationTitle());
 		this.dayPagerAdapter.notifyDataSetChanged();
 	}
 
