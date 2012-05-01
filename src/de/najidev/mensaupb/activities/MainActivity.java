@@ -22,6 +22,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -115,10 +116,13 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 				alert.show();
 				break;
 			case R.id.openingtime:
+				this.startActivity(new Intent().setClass(this, OpeningTimeActivity.class));
+				/*
 				Dialog dialog = new Dialog(this);
 				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 				dialog.setContentView(R.layout.openingtime_dialog);
 				dialog.show();
+				*/
 		}
 
 		return true;

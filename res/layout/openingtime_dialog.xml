@@ -1,49 +1,124 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/openingtime_popup"
-			  android:orientation="vertical"
-			  android:layout_width="wrap_content"
-			  android:layout_height="wrap_content"
-			  android:padding="10dip"
-              >
-    <TextView android:layout_height="wrap_content" 
-    		  android:layout_width="wrap_content"
-    		  android:textSize="30px"
-    		  android:text="Öffnungszeiten"
-    		  android:paddingBottom="10dip"
-    		  />
-    <TextView android:layout_height="wrap_content" 
-    		  android:layout_width="wrap_content" 
-    		  android:textSize="24px"
-    		  android:textStyle="bold"
-    		  android:text="Mensa:"
-    		  />
-    <TextView android:layout_height="wrap_content"  
-    		  android:layout_width="wrap_content" 
-    		  android:textSize="24px"
-    		  android:paddingBottom="10dip"
-    		  android:text="Mo-Do: 11:15 - 14:00 Uhr\nFr: 11:15 - 13:30 Uhr" 
-    		  />
-    <TextView android:layout_height="wrap_content" 
-    		  android:layout_width="wrap_content" 
-    		  android:textSize="24px"
-    		  android:textStyle="bold"
-    		  android:text="Pub:"
-    		  />
-    <TextView android:layout_height="wrap_content"  
-    		  android:layout_width="wrap_content" 
-    		  android:textSize="24px"
-    		  android:paddingBottom="10dip"
-    		  android:text="Mo-Do: 08:00 - 24:00 Uhr\nFr: 08:00 - 18:00 Uhr\nMittagessen:\nMo-Fr: 11:30 - 14:00 Uhr"
-    		  />
-    <TextView android:layout_height="wrap_content" 
-    		  android:layout_width="wrap_content" 
-    		  android:textSize="24px"
-    		  android:textStyle="bold"
-    		  android:text="Palmengarten:"
-    		  />
-    <TextView android:layout_height="wrap_content"  
-    		  android:layout_width="wrap_content" 
-    		  android:textSize="24px"
-    		  android:text="Mo-Do: 08:30 - 15:30 Uhr\nFr: 08:30 - 14:30 Uhr\nMittagessen:\nMo-Do: 11:45 - 14:00 Uhr,\nFr: 11:45 - 13:45 Uhr"
-    		  />
-</LinearLayout>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/openingtime_popup"
+		     android:orientation="vertical"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:padding="10dip">
+
+    <TableRow>
+        <TextView
+            android:text="@string/mensa_headline"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_span="2" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_marginRight="9dp"
+            android:text="@string/mo_do_label" />
+
+        <TextView
+            android:text="@string/mensa_mo_do" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="@string/fr_label" />
+        <TextView
+            android:text="@string/mensa_fr" />
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="9dp" >
+
+        <TextView
+            android:text="@string/pub_headline"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_span="2" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="@string/mo_do_label" />
+
+        <TextView
+            android:text="@string/pub_mo_do" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="@string/fr_label" />
+
+        <TextView
+            android:text="@string/pub_fr" />
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="3dp" >
+        
+        <TextView
+            android:text="@string/mittag"
+            android:layout_span="2" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="@string/mo_fr_label" />
+
+        <TextView
+            android:text="@string/pub_mittag_mo_fr" />
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="9dp" >
+
+        <TextView
+            android:text="@string/hotspot_headline"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_span="2" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="@string/mo_do_label" />
+
+        <TextView
+            android:text="@string/hotspot_mo_do" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="@string/fr_label" />
+
+        <TextView
+            android:text="@string/hotspot_fr" />
+    </TableRow>
+
+    <TableRow
+        android:layout_marginTop="3dp" >
+
+        <TextView
+            android:text="@string/mittag"
+            android:layout_span="2" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="@string/mo_do_label" />
+
+        <TextView
+            android:text="@string/hotspot_mo_do" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="@string/fr_label" />
+
+        <TextView
+            android:text="@string/hotspot_fr" />
+    </TableRow>
+
+</TableLayout>
