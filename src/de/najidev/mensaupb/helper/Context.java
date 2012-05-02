@@ -1,8 +1,10 @@
 package de.najidev.mensaupb.helper;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
+
+import java.sql.Date;
 
 public class Context
 {
@@ -19,7 +21,7 @@ public class Context
 	protected Date[] availableDates = new Date[5];
 
 
-	public Context()
+	public Context(Configuration config)
 	{
 		Calendar calendar = Calendar.getInstance();
 
@@ -46,7 +48,7 @@ public class Context
 
 		for (int i = 0; i < availableDates.length; i++)
 		{
-			availableDates[i] = calendar.getTime();
+			availableDates[i] = new Date(calendar.getTimeInMillis());
 			calendar.add(Calendar.DATE, 1);
 		}
 	}
@@ -74,5 +76,11 @@ public class Context
 	public String getCurrentLocationTitle()
 	{
 		return this.currentLocation;
+	}
+
+	public String[] getLocationTitle()
+	{
+		Set<String> locationSet = ServiceContainer.getInstance().getContext().getAvailableLocations().keySet();
+		return locationSet.toArray(new String[locationSet.size()]);
 	}
 }

@@ -20,7 +20,11 @@ public class DayPagerAdapter extends PagerAdapter
 
 	public DayPagerAdapter(Context context)
 	{
-		this.context =  context;
+		super();
+
+		this.context  =  context;
+		for (int i = 0; i < 5; i++)
+			adapters.add(null);
 	}
 
 	@Override
@@ -34,10 +38,10 @@ public class DayPagerAdapter extends PagerAdapter
 		ListView v = new ListView( context );
 
 		adapters.add(position, new MenuListAdapter(
-				this.context,
-				R.layout.menu_list,
-				ServiceContainer.getInstance().getContext().getAvailableDates()[position]
-				));
+			this.context,
+			R.layout.menu_list,
+			ServiceContainer.getInstance().getContext().getAvailableDates()[position]
+		));
 
 		v.setAdapter(adapters.get(position));
 		((ViewPager)pager ).addView(v, 0);

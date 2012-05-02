@@ -7,6 +7,7 @@ public class ServiceContainer
 	protected static ServiceContainer instance = null;
 
 	protected boolean initialized = false;
+	protected Configuration configuration;
 	protected Context context;
 	protected MenuRepository menuRepository;
 
@@ -24,15 +25,18 @@ public class ServiceContainer
 	{
 		if (this.initialized)
 			throw new Exception("Service container can only once be initialized");
+		
+		// prepare database
+		DatabaseHelper databaseHelper = new DatabaseHelper(applicationContext);
+		
+		// prepare configuration
+		configuration = new Configuration(databaseHelper);
 
 		// prepare context
-		this.context = new Context();
+		this.context = new Context(configuration);
 
 		// prepare menu repository
-		this.menuRepository = new MenuRepository(
-				this.context,
-				new DatabaseHelper(applicationContext)
-				);
+		this.menuRepository = new MenuRepository(this.context, databaseHelper);
 
 		this.initialized = true;
 
@@ -44,21 +48,16 @@ public class ServiceContainer
 		return context;
 	}
 
-	public void setContext(Context context)
-	{
-		this.context = context;
-	}
-
 	public MenuRepository getMenuRepository()
 	{
 		return menuRepository;
 	}
 
-	public void setMenuRepository(MenuRepository menuRepository)
+	public Configuration getConfiguration()
 	{
-		this.menuRepository = menuRepository;
+		return configuration;
 	}
-
+	
 	public boolean isInitialized()
 	{
 		return this.initialized;

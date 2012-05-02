@@ -17,13 +17,19 @@
             </intent-filter>
         </activity>
         
+        <activity android:name=".activities.SettingsActivity" android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+        
         <activity android:name=".dialog.OpeningTimeDialog" android:theme="@style/Theme.Sherlock.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         
-        <activity android:name=".dialog.ChooseLocationDialog" android:theme="@style/Theme.Sherlock.Dialog">
+        <activity android:name=".dialog.ChooseOnListDialog" android:theme="@style/Theme.Sherlock.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>

@@ -3,6 +3,8 @@
     <string name="hello">Hello World, MensaUPBActivity!</string>
     <string name="app_name">Mensa UPB</string>
     
+    <string name="startday">Startort</string>
+    
     <string name="mo_do_label">Mo&#8211;Do:</string>
     <string name="mo_fr_label">Mo&#8211;Fr:</string>
     <string name="fr_label">Fr:</string>

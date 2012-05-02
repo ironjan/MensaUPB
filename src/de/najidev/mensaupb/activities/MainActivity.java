@@ -1,7 +1,7 @@
 package de.najidev.mensaupb.activities;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -12,9 +12,10 @@ import com.actionbarsherlock.view.MenuItem;
 
 import de.najidev.mensaupb.R;
 import de.najidev.mensaupb.adapter.DayPagerAdapter;
-import de.najidev.mensaupb.dialog.ChooseLocationDialog;
+import de.najidev.mensaupb.dialog.ChooseOnListDialog;
 import de.najidev.mensaupb.dialog.OpeningTimeDialog;
 import de.najidev.mensaupb.entity.MenuRepository;
+import de.najidev.mensaupb.helper.Configuration;
 import de.najidev.mensaupb.helper.Context;
 import de.najidev.mensaupb.helper.PrepareMenuRepositoryTask;
 import de.najidev.mensaupb.helper.ServiceContainer;
@@ -32,6 +33,7 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 	DayPagerAdapter dayPagerAdapter;
 	MenuRepository menuRepository;
 	Context context;
+	Configuration config;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -56,6 +58,8 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 
 		this.context        = container.getContext();
 		this.menuRepository = container.getMenuRepository();
+		this.config         = container.getConfiguration();
+		
 
 		dayPagerAdapter = new DayPagerAdapter(this);
 		dayPager = (ViewPager) findViewById(R.id.viewpager);
@@ -75,16 +79,38 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 			tab.setTabListener(this);
 			this.getSupportActionBar().addTab(tab);	
 		}
-	}
-
-	@Override
-	protected void onStart()
-	{
-		super.onStart();
 
 		if (!this.menuRepository.dataIsLocallyAvailable())
 			new PrepareMenuRepositoryTask(this, context, menuRepository).execute();
+		
+		Date today = new Date(new java.util.Date().getTime());
+		i = 0;
+		for (Date date : this.context.getAvailableDates())
+		{
+			if (date.toString().equals(today.toString()))
+			{
+				this.dayPager.setCurrentItem(i);
+				break;
+			}
 
+			i++;
+		}
+		
+		
+		String location;
+		
+		if (0 == i)
+			location = config.getMondayLocation();
+		else if (1 == i)
+			location = config.getTuesdayLocation();
+		else if (2 == i)
+			location = config.getWednesdayLocation();
+		else if (3 == i)
+			location = config.getThursdayLocation();
+		else
+			location = config.getFridayLocation();
+
+		context.setCurrentLocation(location);
 		this.changedLocation();
 	}
 
@@ -99,11 +125,9 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 			.setIcon(R.drawable.action_about_dark_holo)
 			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		
-		/*
 		menu.add("Einstellungen")
 			.setIcon(R.drawable.action_settings_dark_holo)
 			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		*/
 
 		return true;
 		
@@ -113,9 +137,18 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		if (item.getTitle().equals("Ortswechsel"))
-			this.startActivityForResult(new Intent().setClass(this, ChooseLocationDialog.class), 1);
+		{
+			Intent i = new Intent(this, ChooseOnListDialog.class);
+			
+			i.putExtra("title", "Ort wählen");
+			i.putExtra("list", context.getLocationTitle());
+			
+			this.startActivityForResult(i, 1);
+		}
 		else if (item.getTitle().equals("Öffnungszeiten"))
 			this.startActivity(new Intent().setClass(this, OpeningTimeDialog.class));
+		else if (item.getTitle().equals("Einstellungen"))
+			this.startActivity(new Intent().setClass(this, SettingsActivity.class));
 
 		return true;
 	}
@@ -126,7 +159,10 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (1 == requestCode && 1 == resultCode)
+		{
+			context.setCurrentLocation(context.getLocationTitle()[data.getIntExtra("chosen", 0)]);
 			this.changedLocation();
+		}
 	}
 
 	protected void changedLocation()
