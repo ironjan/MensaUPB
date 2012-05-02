@@ -28,4 +28,12 @@ public class ChooseOnListDialog extends SherlockListActivity
 		this.setResult(1, new Intent().putExtra("chosen", position));
 		this.finish();
 	}
+	
+	@Override
+	public void onBackPressed()
+	{
+		this.setResult(0);
+		
+		super.onBackPressed();
+	}
 }

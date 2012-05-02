@@ -94,6 +94,9 @@ public class SettingsActivity extends SherlockListActivity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+		if (0 == resultCode)
+			return;
+
 		String chosen = context.getLocationTitle()[data.getIntExtra("chosen", 0)];
 		
 		if (0 == requestCode)
