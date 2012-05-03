@@ -47,6 +47,7 @@ public class MenuRepository
 	public void persistMenus(List<Menu> menus)
 	{
 		this.menus = menus;
+		this.databaseHelper.persistMenus(this.menus);
 
 	}
 }
