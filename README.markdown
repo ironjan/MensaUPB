@@ -8,6 +8,7 @@ Leider wurde es mir vom Studentenwerk Paderborn untersagt dieses Programm im And
 
 Da das Programm nicht im Google Play Store verfügbar ist, muss unter Einstellungen - Apps - Unbekannte Herkunft aktiviert sein. Der Download des Programms ist dann denkbar einfach: Mit einem QR-Code Scanner (z.B. QR Droid) folgenden Code abfotografieren und den hinterlegten Apk herunterladen und starten. 
 
-![Download-QR-Code][download-1.0.0]
+![Download-QR-Code][download-1.1.0]
 
 [download-1.0.0]: https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=https://github.com/downloads/rejinka/MensaUPB/de.najidev.mensaupb-1.0.0.apk
+[download-1.1.0]: https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=https://github.com/downloads/rejinka/MensaUPB/de.najidev.mensaupb-1.1.0.apk
