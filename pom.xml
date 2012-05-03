@@ -12,17 +12,24 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-	
-	
 		<android.platform>15</android.platform>
-		
+
 		<java.version>1.6</java.version>
 		<android.version>4.0.1.2</android.version>
 		<android-support.version>r7</android-support.version>
 		<actionbar-sherlock.version>4.0.0</actionbar-sherlock.version>
 		<android-maven.version>3.0.0</android-maven.version>
 		<maven-compiler.version>2.3.2</maven-compiler.version>
+
+		<github.downloads.repositoryOwner>rejinka</github.downloads.repositoryOwner>
+		<github.downloads.repositoryName>MensaUPB</github.downloads.repositoryName>
 	</properties>
+
+	<scm>
+		<url>https://github.com/rejinka/MensaUPB</url>
+		<connection>scm:git:git://github.com/rejinka/MensaUPB.git</connection>
+		<developerConnection>scm:git:git@github.com:rejinka/MensaUPB.git</developerConnection>
+	</scm>
 
 	<dependencies>
 		<dependency>
@@ -77,6 +84,24 @@
 					</sdk>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>downloads-maven-plugin</artifactId>
+				<version>0.5</version>
+				<configuration>
+					<description>${project.name}</description>
+					<override>true</override>
+					<includeAttached>true</includeAttached>
+					<includes>
+						<include>*.apk</include>
+					</includes>
+					<excludes>
+						<exclude>*-unaligned.apk</exclude>
+					</excludes>
+					<server>github</server>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
 </project>
