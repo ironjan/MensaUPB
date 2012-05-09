@@ -148,7 +148,7 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void>
 					Node node = dayList.item(i).getChildNodes().item(k);
 					if (node.getNodeName().equals("datum"))
 					{
-						date = new SimpleDateFormat("dd.MM.yyyy").parse(node.getTextContent());
+						date = new SimpleDateFormat("dd.MM.yyyy").parse(node.getFirstChild().getNodeValue());
 					}					
 					else if (node.getNodeName().equals("menue"))
 					{
@@ -160,7 +160,8 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void>
 						{
 							String name  = menuDetails.item(j).getNodeName();
 							String value = menuDetails.item(j)
-									.getTextContent()
+									.getFirstChild()
+									.getNodeValue()
 									.replaceAll("\\(.+\\)( \\*)?$", "")
 									.trim();
 
