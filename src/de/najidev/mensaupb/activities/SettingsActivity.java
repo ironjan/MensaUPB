@@ -1,77 +1,80 @@
 package de.najidev.mensaupb.activities;
 
+import android.content.*;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.os.*;
+import android.view.*;
+import android.widget.*;
 
-import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.app.*;
 
-import de.najidev.mensaupb.R;
-import de.najidev.mensaupb.dialog.ChooseOnListDialog;
-import de.najidev.mensaupb.helper.Configuration;
-import de.najidev.mensaupb.helper.ServiceContainer;
+import de.najidev.mensaupb.*;
+import de.najidev.mensaupb.dialog.*;
+import de.najidev.mensaupb.helper.*;
 
-public class SettingsActivity extends SherlockListActivity
-{
+public class SettingsActivity extends SherlockListActivity {
+
 	de.najidev.mensaupb.helper.Context context;
 	Configuration config;
-	
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(final Bundle savedInstanceState) {
 		setTheme(com.actionbarsherlock.R.style.Theme_Sherlock);
 		getSupportActionBar().setIcon(R.drawable.action_settings_dark_holo);
 		getSupportActionBar().setTitle("Einstellungen");
-		this.getListView().setPadding(10, 0, 10, 0);
+		getListView().setPadding(10, 0, 10, 0);
 
 		super.onCreate(savedInstanceState);
 
 		context = ServiceContainer.getInstance().getContext();
-		config  = ServiceContainer.getInstance().getConfiguration();
+		config = ServiceContainer.getInstance().getConfiguration();
 
-		String[] days = new String[] {"Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag" };
+		final String[] days = new String[] { "Montag", "Dienstag", "Mittwoch",
+				"Donnerstag", "Freitag" };
 
-		this.setListAdapter(new ArrayAdapter<String>(this, R.layout.settings_list, days)
-		{
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.settings_list,
+				days) {
+
 			@Override
-			public View getView(int position, View convertView, ViewGroup parent)
-			{
+			public View getView(final int position, final View convertView,
+					final ViewGroup parent) {
 				View v = convertView;
-				if (v == null)
-				{
-					LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				if (v == null) {
+					final LayoutInflater vi = (LayoutInflater) getContext()
+							.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 					v = vi.inflate(R.layout.settings_list, null);
 				}
 
-				String m = this.getItem(position);
+				final String m = getItem(position);
 
-				if (m != null)
-				{
-					TextView name = (TextView) v.findViewById(R.id.setting_name);
-					TextView value = (TextView) v.findViewById(R.id.setting_value);
+				if (m != null) {
+					final TextView name = (TextView) v
+							.findViewById(R.id.setting_name);
+					final TextView value = (TextView) v
+							.findViewById(R.id.setting_value);
 
-					if (name != null)
+					if (name != null) {
 						name.setText(name.getText() + " " + m);
-					if (value != null)
-					{
+					}
+					if (value != null) {
 						String optionValue;
-						if (0 == position)
+						if (0 == position) {
 							optionValue = config.getMondayLocation();
-						else if (1 == position)
+						}
+						else if (1 == position) {
 							optionValue = config.getTuesdayLocation();
-						else if (2 == position)
+						}
+						else if (2 == position) {
 							optionValue = config.getWednesdayLocation();
-						else if (3 == position)
+						}
+						else if (3 == position) {
 							optionValue = config.getThursdayLocation();
-						else
+						}
+						else {
 							optionValue = config.getFridayLocation();
+						}
 
-						value.setText(optionValue);	
+						value.setText(optionValue);
 					}
 				}
 				return v;
@@ -79,12 +82,13 @@ public class SettingsActivity extends SherlockListActivity
 		});
 	}
 
-	protected void onListItemClick(android.widget.ListView l, View v, int position, long id)
-	{
+	@Override
+	protected void onListItemClick(final android.widget.ListView l,
+			final View v, final int position, final long id) {
 		super.onListItemClick(l, v, position, id);
-		
-		Intent i = new Intent(this, ChooseOnListDialog.class);
-		
+
+		final Intent i = new Intent(this, ChooseOnListDialog.class);
+
 		i.putExtra("title", "Ort wählen");
 		i.putExtra("list", context.getLocationTitle());
 
@@ -92,24 +96,31 @@ public class SettingsActivity extends SherlockListActivity
 	};
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		if (0 == resultCode)
+	protected void onActivityResult(final int requestCode,
+			final int resultCode, final Intent data) {
+		if (0 == resultCode) {
 			return;
+		}
 
-		String chosen = context.getLocationTitle()[data.getIntExtra("chosen", 0)];
-		
-		if (0 == requestCode)
+		final String chosen = context.getLocationTitle()[data.getIntExtra(
+				"chosen", 0)];
+
+		if (0 == requestCode) {
 			config.setMondayLocation(chosen);
-		else if (1 == requestCode)
+		}
+		else if (1 == requestCode) {
 			config.setTuesdayLocation(chosen);
-		else if (2 == requestCode)
+		}
+		else if (2 == requestCode) {
 			config.setWednesdayLocation(chosen);
-		else if (3 == requestCode)
+		}
+		else if (3 == requestCode) {
 			config.setThursdayLocation(chosen);
-		else if (4 == requestCode)
+		}
+		else if (4 == requestCode) {
 			config.setFridayLocation(chosen);
-		
+		}
+
 		setListAdapter(getListAdapter());
 	}
 }

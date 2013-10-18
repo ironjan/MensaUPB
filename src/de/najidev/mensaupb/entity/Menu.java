@@ -1,9 +1,9 @@
 package de.najidev.mensaupb.entity;
 
-import java.util.Date;
+import java.util.*;
 
-public class Menu
-{
+public class Menu {
+
 	protected Date date;
 	protected String title;
 	protected String name;
@@ -11,33 +11,27 @@ public class Menu
 	protected String sides;
 	protected String location;
 
-	public Date getDate()
-	{
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Date date)
-	{
+	public void setDate(final Date date) {
 		this.date = date;
 	}
 
-	public String getTitle()
-	{
+	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title)
-	{
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String name)
-	{
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -45,35 +39,33 @@ public class Menu
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(final String type) {
 		this.type = type;
 	}
 
-	public String getSides()
-	{
+	public String getSides() {
 		return sides;
 	}
 
-	public void addSide(String side)
-	{
-		if (null == sides)
+	public void addSide(final String side) {
+		if (null == sides) {
 			sides = side;
-		else
+		}
+		else {
 			sides += ", " + side;
+		}
 	}
 
-	public String getLocation()
-	{
+	public String getLocation() {
 		return location;
 	}
 
-	public void setLocation(String location)
-	{
+	public void setLocation(final String location) {
 		this.location = location;
 	}
 
 	public boolean isTagesTipp() {
-		if(null != title && title.equals("Tages - Tipp")){
+		if (null != title && title.equals("Tages - Tipp")) {
 			return true;
 		}
 		return false;

@@ -1,9 +1,9 @@
 package de.najidev.mensaupb.helper;
 
-import de.najidev.mensaupb.entity.MenuRepository;
+import de.najidev.mensaupb.entity.*;
 
-public class ServiceContainer
-{	
+public class ServiceContainer {
+
 	protected static ServiceContainer instance = null;
 
 	protected boolean initialized = false;
@@ -11,55 +11,55 @@ public class ServiceContainer
 	protected Context context;
 	protected MenuRepository menuRepository;
 
-	private ServiceContainer() { }
+	private ServiceContainer() {
+	}
 
-	public static ServiceContainer getInstance()
-	{
-		if (null == ServiceContainer.instance)
+	public static ServiceContainer getInstance() {
+		if (null == ServiceContainer.instance) {
 			ServiceContainer.instance = new ServiceContainer();
+		}
 
 		return ServiceContainer.instance;
 	}
 
-	public ServiceContainer initialize(android.content.Context applicationContext) throws Exception
-	{
-		if (this.initialized)
-			throw new Exception("Service container can only once be initialized");
-		
+	public ServiceContainer initialize(
+			final android.content.Context applicationContext) throws Exception {
+		if (initialized) {
+			throw new Exception(
+					"Service container can only once be initialized");
+		}
+
 		// prepare database
-		DatabaseHelper databaseHelper = new DatabaseHelper(applicationContext);
-		
+		final DatabaseHelper databaseHelper = new DatabaseHelper(
+				applicationContext);
+
 		// prepare configuration
 		configuration = new Configuration(databaseHelper);
 
 		// prepare context
-		this.context = new Context(configuration);
+		context = new Context(configuration);
 
 		// prepare menu repository
-		this.menuRepository = new MenuRepository(this.context, databaseHelper);
+		menuRepository = new MenuRepository(context, databaseHelper);
 
-		this.initialized = true;
+		initialized = true;
 
 		return this;
 	}
 
-	public Context getContext()
-	{
+	public Context getContext() {
 		return context;
 	}
 
-	public MenuRepository getMenuRepository()
-	{
+	public MenuRepository getMenuRepository() {
 		return menuRepository;
 	}
 
-	public Configuration getConfiguration()
-	{
+	public Configuration getConfiguration() {
 		return configuration;
 	}
-	
-	public boolean isInitialized()
-	{
-		return this.initialized;
+
+	public boolean isInitialized() {
+		return initialized;
 	}
 }

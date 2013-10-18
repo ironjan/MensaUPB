@@ -1,87 +1,86 @@
 package de.najidev.mensaupb.adapter;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import android.content.Context;
-import android.os.Parcelable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.widget.ListView;
+import android.os.*;
+import android.support.v4.view.*;
+import android.view.*;
+import android.widget.*;
+import de.najidev.mensaupb.*;
+import de.najidev.mensaupb.helper.*;
 
-import de.najidev.mensaupb.R;
-import de.najidev.mensaupb.helper.ServiceContainer;
+public class DayPagerAdapter extends PagerAdapter {
 
-public class DayPagerAdapter extends PagerAdapter
-{	
-	private Context context;
+	private final Context context;
 
 	ArrayList<MenuListAdapter> adapters = new ArrayList<MenuListAdapter>();
 
-	public DayPagerAdapter(Context context)
-	{
+	public DayPagerAdapter(final Context context) {
 		super();
 
-		this.context  =  context;
-		for (int i = 0; i < 5; i++)
+		this.context = context;
+		for (int i = 0; i < 5; i++) {
 			adapters.add(null);
+		}
 	}
 
 	@Override
-	public int getCount()
-	{
+	public int getCount() {
 		return 5;
 	}
 
-	public Object instantiateItem( View pager, int position )
-	{
-		ListView v = new ListView( context );
+	@Override
+	public Object instantiateItem(final View pager, final int position) {
+		final ListView v = new ListView(context);
 
-		adapters.add(position, new MenuListAdapter(
-			this.context,
-			R.layout.menu_list,
-			ServiceContainer.getInstance().getContext().getAvailableDates()[position]
-		));
+		adapters.add(position,
+				new MenuListAdapter(context, R.layout.menu_list,
+						ServiceContainer.getInstance().getContext()
+								.getAvailableDates()[position]));
 
 		v.setAdapter(adapters.get(position));
-		((ViewPager)pager ).addView(v, 0);
+		((ViewPager) pager).addView(v, 0);
 		return v;
 	}
 
 	@Override
-	public void destroyItem( View pager, int position, Object view )
-	{
-		((ViewPager)pager).removeView( (View)view );
+	public void destroyItem(final View pager, final int position,
+			final Object view) {
+		((ViewPager) pager).removeView((View) view);
 	}
 
 	@Override
-	public boolean isViewFromObject( View view, Object object )
-	{
-		return view.equals( object );
+	public boolean isViewFromObject(final View view, final Object object) {
+		return view.equals(object);
 	}
 
 	@Override
-	public void finishUpdate( View view ) {}
+	public void finishUpdate(final View view) {
+	}
 
 	@Override
-	public void restoreState( Parcelable p, ClassLoader c ) {}
+	public void restoreState(final Parcelable p, final ClassLoader c) {
+	}
 
 	@Override
-	public Parcelable saveState()
-	{
+	public Parcelable saveState() {
 		return null;
 	}
 
 	@Override
-	public void startUpdate( View view ) {}
+	public void startUpdate(final View view) {
+	}
 
 	/**
 	 * This method is a workaround for notifyDataSetChanged()
 	 * 
-	 * @see http://stackoverflow.com/questions/7263291/viewpager-pageradapter-not-updating-the-view
+	 * @see http
+	 *      ://stackoverflow.com/questions/7263291/viewpager-pageradapter-not
+	 *      -updating-the-view
 	 */
-	public int getItemPosition(Object object)
-	{
+	@Override
+	public int getItemPosition(final Object object) {
 		return POSITION_NONE;
 	}
 }

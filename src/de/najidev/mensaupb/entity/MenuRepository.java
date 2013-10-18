@@ -1,41 +1,51 @@
 package de.najidev.mensaupb.entity;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.*;
+import java.util.*;
 
-import de.najidev.mensaupb.helper.Context;
-import de.najidev.mensaupb.helper.DatabaseHelper;
+import android.annotation.*;
+import de.najidev.mensaupb.helper.*;
 
 public class MenuRepository {
+
 	protected Context context;
 	protected DatabaseHelper databaseHelper;
 
-	protected final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	@SuppressLint("SimpleDateFormat")
+	@SuppressWarnings("nls")
+	protected final SimpleDateFormat dateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd");
+
 	protected List<Menu> menus = new ArrayList<Menu>();
 
-	public MenuRepository(Context context, DatabaseHelper databaseHelper) {
+	public MenuRepository(final Context context,
+			final DatabaseHelper databaseHelper) {
 		this.context = context;
 		this.databaseHelper = databaseHelper;
-
-		this.menus = databaseHelper.getMenus();
+		menus = databaseHelper.getMenus();
 	}
 
-	public List<Menu> getMenus(String location, Date date) {
-		List<Menu> list = new ArrayList<Menu>();
+	public List<Menu> getMenus(final String location, final Date date) {
+		final List<Menu> list = new ArrayList<Menu>();
 
-		for (Menu menu : this.menus)
-			if (dateFormat.format(date).equals(dateFormat.format(menu.getDate()))
-					&& location.equals(menu.getLocation()))
+		for (final Menu menu : menus) {
+			final String formattedReqeuestedDate = dateFormat.format(date);
+			final String formattedMenuDate = dateFormat.format(menu.getDate());
+			final boolean datesAreEqual = formattedReqeuestedDate
+					.equals(formattedMenuDate);
+			final boolean locationsAreEqual = location.equals(menu
+					.getLocation());
+
+			if (datesAreEqual && locationsAreEqual) {
 				list.add(menu);
+			}
+		}
 
 		return list;
 	}
 
 	public boolean dataIsNotLocallyAvailable() {
-		 return
-		 !databaseHelper.menusAvailable(this.context.getAvailableDates()[0]);
+		return !databaseHelper.menusAvailable(context.getAvailableDates()[0]);
 	}
 
 	/**
@@ -44,9 +54,9 @@ public class MenuRepository {
 	 * 
 	 * @param menus
 	 */
-	public void persistMenus(List<Menu> menus) {
+	public void persistMenus(final List<Menu> menus) {
 		this.menus = menus;
-		this.databaseHelper.persistMenus(this.menus);
+		databaseHelper.persistMenus(menus);
 
 	}
 }

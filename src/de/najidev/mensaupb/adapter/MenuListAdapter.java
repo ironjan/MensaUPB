@@ -1,56 +1,58 @@
 package de.najidev.mensaupb.adapter;
 
-import java.util.Date;
+import java.util.*;
 
-import de.najidev.mensaupb.R;
-import de.najidev.mensaupb.entity.Menu;
-import de.najidev.mensaupb.helper.ServiceContainer;
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.view.*;
+import android.widget.*;
+import de.najidev.mensaupb.*;
+import de.najidev.mensaupb.entity.Menu;
+import de.najidev.mensaupb.helper.*;
 
-public class MenuListAdapter extends ArrayAdapter<Menu>
-{	
-	public MenuListAdapter(Context context, int textViewResourceId, Date date)
-	{
+public class MenuListAdapter extends ArrayAdapter<Menu> {
+
+	public MenuListAdapter(final Context context, final int textViewResourceId,
+			final Date date) {
 		super(context, textViewResourceId);
 
 		// fill list
-		String location = ServiceContainer.getInstance().getContext().getCurrentLocation();
-		this.clear();
-		for (Menu menu : ServiceContainer.getInstance().getMenuRepository().getMenus(location, date))
-			this.add(menu);
+		final String location = ServiceContainer.getInstance().getContext()
+				.getCurrentLocation();
+		clear();
+		for (final Menu menu : ServiceContainer.getInstance()
+				.getMenuRepository().getMenus(location, date)) {
+			add(menu);
+		}
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent)
-	{
+	public View getView(final int position, final View convertView,
+			final ViewGroup parent) {
 		View v = convertView;
-		if (v == null)
-		{
-			LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		if (v == null) {
+			final LayoutInflater vi = (LayoutInflater) getContext()
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.menu_list, null);
 		}
 
-		Menu m = this.getItem(position);
+		final Menu m = getItem(position);
 
-		if (m != null)
-		{
-			TextView title = (TextView) v.findViewById(R.id.title);
-			TextView name  = (TextView) v.findViewById(R.id.name);
-			TextView sides = (TextView) v.findViewById(R.id.sides);
+		if (m != null) {
+			final TextView title = (TextView) v.findViewById(R.id.title);
+			final TextView name = (TextView) v.findViewById(R.id.name);
+			final TextView sides = (TextView) v.findViewById(R.id.sides);
 
-			if (title != null)
+			if (title != null) {
 				title.setText(m.getTitle());
+			}
 
-			if(name != null)
+			if (name != null) {
 				name.setText(m.getName());
+			}
 
-			if(sides != null)
+			if (sides != null) {
 				sides.setText(m.getSides());
+			}
 		}
 		return v;
 	}
