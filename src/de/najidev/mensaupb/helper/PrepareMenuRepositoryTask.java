@@ -84,7 +84,6 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 				menu.setLocation(location);
 			}
 
-			// add to menu list
 			menus.addAll(parsedMenus);
 
 		}
@@ -115,12 +114,14 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 			br.close();
 			Log.v(TAG, "Download of " + url + " complete");
 			return new InputSource(new StringReader(sb.toString()));
-		} catch (Exception ignored) {
+		} catch (Exception e) {
+			Log.e(TAG, e.getMessage(), e);
 			return null;
 		}
 	}
 
 	protected List<Menu> parseXML(InputSource is) {
+		Log.v(TAG, "Parsing an menu xml file.");
 		List<Menu> list = new ArrayList<Menu>();
 		// parse file
 		try {
@@ -141,28 +142,32 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 						menu.setDate(date);
 
 						for (int j = 0; j < menuDetails.getLength(); j++) {
-							String name = menuDetails.item(j).getNodeName();
-							String value = menuDetails.item(j).getFirstChild().getNodeValue()
-									.replaceAll("\\(.+\\)( \\*)?$", "").trim();
+							Node item = menuDetails.item(j);
+							String name = item.getNodeName();
+							Node firstChild = item.getFirstChild();
 
-							if (name.equals("menu"))
-								menu.setTitle(value);
-							else if (name.equals("text"))
-								menu.setName(value);
-							else if (name.equals("speisentyp"))
-								menu.setType(value);
-							else if (name.equals("beilage"))
-								menu.addSide(value);
+							if (firstChild != null) {
+								String nodeValue = firstChild.getNodeValue();
+								String value = nodeValue.replaceAll("\\(.+\\)( \\*)?$", "").trim();
+
+								if (name.equals("menu"))
+									menu.setTitle(value);
+								else if (name.equals("text"))
+									menu.setName(value);
+								else if (name.equals("speisentyp"))
+									menu.setType(value);
+								else if (name.equals("beilage"))
+									menu.addSide(value);
+							}
 						}
-
-						if (!menu.getTitle().equals("Tages - Tipp"))
+						if (!menu.isTagesTipp()) {
 							list.add(menu);
+						}
 					}
 				}
 			}
-		}
-		// if an error occurs, we can't do anything against it...
-		catch (Exception e) {
+		} catch (Exception e) {
+			Log.e(TAG, e.getMessage(), e);
 		}
 
 		return list;

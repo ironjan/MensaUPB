@@ -71,4 +71,11 @@ public class Menu
 	{
 		this.location = location;
 	}
+
+	public boolean isTagesTipp() {
+		if(null != title && title.equals("Tages - Tipp")){
+			return true;
+		}
+		return false;
+	}
 }

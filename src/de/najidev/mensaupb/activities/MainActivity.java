@@ -80,8 +80,9 @@ public class MainActivity extends SherlockActivity implements OnPageChangeListen
 			this.getSupportActionBar().addTab(tab);	
 		}
 
-		if (!this.menuRepository.dataIsLocallyAvailable())
+		if (menuRepository.dataIsNotLocallyAvailable()){
 			new PrepareMenuRepositoryTask(this, context, menuRepository).execute();
+		}
 		
 		Date today = new Date(new java.util.Date().getTime());
 		i = 0;
