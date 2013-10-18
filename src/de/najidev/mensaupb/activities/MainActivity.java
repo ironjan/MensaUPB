@@ -159,7 +159,7 @@ public class MainActivity extends SherlockActivity implements
 
 	@OptionsItem(R.id.ab_settings)
 	void abSettingsClicked() {
-		startActivity(new Intent().setClass(this, SettingsActivity.class));
+		SettingsActivity_.intent(this).start();
 	}
 
 	@Override

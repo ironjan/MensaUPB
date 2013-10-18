@@ -8,5 +8,12 @@
         <item>Do</item>
         <item>Fr</item>
     </string-array>
+    <string-array name="days">
+        <item>Montag</item>
+        <item>Dienstag</item>
+        <item>Mittwoch</item>
+        <item>Donnerstag</item>
+        <item>Freitag</item>
+    </string-array>
 
 </resources>

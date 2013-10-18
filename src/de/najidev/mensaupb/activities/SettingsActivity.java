@@ -7,31 +7,39 @@ import android.view.*;
 import android.widget.*;
 
 import com.actionbarsherlock.app.*;
+import com.googlecode.androidannotations.annotations.*;
+import com.googlecode.androidannotations.annotations.res.*;
 
 import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.dialog.*;
 import de.najidev.mensaupb.helper.*;
 
+@EActivity
 public class SettingsActivity extends SherlockListActivity {
 
 	de.najidev.mensaupb.helper.Context context;
 	Configuration config;
 
+	@StringArrayRes
+	String[] days;
+
+	@StringRes
+	String settings;
+
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
-		setTheme(com.actionbarsherlock.R.style.Theme_Sherlock);
-		getSupportActionBar().setIcon(R.drawable.action_settings_dark_holo);
-		getSupportActionBar().setTitle("Einstellungen");
-		getListView().setPadding(10, 0, 10, 0);
+		getListView().setPadding(8, 0, 8, 0);
 
 		super.onCreate(savedInstanceState);
 
 		context = ServiceContainer.getInstance().getContext();
 		config = ServiceContainer.getInstance().getConfiguration();
 
-		final String[] days = new String[] { "Montag", "Dienstag", "Mittwoch",
-				"Donnerstag", "Freitag" };
+	}
 
+	@AfterInject
+	void afterInject() {
+		getSupportActionBar().setTitle(settings);
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.settings_list,
 				days) {
 
