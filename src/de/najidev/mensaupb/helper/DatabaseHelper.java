@@ -2,13 +2,15 @@ package de.najidev.mensaupb.helper;
 
 import java.text.*;
 import java.util.*;
-
+import android.annotation.SuppressLint;
 import android.content.*;
 import android.content.Context;
 import android.database.*;
 import android.database.sqlite.*;
 import de.najidev.mensaupb.entity.*;
 
+@SuppressLint("SimpleDateFormat")
+@SuppressWarnings("nls")
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public static final String DATABASE_NAME = "mensaupb";
@@ -65,6 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			c.moveToNext();
 		}
 
+		c.close();
 		database.close();
 
 		return config;
@@ -105,6 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			c.moveToNext();
 		}
 
+		c.close();
 		database.close();
 
 		return list;
