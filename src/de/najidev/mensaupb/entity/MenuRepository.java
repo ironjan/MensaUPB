@@ -34,9 +34,8 @@ public class MenuRepository {
 	}
 
 	public boolean dataIsNotLocallyAvailable() {
-		return true;
-		// return
-		// !databaseHelper.menusAvailable(this.context.getAvailableDates()[0]);
+		 return
+		 !databaseHelper.menusAvailable(this.context.getAvailableDates()[0]);
 	}
 
 	/**
