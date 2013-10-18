@@ -12,9 +12,8 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import com.actionbarsherlock.app.*;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
-import com.actionbarsherlock.view.*;
-import com.actionbarsherlock.view.Menu;
 import com.googlecode.androidannotations.annotations.*;
+import com.googlecode.androidannotations.annotations.res.*;
 
 import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.adapter.*;
@@ -28,16 +27,28 @@ import de.najidev.mensaupb.helper.Context;
 public class MainActivity extends SherlockActivity implements
 		OnPageChangeListener, TabListener {
 
+	public static final String EXTRA_KEY_CHOSEN_LOCATION = "chosenLocation";
+
+	private static final int TAB_THURSDAY = 3;
+	private static final int TAB_WEDNESDAY = 2;
+	private static final int TAB_TUESDAY = 1;
+	private static final int TAB_MONDAY = 0;
+
 	String actionBarTitle;
+
+	@ViewById(R.id.viewpager)
 	ViewPager dayPager;
+
 	DayPagerAdapter dayPagerAdapter;
 	MenuRepository menuRepository;
 	Context context;
 	Configuration config;
 
+	@StringRes
+	String select_Location;
+
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
-		setTheme(com.actionbarsherlock.R.style.Theme_Sherlock);
 		super.onCreate(savedInstanceState);
 
 		ServiceContainer container = ServiceContainer.getInstance();
@@ -57,27 +68,17 @@ public class MainActivity extends SherlockActivity implements
 
 	}
 
+	@StringArrayRes(R.array.weekDays)
+	String[] germanDays;
+
 	@AfterViews
 	void afterViews() {
 		dayPagerAdapter = new DayPagerAdapter(this);
-		dayPager = (ViewPager) findViewById(R.id.viewpager);
+
 		dayPager.setOnPageChangeListener(this);
 		dayPager.setAdapter(dayPagerAdapter);
 
-		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-		final String[] germanDays = new String[] { "Mo", "Di", "Mi", "Do", "Fr" };
-		int i = 0;
-		final Calendar calendar = Calendar.getInstance();
-		for (final Date date : context.getAvailableDates()) {
-			calendar.setTime(date);
-			final ActionBar.Tab tab = getSupportActionBar().newTab();
-			tab.setText(germanDays[i++] + "\n"
-					+ calendar.get(Calendar.DAY_OF_MONTH) + "."
-					+ (calendar.get(Calendar.MONTH) + 1) + ".");
-			tab.setTabListener(this);
-			getSupportActionBar().addTab(tab);
-		}
+		initializeActionBarTabs();
 
 		if (menuRepository.dataIsNotLocallyAvailable()) {
 			new PrepareMenuRepositoryTask(this, context, menuRepository)
@@ -85,6 +86,8 @@ public class MainActivity extends SherlockActivity implements
 		}
 
 		final Date today = new Date(new java.util.Date().getTime());
+
+		int i;
 		i = 0;
 		for (final Date date : context.getAvailableDates()) {
 			if (date.toString().equals(today.toString())) {
@@ -97,16 +100,16 @@ public class MainActivity extends SherlockActivity implements
 
 		String location;
 
-		if (0 == i) {
+		if (TAB_MONDAY == i) {
 			location = config.getMondayLocation();
 		}
-		else if (1 == i) {
+		else if (TAB_TUESDAY == i) {
 			location = config.getTuesdayLocation();
 		}
-		else if (2 == i) {
+		else if (TAB_WEDNESDAY == i) {
 			location = config.getWednesdayLocation();
 		}
-		else if (3 == i) {
+		else if (TAB_THURSDAY == i) {
 			location = config.getThursdayLocation();
 		}
 		else {
@@ -117,12 +120,29 @@ public class MainActivity extends SherlockActivity implements
 		changedLocation();
 	}
 
+	private void initializeActionBarTabs() {
+		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		int i = 0;
+		final Calendar calendar = Calendar.getInstance();
+		for (final Date date : context.getAvailableDates()) {
+			calendar.setTime(date);
+			final ActionBar.Tab tab = getSupportActionBar().newTab();
+			tab.setText(germanDays[i++] + "\n"
+					+ calendar.get(Calendar.DAY_OF_MONTH) + "."
+					+ (calendar.get(Calendar.MONTH) + 1) + ".");
+			tab.setTabListener(this);
+			getSupportActionBar().addTab(tab);
+		}
+	}
+
 	@OptionsItem(R.id.ab_changeLocation)
 	void abChangeLocationClicked() {
 		final Intent i = new Intent(this, ChooseOnListDialog.class);
 
-		i.putExtra("title", "Ort wählen");
-		i.putExtra("list", context.getLocationTitle());
+		i.putExtra(ChooseOnListDialog.EXTRA_KEY_TITLE, select_Location);
+		i.putExtra(ChooseOnListDialog.EXTRA_KEY_LIST,
+				context.getLocationTitle());
 
 		this.startActivityForResult(i, 1);
 	}
@@ -149,7 +169,7 @@ public class MainActivity extends SherlockActivity implements
 
 		if (1 == requestCode && 1 == resultCode) {
 			context.setCurrentLocation(context.getLocationTitle()[data
-					.getIntExtra("chosen", 0)]);
+					.getIntExtra(EXTRA_KEY_CHOSEN_LOCATION, 0)]);
 			changedLocation();
 		}
 	}

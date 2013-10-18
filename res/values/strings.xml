@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="hello">Hello World, MensaUPBActivity!</string>
     <string name="app_name">Mensa UPB</string>
-    
     <string name="startday">Startort</string>
-    
     <string name="mo_do_label">Mo&#8211;Do:</string>
     <string name="mo_fr_label">Mo&#8211;Fr:</string>
     <string name="fr_label">Fr:</string>
     <string name="mittag">Mittagsessen</string>
-    
     <string name="mensa_headline">Mensa</string>
     <string name="mensa_mo_do">11:15 &#8211; 14:00 Uhr</string>
     <string name="mensa_fr">11:15 &#8211; 13:30 Uhr</string>
-    
     <string name="pub_headline">Pub:</string>
     <string name="pub_mo_do">08:00 &#8211; 24:00 Uhr</string>
     <string name="pub_fr">08:00 &#8211; 18:00 Uhr</string>
     <string name="pub_mittag_mo_fr">11:30 &#8211; 14:00 Uhr</string>
-    
     <string name="hotspot_headline">Hotspot</string>
     <string name="hotspot_mo_do">08:30 &#8211; 15:30 Uhr</string>
     <string name="hotspot_fr">08:30 &#8211; 14:30 Uhr</string>
@@ -28,4 +24,6 @@
     <string name="refresh">Aktualisieren</string>
     <string name="opening_times">Öffnungszeiten</string>
     <string name="settings">Einstellungen</string>
+    <string name="select_Location">Ort wählen</string>
+
 </resources>
