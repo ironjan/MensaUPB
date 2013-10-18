@@ -24,4 +24,8 @@
     <string name="hotspot_fr">08:30 &#8211; 14:30 Uhr</string>
     <string name="hotspot_mittag_mo_do">11:45 &#8211; 14:00 Uhr</string>
     <string name="hotspot_mittag_fr">11:45 &#8211; 13:45 Uhr</string>
+    <string name="change_location">Ortswechsel</string>
+    <string name="refresh">Aktualisieren</string>
+    <string name="opening_times">Öffnungszeiten</string>
+    <string name="settings">Einstellungen</string>
 </resources>

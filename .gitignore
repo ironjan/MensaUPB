@@ -8,3 +8,8 @@
 libs/ActionbarSherlock/bin/
 libs/ActionbarSherlock/gen/
 gen/
+.apt_generated/
+.factorypath
+.settings/
+.classpath
+.settings/org.eclipse.jdt.apt.core.prefs .settings/org.eclipse.jdt.core.prefs .settings/org.eclipse.jdt.ui.prefs

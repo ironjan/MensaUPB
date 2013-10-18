@@ -14,6 +14,7 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.view.*;
 import com.actionbarsherlock.view.Menu;
+import com.googlecode.androidannotations.annotations.*;
 
 import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.adapter.*;
@@ -22,6 +23,8 @@ import de.najidev.mensaupb.entity.*;
 import de.najidev.mensaupb.helper.*;
 import de.najidev.mensaupb.helper.Context;
 
+@EActivity(R.layout.main)
+@OptionsMenu(R.menu.main)
 public class MainActivity extends SherlockActivity implements
 		OnPageChangeListener, TabListener {
 
@@ -36,7 +39,6 @@ public class MainActivity extends SherlockActivity implements
 	protected void onCreate(final Bundle savedInstanceState) {
 		setTheme(com.actionbarsherlock.R.style.Theme_Sherlock);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
 
 		ServiceContainer container = ServiceContainer.getInstance();
 		if (!container.isInitialized()) {
@@ -53,6 +55,10 @@ public class MainActivity extends SherlockActivity implements
 		menuRepository = container.getMenuRepository();
 		config = container.getConfiguration();
 
+	}
+
+	@AfterViews
+	void afterViews() {
 		dayPagerAdapter = new DayPagerAdapter(this);
 		dayPager = (ViewPager) findViewById(R.id.viewpager);
 		dayPager.setOnPageChangeListener(this);
@@ -111,49 +117,29 @@ public class MainActivity extends SherlockActivity implements
 		changedLocation();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(final Menu menu) {
-		menu.add("Ortswechsel").setIcon(R.drawable.location_place_dark_holo)
-				.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+	@OptionsItem(R.id.ab_changeLocation)
+	void abChangeLocationClicked() {
+		final Intent i = new Intent(this, ChooseOnListDialog.class);
 
-		menu.add("Öffnungszeiten").setIcon(R.drawable.action_about_dark_holo)
-				.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		i.putExtra("title", "Ort wählen");
+		i.putExtra("list", context.getLocationTitle());
 
-		menu.add("Aktualisieren")
-				.setIcon(R.drawable.ic_navigation_refresh_dark)
-				.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-		menu.add("Einstellungen").setIcon(R.drawable.action_settings_dark_holo)
-				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-
-		return true;
-
+		this.startActivityForResult(i, 1);
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(final MenuItem item) {
-		if (item.getTitle().equals("Ortswechsel")) {
-			final Intent i = new Intent(this, ChooseOnListDialog.class);
+	@OptionsItem(R.id.ab_times)
+	void abTimesClicked() {
+		this.startActivity(new Intent().setClass(this, OpeningTimeDialog.class));
+	}
 
-			i.putExtra("title", "Ort wählen");
-			i.putExtra("list", context.getLocationTitle());
+	@OptionsItem(R.id.ab_refresh)
+	void abRefreshClicked() {
+		new PrepareMenuRepositoryTask(this, context, menuRepository).execute();
+	}
 
-			this.startActivityForResult(i, 1);
-		}
-		else if (item.getTitle().equals("Öffnungszeiten")) {
-			this.startActivity(new Intent().setClass(this,
-					OpeningTimeDialog.class));
-		}
-		else if (item.getTitle().equals("Aktualisieren")) {
-			new PrepareMenuRepositoryTask(this, context, menuRepository)
-					.execute();
-		}
-		else if (item.getTitle().equals("Einstellungen")) {
-			this.startActivity(new Intent().setClass(this,
-					SettingsActivity.class));
-		}
-
-		return true;
+	@OptionsItem(R.id.ab_settings)
+	void abSettingsClicked() {
+		this.startActivity(new Intent().setClass(this, SettingsActivity.class));
 	}
 
 	@Override
