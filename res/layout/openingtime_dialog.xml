@@ -1,124 +1,116 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/openingtime_popup"
-		     android:orientation="vertical"
-		     android:layout_width="wrap_content"
-		     android:layout_height="wrap_content"
-		     android:padding="10dip">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent" >
 
-    <TableRow>
-        <TextView
-            android:text="@string/mensa_headline"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_span="2" />
-    </TableRow>
+    <TableLayout
+        android:id="@+id/openingtime_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp" >
 
-    <TableRow>
-        <TextView
-            android:layout_marginRight="9dp"
-            android:text="@string/mo_do_label" />
+        <TableRow>
 
-        <TextView
-            android:text="@string/mensa_mo_do" />
-    </TableRow>
+            <TextView
+                android:layout_span="2"
+                android:text="@string/mensa_headline"
+                android:textColor="@color/abs__holo_blue_light"
+                android:textStyle="bold" />
+        </TableRow>
 
-    <TableRow>
-        <TextView
-            android:text="@string/fr_label" />
-        <TextView
-            android:text="@string/mensa_fr" />
-    </TableRow>
+        <TableRow>
 
-    <TableRow
-        android:layout_marginTop="9dp" >
+            <TextView
+                android:layout_marginRight="9dp"
+                android:text="@string/mo_do_label" />
 
-        <TextView
-            android:text="@string/pub_headline"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_span="2" />
-    </TableRow>
+            <TextView android:text="@string/mensa_mo_do" />
+        </TableRow>
 
-    <TableRow>
-        <TextView
-            android:text="@string/mo_do_label" />
+        <TableRow>
 
-        <TextView
-            android:text="@string/pub_mo_do" />
-    </TableRow>
+            <TextView android:text="@string/fr_label" />
 
-    <TableRow>
-        <TextView
-            android:text="@string/fr_label" />
+            <TextView android:text="@string/mensa_fr" />
+        </TableRow>
 
-        <TextView
-            android:text="@string/pub_fr" />
-    </TableRow>
+        <TableRow android:layout_marginTop="9dp" >
 
-    <TableRow
-        android:layout_marginTop="3dp" >
-        
-        <TextView
-            android:text="@string/mittag"
-            android:layout_span="2" />
-    </TableRow>
+            <TextView
+                android:layout_span="2"
+                android:text="@string/pub_headline"
+                android:textColor="@color/abs__holo_blue_light"
+                android:textStyle="bold" />
+        </TableRow>
 
-    <TableRow>
-        <TextView
-            android:text="@string/mo_fr_label" />
+        <TableRow>
 
-        <TextView
-            android:text="@string/pub_mittag_mo_fr" />
-    </TableRow>
+            <TextView android:text="@string/mo_do_label" />
 
-    <TableRow
-        android:layout_marginTop="9dp" >
+            <TextView android:text="@string/pub_mo_do" />
+        </TableRow>
 
-        <TextView
-            android:text="@string/hotspot_headline"
-            android:textSize="16dp"
-            android:textStyle="bold"
-            android:layout_span="2" />
-    </TableRow>
+        <TableRow>
 
-    <TableRow>
-        <TextView
-            android:text="@string/mo_do_label" />
+            <TextView android:text="@string/fr_label" />
 
-        <TextView
-            android:text="@string/hotspot_mo_do" />
-    </TableRow>
+            <TextView android:text="@string/pub_fr" />
+        </TableRow>
 
-    <TableRow>
-        <TextView
-            android:text="@string/fr_label" />
+        <TableRow android:layout_marginTop="3dp" >
 
-        <TextView
-            android:text="@string/hotspot_fr" />
-    </TableRow>
+            <TextView
+                android:layout_span="2"
+                android:text="@string/mittag" />
+        </TableRow>
 
-    <TableRow
-        android:layout_marginTop="3dp" >
+        <TableRow>
 
-        <TextView
-            android:text="@string/mittag"
-            android:layout_span="2" />
-    </TableRow>
+            <TextView android:text="@string/mo_fr_label" />
 
-    <TableRow>
-        <TextView
-            android:text="@string/mo_do_label" />
+            <TextView android:text="@string/pub_mittag_mo_fr" />
+        </TableRow>
 
-        <TextView
-            android:text="@string/hotspot_mo_do" />
-    </TableRow>
+        <TableRow android:layout_marginTop="9dp" >
 
-    <TableRow>
-        <TextView
-            android:text="@string/fr_label" />
+            <TextView
+                android:layout_span="2"
+                android:text="@string/hotspot_headline"
+                android:textColor="@color/abs__holo_blue_light"
+                android:textStyle="bold" />
+        </TableRow>
 
-        <TextView
-            android:text="@string/hotspot_fr" />
-    </TableRow>
+        <TableRow>
 
-</TableLayout>
+            <TextView android:text="@string/mo_label" />
+
+            <TextView android:text="@string/hotspot_mo" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView android:text="@string/di_to_fr_label" />
+
+            <TextView android:text="@string/hotspot_di_to_fr" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView android:text="@string/sonst_label" />
+
+            <TextView android:text="@string/hotspot_sonst" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:text="@string/hotspot_mittag_label"
+                android:textStyle="bold" />
+
+            <TextView
+                android:text="@string/hotspot_mittag"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+</ScrollView>

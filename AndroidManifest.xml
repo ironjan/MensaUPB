@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".dialog.OpeningTimeDialog"
+            android:name=".dialog.OpeningTimeDialog_" android:label="@string/opening_times"
             android:theme="@style/Theme.Sherlock.Dialog" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

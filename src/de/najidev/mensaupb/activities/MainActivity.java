@@ -144,12 +144,12 @@ public class MainActivity extends SherlockActivity implements
 		i.putExtra(ChooseOnListDialog.EXTRA_KEY_LIST,
 				context.getLocationTitle());
 
-		this.startActivityForResult(i, 1);
+		startActivityForResult(i, 1);
 	}
 
 	@OptionsItem(R.id.ab_times)
 	void abTimesClicked() {
-		this.startActivity(new Intent().setClass(this, OpeningTimeDialog.class));
+		OpeningTimeDialog_.intent(this).start();
 	}
 
 	@OptionsItem(R.id.ab_refresh)
@@ -159,7 +159,7 @@ public class MainActivity extends SherlockActivity implements
 
 	@OptionsItem(R.id.ab_settings)
 	void abSettingsClicked() {
-		this.startActivity(new Intent().setClass(this, SettingsActivity.class));
+		startActivity(new Intent().setClass(this, SettingsActivity.class));
 	}
 
 	@Override
