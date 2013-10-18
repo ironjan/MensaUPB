@@ -23,6 +23,8 @@ import de.najidev.mensaupb.entity.*;
 
 public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 
+	private static final SimpleDateFormat XML_DATE_FORMAT = new SimpleDateFormat(
+			"dd.MM.yyyy");
 	private static final String TAG = PrepareMenuRepositoryTask.class
 			.getSimpleName();
 	MainActivity activity;
@@ -88,7 +90,6 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 
 		}
 
-		// put results to repository
 		menuRepository.persistMenus(menus);
 
 		return null;
@@ -135,43 +136,16 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 				Date date = null;
 				for (int k = 0; k < dayList.item(i).getChildNodes().getLength(); k++) {
 					final Node node = dayList.item(i).getChildNodes().item(k);
-					if (node.getNodeName().equals("datum")) {
-						date = new SimpleDateFormat("dd.MM.yyyy").parse(node
-								.getFirstChild().getNodeValue());
+
+					String nodeName = node.getNodeName();
+
+					if (nodeName.equals("datum")) {
+						String dateNodeValue = node.getFirstChild()
+								.getNodeValue();
+						date = XML_DATE_FORMAT.parse(dateNodeValue);
 					}
-					else if (node.getNodeName().equals("menue")) {
-						final NodeList menuDetails = node.getChildNodes();
-						final Menu menu = new Menu();
-						menu.setDate(date);
-
-						for (int j = 0; j < menuDetails.getLength(); j++) {
-							final Node item = menuDetails.item(j);
-							final String name = item.getNodeName();
-							final Node firstChild = item.getFirstChild();
-
-							if (firstChild != null) {
-								final String nodeValue = firstChild
-										.getNodeValue();
-								final String value = nodeValue.replaceAll(
-										"\\(.+\\)( \\*)?$", "").trim();
-
-								if (name.equals("menu")) {
-									menu.setTitle(value);
-								}
-								else if (name.equals("text")) {
-									menu.setName(value);
-								}
-								else if (name.equals("speisentyp")) {
-									menu.setType(value);
-								}
-								else if (name.equals("beilage")) {
-									menu.addSide(value);
-								}
-							}
-						}
-						if (!menu.isTagesTipp()) {
-							list.add(menu);
-						}
+					else if (nodeName.equals("menue")) {
+						processMenu(list, date, node);
 					}
 				}
 			}
@@ -180,5 +154,45 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 		}
 
 		return list;
+	}
+
+	private static void processMenu(final List<Menu> list, Date date, final Node node) {
+		final Menu menu = new Menu();
+		menu.setDate(date);
+
+		final NodeList menuDetails = node.getChildNodes();
+		for (int j = 0; j < menuDetails.getLength(); j++) {
+			final Node item = menuDetails.item(j);
+			processMenuDetail(menu, item);
+		}
+
+		if (!menu.isTagesTipp()) {
+			list.add(menu);
+		}
+	}
+
+	private static void processMenuDetail(final Menu menu, final Node item) {
+		final String name = item.getNodeName();
+		final Node firstChild = item.getFirstChild();
+		if (null == firstChild) {
+			return;
+		}
+
+		final String nodeValue = firstChild.getNodeValue();
+		final String value = nodeValue.replaceAll("\\(.+\\)( \\*)?$", "")
+				.trim();
+
+		if (name.equals("menu")) {
+			menu.setTitle(value);
+		}
+		else if (name.equals("text")) {
+			menu.setName(value);
+		}
+		else if (name.equals("speisentyp")) {
+			menu.setType(value);
+		}
+		else if (name.equals("beilage")) {
+			menu.addSide(value);
+		}
 	}
 }
