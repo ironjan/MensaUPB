@@ -119,8 +119,12 @@ public class MainActivity extends SherlockActivity implements
 		menu.add("Öffnungszeiten").setIcon(R.drawable.action_about_dark_holo)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-		menu.add("Einstellungen").setIcon(R.drawable.action_settings_dark_holo)
+		menu.add("Aktualisieren")
+				.setIcon(R.drawable.ic_navigation_refresh_dark)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+		menu.add("Einstellungen").setIcon(R.drawable.action_settings_dark_holo)
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
 		return true;
 
@@ -139,6 +143,10 @@ public class MainActivity extends SherlockActivity implements
 		else if (item.getTitle().equals("Öffnungszeiten")) {
 			this.startActivity(new Intent().setClass(this,
 					OpeningTimeDialog.class));
+		}
+		else if (item.getTitle().equals("Aktualisieren")) {
+			new PrepareMenuRepositoryTask(this, context, menuRepository)
+					.execute();
 		}
 		else if (item.getTitle().equals("Einstellungen")) {
 			this.startActivity(new Intent().setClass(this,
