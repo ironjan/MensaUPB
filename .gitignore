@@ -5,3 +5,6 @@
 /target/*
 /libs/ActionbarSherlock/bin/jarlist.cache
 /libs/ActionbarSherlock/bin/actionbarsherlock.jar
+libs/ActionbarSherlock/bin/
+libs/ActionbarSherlock/gen/
+gen/

@@ -3,6 +3,7 @@
 	<name>de.najidev.mensaupb</name>
 	<comment></comment>
 	<projects>
+		<project>ActionbarSherlockMensaUPB</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
