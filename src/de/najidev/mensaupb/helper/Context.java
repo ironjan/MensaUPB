@@ -3,11 +3,16 @@ package de.najidev.mensaupb.helper;
 import java.sql.Date;
 import java.util.*;
 
+import org.slf4j.*;
+
 public class Context {
 
 	protected String currentLocation = "Mensa";
 
-	protected final HashMap<String, String> availableLocations = new HashMap<String, String>() {
+	private static final String TAG = Context.class.getSimpleName();
+	private static final Logger LOGGER = LoggerFactory.getLogger(TAG);
+
+	protected HashMap<String, String> availableLocations = new HashMap<String, String>() {
 
 		private static final long serialVersionUID = 98693404924759613L;
 		{
@@ -19,6 +24,9 @@ public class Context {
 	protected Date[] availableDates = new Date[5];
 
 	public Context(final Configuration config) {
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("Context({})", config);
+
 		final Calendar calendar = Calendar.getInstance();
 
 		// adjust calendar to point to first day of week
@@ -45,31 +53,67 @@ public class Context {
 			availableDates[i] = new Date(calendar.getTimeInMillis());
 			calendar.add(Calendar.DATE, 1);
 		}
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Constructed: Context({})", config);
+		}
 	}
 
 	public Date[] getAvailableDates() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getAvailableDates() -> {}",
+					Arrays.deepToString(availableDates));
+		}
 		return availableDates;
 	}
 
 	public HashMap<String, String> getAvailableLocations() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getAvailableLocations() -> {}", availableLocations);
+		}
 		return availableLocations;
 	}
 
 	public String getCurrentLocation() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getCurrentLocation() -> {}", currentLocation);
+		}
 		return availableLocations.get(currentLocation);
 	}
 
 	public void setCurrentLocation(final String location) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("setCurrentLocation({})", location);
+		}
 		currentLocation = location;
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("setCurrentLocation({}) -> VOID", location);
+		}
 	}
 
 	public String getCurrentLocationTitle() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getCurrentLocationTitle() -> {}", currentLocation);
+		}
 		return currentLocation;
 	}
 
 	public String[] getLocationTitle() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getLocationTitle()");
+		}
 		final Set<String> locationSet = ServiceContainer.getInstance()
 				.getContext().getAvailableLocations().keySet();
-		return locationSet.toArray(new String[locationSet.size()]);
+		String[] result = locationSet.toArray(new String[locationSet.size()]);
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("getLocationTitle() -> {}",
+					Arrays.deepToString(result));
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Context [currentLocation=" + currentLocation
+				+ ", availableLocations=" + availableLocations
+				+ ", availableDates=" + Arrays.toString(availableDates) + "]";
 	}
 }

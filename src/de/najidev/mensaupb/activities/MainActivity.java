@@ -3,6 +3,8 @@ package de.najidev.mensaupb.activities;
 import java.sql.Date;
 import java.util.*;
 
+import org.slf4j.*;
+
 import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
@@ -46,9 +48,14 @@ public class MainActivity extends SherlockActivity implements
 
 	@StringRes
 	String select_Location;
+	Logger LOGGER = LoggerFactory.getLogger(MainActivity.class.getSimpleName());
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
+		Object[] params = { savedInstanceState };
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("onCreate({})", params);
+		}
 		super.onCreate(savedInstanceState);
 
 		ServiceContainer container = ServiceContainer.getInstance();
@@ -66,6 +73,9 @@ public class MainActivity extends SherlockActivity implements
 		menuRepository = container.getMenuRepository();
 		config = container.getConfiguration();
 
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("onCreate({}) -> {}", params, "VOID");
+		}
 	}
 
 	@StringArrayRes(R.array.weekDays)
@@ -73,6 +83,9 @@ public class MainActivity extends SherlockActivity implements
 
 	@AfterViews
 	void afterViews() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("afterViews()");
+		}
 		dayPagerAdapter = new DayPagerAdapter(this);
 
 		dayPager.setOnPageChangeListener(this);
@@ -118,9 +131,16 @@ public class MainActivity extends SherlockActivity implements
 
 		context.setCurrentLocation(location);
 		changedLocation();
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("afterViews() -> {}", "VOID");
+		}
 	}
 
 	private void initializeActionBarTabs() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("initializeActionBarTabs()");
+		}
+
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		int i = 0;
@@ -134,10 +154,18 @@ public class MainActivity extends SherlockActivity implements
 			tab.setTabListener(this);
 			getSupportActionBar().addTab(tab);
 		}
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("abChangeLocationClicked() -> {}", "VOID");
+		}
 	}
 
 	@OptionsItem(R.id.ab_changeLocation)
 	void abChangeLocationClicked() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("abChangeLocationClicked()");
+		}
+
 		final Intent i = new Intent(this, ChooseOnListDialog.class);
 
 		i.putExtra(ChooseOnListDialog.EXTRA_KEY_TITLE, select_Location);
@@ -145,11 +173,20 @@ public class MainActivity extends SherlockActivity implements
 				context.getLocationTitle());
 
 		startActivityForResult(i, 1);
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("abChangeLocationClicked() -> {}", "VOID");
+		}
 	}
 
 	@OptionsItem(R.id.ab_times)
 	void abTimesClicked() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("abTimesClicked()");
+		}
 		OpeningTimeDialog_.intent(this).start();
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("abTimesClicked() -> {}", "VOID");
+		}
 	}
 
 	@OptionsItem(R.id.ab_refresh)

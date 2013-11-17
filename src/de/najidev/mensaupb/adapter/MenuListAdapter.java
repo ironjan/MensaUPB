@@ -2,6 +2,8 @@ package de.najidev.mensaupb.adapter;
 
 import java.util.*;
 
+import org.slf4j.*;
+
 import android.content.Context;
 import android.view.*;
 import android.widget.*;
@@ -11,10 +13,18 @@ import de.najidev.mensaupb.helper.*;
 
 public class MenuListAdapter extends ArrayAdapter<Menu> {
 
+	Logger LOGGER = LoggerFactory.getLogger(MenuListAdapter.class
+			.getSimpleName());
+
 	public MenuListAdapter(final Context context, final int textViewResourceId,
 			final Date date) {
 		super(context, textViewResourceId);
 
+		Object[] params = { context, textViewResourceId, date };
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("MenuListAdapter({},{},{})", params);
+		}
+		
 		// fill list
 		final String location = ServiceContainer.getInstance().getContext()
 				.getCurrentLocation();
@@ -23,11 +33,20 @@ public class MenuListAdapter extends ArrayAdapter<Menu> {
 				.getMenuRepository().getMenus(location, date)) {
 			add(menu);
 		}
+		
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Created MenuListAdapter({},{},{})", params);
+		}
+		
 	}
 
 	@Override
 	public View getView(final int position, final View convertView,
 			final ViewGroup parent) {
+		Object[] params = { position, convertView, parent };
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getView({},{},{})", params);
+		}
 		View v = convertView;
 		if (v == null) {
 			final LayoutInflater vi = (LayoutInflater) getContext()
@@ -54,6 +73,15 @@ public class MenuListAdapter extends ArrayAdapter<Menu> {
 				sides.setText(m.getSides());
 			}
 		}
+		
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("getView({},{},{}) -> v", params);
+		}
 		return v;
+	}
+
+	@Override
+	public String toString() {
+		return "MenuListAdapter []";
 	}
 }

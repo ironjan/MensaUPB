@@ -7,5 +7,10 @@ import de.najidev.mensaupb.*;
 
 @EActivity(R.layout.openingtime_dialog)
 public class OpeningTimeDialog extends SherlockActivity {
+
+	@Override
+	public String toString() {
+		return "OpeningTimeDialog []";
+	}
 	// simple dialog...
 }

@@ -10,6 +10,7 @@ import org.apache.http.*;
 import org.apache.http.client.*;
 import org.apache.http.client.methods.*;
 import org.apache.http.impl.client.*;
+import org.slf4j.*;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
@@ -35,9 +36,17 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 	protected final String charsetOriginal = "windows-1252";
 	protected final String charsetWanted = "utf-8";
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(TAG);
+
 	public PrepareMenuRepositoryTask(final MainActivity activity,
 			final Context applicationContext,
 			final MenuRepository menuRepository) {
+		Object[] params = { activity, applicationContext, menuRepository };
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("PrepareMenuRepositoryTask({},{},{})",
+					Arrays.deepToString(params));
+		}
+
 		this.activity = activity;
 		this.applicationContext = applicationContext;
 		this.menuRepository = menuRepository;
@@ -53,15 +62,26 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 				activity.finish();
 			}
 		});
+
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("Constructed: PrepareMenuRepositoryTask({},{},{})",
+					Arrays.deepToString(params));
+		}
 	}
 
 	@Override
 	protected void onPreExecute() {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("onPreExecute()");
+		}
 		dialog.show();
 	}
 
 	@Override
 	protected void onPostExecute(final Void result) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("onPostExecute({})", result);
+		}
 		super.onPostExecute(result);
 
 		activity.getDayPagerAdapter().notifyDataSetChanged();
@@ -69,14 +89,23 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 		if (dialog.isShowing()) {
 			dialog.dismiss();
 		}
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("onPostExecute({}) -> VOID", result);
+		}
 	}
 
 	@Override
 	protected Void doInBackground(final Void... params) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doInBackground({})", Arrays.deepToString(params));
+		}
+
 		final List<Menu> menus = new ArrayList<Menu>();
 
 		for (final String location : applicationContext.getAvailableLocations()
 				.values()) {
+			LOGGER.info("Starting location \"{}\"", location);
+
 			final String url = "http://www.studentenwerk-pb.de/fileadmin/xml/"
 					+ location + ".xml";
 			final InputSource downloadedXmlContent = downloadFile(url);
@@ -87,17 +116,23 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 			}
 
 			menus.addAll(parsedMenus);
-
+			LOGGER.info("Finished location \"{}\"", location);
 		}
 
 		menuRepository.persistMenus(menus);
 
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("doInBackground({}) -> VOID",
+					Arrays.deepToString(params));
+		}
 		return null;
 	}
 
 	public InputSource downloadFile(final String url) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("downloadFile({})", url);
+		}
 		try {
-			Log.v(TAG, "Starting download of " + url);
 
 			final HttpClient httpclient = new DefaultHttpClient();
 			final HttpResponse response = httpclient.execute(new HttpGet(url));
@@ -114,15 +149,23 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 			}
 
 			br.close();
-			Log.v(TAG, "Download of " + url + " complete");
-			return new InputSource(new StringReader(sb.toString()));
+
+			InputSource inputSource = new InputSource(new StringReader(
+					sb.toString()));
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("downloadFile({}) -> {}", url, inputSource);
+			}
+			return inputSource;
 		} catch (final Exception e) {
-			Log.e(TAG, e.getMessage(), e);
+			LOGGER.error(e.getMessage(), e);
 			return null;
 		}
 	}
 
 	protected List<Menu> parseXML(final InputSource is) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("parseXML({})", is);
+		}
 		Log.v(TAG, "Parsing an menu xml file.");
 		final List<Menu> list = new ArrayList<Menu>();
 		// parse file
@@ -150,28 +193,42 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 				}
 			}
 		} catch (final Exception e) {
-			Log.e(TAG, e.getMessage(), e);
+			LOGGER.error(e.getMessage(), e);
 		}
 
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("parseXML({}) -> list", is, list);
+		}
 		return list;
 	}
 
-	private static void processMenu(final List<Menu> list, Date date, final Node node) {
-		final Menu menu = new Menu();
-		menu.setDate(date);
+	private static void processMenu(final List<Menu> list, Date date,
+			final Node node) {
+		Object[] params = { list, date, node };
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("processMenu({},{},{})", params);
+			final Menu menu = new Menu();
+			menu.setDate(date);
 
-		final NodeList menuDetails = node.getChildNodes();
-		for (int j = 0; j < menuDetails.getLength(); j++) {
-			final Node item = menuDetails.item(j);
-			processMenuDetail(menu, item);
-		}
+			final NodeList menuDetails = node.getChildNodes();
+			for (int j = 0; j < menuDetails.getLength(); j++) {
+				final Node item = menuDetails.item(j);
+				processMenuDetail(menu, item);
+			}
 
-		if (!menu.isTagesTipp()) {
-			list.add(menu);
+			if (!menu.isTagesTipp()) {
+				list.add(menu);
+			}
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("processMenu({},{},{}) -> VOID", params);
+			}
 		}
 	}
 
 	private static void processMenuDetail(final Menu menu, final Node item) {
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("processMenuDetail({},{})", menu, item);
+		}
 		final String name = item.getNodeName();
 		final Node firstChild = item.getFirstChild();
 		if (null == firstChild) {
@@ -194,5 +251,17 @@ public class PrepareMenuRepositoryTask extends AsyncTask<Void, Void, Void> {
 		else if (name.equals("beilage")) {
 			menu.addSide(value);
 		}
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("processMenuDetail({},{}) -> VOID", menu, item);
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "PrepareMenuRepositoryTask [activity=" + activity
+				+ ", applicationContext=" + applicationContext
+				+ ", menuRepository=" + menuRepository + ", dialog=" + dialog
+				+ ", charsetOriginal=" + charsetOriginal + ", charsetWanted="
+				+ charsetWanted + "]";
 	}
 }

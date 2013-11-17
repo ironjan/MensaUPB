@@ -2,6 +2,9 @@ package de.najidev.mensaupb.helper;
 
 import java.text.*;
 import java.util.*;
+
+import org.slf4j.*;
+
 import android.annotation.SuppressLint;
 import android.content.*;
 import android.content.Context;
@@ -19,12 +22,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	protected final SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd");
 
+	private static final String TAG = DatabaseHelper.class.getSimpleName();
+	private static final Logger LOGGER = LoggerFactory.getLogger(TAG);
+
 	public DatabaseHelper(final Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		Object[] superParams = { context, DATABASE_NAME, null, DATABASE_VERSION };
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("Created DatabaseHelper({})", context);
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("\t super({},{},{},{})", superParams);
 	}
 
 	@Override
 	public void onCreate(final SQLiteDatabase db) {
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("onCreate({})", db);
 		db.beginTransaction();
 		db.execSQL("CREATE TABLE IF NOT EXISTS menu (title TEXT, name TEXT, type TEXT, sides TEXT, location TEXT, date TEXT)");
 		db.execSQL("CREATE TABLE IF NOT EXISTS config (key TEXT, value TEXT)");
@@ -40,17 +53,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		db.setTransactionSuccessful();
 		db.endTransaction();
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("onCreate({}) -> VOID", db);
 	}
 
 	@Override
 	public void onUpgrade(final SQLiteDatabase db, final int oldVersion,
 			final int newVersion) {
+		Object[] params = { db, oldVersion, newVersion };
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("onUpgrade({},{},{})", params);
 		db.execSQL("DROP TABLE IF EXISTS menu");
 		db.execSQL("DROP TABLE IF EXISTS config");
 		onCreate(db);
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("onUpgrade({},{},{}) -> VOID", params);
 	}
 
 	public HashMap<String, String> getConfig() {
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("getConfig()");
 		final HashMap<String, String> config = new HashMap<String, String>();
 
 		final SQLiteDatabase database = getWritableDatabase();
@@ -70,10 +92,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		c.close();
 		database.close();
 
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("getConfig() -> {}", config);
 		return config;
 	}
 
 	public List<Menu> getMenus() {
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("getMenus()");
 		final List<Menu> list = new ArrayList<Menu>();
 
 		final SQLiteDatabase database = getWritableDatabase();
@@ -111,10 +137,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		c.close();
 		database.close();
 
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("getMenus() -> {}",
+					Arrays.deepToString(list.toArray()));
 		return list;
 	}
 
 	public void persistMenus(final List<Menu> menus) {
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("persistMenus({})", menus);
 		final SQLiteDatabase database = getWritableDatabase();
 		database.beginTransaction();
 		database.delete("menu", null, null);
@@ -134,9 +165,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		database.setTransactionSuccessful();
 		database.endTransaction();
 		database.close();
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("persistMenus({}) -> VOID",
+					Arrays.deepToString(menus.toArray()));
 	}
 
 	public boolean menusAvailable(final Date date) {
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("menusAvailable({})", date);
 		final SQLiteDatabase database = getReadableDatabase();
 
 		final int lines = database.rawQuery(
@@ -145,10 +181,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		database.close();
 
-		return lines == 1;
+		boolean result = (lines == 1);
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("menusAvailable({}) -> {}", date, result);
+		return result;
 	}
 
 	public void updateConfig(final String key, final String value) {
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("updateConfig({},{})", key, value);
 		final SQLiteDatabase database = getWritableDatabase();
 
 		final ContentValues values = new ContentValues();
@@ -156,5 +197,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		values.put("value", value);
 		database.update("config", values, "key = ?", new String[] { key });
 		database.close();
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("updateConfig({},{}) -> VOID", key, value);
+	}
+
+	@Override
+	public String toString() {
+		return "DatabaseHelper [dateFormat=" + dateFormat + "]";
 	}
 }
