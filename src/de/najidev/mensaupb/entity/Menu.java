@@ -6,13 +6,24 @@ import org.slf4j.*;
 
 public class Menu {
 
-	protected Date date;
-	protected String title;
-	protected String name;
-	protected String type;
-	protected String sides;
-	protected String location;
-	Logger LOGGER = LoggerFactory.getLogger(Menu.class.getSimpleName());
+	private static final String TAG = Menu.class.getSimpleName();
+	private Date date;
+	private String title;
+	private String name;
+	private String type;
+	private String sides;
+	private String location;
+	
+	private static Logger LOGGER = LoggerFactory.getLogger(TAG);
+
+	
+	
+	public Menu() {
+		super();
+		if (LOGGER.isInfoEnabled()) {
+			LOGGER.info("Created new {}",TAG);
+		}
+	}
 
 	public Date getDate() {
 		if (LOGGER.isDebugEnabled()) {
