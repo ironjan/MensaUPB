@@ -1,5 +1,7 @@
 package de.najidev.mensaupb.rest;
 
+import android.provider.*;
+
 import com.fasterxml.jackson.annotation.*;
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
@@ -11,7 +13,7 @@ import com.j256.ormlite.table.*;
 public class Restaurant {
     @DatabaseField
     private String name;
-    @DatabaseField(generatedId = true)
+    @DatabaseField(generatedId = true, columnName = BaseColumns._ID)
     private long _id;
 
     public Restaurant() {

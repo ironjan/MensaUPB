@@ -1,5 +1,7 @@
 package de.najidev.mensaupb.rest;
 
+import android.provider.*;
+
 import com.fasterxml.jackson.annotation.*;
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
@@ -18,7 +20,7 @@ public class MenuContent {
     private final Logger LOGGER = LoggerFactory.getLogger(MenuContent.class.getSimpleName());
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     String[] side_dishes;
-    @DatabaseField(generatedId = true)
+    @DatabaseField(generatedId = true, columnName = BaseColumns._ID)
     private long _id;
     @DatabaseField(foreign = true, canBeNull = false)
     private Restaurant restaurant;

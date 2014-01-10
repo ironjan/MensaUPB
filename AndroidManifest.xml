@@ -57,7 +57,7 @@
                 android:resource="@xml/authenticator"/>
         </service>
         <provider
-            android:authorities="de.najidev.android.datasync.provider"
+            android:authorities="de.najidev.mensaupb.provider"
             android:name=".sync.StubMenuContentProvider"
             android:exported="false"
             android:syncable="true"/>

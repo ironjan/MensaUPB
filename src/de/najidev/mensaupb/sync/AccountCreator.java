@@ -19,7 +19,7 @@ public class AccountCreator {
     /**
      * Neded for synchroniztation initialization
      */
-    private static final String AUTHORITY = "de.najidev.android.datasync.provider",
+    private static final String AUTHORITY = "de.najidev.mensaupb.provider",
             ACCOUNT_TYPE = "ironjan.MensaUPB",
             ACCOUNT = "dummy";
 
