@@ -13,3 +13,6 @@ gen/
 .settings/
 .classpath
 .settings/org.eclipse.jdt.apt.core.prefs .settings/org.eclipse.jdt.core.prefs .settings/org.eclipse.jdt.ui.prefs
+.idea
+build
+.gradle/

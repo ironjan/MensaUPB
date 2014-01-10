@@ -1,0 +1,114 @@
+def versionMajor = 0
+def versionMinor = 0
+def versionPatch = 3
+def versionBuild = 0 // bump for dogfood builds, public betas, etc.
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'http://repo1.maven.org/maven2' }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.7.1'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.1'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'android'
+apply plugin: 'android-apt'
+
+configurations {
+    apt
+//    compile.exclude group: 'com.google.android', name: 'support-v4', version: '18'
+}
+
+
+ext {
+    restletVersion = '2.2-M6'
+    ormliteVersion = '4.47'
+    jacksonVersion = '2.3.0'
+    slf4jVersion = '1.7.5'
+}
+
+def getSourceSetName(variant) {
+    return new File(variant.dirName).getName();
+}
+
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19"
+
+    packagingOptions {
+        // prevents Error: duplicate files during packaging of APK
+        // no wildcard support yet
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+    }
+
+    // This is important, it will run lint checks but won't abort build
+    lintOptions {
+        abortOnError false
+    }
+
+
+    defaultConfig {
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        minSdkVersion 14
+        targetSdkVersion 19
+
+        packageName "de.najidev.mensaupb"
+    }
+
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['res']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        instrumentTest.setRoot('tests')
+    }
+
+   buildTypes {
+        debug {
+            buildConfigField "String", "BUILD", "\"debug\""
+        }
+
+        release {
+            buildConfigField "String", "BUILD", "\"release\""
+        }
+    }
+
+//
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:19.0.0'
+    compile 'com.android.support:appcompat-v7:19.0.0'
+//    compile group: 'com.j256.ormlite', name: 'ormlite-android', version: '4.47'
+//    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+
+    apt "org.androidannotations:androidannotations:3.0"
+    compile "org.androidannotations:androidannotations-api:3.0"
+
+    compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.9'
+}
