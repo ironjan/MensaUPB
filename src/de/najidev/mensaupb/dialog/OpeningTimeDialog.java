@@ -1,12 +1,14 @@
 package de.najidev.mensaupb.dialog;
 
-import com.actionbarsherlock.app.*;
-import com.googlecode.androidannotations.annotations.*;
+import android.support.v7.app.*;
+
+
+import org.androidannotations.annotations.*;
 
 import de.najidev.mensaupb.*;
 
 @EActivity(R.layout.openingtime_dialog)
-public class OpeningTimeDialog extends SherlockActivity {
+public class OpeningTimeDialog extends ActionBarActivity {
 
 	@Override
 	public String toString() {

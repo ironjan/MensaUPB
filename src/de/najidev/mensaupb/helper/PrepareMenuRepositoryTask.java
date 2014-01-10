@@ -1,10 +1,10 @@
 package de.najidev.mensaupb.helper;
 
-import java.io.*;
-import java.text.*;
-import java.util.*;
-
-import javax.xml.parsers.*;
+import android.app.*;
+import android.content.*;
+import android.content.DialogInterface.*;
+import android.os.*;
+import android.util.*;
 
 import org.apache.http.*;
 import org.apache.http.client.*;
@@ -14,11 +14,12 @@ import org.slf4j.*;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 
-import android.app.*;
-import android.content.*;
-import android.content.DialogInterface.OnCancelListener;
-import android.os.*;
-import android.util.*;
+import java.io.*;
+import java.text.*;
+import java.util.*;
+
+import javax.xml.parsers.*;
+
 import de.najidev.mensaupb.activities.*;
 import de.najidev.mensaupb.entity.*;
 

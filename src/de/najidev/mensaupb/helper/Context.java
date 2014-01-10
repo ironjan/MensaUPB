@@ -1,9 +1,9 @@
 package de.najidev.mensaupb.helper;
 
+import org.slf4j.*;
+
 import java.sql.Date;
 import java.util.*;
-
-import org.slf4j.*;
 
 public class Context {
 

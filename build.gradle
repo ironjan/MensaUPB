@@ -100,11 +100,13 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:19.0.0'
     compile 'com.android.support:appcompat-v7:19.0.0'
-//    compile group: 'com.j256.ormlite', name: 'ormlite-android', version: '4.47'
-//    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+    compile group: 'com.j256.ormlite', name: 'ormlite-android', version: '4.47'
 
     apt "org.androidannotations:androidannotations:3.0"
     compile "org.androidannotations:androidannotations-api:3.0"
+
+    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.0.0'
 
     compile fileTree(dir: 'libs', include: '*.jar')
 }

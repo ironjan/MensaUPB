@@ -13,7 +13,7 @@
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.Sherlock" >
+        android:theme="@style/Theme.AppCompat.Light" >
         <activity
             android:name=".activities.MainActivity_"
             android:label="@string/app_name" >
@@ -30,18 +30,18 @@
         </activity>
         <activity
             android:name=".dialog.OpeningTimeDialog_" android:label="@string/opening_times"
-            android:theme="@style/Theme.Sherlock.Dialog" >
+            android:theme="@style/Theme.AppCompat.CompactMenu.Dialog" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".dialog.ChooseOnListDialog"
-            android:theme="@style/Theme.Sherlock.Dialog" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
+        <!--<activity-->
+            <!--android:name=".dialog.ChooseOnListDialog"-->
+            <!--android:theme="@style/Theme.AppCompat.CompactMenu.Dialog" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
     </application>
 
 </manifest>

@@ -1,8 +1,8 @@
 package de.najidev.mensaupb.entity;
 
-import java.util.*;
-
 import org.slf4j.*;
+
+import java.util.*;
 
 public class Menu {
 

@@ -1,23 +1,22 @@
 package de.najidev.mensaupb.activities;
 
-import org.slf4j.*;
-
-import android.content.*;
+import android.app.*;
 import android.content.Context;
+import android.content.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
 
-import com.actionbarsherlock.app.*;
-import com.googlecode.androidannotations.annotations.*;
-import com.googlecode.androidannotations.annotations.res.*;
+import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.res.*;
+import org.slf4j.*;
 
 import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.dialog.*;
 import de.najidev.mensaupb.helper.*;
 
 @EActivity
-public class SettingsActivity extends SherlockListActivity {
+public class SettingsActivity extends ListActivity {
 
 	private final class SettingsActivityListAdapter extends
 			ArrayAdapter<String> {
@@ -109,7 +108,6 @@ public class SettingsActivity extends SherlockListActivity {
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("afterInject()");
 		}
-		getSupportActionBar().setTitle(settings);
 		setListAdapter(new SettingsActivityListAdapter(this,
 				R.layout.settings_list, days));
 

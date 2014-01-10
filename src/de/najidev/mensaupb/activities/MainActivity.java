@@ -1,21 +1,21 @@
 package de.najidev.mensaupb.activities;
 
-import java.sql.Date;
-import java.util.*;
-
-import org.slf4j.*;
-
 import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
 import android.support.v4.view.*;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v4.view.ViewPager.*;
+import android.support.v7.app.*;
+import android.widget.*;
 
-import com.actionbarsherlock.app.*;
-import com.actionbarsherlock.app.ActionBar.Tab;
-import com.actionbarsherlock.app.ActionBar.TabListener;
-import com.googlecode.androidannotations.annotations.*;
-import com.googlecode.androidannotations.annotations.res.*;
+
+import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.res.*;
+import org.androidannotations.annotations.rest.*;
+import org.slf4j.*;
+
+import java.sql.Date;
+import java.util.*;
 
 import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.adapter.*;
@@ -23,13 +23,17 @@ import de.najidev.mensaupb.dialog.*;
 import de.najidev.mensaupb.entity.*;
 import de.najidev.mensaupb.helper.*;
 import de.najidev.mensaupb.helper.Context;
+import de.najidev.mensaupb.rest.*;
 
 @EActivity(R.layout.main)
-@OptionsMenu(R.menu.main)
-public class MainActivity extends SherlockActivity implements
-		OnPageChangeListener, TabListener {
+//@OptionsMenu(R.menu.main)
+public class MainActivity extends ActionBarActivity implements
+		OnPageChangeListener, ActionBar.TabListener {
 
 	public static final String EXTRA_KEY_CHOSEN_LOCATION = "chosenLocation";
+
+//    @RestService
+//    IUpb_ iUpb;
 
 	private static final int TAB_THURSDAY = 3;
 	private static final int TAB_WEDNESDAY = 2;
@@ -83,6 +87,8 @@ public class MainActivity extends SherlockActivity implements
 
 	@AfterViews
 	void afterViews() {
+
+
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("afterViews()");
 		}
@@ -166,13 +172,15 @@ public class MainActivity extends SherlockActivity implements
 			LOGGER.debug("abChangeLocationClicked()");
 		}
 
-		final Intent i = new Intent(this, ChooseOnListDialog.class);
-
-		i.putExtra(ChooseOnListDialog.EXTRA_KEY_TITLE, select_Location);
-		i.putExtra(ChooseOnListDialog.EXTRA_KEY_LIST,
-				context.getLocationTitle());
-
-		startActivityForResult(i, 1);
+        Toast.makeText(this, "Temporary not available", Toast.LENGTH_SHORT).show();
+        // TODO show dialog!
+//        final Intent i = new Intent(this, ChooseOnListDialog.class);
+//
+//		i.putExtra(ChooseOnListDialog.EXTRA_KEY_TITLE, select_Location);
+//		i.putExtra(ChooseOnListDialog.EXTRA_KEY_LIST,
+//				context.getLocationTitle());
+//
+//		startActivityForResult(i, 1);
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("abChangeLocationClicked() -> {}", "VOID");
 		}
@@ -221,24 +229,27 @@ public class MainActivity extends SherlockActivity implements
 		getSupportActionBar().getTabAt(arg0).select();
 	}
 
-	@Override
-	public void onTabSelected(final Tab tab, final FragmentTransaction ft) {
-		dayPager.setCurrentItem(tab.getPosition());
-	}
 
 	public DayPagerAdapter getDayPagerAdapter() {
 		return dayPagerAdapter;
 	}
 
-	@Override
-	public void onTabUnselected(final Tab tab, final FragmentTransaction ft) {
-	}
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        dayPager.setCurrentItem(tab.getPosition());
+    }
 
-	@Override
-	public void onTabReselected(final Tab tab, final FragmentTransaction ft) {
-	}
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 
-	@Override
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+    }
+
+    @Override
 	public void onPageScrollStateChanged(final int arg0) {
 	}
 

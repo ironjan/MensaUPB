@@ -1,8 +1,8 @@
 package de.najidev.mensaupb.helper;
 
-import de.najidev.mensaupb.R;
-import java.util.*;
 import org.slf4j.*;
+
+import java.util.*;
 
 public class Configuration {
 

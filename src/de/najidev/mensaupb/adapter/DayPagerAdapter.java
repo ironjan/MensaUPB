@@ -1,14 +1,15 @@
 package de.najidev.mensaupb.adapter;
 
-import java.util.*;
-
-import org.slf4j.*;
-
 import android.content.Context;
 import android.os.*;
 import android.support.v4.view.*;
 import android.view.*;
 import android.widget.*;
+
+import org.slf4j.*;
+
+import java.util.*;
+
 import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.helper.*;
 

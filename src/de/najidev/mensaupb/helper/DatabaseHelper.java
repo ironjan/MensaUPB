@@ -1,15 +1,16 @@
 package de.najidev.mensaupb.helper;
 
-import java.text.*;
-import java.util.*;
-
-import org.slf4j.*;
-
-import android.annotation.SuppressLint;
+import android.annotation.*;
 import android.content.*;
 import android.content.Context;
 import android.database.*;
 import android.database.sqlite.*;
+
+import org.slf4j.*;
+
+import java.text.*;
+import java.util.*;
+
 import de.najidev.mensaupb.entity.*;
 
 @SuppressLint("SimpleDateFormat")

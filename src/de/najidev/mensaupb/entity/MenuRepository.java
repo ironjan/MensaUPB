@@ -1,11 +1,12 @@
 package de.najidev.mensaupb.entity;
 
-import java.text.*;
-import java.util.*;
+import android.annotation.*;
 
 import org.slf4j.*;
 
-import android.annotation.*;
+import java.text.*;
+import java.util.*;
+
 import de.najidev.mensaupb.helper.*;
 
 public class MenuRepository {
