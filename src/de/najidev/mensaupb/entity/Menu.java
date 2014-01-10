@@ -159,7 +159,7 @@ public class Menu {
 
 	@Override
 	public String toString() {
-		return "Menu [date=" + date + ", title=" + title + ", name=" + name
+		return "MenuContent [date=" + date + ", title=" + title + ", name=" + name
 				+ ", type=" + type + ", sides=" + sides + ", location="
 				+ location + "]";
 	}

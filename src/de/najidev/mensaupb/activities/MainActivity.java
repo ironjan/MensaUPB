@@ -24,6 +24,7 @@ import de.najidev.mensaupb.entity.*;
 import de.najidev.mensaupb.helper.*;
 import de.najidev.mensaupb.helper.Context;
 import de.najidev.mensaupb.rest.*;
+import de.najidev.mensaupb.rest.Menu;
 
 @EActivity(R.layout.main)
 //@OptionsMenu(R.menu.main)
@@ -31,9 +32,6 @@ public class MainActivity extends ActionBarActivity implements
 		OnPageChangeListener, ActionBar.TabListener {
 
 	public static final String EXTRA_KEY_CHOSEN_LOCATION = "chosenLocation";
-
-//    @RestService
-//    IUpb_ iUpb;
 
 	private static final int TAB_THURSDAY = 3;
 	private static final int TAB_WEDNESDAY = 2;
@@ -85,10 +83,9 @@ public class MainActivity extends ActionBarActivity implements
 	@StringArrayRes(R.array.weekDays)
 	String[] germanDays;
 
+
 	@AfterViews
 	void afterViews() {
-
-
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("afterViews()");
 		}
