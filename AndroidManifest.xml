@@ -1,47 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.najidev.mensaupb"
-    android:versionCode="60"
-    android:versionName="1.1.2-SNAPSHOT" >
+          package="de.najidev.mensaupb"
+          android:versionCode="60"
+          android:versionName="1.1.2-SNAPSHOT">
 
     <uses-sdk
         android:minSdkVersion="7"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="15"/>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
 
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light" >
+        android:theme="@style/Theme.AppCompat.Light">
         <activity
             android:name=".activities.MainActivity_"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SettingsActivity_" >
+        <activity android:name=".activities.SettingsActivity_">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".dialog.OpeningTimeDialog_" android:label="@string/opening_times"
-            android:theme="@style/Theme.AppCompat.CompactMenu.Dialog" >
+            android:name=".dialog.OpeningTimeDialog_"
+            android:label="@string/opening_times"
+            android:theme="@style/Theme.AppCompat.CompactMenu.Dialog">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
         <!--<activity-->
-            <!--android:name=".dialog.ChooseOnListDialog"-->
-            <!--android:theme="@style/Theme.AppCompat.CompactMenu.Dialog" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--</intent-filter>-->
+        <!--android:name=".dialog.ChooseOnListDialog"-->
+        <!--android:theme="@style/Theme.AppCompat.CompactMenu.Dialog" >-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
+
+        <!--sync-->
+        <service android:name=".sync.AuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator"/>
+        </service>
+        <provider
+            android:authorities="de.najidev.android.datasync.provider"
+            android:name=".sync.StubMenuContentProvider"
+            android:exported="false"
+            android:syncable="true"/>
+        <service
+            android:name=".sync.SyncService"
+            android:exported="true"
+            android:process=":sync">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter"/>
+        </service>
     </application>
 
 </manifest>

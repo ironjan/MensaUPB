@@ -10,8 +10,31 @@ import java.util.*;
 /**
  * TODO document
  */
-public class MenuContent implements Menu {
+public class MenuContent  {
     private static final SimpleDateFormat sSDF= new SimpleDateFormat("yyyy-MM-dd");
+
+    private long _id;
+    private long _restaurantId;
+
+    @JsonIgnore
+    public long get_restaurantId() {
+        return _restaurantId;
+    }
+
+    @JsonIgnore
+    public void set_restaurantId(long _restaurantId) {
+        this._restaurantId = _restaurantId;
+    }
+
+    @JsonIgnore
+    public long get_id() {
+        return _id;
+    }
+
+    @JsonIgnore
+    public void set_id(long _id) {
+        this._id = _id;
+    }
 
     private Date date;
     private String description, name, type, price, counter;
@@ -37,7 +60,6 @@ public class MenuContent implements Menu {
         }
     }
 
-    @Override
     public Date getDate() {
         return date;
     }
@@ -46,7 +68,7 @@ public class MenuContent implements Menu {
         this.date = date;
     }
 
-    @Override
+
     public String getDescription() {
         return description;
     }
@@ -55,7 +77,7 @@ public class MenuContent implements Menu {
         this.description = description;
     }
 
-    @Override
+
     public String getName() {
         return name;
     }
@@ -64,7 +86,7 @@ public class MenuContent implements Menu {
         this.name = name;
     }
 
-    @Override
+
     public String getType() {
         return type;
     }
@@ -73,7 +95,7 @@ public class MenuContent implements Menu {
         this.type = type;
     }
 
-    @Override
+
     public String getPrice() {
         return price;
     }
@@ -82,7 +104,7 @@ public class MenuContent implements Menu {
         this.price = price;
     }
 
-    @Override
+
     public String getCounter() {
         return counter;
     }
@@ -91,7 +113,7 @@ public class MenuContent implements Menu {
         this.counter = counter;
     }
 
-    @Override
+
     public String[] getSide_dishes() {
         return side_dishes;
     }

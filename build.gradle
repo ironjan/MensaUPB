@@ -86,11 +86,11 @@ android {
 
    buildTypes {
         debug {
-            buildConfigField "String", "BUILD", "\"debug\""
+            buildConfigField "int", "SYNC_INTERVAL", "60" // 1 minute
         }
 
         release {
-            buildConfigField "String", "BUILD", "\"release\""
+            buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 12" // 12 hours
         }
     }
 

@@ -1,17 +1,17 @@
 package de.najidev.mensaupb.activities;
 
+import android.accounts.*;
 import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
 import android.support.v4.view.*;
 import android.support.v4.view.ViewPager.*;
 import android.support.v7.app.*;
+import android.util.*;
 import android.widget.*;
-
 
 import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.res.*;
-import org.androidannotations.annotations.rest.*;
 import org.slf4j.*;
 
 import java.sql.Date;
@@ -23,151 +23,205 @@ import de.najidev.mensaupb.dialog.*;
 import de.najidev.mensaupb.entity.*;
 import de.najidev.mensaupb.helper.*;
 import de.najidev.mensaupb.helper.Context;
-import de.najidev.mensaupb.rest.*;
-import de.najidev.mensaupb.rest.Menu;
+import de.najidev.mensaupb.sync.*;
 
 @EActivity(R.layout.main)
 //@OptionsMenu(R.menu.main)
 public class MainActivity extends ActionBarActivity implements
-		OnPageChangeListener, ActionBar.TabListener {
+        OnPageChangeListener, ActionBar.TabListener {
 
-	public static final String EXTRA_KEY_CHOSEN_LOCATION = "chosenLocation";
+    public static final int TWELVE_HOURS_IN_MILLIS = 60 * 60 * 12;
+    private static final long SYNC_INTERVAL = TWELVE_HOURS_IN_MILLIS;
+    @Bean
+    AccountCreator mAccountCreator;
 
-	private static final int TAB_THURSDAY = 3;
-	private static final int TAB_WEDNESDAY = 2;
-	private static final int TAB_TUESDAY = 1;
-	private static final int TAB_MONDAY = 0;
+    public static final String EXTRA_KEY_CHOSEN_LOCATION = "chosenLocation";
 
-	String actionBarTitle;
+    private static final int TAB_THURSDAY = 3;
+    private static final int TAB_WEDNESDAY = 2;
+    private static final int TAB_TUESDAY = 1;
+    private static final int TAB_MONDAY = 0;
 
-	@ViewById(R.id.viewpager)
-	ViewPager dayPager;
+    String actionBarTitle;
 
-	DayPagerAdapter dayPagerAdapter;
-	MenuRepository menuRepository;
-	Context context;
-	Configuration config;
+    @ViewById(R.id.viewpager)
+    ViewPager dayPager;
 
-	@StringRes
-	String select_Location;
-	Logger LOGGER = LoggerFactory.getLogger(MainActivity.class.getSimpleName());
+    DayPagerAdapter dayPagerAdapter;
+    MenuRepository menuRepository;
+    Context context;
+    Configuration config;
 
-	@Override
-	protected void onCreate(final Bundle savedInstanceState) {
-		Object[] params = { savedInstanceState };
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("onCreate({})", params);
-		}
-		super.onCreate(savedInstanceState);
+    @StringRes
+    String select_Location;
+    Logger LOGGER = LoggerFactory.getLogger(MainActivity.class.getSimpleName());
 
-		ServiceContainer container = ServiceContainer.getInstance();
-		if (!container.isInitialized()) {
-			try {
-				container = ServiceContainer.getInstance().initialize(
-						getApplicationContext());
-			} catch (final Exception e) {
-				e.printStackTrace();
-				finish();
-			}
-		}
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        Object[] params = {savedInstanceState};
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("onCreate({})", params);
+        }
+        super.onCreate(savedInstanceState);
 
-		context = container.getContext();
-		menuRepository = container.getMenuRepository();
-		config = container.getConfiguration();
+        setupSynchronization();
 
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("onCreate({}) -> {}", params, "VOID");
-		}
-	}
+        ServiceContainer container = ServiceContainer.getInstance();
+        if (!container.isInitialized()) {
+            try {
+                container = ServiceContainer.getInstance().initialize(
+                        getApplicationContext());
+            } catch (final Exception e) {
+                e.printStackTrace();
+                finish();
+            }
+        }
 
-	@StringArrayRes(R.array.weekDays)
-	String[] germanDays;
+        context = container.getContext();
+        menuRepository = container.getMenuRepository();
+        config = container.getConfiguration();
 
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("onCreate({}) -> {}", params, "VOID");
+        }
+    }
 
-	@AfterViews
-	void afterViews() {
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("afterViews()");
-		}
-		dayPagerAdapter = new DayPagerAdapter(this);
+    private final SyncStatusObserver mSyncStatusObserver = new SyncStatusObserver() {
+        @Override
+        public void onStatusChanged(int which) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Account account = mAccountCreator.build(MainActivity.this);
+                    boolean syncActive = ContentResolver.isSyncActive(
+                            account, mAccountCreator.getAuthority());
+                    boolean syncPending = ContentResolver.isSyncPending(
+                            account, mAccountCreator.getAuthority());
+                    setRefreshState(syncActive || syncPending);
+                }
+            });
+        }
+    };
 
-		dayPager.setOnPageChangeListener(this);
-		dayPager.setAdapter(dayPagerAdapter);
+    private void setRefreshState(boolean isSyncing) {
+        LOGGER.error("Sync status, isSyncing={}", isSyncing);
+    }
 
-		initializeActionBarTabs();
+    private void setupSynchronization() {
+        registerReceiver(syncFinishedReceiver, new IntentFilter(MenuSyncAdapter.SYNC_FINISHED));
+        final Account account = mAccountCreator.build(this);
+        if (mAccountCreator.wasAccountCreated()) {
+            Bundle settingsBundle = new Bundle();
+            settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+            settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+            ContentResolver.requestSync(account, mAccountCreator.getAuthority(), settingsBundle);
+        }
 
-		if (menuRepository.dataIsNotLocallyAvailable()) {
-			new PrepareMenuRepositoryTask(this, context, menuRepository)
-					.execute();
-		}
+        ContentResolver.addPeriodicSync(account, mAccountCreator.getAuthority(), new Bundle(), SYNC_INTERVAL);
+    }
 
-		final Date today = new Date(new java.util.Date().getTime());
+    private BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
 
-		int i;
-		i = 0;
-		for (final Date date : context.getAvailableDates()) {
-			if (date.toString().equals(today.toString())) {
-				dayPager.setCurrentItem(i);
-				break;
-			}
+        @Override
+        public void onReceive(android.content.Context context, Intent intent) {
+            LOGGER.debug("Sync finished, should refresh nao!!");
+        }
+    };
+    @StringArrayRes(R.array.weekDays)
+    String[] germanDays;
 
-			i++;
-		}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(syncFinishedReceiver, new IntentFilter(MenuSyncAdapter.SYNC_FINISHED));
+    }
 
-		String location;
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(syncFinishedReceiver);
+    }
 
-		if (TAB_MONDAY == i) {
-			location = config.getMondayLocation();
-		}
-		else if (TAB_TUESDAY == i) {
-			location = config.getTuesdayLocation();
-		}
-		else if (TAB_WEDNESDAY == i) {
-			location = config.getWednesdayLocation();
-		}
-		else if (TAB_THURSDAY == i) {
-			location = config.getThursdayLocation();
-		}
-		else {
-			location = config.getFridayLocation();
-		}
+    @AfterViews
+    void afterViews() {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("afterViews()");
+        }
+        dayPagerAdapter = new DayPagerAdapter(this);
 
-		context.setCurrentLocation(location);
-		changedLocation();
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("afterViews() -> {}", "VOID");
-		}
-	}
+        dayPager.setOnPageChangeListener(this);
+        dayPager.setAdapter(dayPagerAdapter);
 
-	private void initializeActionBarTabs() {
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("initializeActionBarTabs()");
-		}
+        initializeActionBarTabs();
 
-		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        if (menuRepository.dataIsNotLocallyAvailable()) {
+            new PrepareMenuRepositoryTask(this, context, menuRepository)
+                    .execute();
+        }
 
-		int i = 0;
-		final Calendar calendar = Calendar.getInstance();
-		for (final Date date : context.getAvailableDates()) {
-			calendar.setTime(date);
-			final ActionBar.Tab tab = getSupportActionBar().newTab();
-			tab.setText(germanDays[i++] + "\n"
-					+ calendar.get(Calendar.DAY_OF_MONTH) + "."
-					+ (calendar.get(Calendar.MONTH) + 1) + ".");
-			tab.setTabListener(this);
-			getSupportActionBar().addTab(tab);
-		}
+        final Date today = new Date(new java.util.Date().getTime());
 
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("abChangeLocationClicked() -> {}", "VOID");
-		}
-	}
+        int i;
+        i = 0;
+        for (final Date date : context.getAvailableDates()) {
+            if (date.toString().equals(today.toString())) {
+                dayPager.setCurrentItem(i);
+                break;
+            }
 
-	@OptionsItem(R.id.ab_changeLocation)
-	void abChangeLocationClicked() {
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("abChangeLocationClicked()");
-		}
+            i++;
+        }
+
+        String location;
+
+        if (TAB_MONDAY == i) {
+            location = config.getMondayLocation();
+        } else if (TAB_TUESDAY == i) {
+            location = config.getTuesdayLocation();
+        } else if (TAB_WEDNESDAY == i) {
+            location = config.getWednesdayLocation();
+        } else if (TAB_THURSDAY == i) {
+            location = config.getThursdayLocation();
+        } else {
+            location = config.getFridayLocation();
+        }
+
+        context.setCurrentLocation(location);
+        changedLocation();
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("afterViews() -> {}", "VOID");
+        }
+    }
+
+    private void initializeActionBarTabs() {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("initializeActionBarTabs()");
+        }
+
+        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        int i = 0;
+        final Calendar calendar = Calendar.getInstance();
+        for (final Date date : context.getAvailableDates()) {
+            calendar.setTime(date);
+            final ActionBar.Tab tab = getSupportActionBar().newTab();
+            tab.setText(germanDays[i++] + "\n"
+                    + calendar.get(Calendar.DAY_OF_MONTH) + "."
+                    + (calendar.get(Calendar.MONTH) + 1) + ".");
+            tab.setTabListener(this);
+            getSupportActionBar().addTab(tab);
+        }
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("abChangeLocationClicked() -> {}", "VOID");
+        }
+    }
+
+    @OptionsItem(R.id.ab_changeLocation)
+    void abChangeLocationClicked() {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("abChangeLocationClicked()");
+        }
 
         Toast.makeText(this, "Temporary not available", Toast.LENGTH_SHORT).show();
         // TODO show dialog!
@@ -178,58 +232,58 @@ public class MainActivity extends ActionBarActivity implements
 //				context.getLocationTitle());
 //
 //		startActivityForResult(i, 1);
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("abChangeLocationClicked() -> {}", "VOID");
-		}
-	}
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("abChangeLocationClicked() -> {}", "VOID");
+        }
+    }
 
-	@OptionsItem(R.id.ab_times)
-	void abTimesClicked() {
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("abTimesClicked()");
-		}
-		OpeningTimeDialog_.intent(this).start();
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("abTimesClicked() -> {}", "VOID");
-		}
-	}
+    @OptionsItem(R.id.ab_times)
+    void abTimesClicked() {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("abTimesClicked()");
+        }
+        OpeningTimeDialog_.intent(this).start();
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("abTimesClicked() -> {}", "VOID");
+        }
+    }
 
-	@OptionsItem(R.id.ab_refresh)
-	void abRefreshClicked() {
-		new PrepareMenuRepositoryTask(this, context, menuRepository).execute();
-	}
+    @OptionsItem(R.id.ab_refresh)
+    void abRefreshClicked() {
+        new PrepareMenuRepositoryTask(this, context, menuRepository).execute();
+    }
 
-	@OptionsItem(R.id.ab_settings)
-	void abSettingsClicked() {
-		SettingsActivity_.intent(this).start();
-	}
+    @OptionsItem(R.id.ab_settings)
+    void abSettingsClicked() {
+        SettingsActivity_.intent(this).start();
+    }
 
-	@Override
-	protected void onActivityResult(final int requestCode,
-			final int resultCode, final Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
+    @Override
+    protected void onActivityResult(final int requestCode,
+                                    final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-		if (1 == requestCode && 1 == resultCode) {
-			context.setCurrentLocation(context.getLocationTitle()[data
-					.getIntExtra(EXTRA_KEY_CHOSEN_LOCATION, 0)]);
-			changedLocation();
-		}
-	}
+        if (1 == requestCode && 1 == resultCode) {
+            context.setCurrentLocation(context.getLocationTitle()[data
+                    .getIntExtra(EXTRA_KEY_CHOSEN_LOCATION, 0)]);
+            changedLocation();
+        }
+    }
 
-	protected void changedLocation() {
-		getSupportActionBar().setTitle(context.getCurrentLocationTitle());
-		dayPagerAdapter.notifyDataSetChanged();
-	}
+    protected void changedLocation() {
+        getSupportActionBar().setTitle(context.getCurrentLocationTitle());
+        dayPagerAdapter.notifyDataSetChanged();
+    }
 
-	@Override
-	public void onPageSelected(final int arg0) {
-		getSupportActionBar().getTabAt(arg0).select();
-	}
+    @Override
+    public void onPageSelected(final int arg0) {
+        getSupportActionBar().getTabAt(arg0).select();
+    }
 
 
-	public DayPagerAdapter getDayPagerAdapter() {
-		return dayPagerAdapter;
-	}
+    public DayPagerAdapter getDayPagerAdapter() {
+        return dayPagerAdapter;
+    }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -247,10 +301,11 @@ public class MainActivity extends ActionBarActivity implements
     }
 
     @Override
-	public void onPageScrollStateChanged(final int arg0) {
-	}
+    public void onPageScrollStateChanged(final int arg0) {
+    }
 
-	@Override
-	public void onPageScrolled(final int arg0, final float arg1, final int arg2) {
-	}
+    @Override
+    public void onPageScrolled(final int arg0, final float arg1, final int arg2) {
+    }
+
 }
