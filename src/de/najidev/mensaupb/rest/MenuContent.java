@@ -1,6 +1,8 @@
 package de.najidev.mensaupb.rest;
 
 import com.fasterxml.jackson.annotation.*;
+import com.j256.ormlite.field.*;
+import com.j256.ormlite.table.*;
 
 import org.slf4j.*;
 
@@ -10,20 +12,40 @@ import java.util.*;
 /**
  * TODO document
  */
-public class MenuContent  {
-    private static final SimpleDateFormat sSDF= new SimpleDateFormat("yyyy-MM-dd");
-
+@DatabaseTable(tableName = "menus")
+public class MenuContent {
+    private static final SimpleDateFormat sSDF = new SimpleDateFormat("yyyy-MM-dd");
+    private final Logger LOGGER = LoggerFactory.getLogger(MenuContent.class.getSimpleName());
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    String[] side_dishes;
+    @DatabaseField(generatedId = true)
     private long _id;
-    private long _restaurantId;
+    @DatabaseField(foreign = true, canBeNull = false)
+    private Restaurant restaurant;
+    @DatabaseField
+    private Date date;
+    @DatabaseField
+    private String description;
+    @DatabaseField
+    private String name;
+    @DatabaseField
+    private String type;
+    @DatabaseField
+    private String price;
+    @DatabaseField
+    private String counter;
+    public MenuContent() {
 
-    @JsonIgnore
-    public long get_restaurantId() {
-        return _restaurantId;
     }
 
     @JsonIgnore
-    public void set_restaurantId(long _restaurantId) {
-        this._restaurantId = _restaurantId;
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    @JsonIgnore
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     @JsonIgnore
@@ -36,27 +58,21 @@ public class MenuContent  {
         this._id = _id;
     }
 
-    private Date date;
-    private String description, name, type, price, counter;
-    String[] side_dishes;
-
-    private final Logger LOGGER = LoggerFactory.getLogger(MenuContent.class.getSimpleName());
-
     @JsonProperty("date")
-    public String getDateAsString(){
-        if(date == null){
+    public String getDateAsString() {
+        if (date == null) {
             return "";
         }
 
-    return sSDF.format(date);
+        return sSDF.format(date);
     }
 
     @JsonProperty("date")
-    public void setDate(String date){
+    public void setDate(String date) {
         try {
             this.date = sSDF.parse(date);
         } catch (ParseException e) {
-        LOGGER.error(e.getMessage(),  e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -68,7 +84,6 @@ public class MenuContent  {
         this.date = date;
     }
 
-
     public String getDescription() {
         return description;
     }
@@ -76,7 +91,6 @@ public class MenuContent  {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public String getName() {
         return name;
@@ -86,7 +100,6 @@ public class MenuContent  {
         this.name = name;
     }
 
-
     public String getType() {
         return type;
     }
@@ -94,7 +107,6 @@ public class MenuContent  {
     public void setType(String type) {
         this.type = type;
     }
-
 
     public String getPrice() {
         return price;
@@ -104,7 +116,6 @@ public class MenuContent  {
         this.price = price;
     }
 
-
     public String getCounter() {
         return counter;
     }
@@ -113,17 +124,12 @@ public class MenuContent  {
         this.counter = counter;
     }
 
-
     public String[] getSide_dishes() {
         return side_dishes;
     }
 
     public void setSide_dishes(String[] side_dishes) {
         this.side_dishes = side_dishes;
-    }
-
-    public MenuContent() {
-
     }
 
     @Override

@@ -1,13 +1,21 @@
 package de.najidev.mensaupb.rest;
 
 import com.fasterxml.jackson.annotation.*;
+import com.j256.ormlite.field.*;
+import com.j256.ormlite.table.*;
 
 /**
  * Represents a restaurant
  */
+@DatabaseTable(tableName = "restaurants")
 public class Restaurant {
+    @DatabaseField
     private String name;
+    @DatabaseField(generatedId = true)
     private long _id;
+
+    public Restaurant() {
+    }
 
     @JsonIgnore
     public long get_id() {
@@ -17,9 +25,6 @@ public class Restaurant {
     @JsonIgnore
     public void set_id(long _id) {
         this._id = _id;
-    }
-
-    public Restaurant() {
     }
 
     public String getName() {
