@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.*;
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
 
+import de.najidev.mensaupb.persistence.*;
+
 /**
  * Represents a restaurant
  */

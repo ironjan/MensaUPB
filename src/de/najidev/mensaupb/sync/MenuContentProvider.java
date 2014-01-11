@@ -4,7 +4,16 @@ import android.content.*;
 import android.database.*;
 import android.net.*;
 
+import com.j256.ormlite.android.*;
+import com.j256.ormlite.dao.*;
+import com.j256.ormlite.stmt.*;
+
 import org.androidannotations.annotations.*;
+import org.slf4j.*;
+
+import java.sql.*;
+import java.sql.SQLException;
+import java.util.*;
 
 import de.najidev.mensaupb.persistence.*;
 import de.najidev.mensaupb.rest.*;
@@ -14,22 +23,6 @@ import de.najidev.mensaupb.rest.*;
  */
 @EProvider
 public class MenuContentProvider extends ContentProvider {
-    public static final int CODE_ROOT = 0;
-    public static final int CODE_RESTAURANTS = 1;
-    public static final int CODE_SINGLE_RESTAURANT = 2;
-    public static final int CODE_RESTAURANT_MENUS = 3;
-    private static final UriMatcher sUriMatcher = new UriMatcher(CODE_ROOT);
-    static {
-        sUriMatcher.addURI("de.najidev.mensaupb.provider", "restaurants", CODE_RESTAURANTS);
-        sUriMatcher.addURI("de.najidev.mensaupb.provider", "restaurants/#", CODE_SINGLE_RESTAURANT);
-        sUriMatcher.addURI("de.najidev.mensaupb.provider", "restaurants/#/menus", CODE_RESTAURANT_MENUS);
-    }
-
-    @OrmLiteDao(helper = DatabaseHelper.class, model = Restaurant.class)
-    RestaurantDao restaurantDao;
-
-    @OrmLiteDao(helper = DatabaseHelper.class, model = MenuContent.class)
-    MenuContentDao menuContentDao;
 
     @Override
     public boolean onCreate() {
@@ -37,18 +30,8 @@ public class MenuContentProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(Uri uri, String[] strings, String s, String[] strings2, String s2) {
-        switch (sUriMatcher.match(uri)) {
-            case CODE_RESTAURANTS:
-                // TODO fetch restaurants
-            case CODE_SINGLE_RESTAURANT:
-                // TODO fetch restaurant
-            case CODE_RESTAURANT_MENUS:
-                // TODO fetch restaurant menus
-            case CODE_ROOT:
-            default:
-                throw new IllegalArgumentException("Unknown content uri");
-        }
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        return null;
     }
 
     @Override

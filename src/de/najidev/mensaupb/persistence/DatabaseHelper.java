@@ -4,6 +4,7 @@ import android.content.*;
 import android.database.sqlite.*;
 
 import com.j256.ormlite.android.apptools.*;
+import com.j256.ormlite.dao.*;
 import com.j256.ormlite.support.*;
 import com.j256.ormlite.table.*;
 
@@ -16,10 +17,12 @@ import de.najidev.mensaupb.rest.*;
 /**
  * Created by ljan on 11.01.14.
  */
-public class DatabaseHelper  extends OrmLiteSqliteOpenHelper {
+public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
     private static final int DATABASE_VERSION = 1;
-private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
+    private Dao<Restaurant, Long> restaurantDao;
+    private Dao<MenuContent, Long> menuContentDao;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,6 +42,17 @@ private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.clas
         LOGGER.info("onCreate() done");
     }
 
+    /**
+     * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao for our SimpleData class. It will
+     * create it or just give the cached value. RuntimeExceptionDao only through RuntimeExceptions.
+     */
+    public Dao<Restaurant, Long> getRestaurantDao() throws SQLException {
+        if (restaurantDao == null) {
+            restaurantDao = getDao(Restaurant.class);
+        }
+        return restaurantDao;
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int oldVersion, int newVersion) {
 //        try {
@@ -55,4 +69,12 @@ private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.clas
 //        }
         LOGGER.info("onUpgrade() done");
     }
+
+    public Dao<MenuContent, Long> getMenuContentDao() throws SQLException {
+        if (menuContentDao == null) {
+            menuContentDao = getDao(MenuContent.class);
+        }
+        return menuContentDao;
+    }
+
 }

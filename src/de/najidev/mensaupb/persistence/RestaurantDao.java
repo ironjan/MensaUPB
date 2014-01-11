@@ -6,19 +6,18 @@ import com.j256.ormlite.table.*;
 
 import java.sql.*;
 
+import de.najidev.mensaupb.rest.*;
+
 /**
  * Created by ljan on 11.01.14.
  */
-public class RestaurantDao extends BaseDaoImpl<RestaurantDao,Long> {
-    protected RestaurantDao(Class<RestaurantDao> dataClass) throws SQLException {
+public class RestaurantDao extends BaseDaoImpl<Restaurant,Long> {
+    protected RestaurantDao(Class<Restaurant> dataClass) throws SQLException {
         super(dataClass);
     }
 
-    protected RestaurantDao(ConnectionSource connectionSource, Class<RestaurantDao> dataClass) throws SQLException {
+    protected RestaurantDao(ConnectionSource connectionSource, Class<Restaurant> dataClass) throws SQLException {
         super(connectionSource, dataClass);
     }
 
-    protected RestaurantDao(ConnectionSource connectionSource, DatabaseTableConfig<RestaurantDao> tableConfig) throws SQLException {
-        super(connectionSource, tableConfig);
-    }
 }

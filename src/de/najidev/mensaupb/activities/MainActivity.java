@@ -110,12 +110,12 @@ public class MainActivity extends ActionBarActivity implements
     private void setupSynchronization() {
         registerReceiver(syncFinishedReceiver, new IntentFilter(MenuSyncAdapter.SYNC_FINISHED));
         final Account account = mAccountCreator.build(this);
-        if (mAccountCreator.wasAccountCreated()) {
+//        if (mAccountCreator.wasAccountCreated()) {
             Bundle settingsBundle = new Bundle();
             settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
             settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
             ContentResolver.requestSync(account, mAccountCreator.getAuthority(), settingsBundle);
-        }
+//        }
 
         ContentResolver.addPeriodicSync(account, mAccountCreator.getAuthority(), new Bundle(), SYNC_INTERVAL);
     }
