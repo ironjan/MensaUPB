@@ -58,7 +58,7 @@
         </service>
         <provider
             android:authorities="de.najidev.mensaupb.provider"
-            android:name=".sync.StubMenuContentProvider"
+            android:name=".sync.MenuContentProvider_"
             android:exported="false"
             android:syncable="true"/>
         <service

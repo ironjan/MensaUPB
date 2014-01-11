@@ -4,24 +4,32 @@ import android.content.*;
 import android.database.*;
 import android.net.*;
 
+import org.androidannotations.annotations.*;
+
+import de.najidev.mensaupb.persistence.*;
+import de.najidev.mensaupb.rest.*;
+
 /**
  * Created by ljan on 10.01.14.
  */
-public class StubMenuContentProvider extends ContentProvider {
+@EProvider
+public class MenuContentProvider extends ContentProvider {
     public static final int CODE_ROOT = 0;
-    private static final UriMatcher sUriMatcher = new UriMatcher(CODE_ROOT);
-
     public static final int CODE_RESTAURANTS = 1;
-
     public static final int CODE_SINGLE_RESTAURANT = 2;
-
     public static final int CODE_RESTAURANT_MENUS = 3;
-
+    private static final UriMatcher sUriMatcher = new UriMatcher(CODE_ROOT);
     static {
         sUriMatcher.addURI("de.najidev.mensaupb.provider", "restaurants", CODE_RESTAURANTS);
         sUriMatcher.addURI("de.najidev.mensaupb.provider", "restaurants/#", CODE_SINGLE_RESTAURANT);
         sUriMatcher.addURI("de.najidev.mensaupb.provider", "restaurants/#/menus", CODE_RESTAURANT_MENUS);
     }
+
+    @OrmLiteDao(helper = DatabaseHelper.class, model = Restaurant.class)
+    RestaurantDao restaurantDao;
+
+    @OrmLiteDao(helper = DatabaseHelper.class, model = MenuContent.class)
+    MenuContentDao menuContentDao;
 
     @Override
     public boolean onCreate() {
