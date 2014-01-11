@@ -13,7 +13,6 @@ import org.slf4j.*;
 
 import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.dialog.*;
-import de.najidev.mensaupb.helper.*;
 
 @EActivity
 public class SettingsActivity extends ListActivity {
@@ -49,20 +48,21 @@ public class SettingsActivity extends ListActivity {
 				}
 				if (value != null) {
 					String optionValue;
+                    // TODO get correct values
 					if (0 == position) {
-						optionValue = config.getMondayLocation();
+						optionValue = "mensa";
 					}
 					else if (1 == position) {
-						optionValue = config.getTuesdayLocation();
+						optionValue = "mensa";
 					}
 					else if (2 == position) {
-						optionValue = config.getWednesdayLocation();
+						optionValue = "mensa";
 					}
 					else if (3 == position) {
-						optionValue = config.getThursdayLocation();
+						optionValue = "mensa";
 					}
 					else {
-						optionValue = config.getFridayLocation();
+						optionValue = "mensa";
 					}
 
 					value.setText(optionValue);
@@ -71,9 +71,6 @@ public class SettingsActivity extends ListActivity {
 			return v;
 		}
 	}
-
-	de.najidev.mensaupb.helper.Context context;
-	Configuration config;
 
 	@StringArrayRes
 	String[] days;
@@ -94,9 +91,6 @@ public class SettingsActivity extends ListActivity {
 		getListView().setPadding(8, 0, 8, 0);
 
 		super.onCreate(savedInstanceState);
-
-		context = ServiceContainer.getInstance().getContext();
-		config = ServiceContainer.getInstance().getConfiguration();
 
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("onCreate({}) -> {}", params, "VOID");
@@ -128,7 +122,8 @@ public class SettingsActivity extends ListActivity {
 		final Intent i = new Intent(this, ChooseOnListDialog.class);
 
 		i.putExtra("title", "Ort wählen");
-		i.putExtra("list", context.getLocationTitle());
+        // TODO fix
+//		i.putExtra("list", context.getLocationTitle());
 
 		this.startActivityForResult(i, position);
 		if (LOGGER.isDebugEnabled()) {
@@ -148,23 +143,25 @@ public class SettingsActivity extends ListActivity {
 			return;
 		}
 
-		final String chosen = context.getLocationTitle()[data.getIntExtra(
-				"chosen", 0)];
+        // TODO fix
+		final String chosen = "mensa";
+// context.getLocationTitle()[data.getIntExtra(
+//				"chosen", 0)];
 
 		if (0 == requestCode) {
-			config.setMondayLocation(chosen);
+			// TODO set location for monday
 		}
 		else if (1 == requestCode) {
-			config.setTuesdayLocation(chosen);
+			// TODO set location for thursday
 		}
 		else if (2 == requestCode) {
-			config.setWednesdayLocation(chosen);
+			// TODO set location for wednesday
 		}
 		else if (3 == requestCode) {
-			config.setThursdayLocation(chosen);
+			// TODO set location for thursday
 		}
 		else if (4 == requestCode) {
-			config.setFridayLocation(chosen);
+			// TODO set location for friday
 		}
 
 		setListAdapter(getListAdapter());

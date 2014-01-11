@@ -15,7 +15,12 @@ import java.util.*;
  * TODO document
  */
 @DatabaseTable(tableName = "menus")
-public class MenuContent {
+public class MenuContent implements Comparable<MenuContent>{
+    @Override
+    public int compareTo(MenuContent other) {
+        return date.compareTo(other.date);
+    }
+
     private static final SimpleDateFormat sSDF = new SimpleDateFormat("yyyy-MM-dd");
     private final Logger LOGGER = LoggerFactory.getLogger(MenuContent.class.getSimpleName());
     @DatabaseField(dataType = DataType.SERIALIZABLE)
