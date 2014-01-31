@@ -13,16 +13,17 @@ import org.slf4j.*;
 import java.sql.*;
 
 import de.najidev.mensaupb.rest.*;
+import de.najidev.mensaupb.stw.*;
 
 /**
  * Created by ljan on 11.01.14.
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
+
     private static final int DATABASE_VERSION = 1;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
-    private Dao<Restaurant, Long> restaurantDao;
-    private Dao<MenuContent, Long> menuContentDao;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -32,25 +33,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             LOGGER.info("onCreate()");
-            TableUtils.createTable(connectionSource, Restaurant.class);
-            TableUtils.createTable(connectionSource, MenuContent.class);
+            TableUtils.createTable(connectionSource, Menu.class);
             LOGGER.info("Created database.");
         } catch (SQLException e) {
             LOGGER.error("Can't create database", e);
             throw new RuntimeException(e);
         }
         LOGGER.info("onCreate() done");
-    }
-
-    /**
-     * Returns the RuntimeExceptionDao (Database Access Object) version of a Dao for our SimpleData class. It will
-     * create it or just give the cached value. RuntimeExceptionDao only through RuntimeExceptions.
-     */
-    public Dao<Restaurant, Long> getRestaurantDao() throws SQLException {
-        if (restaurantDao == null) {
-            restaurantDao = getDao(Restaurant.class);
-        }
-        return restaurantDao;
     }
 
     @Override
@@ -68,13 +57,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 //            throw new RuntimeException(e);
 //        }
         LOGGER.info("onUpgrade() done");
-    }
-
-    public Dao<MenuContent, Long> getMenuContentDao() throws SQLException {
-        if (menuContentDao == null) {
-            menuContentDao = getDao(MenuContent.class);
-        }
-        return menuContentDao;
     }
 
 }

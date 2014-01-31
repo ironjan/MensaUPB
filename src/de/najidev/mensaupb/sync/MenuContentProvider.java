@@ -2,9 +2,12 @@ package de.najidev.mensaupb.sync;
 
 import android.content.*;
 import android.database.*;
+import android.database.sqlite.*;
 import android.net.*;
+import android.text.*;
 
 import com.j256.ormlite.android.*;
+import com.j256.ormlite.android.apptools.*;
 import com.j256.ormlite.dao.*;
 import com.j256.ormlite.stmt.*;
 
@@ -15,8 +18,10 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.util.*;
 
+import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.persistence.*;
 import de.najidev.mensaupb.rest.*;
+import de.najidev.mensaupb.stw.*;
 
 /**
  * Created by ljan on 10.01.14.
@@ -24,14 +29,42 @@ import de.najidev.mensaupb.rest.*;
 @EProvider
 public class MenuContentProvider extends ContentProvider {
 
+    private static final String MENUS_PATH = "menus";
+    private static final Uri ROOT = Uri.parse("content://" + ProviderContract.AUTHORITY + "/");
+    public static final Uri MENU_URI =  ROOT.withAppendedPath(ROOT, MENUS_PATH);
+    private static final int MENUS_MATCH = 1;
+
+    private static UriMatcher sUriMatcher = new UriMatcher(0);
+    static {
+        sUriMatcher.addURI(ProviderContract.AUTHORITY, MENUS_PATH,MENUS_MATCH);
+    }
+
+    private DatabaseHelper getHelper() {
+        DatabaseManager dbManager = new DatabaseManager();
+        return dbManager.getHelper(getContext());
+    }
+
+
     @Override
     public boolean onCreate() {
-        return false;
+        return true;
     }
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        return null;
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        // TODO check projection
+
+        queryBuilder.setTables(Menu.TABLE);
+
+        SQLiteDatabase db = getHelper().getReadableDatabase();
+
+        Cursor cursor = queryBuilder.query(db, projection, selection,
+                selectionArgs, null, null, sortOrder);
+
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+        return cursor;
     }
 
     @Override
@@ -41,7 +74,15 @@ public class MenuContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
-        return null;
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+        // TODO check projection
+
+        queryBuilder.setTables(Menu.TABLE);
+
+        SQLiteDatabase db = getHelper().getWritableDatabase();
+
+        long _id = db.insert(Menu.TABLE, null, contentValues);
+        return Uri.withAppendedPath(MENU_URI,"/"+_id);
     }
 
     @Override

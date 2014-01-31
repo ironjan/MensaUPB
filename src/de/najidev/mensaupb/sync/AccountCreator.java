@@ -19,9 +19,9 @@ public class AccountCreator {
     /**
      * Neded for synchroniztation initialization
      */
-    private static final String AUTHORITY = "de.najidev.mensaupb.provider",
-            ACCOUNT_TYPE = "ironjan.MensaUPB",
-            ACCOUNT = "dummy";
+    private static final String AUTHORITY = ProviderContract.AUTHORITY,
+    ACCOUNT_TYPE = ProviderContract.ACCOUNT_TYPE,
+            ACCOUNT = ProviderContract.ACCOUNT;
 
     private final Logger LOGGER = LoggerFactory.getLogger(AccountCreator.class.getSimpleName());
     private boolean mAccountCreated = false;

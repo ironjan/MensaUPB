@@ -7,27 +7,16 @@ import android.support.v4.app.*;
 import android.support.v4.view.*;
 import android.support.v4.view.ViewPager.*;
 import android.support.v7.app.*;
-import android.util.*;
 import android.widget.*;
-
-import com.j256.ormlite.android.apptools.*;
-import com.j256.ormlite.dao.*;
-import com.j256.ormlite.stmt.*;
 
 import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.res.*;
 import org.slf4j.*;
 
-import java.sql.*;
 import java.util.*;
-import java.util.Date;
 
 import de.najidev.mensaupb.*;
-import de.najidev.mensaupb.adapter.*;
 import de.najidev.mensaupb.dialog.*;
-import de.najidev.mensaupb.entity.*;
-import de.najidev.mensaupb.persistence.*;
-import de.najidev.mensaupb.rest.*;
 import de.najidev.mensaupb.sync.*;
 
 @EActivity(R.layout.main)
@@ -52,7 +41,6 @@ public class MainActivity extends ActionBarActivity implements
     @ViewById(R.id.viewpager)
     ViewPager dayPager;
 
-    DayPagerAdapter dayPagerAdapter;
 
     @StringRes
     String select_Location;
@@ -134,12 +122,6 @@ public class MainActivity extends ActionBarActivity implements
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("afterViews()");
         }
-        dayPagerAdapter = new DayPagerAdapter(this);
-
-        dayPager.setOnPageChangeListener(this);
-        dayPager.setAdapter(dayPagerAdapter);
-
-        initializeActionBarTabs();
 
         final Date today = new Date(new java.util.Date().getTime());
 
@@ -171,54 +153,12 @@ public class MainActivity extends ActionBarActivity implements
             location = "mensa";
         }
         // set location
-
-        changedLocation();
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("afterViews() -> {}", "VOID");
         }
     }
 
-    private void initializeActionBarTabs() {
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("initializeActionBarTabs()");
-        }
 
-        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        int i = 0;
-        final Calendar calendar = Calendar.getInstance();
-        List<MenuContent> dates = new ArrayList<MenuContent>();
-        try {
-            DatabaseHelper databaseHelper = OpenHelperManager.getHelper(this, DatabaseHelper.class);
-            final Dao<MenuContent, Long> menuContentDao = databaseHelper.getMenuContentDao();
-            final PreparedQuery<MenuContent> query = menuContentDao.queryBuilder()
-                    .selectColumns("date").distinct()
-                    .prepare();
-            dates = menuContentDao.query(query);
-        } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
-
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Got {} different dates)", dates.size());
-        }
-
-        for (MenuContent mc: dates) {
-            final Date date = mc.getDate();
-            calendar.setTime(date);
-            final ActionBar.Tab tab = getSupportActionBar().newTab();
-            tab.setText(germanDays[i++] + "\n"
-                    + calendar.get(Calendar.DAY_OF_MONTH) + "."
-                    + (calendar.get(Calendar.MONTH) + 1) + ".");
-            tab.setTabListener(this);
-            getSupportActionBar().addTab(tab);
-            LOGGER.debug("Added tab for {}.", date);
-        }
-
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("abChangeLocationClicked() -> {}", "VOID");
-        }
-    }
 
     @OptionsItem(R.id.ab_changeLocation)
     void abChangeLocationClicked() {
@@ -270,14 +210,9 @@ public class MainActivity extends ActionBarActivity implements
             // TODO set location
 //            context.setCurrentLocation(context.getLocationTitle()[data
 //                    .getIntExtra(EXTRA_KEY_CHOSEN_LOCATION, 0)]);
-            changedLocation();
         }
     }
 
-    protected void changedLocation() {
-        getSupportActionBar().setTitle("new location"); // TODO
-        dayPagerAdapter.notifyDataSetChanged();
-    }
 
     @Override
     public void onPageSelected(final int arg0) {
@@ -285,9 +220,6 @@ public class MainActivity extends ActionBarActivity implements
     }
 
 
-    public DayPagerAdapter getDayPagerAdapter() {
-        return dayPagerAdapter;
-    }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {

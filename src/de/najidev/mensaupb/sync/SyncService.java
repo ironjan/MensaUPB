@@ -15,7 +15,7 @@ public class SyncService extends Service {
     public void onCreate() {
         super.onCreate();
         synchronized (sSyncAdapterLock){
-            sMenuSyncAdapter = new MenuSyncAdapter(getApplicationContext(),true);
+            sMenuSyncAdapter = MenuSyncAdapter.getInstance(this);
         }
     }
 

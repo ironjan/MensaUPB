@@ -3,10 +3,12 @@ package de.najidev.mensaupb.stw;
 import android.provider.*;
 
 import com.j256.ormlite.field.*;
+import com.j256.ormlite.table.*;
 
 import java.text.*;
 import java.util.*;
 
+@DatabaseTable(tableName = Menu.TABLE)
 public class Menu {
     public static final String TABLE = "menus";
     public static final String NAME_GERMAN = "nameGerman";
@@ -16,7 +18,7 @@ public class Menu {
     public static final String LOCATION = "location";
     public static final String CATEGORY = "category";
     public static final String ALLERGENES = "allergenes";
-    private static final String DATABASE_DATE_FORMAT_STRING = "yyyy-MM-dd";
+    private static final String DATABASE_DATE_FORMAT_STRING = "dd.MM.yyyy";
     private static final SimpleDateFormat DATABASE_DATE_FORMAT = new SimpleDateFormat(DATABASE_DATE_FORMAT_STRING);
 
     @DatabaseField(columnName = ID, generatedId = true)

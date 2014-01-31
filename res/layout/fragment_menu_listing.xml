@@ -3,6 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
+              android:background="@color/backgroundBehindCards"
+
               android:layout_height="match_parent"
               android:orientation="vertical">
 
@@ -10,9 +12,8 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
+        android:id="@android:id/list"
         android:padding="@dimen/elementMargin"
-        android:background="@color/backgroundBehindCards"
         android:dividerHeight="@dimen/elementMargin"
         tools:listitem="@layout/view_menu_list_item"/>
 

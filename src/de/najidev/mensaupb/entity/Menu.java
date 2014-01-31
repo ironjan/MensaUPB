@@ -63,7 +63,7 @@ public class Menu {
 
 	public String getName() {
 		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("getName() -> {}", name);
+			LOGGER.debug("getDescription() -> {}", name);
 		}
 		return name;
 	}
@@ -71,11 +71,11 @@ public class Menu {
 	public void setName(final String name) {
 		Object[] params = { name };
 		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("setName({})", params);
+			LOGGER.debug("setDescription({})", params);
 		}
 		this.name = name;
 		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug("setName({}) -> {}", params, "VOID");
+			LOGGER.debug("setDescription({}) -> {}", params, "VOID");
 		}
 	}
 

@@ -85,6 +85,12 @@ android {
             buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 12" // 12 hours
         }
     }
+
+    if (project.hasProperty("mensaupb.signing")
+            && new File(project.property("mensaupb.signing") + ".gradle").exists()) {
+        apply from: project.property("mensaupb.signing") + ".gradle";
+    }
+
 }
 
 dependencies {
