@@ -55,17 +55,6 @@ public class Test extends ListActivity implements LoaderManager.LoaderCallbacks<
         adapter = new SimpleCursorAdapter(
                 this, R.layout.view_menu_list_item,
                 null, uiBindFrom, uiBindTo, 0);
-        LOGGER.warn("{} --> {}", uiBindFrom, uiBindTo);
-
-        adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
-            @Override
-            public boolean setViewValue(View view, Cursor cursor, int i) {
-            LOGGER.warn("{} --> {}", cursor.getString(i), view.getId());
-                String[] cc = {cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3)};
-                LOGGER.warn("cursor has: {},{},{},{}", cc);
-                return false;
-            }
-        });
         setListAdapter(adapter);
         setupSynchronization();
     }
