@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_background"
+                android:padding="@dimen/elementMargin"
+    >
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:id="@+id/textName"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:layout_below="@+id/textName"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:text="Essen"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/textAllergenes"
+        android:id="@+id/textCategory"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:layout_below="@+id/textAllergenes"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:text="2, 15, A7, A10, (S)"
+        android:layout_alignTop="@+id/textCategory"/>
+</RelativeLayout>

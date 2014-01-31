@@ -24,16 +24,8 @@ apply plugin: 'android-apt'
 
 configurations {
     apt
-//    compile.exclude group: 'com.google.android', name: 'support-v4', version: '18'
 }
 
-
-ext {
-    restletVersion = '2.2-M6'
-    ormliteVersion = '4.47'
-    jacksonVersion = '2.3.0'
-    slf4jVersion = '1.7.5'
-}
 
 def getSourceSetName(variant) {
     return new File(variant.dirName).getName();
@@ -84,7 +76,7 @@ android {
         instrumentTest.setRoot('tests')
     }
 
-   buildTypes {
+    buildTypes {
         debug {
             buildConfigField "int", "SYNC_INTERVAL", "60" // 1 minute
         }
@@ -93,8 +85,6 @@ android {
             buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 12" // 12 hours
         }
     }
-
-//
 }
 
 dependencies {

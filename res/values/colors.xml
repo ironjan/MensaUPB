@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blue">#0000ff</color>
+    <color name="black">#000</color>
+    <color name="white">#fff</color>
+    <color name="cardShadow">#555</color>
+    <color name="backgroundBehindCards">#ccc</color>
+    <color name="backgroundCards">#eee</color>
 </resources>
