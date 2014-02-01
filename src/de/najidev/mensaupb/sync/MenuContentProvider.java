@@ -4,23 +4,10 @@ import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
 import android.net.*;
-import android.text.*;
-
-import com.j256.ormlite.android.*;
-import com.j256.ormlite.android.apptools.*;
-import com.j256.ormlite.dao.*;
-import com.j256.ormlite.stmt.*;
 
 import org.androidannotations.annotations.*;
-import org.slf4j.*;
 
-import java.sql.*;
-import java.sql.SQLException;
-import java.util.*;
-
-import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.persistence.*;
-import de.najidev.mensaupb.rest.*;
 import de.najidev.mensaupb.stw.*;
 
 /**
@@ -31,12 +18,13 @@ public class MenuContentProvider extends ContentProvider {
 
     private static final String MENUS_PATH = "menus";
     private static final Uri ROOT = Uri.parse("content://" + ProviderContract.AUTHORITY + "/");
-    public static final Uri MENU_URI =  ROOT.withAppendedPath(ROOT, MENUS_PATH);
+    public static final Uri MENU_URI = ROOT.withAppendedPath(ROOT, MENUS_PATH);
     private static final int MENUS_MATCH = 1;
 
     private static UriMatcher sUriMatcher = new UriMatcher(0);
+
     static {
-        sUriMatcher.addURI(ProviderContract.AUTHORITY, MENUS_PATH,MENUS_MATCH);
+        sUriMatcher.addURI(ProviderContract.AUTHORITY, MENUS_PATH, MENUS_MATCH);
     }
 
     private DatabaseHelper getHelper() {
@@ -82,7 +70,7 @@ public class MenuContentProvider extends ContentProvider {
         SQLiteDatabase db = getHelper().getWritableDatabase();
 
         long _id = db.insert(Menu.TABLE, null, contentValues);
-        return Uri.withAppendedPath(MENU_URI,"/"+_id);
+        return Uri.withAppendedPath(MENU_URI, "/" + _id);
     }
 
     @Override

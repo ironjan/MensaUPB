@@ -4,7 +4,6 @@ import android.content.*;
 import android.database.sqlite.*;
 
 import com.j256.ormlite.android.apptools.*;
-import com.j256.ormlite.dao.*;
 import com.j256.ormlite.support.*;
 import com.j256.ormlite.table.*;
 
@@ -12,7 +11,6 @@ import org.slf4j.*;
 
 import java.sql.*;
 
-import de.najidev.mensaupb.rest.*;
 import de.najidev.mensaupb.stw.*;
 
 /**

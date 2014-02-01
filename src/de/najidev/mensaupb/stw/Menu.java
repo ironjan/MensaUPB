@@ -19,7 +19,7 @@ public class Menu {
     public static final String CATEGORY = "category";
     public static final String ALLERGENES = "allergenes";
     private static final String DATABASE_DATE_FORMAT_STRING = "dd.MM.yyyy";
-    private static final SimpleDateFormat DATABASE_DATE_FORMAT = new SimpleDateFormat(DATABASE_DATE_FORMAT_STRING);
+    public static final SimpleDateFormat DATABASE_DATE_FORMAT = new SimpleDateFormat(DATABASE_DATE_FORMAT_STRING);
 
     @DatabaseField(columnName = ID, generatedId = true)
     private long _id;

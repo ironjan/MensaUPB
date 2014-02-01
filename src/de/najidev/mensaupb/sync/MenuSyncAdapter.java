@@ -12,6 +12,7 @@ import java.net.*;
 import java.util.*;
 
 import de.najidev.mensaupb.*;
+import de.najidev.mensaupb.persistence.*;
 import de.najidev.mensaupb.stw.*;
 
 /**
@@ -70,6 +71,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             InputStream in = downloadFile();
             final List<Menu> menus = StwParser.parseInputStream(in);
             final ContentValues[] cvs = convertToContentValues(menus);
+            clear();
             bulkInsert(cvs);
 
         }
@@ -80,6 +82,15 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             LOGGER.debug("onPerformeSync({},{},{},{},{}) done", new Object[]{account, bundle, s, contentProviderClient, syncResult});
         }
     }
+
+    private void clear() {
+        DatabaseManager dbManager = new DatabaseManager();
+        int count = dbManager.getHelper(getContext())
+                .getWritableDatabase()
+                .delete(Menu.TABLE, null, null);
+        if (BuildConfig.DEBUG) LOGGER.info("Deleted {} menus from database.", count);
+    }
+
     private InputStream downloadFile() throws IOException {
         LOGGER.debug("downloadFile()");
 
@@ -119,6 +130,8 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         final ContentResolver cr = getContext().getContentResolver();
         cr.bulkInsert(MenuContentProvider.MENU_URI, cvs);
         cr.notifyChange(MenuContentProvider.MENU_URI, null);
+
+        if (BuildConfig.DEBUG) LOGGER.info("Inserted {} entries into database.", cvs.length);
 
         if(BuildConfig.DEBUG) LOGGER.debug("bulkInsert(...) done");
     }

@@ -1,74 +1,46 @@
 package de.najidev.mensaupb.activities;
 
-import android.accounts.*;
-import android.app.*;
-import android.content.*;
-import android.database.*;
 import android.os.*;
-import android.view.*;
-import android.widget.*;
+import android.support.v4.app.*;
+import android.support.v7.app.*;
 
 import org.androidannotations.annotations.*;
-import org.slf4j.*;
+
+import java.util.*;
 
 import de.najidev.mensaupb.*;
-import de.najidev.mensaupb.stw.Menu;
-import de.najidev.mensaupb.sync.*;
+import de.najidev.mensaupb.fragments.*;
 
-@EActivity(R.layout.fragment_menu_listing)
-public class Test extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+@EActivity(R.layout.activity_menu_listing)
+public class Test extends ActionBarActivity {
 
-    public static final String[] LIST_PROJECTION = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.ALLERGENES, Menu.ID};
-    private SimpleCursorAdapter adapter;
+    @AfterViews
+    void showMenus() {
+        Bundle arguments = new Bundle();
+        arguments.putString(MenuListingFragment.ARG_DATE, getNextWeekDay());
+        arguments.putString(MenuListingFragment.ARG_LOCATION, "Mensa");
 
-    @Bean
-    AccountCreator mAccountCreator;
+        final MenuListingFragment_ fragment = new MenuListingFragment_();
+        fragment.setArguments(arguments);
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        String[] projection = LIST_PROJECTION;
-        CursorLoader cursorLoader = new CursorLoader(this,
-                MenuContentProvider.MENU_URI, projection, null, null, null);
-
-        return cursorLoader;
+        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(android.R.id.content, fragment);
+        ft.commit();
     }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        adapter.swapCursor(cursor);
+    private String getNextWeekDay() {
+        Calendar cal = Calendar.getInstance();
+        while (dayIsWeekend(cal)) {
+            cal.add(Calendar.DAY_OF_WEEK, 1);
+        }
+
+        final String day = de.najidev.mensaupb.stw.Menu.DATABASE_DATE_FORMAT.format(cal.getTime());
+
+        return day;
     }
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        adapter.swapCursor(null);
+    private boolean dayIsWeekend(Calendar cal) {
+        return cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
     }
-
-
-    Logger LOGGER = LoggerFactory.getLogger("Test");
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        String[] uiBindFrom = LIST_PROJECTION;
-        int[] uiBindTo = {R.id.textName, R.id.textCategory, R.id.textAllergenes};
-        getLoaderManager().initLoader(0, null, this);
-        adapter = new SimpleCursorAdapter(
-                this, R.layout.view_menu_list_item,
-                null, uiBindFrom, uiBindTo, 0);
-        setListAdapter(adapter);
-        setupSynchronization();
-    }
-
-    private void setupSynchronization() {
-        final Account account = mAccountCreator.build(this);
-
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-        ContentResolver.requestSync(account, mAccountCreator.getAuthority(), settingsBundle);
-
-        ContentResolver.addPeriodicSync(account, mAccountCreator.getAuthority(), new Bundle(), BuildConfig.SYNC_INTERVAL);
-    }
-
 
 }

@@ -29,13 +29,13 @@ public class StwCategoryParser {
         mapping.put("PUB Fladenbrot","Essen");
         mapping.put("PUB Hauptkompononte","Essen");
         mapping.put("PUB Mittags-Angebot", "Essen");
-        mapping.put("Stamm HK Essen 1 1,05€ €", "Essen");
-        mapping.put("Stamm HK Essen 2 1,60 €", "Essen");
-        mapping.put("Stamm HK Essen 3 2,00 €", "Essen");
-        mapping.put("Stamm Waage 100g/0,80 €", "Essen");
+        mapping.put("Stamm HK Essen 1 1,05€", "Essen");
+        mapping.put("Stamm HK Essen 2 1,60€", "Essen");
+        mapping.put("Stamm HK Essen 3 2,00€", "Essen");
+        mapping.put("Stamm Waage 100g/0,80€", "Essen");
         mapping.put("WOK-Buffet Mensa", "Essen");
-        mapping.put("Stamm Eintopf 1 f 1,80 €", "Suppe");
-        mapping.put("Stamm Tagessuppe 0,55 €", "Suppe");
+        mapping.put("Stamm Eintopf 1 f 1,80€", "Suppe");
+        mapping.put("Stamm Tagessuppe 0,55€", "Suppe");
 
     }
 
