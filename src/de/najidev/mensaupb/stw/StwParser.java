@@ -16,7 +16,7 @@ public class StwParser {
 
         List<Menu> parsedMenus = new ArrayList<Menu>();
 
-        Scanner sc = new Scanner(inputStream, "ISO-8859-15");
+        Scanner sc = new Scanner(inputStream, "windows-1252");
         sc.useDelimiter(";");
 
         sc.nextLine(); // skip description line

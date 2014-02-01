@@ -1,6 +1,10 @@
 package de.najidev.mensaupb.stw;
 
+import org.slf4j.*;
+
 import java.util.*;
+
+import de.najidev.mensaupb.*;
 
 /**
  * Created by ljan on 31.01.14.
@@ -24,29 +28,22 @@ public class StwCategoryParser {
         mapping.put("Pastabuffet","Essen");
         mapping.put("PUB Fladenbrot","Essen");
         mapping.put("PUB Hauptkompononte","Essen");
-        mapping.put("PUB Mittags -Angebot","Essen");
-        mapping.put("Stamm HK Essen 1 1, 05 €","Essen");
-        mapping.put("Stamm HK Essen 2 1, 60 €","Essen");
-        mapping.put("Stamm HK Essen 3 2, 00 €","Essen");
-        mapping.put("Stamm Waage 100 g / 0, 80 €","Essen");
-        mapping.put("WOK - Buffet Mensa","Essen");
-        mapping.put("AUSSENSTELLE","nicht anzeigen");
-        mapping.put("Counter Dessert 1 1, 20 €","nicht anzeigen");
-        mapping.put("Gemüsebuffet","nicht anzeigen");
-        mapping.put("Obst","nicht anzeigen");
-        mapping.put("Obstsalat","nicht anzeigen");
-        mapping.put("PUB Kroketten/Röstiecken","nicht anzeigen");
-        mapping.put("Salat -/Antipastabuffet","nicht anzeigen");
-        mapping.put("Salat Buffet 100 g / 0, 60 €","nicht anzeigen");
-        mapping.put("Sonderveranstaltung","nicht anzeigen");
-        mapping.put("Stamm Eintopf kl. 1 0, 75 €","nicht anzeigen");
-        mapping.put("Stamm Sauce extra 1 0, 20 €","nicht anzeigen");
-        mapping.put("Stamm Eintopf 1 f 1, 80 €","Suppe");
-        mapping.put("Stamm Tagessuppe 0, 55 €","Suppe");
+        mapping.put("PUB Mittags-Angebot", "Essen");
+        mapping.put("Stamm HK Essen 1 1,05€ €", "Essen");
+        mapping.put("Stamm HK Essen 2 1,60 €", "Essen");
+        mapping.put("Stamm HK Essen 3 2,00 €", "Essen");
+        mapping.put("Stamm Waage 100g/0,80 €", "Essen");
+        mapping.put("WOK-Buffet Mensa", "Essen");
+        mapping.put("Stamm Eintopf 1 f 1,80 €", "Suppe");
+        mapping.put("Stamm Tagessuppe 0,55 €", "Suppe");
 
     }
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(StwCategoryParser.class.getSimpleName());
+
     public static String getCategory(String key) {
-        return mapping.get(key);
+        final String category = mapping.get(key);
+        if (BuildConfig.DEBUG) LOGGER.debug("{} -> {}", key, category);
+        return category;
     }
 }
