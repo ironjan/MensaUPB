@@ -23,52 +23,10 @@ public class Test extends ActionBarActivity {
     private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
     private static final SimpleDateFormat SDF = Menu.DATABASE_DATE_FORMAT;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        final ActionBar actionBar = getSupportActionBar();
-
-        // Specify that tabs should be displayed in the action bar.
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Create a tab listener that is called when the user changes tabs.
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // hide the given tab
-            }
-
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // probably ignore this event
-            }
-        };
-
-
-        // Add 3 tabs, specifying the tab's text and TabListener
-        for (int i = 0; i < 3; i++) {
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText("Tab " + (i + 1))
-                            .setTabListener(tabListener));
-        }
-    }
 
     @AfterViews
     void showMenus() {
         initPager();
-        Bundle arguments = new Bundle();
-        arguments.putString(MenuListingFragment.ARG_DATE, SDF.format(getNextWeekDay()));
-        arguments.putString(MenuListingFragment.ARG_LOCATION, "Mensa");
-
-        final MenuListingFragment_ fragment = new MenuListingFragment_();
-        fragment.setArguments(arguments);
-
-        final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(android.R.id.content, fragment);
-        ft.commit();
     }
 
     private void initPager() {
@@ -78,15 +36,10 @@ public class Test extends ActionBarActivity {
                 new DemoCollectionPagerAdapter(
                         getSupportFragmentManager());
         mViewPager.setAdapter(mDemoCollectionPagerAdapter);
-        mViewPager.setOnPageChangeListener(
-                new ViewPager.SimpleOnPageChangeListener() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        // When swiping between pages, select the
-                        // corresponding tab.
-                        getActionBar().setSelectedNavigationItem(position);
-                    }
-                });
+    }
+
+    private String getNextWeekDayAsString(int i) {
+        return SDF.format(getNextWeekDay(i));
     }
 
     private Date getNextWeekDay() {
@@ -102,19 +55,34 @@ public class Test extends ActionBarActivity {
         return cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
     }
 
-    // Since this is an object collection, use a FragmentStatePagerAdapter,
-// and NOT a FragmentPagerAdapter.
     public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
+
+        Fragment[] fragments = new Fragment[3];
+
         public DemoCollectionPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int i) {
+            Fragment fragment = getMenuListingFragment(i);
+            return fragment;
+        }
+
+        private Fragment getMenuListingFragment(int i) {
+            if (fragments[i] == null) {
+                Fragment fragment = initMenuListingFragment(i);
+                fragments[i] = fragment;
+            }
+
+            return fragments[i];
+        }
+
+        private Fragment initMenuListingFragment(int i) {
             Fragment fragment = new MenuListingFragment_();
             Bundle arguments = new Bundle();
 
-            arguments.putString(MenuListingFragment.ARG_DATE, SDF.format(getNextWeekDay(i)));
+            arguments.putString(MenuListingFragment.ARG_DATE, getNextWeekDayAsString(i));
             arguments.putString(MenuListingFragment.ARG_LOCATION, "Mensa");
 
             fragment.setArguments(arguments);
@@ -128,7 +96,7 @@ public class Test extends ActionBarActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "OBJECT " + (position + 1);
+            return getNextWeekDayAsString(position);
         }
     }
 

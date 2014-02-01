@@ -4,7 +4,6 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:background="@color/backgroundBehindCards"
-
               android:layout_height="match_parent"
               android:orientation="vertical">
 
@@ -15,6 +14,7 @@
         android:id="@android:id/list"
         android:padding="@dimen/elementMargin"
         android:dividerHeight="@dimen/elementMargin"
+        android:divider="@color/backgroundBehindCards"
         tools:listitem="@layout/view_menu_list_item"/>
 
     <FrameLayout
