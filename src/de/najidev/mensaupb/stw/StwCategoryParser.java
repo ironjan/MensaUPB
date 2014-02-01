@@ -11,74 +11,88 @@ import de.najidev.mensaupb.*;
  */
 public class StwCategoryParser {
     private static Hashtable<String, String> categoryMapping = new Hashtable<String, String>();
-private static HashMap<String, Integer> sortMapping = new HashMap<String, Integer>();
+    private static HashMap<String, Integer> sortMapping = new HashMap<String, Integer>();
 
-    private static final Integer AKTIONS_ESSEN = Integer.valueOf(0);
-    private static final Integer HK_ESSEN = Integer.valueOf(10);
-    private static final Integer GRILL  = Integer.valueOf(20);
-    private static final Integer PASTA  = Integer.valueOf(30);
-    private static final Integer DESSERT= Integer.valueOf(40);
-    private static final Integer DESSERT_TEUER= Integer.valueOf(45);
-    private static final Integer SALADS = Integer.valueOf(50);
-    private static final Integer WOK = Integer.valueOf(60);
-    private static final Integer SOUP = Integer.valueOf(70);
+
+    public static final String CATEGORY_ESSEN = "Essen";
+
+    private static final String CATEGORY_GRILL = "Grill";
+
+    public static final String CATEGORY_PASTA = "Pasta";
+
+    public static final String CATEGORY_SALAD_BUFFET = "Salatbuffet";
+
+    public static final String CATEGORY_WOK = "Wok";
+
+    public static final String CATEGORY_EINTOPF = "Eintopf";
+
+    public static final String CATEGORY_SOUP = "Suppe";
+
+    public static final int SORT_MAIN_DISHES = 0,
+            SORT_HK = 20,
+            SORT_GRILL = 25,
+            SORT_SALAD = 30,
+            SORT_DESSERT = 32,
+            SORT_BUFFET = 35,
+            SORT_DISH_EXPENSIVE = 40,
+            SORT_DESSERT_EXPENSIVE = 90;
 
     static {
         categoryMapping.put("PUB Beilage Waage", "Beilage");
-        sortMapping.put("PUB Beilage Waage",SALADS);
+        sortMapping.put("PUB Beilage Waage", SORT_SALAD);
         categoryMapping.put("PUB Salatbeilage Waage", "Beilage");
-        sortMapping.put("PUB Salatbeilage Waage",SALADS);
+        sortMapping.put("PUB Salatbeilage Waage", SORT_SALAD);
         categoryMapping.put("Stamm Beilage klein 0,50€", "Beilage");
-        sortMapping.put("Stamm Beilage klein 0,50€",SALADS);
+        sortMapping.put("Stamm Beilage klein 0,50€", SORT_SALAD);
         categoryMapping.put("Stamm Beilagensalat 0,50€", "Beilage");
-        sortMapping.put("Stamm Beilagensalat 0,50€",SALADS);
+        sortMapping.put("Stamm Beilagensalat 0,50€", SORT_SALAD);
         categoryMapping.put("Stamm Gemüsebeil. 1 0,50€", "Beilage");
-        sortMapping.put("Stamm Gemüsebeil. 1 0,50€",SALADS);
+        sortMapping.put("Stamm Gemüsebeil. 1 0,50€", SORT_SALAD);
         categoryMapping.put("Stamm Sättigungbeil 0,50€", "Beilage");
-        sortMapping.put("Stamm Sättigungbeil 0,50€",SALADS);
+        sortMapping.put("Stamm Sättigungbeil 0,50€", SORT_SALAD);
 
         categoryMapping.put("Aktionsdessert 1,20€", "Dessert");
-        sortMapping.put("Aktionsdessert 1,20€",DESSERT_TEUER);
+        sortMapping.put("Aktionsdessert 1,20€", SORT_DESSERT_EXPENSIVE);
         categoryMapping.put("PUB Dessert", "Dessert");
-        sortMapping.put("PUB Dessert",DESSERT);
+        sortMapping.put("PUB Dessert", SORT_DESSERT);
         categoryMapping.put("Stamm Dessert 0,55€", "Dessert");
-        sortMapping.put("Stamm Dessert",DESSERT);
+        sortMapping.put("Stamm Dessert", SORT_DESSERT);
 
-        categoryMapping.put("Aktionsessen", "Essen");
-        sortMapping.put("Aktionsessen", AKTIONS_ESSEN);
+        categoryMapping.put("Aktionsessen", CATEGORY_ESSEN);
+        sortMapping.put("Aktionsessen", SORT_DISH_EXPENSIVE);
 
-        categoryMapping.put("Grill Fisch", "Essen");
-        sortMapping.put("Grill Fisch", GRILL);
-        categoryMapping.put("Grill Fleisch", "Essen");
-        sortMapping.put("Grill Fleisch", GRILL);
+        categoryMapping.put("Grill Fisch", CATEGORY_GRILL);
+        sortMapping.put("Grill Fisch", SORT_GRILL);
+        categoryMapping.put("Grill Fleisch", CATEGORY_GRILL);
+        sortMapping.put("Grill Fleisch", SORT_GRILL);
 
-        categoryMapping.put("Pastabuffet","Essen");
-        sortMapping.put("Pastabuffet", PASTA);
+        categoryMapping.put("Pastabuffet", CATEGORY_PASTA);
+        sortMapping.put("Pastabuffet", SORT_BUFFET);
 
-        categoryMapping.put("PUB Fladenbrot","Essen");
-        sortMapping.put("PUB Fladenbrot", HK_ESSEN);
+        categoryMapping.put("PUB Fladenbrot", CATEGORY_ESSEN);
+        sortMapping.put("PUB Fladenbrot", SORT_MAIN_DISHES);
 
-        categoryMapping.put("PUB Hauptkompononte","Essen");
-        sortMapping.put("PUB Hauptkompononte", HK_ESSEN);
+        categoryMapping.put("PUB Hauptkompononte", CATEGORY_ESSEN);
+        sortMapping.put("PUB Hauptkompononte", SORT_HK);
 
-        categoryMapping.put("PUB Mittags-Angebot", "Essen");
-        sortMapping.put("PUB Mittags-Angebot", AKTIONS_ESSEN);
-        categoryMapping.put("Stamm HK Essen 1 1,05€", "Essen");
-        sortMapping.put("Stamm HK Essen 1 1,05€", AKTIONS_ESSEN);
-        categoryMapping.put("Stamm HK Essen 2 1,60€", "Essen");
-        sortMapping.put("Stamm HK Essen 2 1,60€", AKTIONS_ESSEN);
-        categoryMapping.put("Stamm HK Essen 3 2,00€", "Essen");
-        sortMapping.put("Stamm HK Essen 3 2,00€", AKTIONS_ESSEN);
+        categoryMapping.put("PUB Mittags-Angebot", CATEGORY_ESSEN);
+        sortMapping.put("PUB Mittags-Angebot", SORT_MAIN_DISHES);
+        categoryMapping.put("Stamm HK Essen 1 1,05€", CATEGORY_ESSEN);
+        sortMapping.put("Stamm HK Essen 1 1,05€", SORT_HK);
+        categoryMapping.put("Stamm HK Essen 2 1,60€", CATEGORY_ESSEN);
+        sortMapping.put("Stamm HK Essen 2 1,60€", SORT_HK);
+        categoryMapping.put("Stamm HK Essen 3 2,00€", CATEGORY_ESSEN);
+        sortMapping.put("Stamm HK Essen 3 2,00€", SORT_HK);
 
-        categoryMapping.put("Stamm Waage 100g/0,80€", "Essen");
-        sortMapping.put("Stamm Waage 100g/0,80€",WOK);
-        categoryMapping.put("WOK-Buffet Mensa", "Essen");
-        sortMapping.put("WOK-Buffet Mensa",WOK);
+        categoryMapping.put("Stamm Waage 100g/0,80€", CATEGORY_SALAD_BUFFET);
+        sortMapping.put("Stamm Waage 100g/0,80€", SORT_BUFFET);
+        categoryMapping.put("WOK-Buffet Mensa", CATEGORY_WOK);
+        sortMapping.put("WOK-Buffet Mensa", SORT_BUFFET);
 
-        categoryMapping.put("Stamm Eintopf 1 f 1,80€", "Suppe");
-             sortMapping.put("Stamm Eintopf 1 f 1,80€", AKTIONS_ESSEN);
-   categoryMapping.put("Stamm Tagessuppe 0,55€", "Suppe");
-             sortMapping.put("Stamm Tagessuppe 0,55€", SOUP);
+        categoryMapping.put("Stamm Eintopf 1 f 1,80€", CATEGORY_EINTOPF);
+        sortMapping.put("Stamm Eintopf 1 f 1,80€", 5);
+        categoryMapping.put("Stamm Tagessuppe 0,55€", CATEGORY_SOUP);
+        sortMapping.put("Stamm Tagessuppe 0,55€", 60);
 
     }
 
@@ -90,7 +104,7 @@ private static HashMap<String, Integer> sortMapping = new HashMap<String, Intege
         return category;
     }
 
-    public static int getSort(String key){
+    public static int getSort(String key) {
         final Integer sort = sortMapping.get(key);
         if (BuildConfig.DEBUG) LOGGER.debug("{} -> {}", key, sort);
         return (sort == null) ? 99 : sort.intValue();
