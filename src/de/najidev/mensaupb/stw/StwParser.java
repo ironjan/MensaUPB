@@ -53,12 +53,14 @@ public class StwParser {
         cv.put(Menu.LOCATION, parts[1]);
         cv.put(Menu.DATE, parts[2]);
         cv.put(Menu.CATEGORY, StwCategoryParser.getCategory(parts[3]));
+        cv.put(Menu.SORT, StwCategoryParser.getSort(parts[3]));
 
         if ("a".equals(parts[5])) cv.put(Menu.LOCATION, "Abendmensa");
 
         cv.put(Menu.NAME_GERMAN, parts[6]);
         cv.put(Menu.NAME_ENGLISH, parts[7]);
         cv.put(Menu.ALLERGENES, Allergene.filterAllergenes(parts[8]));
+
 
         if (BuildConfig.DEBUG) LOGGER.debug("parseLine({}) -> {}", parts, cv);
         return cv;

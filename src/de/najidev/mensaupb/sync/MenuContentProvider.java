@@ -4,11 +4,14 @@ import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
 import android.net.*;
+import android.text.*;
+import android.view.*;
 
 import org.androidannotations.annotations.*;
 
 import de.najidev.mensaupb.persistence.*;
 import de.najidev.mensaupb.stw.*;
+import de.najidev.mensaupb.stw.Menu;
 
 /**
  * Created by ljan on 10.01.14.
@@ -46,6 +49,10 @@ public class MenuContentProvider extends ContentProvider {
         queryBuilder.setTables(Menu.TABLE);
 
         SQLiteDatabase db = getHelper().getReadableDatabase();
+
+        if(TextUtils.isEmpty(sortOrder)){
+            sortOrder = String.format(" %s DESC, %s ASC", Menu.CATEGORY,Menu.SORT );
+        }
 
         Cursor cursor = queryBuilder.query(db, projection, selection,
                 selectionArgs, null, null, sortOrder);

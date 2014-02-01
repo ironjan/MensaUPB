@@ -19,7 +19,7 @@ import de.najidev.mensaupb.stw.*;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
 
@@ -41,20 +41,18 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-//        try {
-//            LOGGER.info("onUpgrade()");
-//            switch (old){
-//                case 1:
-//                    Dao<Account, Integer> dao = getHelper().getAccountDao();
-//// change the table to add a new column named "age"
-//                    dao.executeRaw("ALTER TABLE `account` ADD COLUMN age INTEGER;"); }
-//
-//        } catch (SQLException e) {
-//            LOGGER.error("Can't drop databases", e);
-//            throw new RuntimeException(e);
-//        }
-        LOGGER.info("onUpgrade() done");
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int old, int newVersion) {
+            LOGGER.info("onUpgrade()");
+            switch (old){
+                case 1:
+                    try {
+                        TableUtils.dropTable(connectionSource,Menu.class,true);
+                    } catch (SQLException e) {
+                        LOGGER.error(e.getMessage(),e);
+                    }
+                    }
+                    LOGGER.info("onUpgrade() done");
+            onCreate(sqLiteDatabase, connectionSource);
     }
 
 }
