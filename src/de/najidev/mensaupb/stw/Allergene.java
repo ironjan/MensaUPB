@@ -1,9 +1,17 @@
 package de.najidev.mensaupb.stw;
 
+import org.slf4j.*;
+
 import java.util.*;
 
+import de.najidev.mensaupb.*;
+
 public class Allergene {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Allergene.class.getSimpleName());
+
     private static final HashMap<String, String> mapping = new HashMap<String, String>();
+    private static final List<String> allowed = new ArrayList<String>();
+
     static {
         mapping.put("1"
                 , "Farbstoff");
@@ -59,10 +67,43 @@ public class Allergene {
                 , "Weichtiere und Weichtiererzeugnisse");
         mapping.put("A13"
                 , "Lupinen und Lupinenerzeugnisse");
+
+
+        allowed.addAll(mapping.keySet());
     }
+
+    public static final String ALLEGERNE_DELIMITER = ", ";
 
     public String descriptionFromKey(String key) {
         final String description = mapping.get(key);
         return description;
+    }
+
+    public static String filterAllergenes(String s) {
+        if (BuildConfig.DEBUG) LOGGER.debug("filterAllergenes({})", s);
+
+
+        StringBuffer filtered = new StringBuffer();
+
+        Scanner sc = new Scanner(s);
+        sc.useDelimiter(ALLEGERNE_DELIMITER);
+
+        String next;
+        if (sc.hasNext()) {
+            next = sc.next();
+            if (allowed.contains(next)) {
+                filtered.append(next);
+            }
+        }
+        while (sc.hasNext()) {
+            next = sc.next();
+            if (allowed.contains(next)) {
+                filtered.append(", ").append(next);
+            }
+        }
+        final String result = filtered.toString();
+
+        if (BuildConfig.DEBUG) LOGGER.debug("filterAllergenes({}) -> {}", s, result);
+        return result;
     }
 }

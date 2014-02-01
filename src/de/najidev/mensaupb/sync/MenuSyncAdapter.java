@@ -69,10 +69,9 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
         try{
             InputStream in = downloadFile();
-            final List<Menu> menus = StwParser.parseInputStream(in);
-            final ContentValues[] cvs = convertToContentValues(menus);
+            final List<ContentValues> menus = StwParser.parseInputStream(in);
             clear();
-            bulkInsert(cvs);
+            bulkInsert(menus);
 
         }
         catch(IOException e){
@@ -108,30 +107,17 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
 
-    private ContentValues[] convertToContentValues(List<Menu> menus) {
-        if(BuildConfig.DEBUG) LOGGER.debug("convertToContentValues(...)");
-
-        int size = menus.size();
-
-        ContentValues[] cvs = new ContentValues[size];
-        for(int i=0; i<size; i++){
-            Menu menu = menus.get(i);
-            ContentValues cv = MenuToContentValuesConverter.convert(menu);
-            cvs[i] = cv;
-        }
-
-        if(BuildConfig.DEBUG) LOGGER.debug("convertToContentValues(...) done");
-        return cvs;
-    }
-
-    private void bulkInsert(ContentValues[] cvs) {
+    private void bulkInsert(List<ContentValues> cvs) {
         if(BuildConfig.DEBUG) LOGGER.debug("bulkInsert(...)");
+        ContentValues[] cvsArray = new ContentValues[cvs.size()];
+        cvsArray = cvs.toArray(cvsArray);
 
         final ContentResolver cr = getContext().getContentResolver();
-        cr.bulkInsert(MenuContentProvider.MENU_URI, cvs);
+
+        cr.bulkInsert(MenuContentProvider.MENU_URI, cvsArray);
         cr.notifyChange(MenuContentProvider.MENU_URI, null);
 
-        if (BuildConfig.DEBUG) LOGGER.info("Inserted {} entries into database.", cvs.length);
+        if (BuildConfig.DEBUG) LOGGER.info("Inserted {} entries into database.", cvs.size());
 
         if(BuildConfig.DEBUG) LOGGER.debug("bulkInsert(...) done");
     }

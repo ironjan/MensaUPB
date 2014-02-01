@@ -1,5 +1,7 @@
 package de.najidev.mensaupb.stw;
 
+import android.content.*;
+
 import org.slf4j.*;
 
 import java.io.*;
@@ -11,10 +13,10 @@ public class StwParser {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StwParser.class.getSimpleName());
 
-    public static List<Menu> parseInputStream(InputStream inputStream) {
+    public static List<ContentValues> parseInputStream(InputStream inputStream) {
         if(BuildConfig.DEBUG) LOGGER.debug("parseInputStream({})", inputStream);
 
-        List<Menu> parsedMenus = new ArrayList<Menu>();
+        List<ContentValues> parsedMenus = new ArrayList<ContentValues>();
 
         Scanner sc = new Scanner(inputStream, "windows-1252");
         sc.useDelimiter(";");
@@ -23,7 +25,7 @@ public class StwParser {
 
         while (sc.hasNextLine()) {
             String[] parts = prepareNextLine(sc);
-            Menu menu = parseLine(parts);
+            ContentValues menu = parseLine(parts);
             parsedMenus.add(menu);
         }
 
@@ -44,22 +46,22 @@ public class StwParser {
         return line.split(";");
     }
 
-    private static Menu parseLine(String[] parts) {
+    private static ContentValues parseLine(String[] parts) {
         if(BuildConfig.DEBUG) LOGGER.debug("parseLine({}) {}", parts, "");
 
-        Menu menu = new Menu();
-        menu.setLocation(parts[1]);
-        menu.setDate(parts[2]);
-        menu.setCategory(StwCategoryParser.getCategory(parts[3]));
+        ContentValues cv = new ContentValues();
+        cv.put(Menu.LOCATION, parts[1]);
+        cv.put(Menu.DATE, parts[2]);
+        cv.put(Menu.CATEGORY, StwCategoryParser.getCategory(parts[3]));
 
-        if ("a".equals(parts[5])) menu.setLocation("Abendmensa");
+        if ("a".equals(parts[5])) cv.put(Menu.LOCATION, "Abendmensa");
 
-        menu.setNameGerman(parts[6]);
-        menu.setNameEnglish(parts[7]);
-        menu.setAllergenes(parts[8]);
+        cv.put(Menu.NAME_GERMAN, parts[6]);
+        cv.put(Menu.NAME_ENGLISH, parts[7]);
+        cv.put(Menu.ALLERGENES, Allergene.filterAllergenes(parts[8]));
 
-        if(BuildConfig.DEBUG) LOGGER.debug("parseLine({}) -> {}", parts, menu);
-        return menu;
+        if (BuildConfig.DEBUG) LOGGER.debug("parseLine({}) -> {}", parts, cv);
+        return cv;
     }
 
 }

@@ -18,6 +18,7 @@ public class Menu {
     public static final String LOCATION = "location";
     public static final String CATEGORY = "category";
     public static final String ALLERGENES = "allergenes";
+    public static final String SORT = "sort";
     private static final String DATABASE_DATE_FORMAT_STRING = "dd.MM.yyyy";
     public static final SimpleDateFormat DATABASE_DATE_FORMAT = new SimpleDateFormat(DATABASE_DATE_FORMAT_STRING);
 
@@ -41,6 +42,17 @@ public class Menu {
 
     @DatabaseField(columnName = ALLERGENES)
     private String allergenes;
+
+    @DatabaseField(columnName = SORT)
+    private int sort;
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
 
     public Menu() {
     }
