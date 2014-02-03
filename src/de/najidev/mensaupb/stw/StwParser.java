@@ -1,6 +1,7 @@
 package de.najidev.mensaupb.stw;
 
 import android.content.*;
+import android.text.*;
 
 import org.slf4j.*;
 
@@ -19,18 +20,26 @@ public class StwParser {
         List<ContentValues> parsedMenus = new ArrayList<ContentValues>();
 
         Scanner sc = new Scanner(inputStream, "windows-1252");
-        sc.useDelimiter(";");
 
         sc.nextLine(); // skip description line
 
         while (sc.hasNextLine()) {
             String[] parts = prepareNextLine(sc);
+            if(skipThisLine(parts)) {
+                continue;
+            }else{
             ContentValues menu = parseLine(parts);
             parsedMenus.add(menu);
+            }
         }
 
         if(BuildConfig.DEBUG) LOGGER.debug("parseInputStream({}) done", inputStream);
         return parsedMenus;
+    }
+
+    private static boolean skipThisLine(String[] parts) {
+        if(BuildConfig.DEBUG) LOGGER.debug("skipThisLine(..): \"Mensa Hamm\" == {}",parts[1]);
+        return TextUtils.equals("Mensa Hamm", parts[1]);
     }
 
     private static String[] prepareNextLine(Scanner sc) {
