@@ -102,9 +102,6 @@ dependencies {
     apt "org.androidannotations:androidannotations:3.0"
     compile "org.androidannotations:androidannotations-api:3.0"
 
-    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.0.0'
-
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
