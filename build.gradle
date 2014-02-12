@@ -24,6 +24,8 @@ apply plugin: 'android-apt'
 
 configurations {
     apt
+    unitTestCompile.extendsFrom runtime
+    unitTestRuntime.extendsFrom unitTestCompile
 }
 
 
@@ -67,7 +69,6 @@ android {
             manifest.srcFile 'AndroidManifest.xml'
         }
 
-        instrumentTest.setRoot('tests')
     }
 
     buildTypes {
@@ -100,7 +101,26 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.0.0'
 
     compile fileTree(dir: 'libs', include: '*.jar')
+
+//    unit tests
+    unitTestCompile files("$project.buildDir/classes/release")
+    unitTestCompile 'junit:junit:4.8.2'
 }
+
+sourceSets {
+        unitTest {
+            java.srcDir file('src/test/java')
+            resources.srcDir file('src/test/resources')
+        }
+}
+
+task unitTest(type:Test, dependsOn: assemble){
+    description = 'run unit tests'
+    testClassesDir = project.sourceSets.unitTest.output.classesDir
+    classpath = project.sourceSets.unitTest.runtimeClasspath
+}
+
+check.dependsOn unitTest
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.9'
