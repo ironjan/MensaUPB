@@ -11,8 +11,4 @@ public class SanityTest {
 		assertEquals("insanity!", 2, i+1);
 	}
 
-	@Test
-	public void failing(){
-		fail()
-	}
 }
