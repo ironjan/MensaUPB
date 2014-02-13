@@ -104,7 +104,8 @@ dependencies {
 
 //    unit tests
     unitTestCompile files("$project.buildDir/classes/release")
-    unitTestCompile 'junit:junit:4.8.2'
+    unitTestCompile 'junit:junit:4.11'
+    unitTestCompile 'org.robolectric:robolectric:2.2'
 }
 
 sourceSets {
