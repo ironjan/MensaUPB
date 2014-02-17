@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menuContent xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/ab_refresh"
         android:icon="@drawable/ic_navigation_refresh_dark"
         android:showAsAction="always"
         android:title="@string/refresh"/>
-   <item
-        android:id="@+id/ab_changeLocation"
-        android:icon="@drawable/location_place_dark_holo"
-        android:showAsAction="always"
-        android:title="@string/change_location"/>
-     <item
-        android:id="@+id/ab_times"
-        android:icon="@drawable/action_about_dark_holo"
-        android:showAsAction="ifRoom"
-        android:title="@string/opening_times"/>
+
     <item
         android:id="@+id/ab_settings"
         android:icon="@drawable/action_settings_dark_holo"
         android:showAsAction="ifRoom"
         android:title="@string/settings"/>
 
-</menuContent>
+</menu>

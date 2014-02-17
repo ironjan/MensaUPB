@@ -21,6 +21,7 @@ import de.najidev.mensaupb.sync.*;
  * Created by ljan on 01.02.14.
  */
 @EFragment(R.layout.fragment_menu_listing)
+@OptionsMenu(R.menu.main)
 public class MenuListingFragment extends ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String SELECTION = de.najidev.mensaupb.stw.Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
@@ -89,5 +90,16 @@ public class MenuListingFragment extends ListFragment implements android.support
         ContentResolver.addPeriodicSync(account, mAccountCreator.getAuthority(), new Bundle(), BuildConfig.SYNC_INTERVAL);
     }
 
+    @OptionsItem(R.id.ab_refresh)
+    void refreshClicked() {
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+
+        ContentResolver.requestSync(mAccountCreator.build(getActivity()), mAccountCreator.getAuthority(), settingsBundle);
+
+    }
 
 }
