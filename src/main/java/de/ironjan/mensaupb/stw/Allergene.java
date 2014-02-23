@@ -1,10 +1,10 @@
-package de.najidev.mensaupb.stw;
+package de.ironjan.mensaupb.stw;
 
 import org.slf4j.*;
 
 import java.util.*;
 
-import de.najidev.mensaupb.*;
+import de.ironjan.mensaupb.*;
 
 public class Allergene {
     private static final Logger LOGGER = LoggerFactory.getLogger(Allergene.class.getSimpleName());

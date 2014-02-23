@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.sync;
+package de.ironjan.mensaupb.sync;
 
 import android.accounts.*;
 import android.annotation.*;
@@ -12,9 +12,9 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import de.najidev.mensaupb.*;
-import de.najidev.mensaupb.persistence.*;
-import de.najidev.mensaupb.stw.*;
+import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.persistence.*;
+import de.ironjan.mensaupb.stw.*;
 
 /**
  * Created by ljan on 10.01.14.
@@ -22,6 +22,10 @@ import de.najidev.mensaupb.stw.*;
 public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public static final String SYNC_FINISHED = "SYNC_FINISHED";
+    public static final String WHERE = Menu.DATE + " = ? and " + Menu.LOCATION + " = ? and " + Menu.NAME_GERMAN + " = ?";
+    public static final int SELECTION_ARG_LOCATION = 1;
+    public static final int SELECTION_ARG_DATE = 0;
+    public static final int SELECTION_ARG_GERMAN_NAME = 2;
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
     private final ContentResolver mContentResolver;
@@ -74,31 +78,29 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
             final ContentResolver cr = getContext().getContentResolver();
 
-
-            clear();
-            cr.notifyChange(MenuContentProvider.MENU_URI, null);
-
             Scanner sc = new Scanner(inputStream, "windows-1252");
 
             sc.nextLine(); // skip description line
 
+            int[] counter = {0, 0};
+
             ContentValues menu = null;
+            final String[] selectionArgs = new String[3];
             while (sc.hasNextLine()) {
                 String[] parts = prepareNextLine(sc);
-                if (parts.length < 2) {
-                    if (BuildConfig.DEBUG)
-                        LOGGER.debug("skipThisLine(..): \"Mensa Hamm\" == {}", parts);
-                    continue;
-                } else if (TextUtils.equals("Mensa Hamm", parts[1])) {
+                if (skipThisLine(parts)) {
                     continue;
                 } else {
-                    menu = parseLine(menu, parts);
-                    cr.insert(MenuContentProvider.MENU_URI, menu);
+                    menu = parseLine(menu, parts, selectionArgs);
+
+                    createOrUpdate(mContentResolver, counter, selectionArgs, menu, parts);
+
                     cr.notifyChange(MenuContentProvider.MENU_URI, null);
                 }
             }
 
-            if (BuildConfig.DEBUG) LOGGER.debug("parseInputStream({}) done", inputStream);
+            if (BuildConfig.DEBUG)
+                LOGGER.debug("parseInputStream({}) done, {} were new, {} were updated", new Object[]{inputStream, counter});
         }
         catch(IOException e){
             syncResult.stats.numIoExceptions++;
@@ -106,6 +108,29 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("onPerformeSync({},{},{},{},{}) done", new Object[]{account, bundle, s, contentProviderClient, syncResult});
         }
+    }
+
+    void createOrUpdate(ContentResolver cr, int[] counter, String[] selectionArgs, ContentValues menu, String[] parts) {
+        int updatedLines = tryUpdate(cr, counter, selectionArgs, menu);
+
+        if (0 == updatedLines) {
+            doInsert(cr, counter, menu);
+        }
+    }
+
+    private void doInsert(ContentResolver cr, int[] counter, ContentValues menu) {
+        cr.insert(MenuContentProvider.MENU_URI, menu);
+        counter[0]++;
+    }
+
+    private int tryUpdate(ContentResolver cr, int[] counter, String[] selectionArgs, ContentValues menu) {
+        int updatedLines = cr.update(MenuContentProvider.MENU_URI, menu, WHERE, selectionArgs);
+        counter[1] += updatedLines;
+        return updatedLines;
+    }
+
+    private boolean skipThisLine(String[] parts) {
+        return parts.length < 2 || TextUtils.equals("Mensa Hamm", parts[1]);
     }
 
 
@@ -122,7 +147,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         return line.split(";");
     }
 
-    private ContentValues parseLine(ContentValues menu, String[] parts) {
+    private ContentValues parseLine(ContentValues menu, String[] parts, String[] selectionArgs) {
         if (BuildConfig.DEBUG) LOGGER.debug("parseLine({}) {}", parts, "");
 
         if (menu == null) {
@@ -137,9 +162,14 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         if ("a".equals(parts[5])) menu.put(Menu.LOCATION, "Abendmensa");
 
         menu.put(Menu.NAME_GERMAN, parts[6]);
+
         menu.put(Menu.NAME_ENGLISH, parts[7]);
         menu.put(Menu.ALLERGENES, Allergene.filterAllergenes(parts[8]));
 
+
+        selectionArgs[SELECTION_ARG_LOCATION] = parts[1];
+        selectionArgs[SELECTION_ARG_DATE] = parts[2];
+        selectionArgs[SELECTION_ARG_GERMAN_NAME] = parts[6];
 
         if (BuildConfig.DEBUG) LOGGER.debug("parseLine({}) -> {}", parts, menu);
         return menu;

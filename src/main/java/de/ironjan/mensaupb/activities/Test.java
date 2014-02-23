@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.activities;
+package de.ironjan.mensaupb.activities;
 
 import android.os.*;
 import android.support.v4.app.*;
@@ -12,9 +12,9 @@ import org.androidannotations.annotations.*;
 import java.text.*;
 import java.util.*;
 
-import de.najidev.mensaupb.*;
-import de.najidev.mensaupb.fragments.*;
-import de.najidev.mensaupb.stw.*;
+import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.fragments.*;
+import de.ironjan.mensaupb.stw.*;
 
 @EActivity(R.layout.activity_menu_listing)
 public class Test extends ActionBarActivity implements ActionBar.OnNavigationListener {

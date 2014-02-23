@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.persistence;
+package de.ironjan.mensaupb.persistence;
 
 import android.content.*;
 import android.database.sqlite.*;
@@ -11,7 +11,7 @@ import org.slf4j.*;
 
 import java.sql.*;
 
-import de.najidev.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.*;
 
 /**
  * Created by ljan on 11.01.14.
@@ -42,17 +42,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int old, int newVersion) {
-            LOGGER.info("onUpgrade()");
-            switch (old){
-                case 1:
-                    try {
-                        TableUtils.dropTable(connectionSource,Menu.class,true);
-                    } catch (SQLException e) {
-                        LOGGER.error(e.getMessage(),e);
-                    }
-                    }
-                    LOGGER.info("onUpgrade() done");
-            onCreate(sqLiteDatabase, connectionSource);
+        LOGGER.info("onUpgrade()");
+        switch (old) {
+            case 1:
+                try {
+                    TableUtils.dropTable(connectionSource, Menu.class, true);
+                } catch (SQLException e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+        }
+        LOGGER.info("onUpgrade() done");
+        onCreate(sqLiteDatabase, connectionSource);
     }
 
 }

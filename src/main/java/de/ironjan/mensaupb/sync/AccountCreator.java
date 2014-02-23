@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.sync;
+package de.ironjan.mensaupb.sync;
 
 import android.accounts.*;
 import android.content.*;
@@ -20,7 +20,7 @@ public class AccountCreator {
      * Neded for synchroniztation initialization
      */
     private static final String AUTHORITY = ProviderContract.AUTHORITY,
-    ACCOUNT_TYPE = ProviderContract.ACCOUNT_TYPE,
+            ACCOUNT_TYPE = ProviderContract.ACCOUNT_TYPE,
             ACCOUNT = ProviderContract.ACCOUNT;
 
     private final Logger LOGGER = LoggerFactory.getLogger(AccountCreator.class.getSimpleName());

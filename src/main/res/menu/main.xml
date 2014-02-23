@@ -4,13 +4,8 @@
     <item
         android:id="@+id/ab_refresh"
         android:icon="@drawable/ic_navigation_refresh_dark"
-        android:showAsAction="always"
-        android:title="@string/refresh"/>
-
-    <item
-        android:id="@+id/ab_settings"
-        android:icon="@drawable/action_settings_dark_holo"
-        android:showAsAction="ifRoom"
-        android:title="@string/settings"/>
+        android:showAsAction="always|withText"
+        android:title="@string/refresh"
+        />
 
 </menu>

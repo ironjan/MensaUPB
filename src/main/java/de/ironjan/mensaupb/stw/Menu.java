@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.stw;
+package de.ironjan.mensaupb.stw;
 
 import android.provider.*;
 

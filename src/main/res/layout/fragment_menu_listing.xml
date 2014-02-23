@@ -12,8 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@android:id/list"
-        android:padding="@dimen/elementMargin"
-        android:dividerHeight="@dimen/elementMargin"
         android:divider="@color/backgroundBehindCards"
         tools:listitem="@layout/view_menu_list_item"/>
 

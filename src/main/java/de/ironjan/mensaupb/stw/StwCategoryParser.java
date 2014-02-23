@@ -1,10 +1,10 @@
-package de.najidev.mensaupb.stw;
+package de.ironjan.mensaupb.stw;
 
 import org.slf4j.*;
 
 import java.util.*;
 
-import de.najidev.mensaupb.*;
+import de.ironjan.mensaupb.*;
 
 /**
  * Created by ljan on 31.01.14.

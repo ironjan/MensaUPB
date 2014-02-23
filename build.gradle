@@ -60,7 +60,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 19
 
-        packageName "de.najidev.mensaupb"
+        packageName "de.ironjan.mensaupb"
     }
 
 
@@ -73,7 +73,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "int", "SYNC_INTERVAL", "60" // 1 minute
+            buildConfigField "int", "SYNC_INTERVAL", "15*60" // 1 minute
         }
 
         release {
@@ -109,13 +109,13 @@ dependencies {
 }
 
 sourceSets {
-        unitTest {
-            java.srcDir file('src/test/java')
-            resources.srcDir file('src/test/resources')
-        }
+    unitTest {
+        java.srcDir file('src/test/java')
+        resources.srcDir file('src/test/resources')
+    }
 }
 
-task unitTest(type:Test, dependsOn: assemble){
+task unitTest(type: Test, dependsOn: assemble) {
     description = 'run unit tests'
     testClassesDir = project.sourceSets.unitTest.output.classesDir
     classpath = project.sourceSets.unitTest.runtimeClasspath

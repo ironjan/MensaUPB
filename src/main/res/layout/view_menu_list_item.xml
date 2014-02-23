@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"
-        android:singleLine="true"
+        android:singleLine="false"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:id="@+id/textName"/>
@@ -30,7 +30,8 @@
         android:layout_toLeftOf="@+id/textAllergenes"
         android:id="@+id/textCategory"/>
 
-    <TextView android:id="@+id/textAllergenes"
+    <TextView
+        android:id="@+id/textAllergenes"
         android:textColor="@color/black"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"

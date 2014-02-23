@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="de.najidev.mensaupb"
-          android:versionCode="60"
-          android:versionName="1.1.2-SNAPSHOT">
+          package="de.ironjan.mensaupb"
+    >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -18,7 +17,8 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light">
         <activity
-            android:name=".activities.Test_"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:name="de.ironjan.mensaupb.activities.Test_"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -26,39 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.MainActivity_"
-            android:label="@string/app_name">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name=".activities.SettingsActivity_">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".dialog.OpeningTimeDialog_"
-            android:label="@string/opening_times"
-            android:theme="@style/Theme.AppCompat.CompactMenu.Dialog">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <!--<activity-->
-        <!--android:name=".dialog.ChooseOnListDialog"-->
-        <!--android:theme="@style/Theme.AppCompat.CompactMenu.Dialog" >-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
 
         <!--sync-->
-        <service android:name=".sync.AuthenticatorService">
+        <service android:name="de.ironjan.mensaupb.sync.AuthenticatorService">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator"/>
             </intent-filter>
@@ -67,12 +37,12 @@
                 android:resource="@xml/authenticator"/>
         </service>
         <provider
-            android:authorities="de.najidev.mensaupb.provider"
+            android:authorities="de.ironjan.mensaupb.provider"
             android:name=".sync.MenuContentProvider_"
             android:exported="false"
             android:syncable="true"/>
         <service
-            android:name=".sync.SyncService"
+            android:name="de.ironjan.mensaupb.sync.SyncService"
             android:exported="true"
             android:process=":sync">
             <intent-filter>

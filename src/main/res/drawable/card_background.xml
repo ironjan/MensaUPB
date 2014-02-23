@@ -10,7 +10,7 @@
             <solid android:color="@color/cardShadow"/>
             <padding
                 android:bottom="2dp"
-                android:right="2dp"/>
+                />
 
         </shape>
     </item>
@@ -30,7 +30,7 @@
         <shape
             android:dither="true"
             android:shape="rectangle">
-            <solid android:color="@color/backgroundCards"/>
+            <solid android:color="@color/white"/>
         </shape>
     </item>
 

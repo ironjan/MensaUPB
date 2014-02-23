@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.sync;
+package de.ironjan.mensaupb.sync;
 
 import android.content.*;
 import android.database.*;
@@ -8,8 +8,8 @@ import android.text.*;
 
 import org.androidannotations.annotations.*;
 
-import de.najidev.mensaupb.persistence.*;
-import de.najidev.mensaupb.stw.*;
+import de.ironjan.mensaupb.persistence.*;
+import de.ironjan.mensaupb.stw.*;
 
 /**
  * Created by ljan on 10.01.14.
@@ -48,7 +48,7 @@ public class MenuContentProvider extends ContentProvider {
 
         SQLiteDatabase db = getHelper().getReadableDatabase();
 
-        if(TextUtils.isEmpty(sortOrder)){
+        if (TextUtils.isEmpty(sortOrder)) {
 //            sortOrder = String.format(" %s ASC, %s DESC", Menu.SORT, Menu.CATEGORY);
             sortOrder = String.format(" %s ASC", Menu.SORT);
         }
@@ -86,7 +86,10 @@ public class MenuContentProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
+        // TODO check projection
 
-        return 0;
+        SQLiteDatabase db = getHelper().getWritableDatabase();
+
+        return db.update(Menu.TABLE, contentValues, s, strings);
     }
 }

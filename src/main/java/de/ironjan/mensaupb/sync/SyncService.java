@@ -1,8 +1,8 @@
-package de.najidev.mensaupb.sync;
+package de.ironjan.mensaupb.sync;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
+import android.app.*;
+import android.content.*;
+import android.os.*;
 
 public class SyncService extends Service {
     private static MenuSyncAdapter sMenuSyncAdapter = null;
@@ -14,7 +14,7 @@ public class SyncService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        synchronized (sSyncAdapterLock){
+        synchronized (sSyncAdapterLock) {
             sMenuSyncAdapter = MenuSyncAdapter.getInstance(this);
         }
     }

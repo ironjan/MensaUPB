@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.sync;
+package de.ironjan.mensaupb.sync;
 
 import android.accounts.*;
 import android.content.*;
@@ -7,10 +7,11 @@ import android.os.*;
 /**
  * Stubbed {@link android.accounts.AbstractAccountAuthenticator} - needed by sync framework.
  */
-public class StubAuthenticator extends AbstractAccountAuthenticator{
+public class StubAuthenticator extends AbstractAccountAuthenticator {
 
     /**
      * Creates a StubAuthenticator
+     *
      * @param context the context
      */
     public StubAuthenticator(Context context) {
