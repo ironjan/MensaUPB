@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.sync;
+package de.najidev.mensaupb.sync;
 
 import android.content.*;
 import android.database.*;
@@ -8,8 +8,8 @@ import android.text.*;
 
 import org.androidannotations.annotations.*;
 
-import de.ironjan.mensaupb.persistence.*;
-import de.ironjan.mensaupb.stw.*;
+import de.najidev.mensaupb.persistence.*;
+import de.najidev.mensaupb.stw.*;
 
 /**
  * Created by ljan on 10.01.14.

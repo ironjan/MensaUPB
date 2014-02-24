@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.persistence;
+package de.najidev.mensaupb.persistence;
 
 import android.content.*;
 

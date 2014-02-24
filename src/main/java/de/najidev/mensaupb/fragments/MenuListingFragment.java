@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.fragments;
+package de.najidev.mensaupb.fragments;
 
 import android.accounts.*;
 import android.content.*;
@@ -13,9 +13,10 @@ import android.widget.*;
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.stw.Menu;
-import de.ironjan.mensaupb.sync.*;
+import de.najidev.mensaupb.BuildConfig;
+import de.najidev.mensaupb.R;
+import de.najidev.mensaupb.stw.Menu;
+import de.najidev.mensaupb.sync.*;
 
 /**
  * Created by ljan on 01.02.14.
@@ -24,7 +25,7 @@ import de.ironjan.mensaupb.sync.*;
 @OptionsMenu(R.menu.main)
 public class MenuListingFragment extends ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final String SELECTION = de.ironjan.mensaupb.stw.Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
+    private static final String SELECTION = de.najidev.mensaupb.stw.Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
 
     public static String ARG_DATE = "date";
     public static String ARG_LOCATION = "location";
@@ -35,7 +36,7 @@ public class MenuListingFragment extends ListFragment implements android.support
     }
 
 
-    public static final String[] LIST_PROJECTION = {de.ironjan.mensaupb.stw.Menu.NAME_GERMAN, de.ironjan.mensaupb.stw.Menu.CATEGORY, de.ironjan.mensaupb.stw.Menu.ALLERGENES, de.ironjan.mensaupb.stw.Menu.ID};
+    public static final String[] LIST_PROJECTION = {de.najidev.mensaupb.stw.Menu.NAME_GERMAN, de.najidev.mensaupb.stw.Menu.CATEGORY, de.najidev.mensaupb.stw.Menu.ALLERGENES, de.najidev.mensaupb.stw.Menu.ID};
     private SimpleCursorAdapter adapter;
 
     @Bean

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sync-adapter
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:contentAuthority="de.ironjan.mensaupb.provider"
-    android:accountType="ironjan.MensaUPB"
+    android:contentAuthority="de.najidev.mensaupb.provider"
+    android:accountType="najidev.MensaUPB"
     android:userVisible="false"
     android:supportsUploading="false"
     android:allowParallelSyncs="false"

@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.persistence;
+package de.najidev.mensaupb.persistence;
 
 import android.content.*;
 import android.database.sqlite.*;
@@ -11,7 +11,7 @@ import org.slf4j.*;
 
 import java.sql.*;
 
-import de.ironjan.mensaupb.stw.*;
+import de.najidev.mensaupb.stw.*;
 
 /**
  * Created by ljan on 11.01.14.

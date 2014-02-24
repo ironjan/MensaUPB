@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="de.ironjan.mensaupb"
+          package="de.najidev.mensaupb"
     >
 
     <uses-sdk
@@ -18,7 +18,7 @@
         android:theme="@style/Theme.AppCompat.Light">
         <activity
             android:uiOptions="splitActionBarWhenNarrow"
-            android:name="de.ironjan.mensaupb.activities.Test_"
+            android:name="de.najidev.mensaupb.activities.Test_"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -28,7 +28,7 @@
         </activity>
 
         <!--sync-->
-        <service android:name="de.ironjan.mensaupb.sync.AuthenticatorService">
+        <service android:name="de.najidev.mensaupb.sync.AuthenticatorService">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator"/>
             </intent-filter>
@@ -37,12 +37,12 @@
                 android:resource="@xml/authenticator"/>
         </service>
         <provider
-            android:authorities="de.ironjan.mensaupb.provider"
+            android:authorities="de.najidev.mensaupb.provider"
             android:name=".sync.MenuContentProvider_"
             android:exported="false"
             android:syncable="true"/>
         <service
-            android:name="de.ironjan.mensaupb.sync.SyncService"
+            android:name="de.najidev.mensaupb.sync.SyncService"
             android:exported="true"
             android:process=":sync">
             <intent-filter>

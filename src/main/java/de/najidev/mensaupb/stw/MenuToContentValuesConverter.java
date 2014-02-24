@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.stw;
+package de.najidev.mensaupb.stw;
 
 import android.content.*;
 

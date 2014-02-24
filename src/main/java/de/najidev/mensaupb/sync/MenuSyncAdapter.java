@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.sync;
+package de.najidev.mensaupb.sync;
 
 import android.accounts.*;
 import android.annotation.*;
@@ -12,9 +12,9 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.persistence.*;
-import de.ironjan.mensaupb.stw.*;
+import de.najidev.mensaupb.BuildConfig;
+import de.najidev.mensaupb.persistence.*;
+import de.najidev.mensaupb.stw.*;
 
 /**
  * Created by ljan on 10.01.14.

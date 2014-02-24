@@ -1,11 +1,11 @@
-package de.ironjan.mensaupb.sync;
+package de.najidev.mensaupb.sync;
 
 import android.app.*;
 import android.content.*;
 import android.os.*;
 
 /**
- * A service that instantiates the {@link de.ironjan.mensaupb.sync.StubAuthenticator}
+ * A service that instantiates the {@link de.najidev.mensaupb.sync.StubAuthenticator}
  */
 public class AuthenticatorService extends Service {
 
