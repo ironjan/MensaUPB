@@ -1,15 +1,19 @@
 package de.najidev.mensaupb.sync;
 
-import android.content.*;
-import android.database.*;
-import android.database.sqlite.*;
-import android.net.*;
-import android.text.*;
+import android.content.ContentProvider;
+import android.content.ContentValues;
+import android.content.UriMatcher;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.net.Uri;
+import android.text.TextUtils;
 
-import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.EProvider;
 
-import de.najidev.mensaupb.persistence.*;
-import de.najidev.mensaupb.stw.*;
+import de.najidev.mensaupb.persistence.DatabaseHelper;
+import de.najidev.mensaupb.persistence.DatabaseManager;
+import de.najidev.mensaupb.stw.Menu;
 
 /**
  * Created by ljan on 10.01.14.
@@ -18,14 +22,18 @@ import de.najidev.mensaupb.stw.*;
 public class MenuContentProvider extends ContentProvider {
 
     private static final String MENUS_PATH = "menus";
+    private static final String SINGLE_MENUS_PATH = MENUS_PATH + "/#";
+
     private static final Uri ROOT = Uri.parse("content://" + ProviderContract.AUTHORITY + "/");
     public static final Uri MENU_URI = ROOT.withAppendedPath(ROOT, MENUS_PATH);
     private static final int MENUS_MATCH = 1;
+    private static final int SINGLE_MENUS_MATCH = 2;
 
     private static UriMatcher sUriMatcher = new UriMatcher(0);
 
     static {
         sUriMatcher.addURI(ProviderContract.AUTHORITY, MENUS_PATH, MENUS_MATCH);
+        sUriMatcher.addURI(ProviderContract.AUTHORITY, SINGLE_MENUS_PATH, SINGLE_MENUS_MATCH);
     }
 
     private DatabaseHelper getHelper() {
@@ -48,11 +56,19 @@ public class MenuContentProvider extends ContentProvider {
 
         SQLiteDatabase db = getHelper().getReadableDatabase();
 
-        if (TextUtils.isEmpty(sortOrder)) {
-//            sortOrder = String.format(" %s ASC, %s DESC", Menu.SORT, Menu.CATEGORY);
-            sortOrder = String.format(" %s ASC", Menu.SORT);
+        switch (sUriMatcher.match(uri)) {
+            case MENUS_MATCH:
+                if (TextUtils.isEmpty(sortOrder)) {
+                    sortOrder = String.format(" %s ASC", Menu.SORT);
+                }
+                break;
+            case SINGLE_MENUS_MATCH:
+                selection = Menu.ID + " = ?";
+                selectionArgs = new String[]{uri.getLastPathSegment()};
+                break;
+            default:
+                throw new IllegalArgumentException("Uri unknown.");
         }
-
         Cursor cursor = queryBuilder.query(db, projection, selection,
                 selectionArgs, null, null, sortOrder);
 

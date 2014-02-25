@@ -74,7 +74,7 @@ public class Allergene {
 
     public static final String ALLEGERNE_DELIMITER = ", ";
 
-    public String descriptionFromKey(String key) {
+    public static String descriptionFromKey(String key) {
         final String description = mapping.get(key);
         return description;
     }
@@ -105,5 +105,29 @@ public class Allergene {
 
         if (BuildConfig.DEBUG) LOGGER.debug("filterAllergenes({}) -> {}", s, result);
         return result;
+    }
+
+    public static String getExplanation(String allergenes) {
+        StringBuffer explanation = new StringBuffer(
+        );
+
+        Scanner sc = new Scanner(filterAllergenes(allergenes));
+        sc.useDelimiter(ALLEGERNE_DELIMITER);
+
+        String next;
+        if (sc.hasNext()) {
+            next = sc.next();
+                explanation.append(" * ").append(descriptionFromKey(next));
+        }
+        else{
+            explanation.append("Keine Zusatzstoffe oder Allergene angegeben.");
+        }
+        while (sc.hasNext()) {
+            next = sc.next();
+                explanation.append("\n * ").append(descriptionFromKey(next));
+        }
+        explanation.append("\n\nAlle Angaben ohne Gewähr. Bitte informieren Sie sich an der Essensausgabe.");
+
+        return explanation.toString();
     }
 }
