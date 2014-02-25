@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/backgroundCards"
+                android:padding="@dimen/elementMargin"
+    >
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"
+        android:singleLine="false"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:id="@+id/textName"/>
+
+
+
+    <TextView
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:text="Essen"
+        android:id="@+id/textCategory"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/elementMargin"
+        android:id="@+id/textAllergenes"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:text=" * Ganz viele Stoffe...\n * Mehrzeilig sogar\nAlle Angaben ohne Foo"
+        />
+</LinearLayout>
