@@ -27,7 +27,7 @@ public class StwParser {
             String[] parts = prepareNextLine(sc);
             if(skipThisLine(parts)) {
                 continue;
-            }else{
+            } else {
             ContentValues menu = parseLine(parts);
             parsedMenus.add(menu);
             }
@@ -39,7 +39,7 @@ public class StwParser {
 
     private static boolean skipThisLine(String[] parts) {
         if(BuildConfig.DEBUG) LOGGER.debug("skipThisLine(..): \"Mensa Hamm\" == {}",parts[1]);
-        return TextUtils.equals("Mensa Hamm", parts[1]);
+        return parts.length < 9 || TextUtils.equals("Mensa Hamm", parts[1]);
     }
 
     private static String[] prepareNextLine(Scanner sc) {
