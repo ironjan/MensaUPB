@@ -19,9 +19,10 @@ public class AccountCreator {
     /**
      * Neded for synchroniztation initialization
      */
-    private static final String AUTHORITY = ProviderContract.AUTHORITY,
-            ACCOUNT_TYPE = ProviderContract.ACCOUNT_TYPE,
+    public static final String AUTHORITY = ProviderContract.AUTHORITY,
+
             ACCOUNT = ProviderContract.ACCOUNT;
+private static final  String ACCOUNT_TYPE = ProviderContract.ACCOUNT_TYPE;
 
     private final Logger LOGGER = LoggerFactory.getLogger(AccountCreator.class.getSimpleName());
     private boolean mAccountCreated = false;

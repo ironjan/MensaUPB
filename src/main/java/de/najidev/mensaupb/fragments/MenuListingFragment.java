@@ -13,6 +13,8 @@ import android.widget.*;
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
+import java.util.List;
+
 import de.najidev.mensaupb.BuildConfig;
 import de.najidev.mensaupb.R;
 import de.najidev.mensaupb.stw.Menu;
@@ -23,7 +25,7 @@ import de.najidev.mensaupb.sync.*;
  */
 @EFragment(R.layout.fragment_menu_listing)
 @OptionsMenu(R.menu.main)
-public class MenuListingFragment extends ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
+public class MenuListingFragment extends ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> , SyncStatusObserver{
 
     private static final String SELECTION = de.najidev.mensaupb.stw.Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
 
@@ -78,6 +80,9 @@ public class MenuListingFragment extends ListFragment implements android.support
                 null, uiBindFrom, uiBindTo, 0);
         setListAdapter(adapter);
         setupSynchronization();
+
+        int mask = ContentResolver.SYNC_OBSERVER_TYPE_ACTIVE|ContentResolver.SYNC_OBSERVER_TYPE_PENDING |ContentResolver.SYNC_OBSERVER_TYPE_SETTINGS;
+        ContentResolver.addStatusChangeListener(mask, this);
     }
 
     private void setupSynchronization() {
@@ -100,7 +105,27 @@ public class MenuListingFragment extends ListFragment implements android.support
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 
         ContentResolver.requestSync(mAccountCreator.build(getActivity()), mAccountCreator.getAuthority(), settingsBundle);
-
     }
 
+
+    @Override
+    @UiThread
+    public void onStatusChanged(int status) {
+        List<SyncInfo> currentSyncs = ContentResolver.getCurrentSyncs();
+
+        for(SyncInfo syncInfo: currentSyncs){
+            String name = syncInfo.account.name;
+            String authority = syncInfo.authority;
+
+
+            if(name.equals(AccountCreator.ACCOUNT) && authority.equals(authority)){
+                getActivity().setProgressBarIndeterminate(true);
+                getActivity().setProgressBarVisibility(true);
+                return;
+
+            }
+        }
+        getActivity().setProgressBarIndeterminate(false);
+        getActivity().setProgressBarVisibility(false);
+    }
 }

@@ -5,6 +5,7 @@ import android.support.v4.app.*;
 import android.support.v4.view.*;
 import android.support.v7.app.*;
 import android.text.*;
+import android.view.Window;
 import android.widget.*;
 
 import org.androidannotations.annotations.*;
@@ -28,6 +29,11 @@ public class Test extends ActionBarActivity implements ActionBar.OnNavigationLis
     private String mLocation = "Mensa";
     private DemoCollectionPagerAdapter[] adapters = new DemoCollectionPagerAdapter[4];
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_PROGRESS);
+    }
 
     @AfterViews
     void showMenus() {
