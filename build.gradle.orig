@@ -73,11 +73,17 @@ android {
 
     buildTypes {
         debug {
+<<<<<<< Updated upstream
+            buildConfigField "int", "SYNC_INTERVAL", "15*60" // 1 minute
+=======
             buildConfigField "int", "SYNC_INTERVAL", "60" // 1 minute
+            buildConfigField "String", "STW_URL", "\"\""
+>>>>>>> Stashed changes
         }
 
         release {
             buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 12" // 12 hours
+            buildConfigField "String", "STW_URL", "\"\""
         }
     }
 
@@ -111,18 +117,17 @@ dependencies {
 }
 
 sourceSets {
-        unitTest {
-            java.srcDir file('src/test/java')
-            resources.srcDir file('src/test/resources')
-        }
+    unitTest {
+        java.srcDir file('src/test/java')
+        resources.srcDir file('src/test/resources')
+    }
 }
 
-task unitTest(type:Test, dependsOn: assemble){
+task unitTest(type: Test, dependsOn: assemble) {
     description = 'run unit tests'
     testClassesDir = project.sourceSets.unitTest.output.classesDir
     classpath = project.sourceSets.unitTest.runtimeClasspath
 }
-
 check.dependsOn unitTest
 
 task wrapper(type: Wrapper) {
