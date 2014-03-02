@@ -9,22 +9,40 @@
 
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@android:id/list"
         android:divider="@color/backgroundBehindCards"
         tools:listitem="@layout/view_menu_list_item"/>
 
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:id="@android:id/empty"
+        android:layout_gravity="center"
         android:padding="@dimen/elementMargin"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center">
 
         <TextView
-            android:text="Leere Liste..."
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </FrameLayout>
+            android:text="Speisepläne werden geladen."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_gravity="center_horizontal"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateOnly="true"/>
+
+        <TextView
+            android:text="Bitte einen Moment Geduld."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </LinearLayout>
