@@ -1,47 +1,66 @@
 package de.najidev.mensaupb.activities;
 
+import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
 import android.support.v4.view.*;
 import android.support.v7.app.*;
 import android.text.*;
-import android.view.Window;
+import android.view.*;
 import android.widget.*;
 
 import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.Trace;
+import org.slf4j.*;
 
 import java.text.*;
 import java.util.*;
 
-import de.najidev.mensaupb.R;
+import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.fragments.*;
-import de.najidev.mensaupb.stw.*;
+import de.najidev.mensaupb.stw.Menu;
+import de.najidev.mensaupb.sync.*;
 
 @EActivity(R.layout.activity_menu_listing)
-public class Test extends ActionBarActivity implements ActionBar.OnNavigationListener {
-
+public class Test extends ActionBarActivity implements ActionBar.OnNavigationListener, SyncStatusObserver {
+    private final Logger LOGGER = LoggerFactory.getLogger(Test.class.getSimpleName());
     public static final int WEEKEND_OFFSET = 2;
     @ViewById(R.id.pager)
     ViewPager mViewPager;
     private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
     private static final SimpleDateFormat SDF = Menu.DATABASE_DATE_FORMAT;
-    public static final String[] RESTAURANTS = new String[]{"Mensa", "Abendmensa", "Gownsmen's Pub", "HNF (Hotspot)"};
+    public static final String[] RESTAURANTS = new String[]{"Mensa", "Gownsmen's Pub", "HNF (Hotspot)"};
     private String mLocation = "Mensa";
     private DemoCollectionPagerAdapter[] adapters = new DemoCollectionPagerAdapter[4];
+    private static final int DISPLAYED_DAYS_COUNT = 3;
+    private String[] weekDaysAsString = new String[DISPLAYED_DAYS_COUNT];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int mask = ContentResolver.SYNC_OBSERVER_TYPE_ACTIVE | ContentResolver.SYNC_OBSERVER_TYPE_PENDING | ContentResolver.SYNC_OBSERVER_TYPE_SETTINGS;
+        ContentResolver.addStatusChangeListener(mask, this);
         this.requestWindowFeature(Window.FEATURE_PROGRESS);
     }
 
+    @Trace
     @AfterViews
-    void showMenus() {
+    void init() {
         initActionBar();
+        initDays();
         initPager();
     }
 
-    private void initActionBar() {
+    @Trace
+    @Background
+    void initDays() {
+        for (int i = 0; i < DISPLAYED_DAYS_COUNT; i++) {
+            getNextWeekDayAsString(i);
+        }
+    }
+
+    @Trace
+    void initActionBar() {
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -55,52 +74,70 @@ public class Test extends ActionBarActivity implements ActionBar.OnNavigationLis
         actionBar.setListNavigationCallbacks(adapter, this);
     }
 
-    private void initPager() {
+    @Trace
+    void initPager() {
         // ViewPager and its adapters use support library
         // fragments, so use getSupportFragmentManager.
-        switchPagerAdapter(0);
+        loadPagerAdapter(0);
     }
 
-    private void switchPagerAdapter(int i) {
+    @Background
+    @Trace
+    void loadPagerAdapter(int i) {
         mDemoCollectionPagerAdapter =
                 getPagerAdapter(i);
+        if (BuildConfig.DEBUG) LOGGER.info("Got adapter: {}", mDemoCollectionPagerAdapter);
+        if (mDemoCollectionPagerAdapter != null) {
+            switchAdapter();
+        }
+    }
+
+    @UiThread
+    @Trace
+    void switchAdapter() {
         mViewPager.setAdapter(mDemoCollectionPagerAdapter);
     }
 
-    private DemoCollectionPagerAdapter getPagerAdapter(int i) {
+    @Trace
+    DemoCollectionPagerAdapter getPagerAdapter(int i) {
         if (adapters[i] == null) {
-            adapters[i] =
-                    new DemoCollectionPagerAdapter(
-                            getSupportFragmentManager(), RESTAURANTS[i]);
+            createNewAdapter(i);
         }
         return adapters[i];
     }
 
-    private String getNextWeekDayAsString(int i) {
-        return SDF.format(getNextWeekDay(i));
+    @Trace
+    @Background
+    void createNewAdapter(int i) {
+        adapters[i] =
+                new DemoCollectionPagerAdapter(
+                        getSupportFragmentManager(), RESTAURANTS[i]);
+        loadPagerAdapter(i);
     }
 
-    private Date getNextWeekDay() {
-        Calendar cal = Calendar.getInstance();
-        while (dayIsWeekend(cal)) {
-            cal.add(Calendar.DAY_OF_WEEK, 1);
+    @Trace
+    synchronized String getNextWeekDayAsString(int i) {
+        if (weekDaysAsString[i] == null) {
+            weekDaysAsString[i] = SDF.format(getNextWeekDay(i));
         }
-
-        return cal.getTime();
+        return weekDaysAsString[i];
     }
 
-    private boolean dayIsWeekend(Calendar cal) {
+
+    @Trace
+    boolean dayIsWeekend(Calendar cal) {
         return cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
     }
 
     @Override
+    @Trace
     public boolean onNavigationItemSelected(int i, long l) {
         if (TextUtils.equals(mLocation, RESTAURANTS[i]))
             return true;
 
         mLocation = RESTAURANTS[i];
 
-        switchPagerAdapter(i);
+        loadPagerAdapter(i);
 
         return true;
     }
@@ -121,7 +158,7 @@ public class Test extends ActionBarActivity implements ActionBar.OnNavigationLis
             return fragment;
         }
 
-        private Fragment getMenuListingFragment(int i) {
+        Fragment getMenuListingFragment(int i) {
             if (fragments[i] == null) {
                 Fragment fragment = initMenuListingFragment(i);
                 fragments[i] = fragment;
@@ -130,7 +167,7 @@ public class Test extends ActionBarActivity implements ActionBar.OnNavigationLis
             return fragments[i];
         }
 
-        private Fragment initMenuListingFragment(int i) {
+        Fragment initMenuListingFragment(int i) {
             Fragment fragment = new MenuListingFragment_();
             Bundle arguments = new Bundle();
 
@@ -143,7 +180,7 @@ public class Test extends ActionBarActivity implements ActionBar.OnNavigationLis
 
         @Override
         public int getCount() {
-            return 3;
+            return DISPLAYED_DAYS_COUNT;
         }
 
         @Override
@@ -153,13 +190,14 @@ public class Test extends ActionBarActivity implements ActionBar.OnNavigationLis
     }
 
 
-    private String getLocation() {
+    @Trace
+    String getLocation() {
         return mLocation;
     }
 
-    private Date getNextWeekDay(int offset) {
+    @Trace
+    Date getNextWeekDay(int offset) {
         Calendar cal = Calendar.getInstance();
-        cal.setTime(getNextWeekDay());
 
         cal.add(Calendar.DAY_OF_WEEK, offset);
 
@@ -170,4 +208,24 @@ public class Test extends ActionBarActivity implements ActionBar.OnNavigationLis
     }
 
 
+    @Override
+    @UiThread
+    public void onStatusChanged(int status) {
+        List<SyncInfo> currentSyncs = ContentResolver.getCurrentSyncs();
+
+        for (SyncInfo syncInfo : currentSyncs) {
+            String name = syncInfo.account.name;
+            String authority = syncInfo.authority;
+
+
+            if (name.equals(AccountCreator.ACCOUNT) && authority.equals(authority)) {
+                setProgressBarIndeterminate(true);
+                setProgressBarVisibility(true);
+                return;
+
+            }
+        }
+        setProgressBarIndeterminate(false);
+        setProgressBarVisibility(false);
+    }
 }
