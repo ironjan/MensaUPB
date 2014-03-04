@@ -1,15 +1,17 @@
 package de.najidev.mensaupb.fragments;
 
+
 import android.accounts.*;
 import android.content.*;
 import android.database.*;
 import android.net.*;
 import android.os.*;
 import android.support.v4.app.*;
+import android.support.v4.content.*;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.*;
 import android.view.*;
-import android.widget.*;
 
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
@@ -71,6 +73,12 @@ public class MenuListingFragment extends ListFragment implements android.support
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadContent();
+        setupSynchronization();
+
+    }
+
+    void loadContent() {
         String[] uiBindFrom = LIST_PROJECTION;
         int[] uiBindTo = {R.id.textName, R.id.textCategory, R.id.textAllergenes};
         getLoaderManager().initLoader(0, null, this);
@@ -78,11 +86,10 @@ public class MenuListingFragment extends ListFragment implements android.support
                 getActivity(), R.layout.view_menu_list_item,
                 null, uiBindFrom, uiBindTo, 0);
         setListAdapter(adapter);
-        setupSynchronization();
-
     }
 
-    private void setupSynchronization() {
+    @Background
+    void setupSynchronization() {
         final Account account = mAccountCreator.build(getActivity());
 
         Bundle settingsBundle = new Bundle();
@@ -103,7 +110,6 @@ public class MenuListingFragment extends ListFragment implements android.support
 
         ContentResolver.requestSync(mAccountCreator.build(getActivity()), mAccountCreator.getAuthority(), settingsBundle);
     }
-
 
 
     @ItemClick

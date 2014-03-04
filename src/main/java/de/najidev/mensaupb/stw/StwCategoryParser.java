@@ -39,6 +39,12 @@ public class StwCategoryParser {
             SORT_SMALL_SOUP = 60,
             SORT_DESSERT_EXPENSIVE = 90;
 
+    public static final String CATEGORY_SPECIAL_DESSER = "Aktionsdessert";
+
+    public static final String CATEGORY_DESSERT = "Dessert";
+
+    public static final String CATEGORY_SPECIAL_LUNCH = "Aktionsessen";
+
     static {
         categoryMapping.put("PUB Beilage Waage", "Beilage");
         sortMapping.put("PUB Beilage Waage", SORT_SALAD);
@@ -53,15 +59,15 @@ public class StwCategoryParser {
         categoryMapping.put("Stamm Sättigungbeil 0,50€", "Beilage");
         sortMapping.put("Stamm Sättigungbeil 0,50€", SORT_SALAD);
 
-        categoryMapping.put("Aktionsdessert 1,20€", "Dessert");
+        categoryMapping.put("Aktionsdessert 1,20€", CATEGORY_SPECIAL_DESSER);
         sortMapping.put("Aktionsdessert 1,20€", SORT_DESSERT_EXPENSIVE);
-        categoryMapping.put("PUB Dessert", "Dessert");
+        categoryMapping.put("PUB Dessert", CATEGORY_DESSERT);
         sortMapping.put("PUB Dessert", SORT_DESSERT);
-        categoryMapping.put("Stamm Dessert 0,55€", "Dessert");
+        categoryMapping.put("Stamm Dessert 0,55€", CATEGORY_DESSERT);
         sortMapping.put("Stamm Dessert", SORT_DESSERT);
 
-        categoryMapping.put("Aktionsessen", CATEGORY_ESSEN);
-        sortMapping.put("Aktionsessen", SORT_DISH_EXPENSIVE);
+        categoryMapping.put(CATEGORY_SPECIAL_LUNCH, CATEGORY_SPECIAL_LUNCH);
+        sortMapping.put(CATEGORY_SPECIAL_LUNCH, SORT_DISH_EXPENSIVE);
 
         categoryMapping.put("Grill Fisch", CATEGORY_GRILL);
         sortMapping.put("Grill Fisch", SORT_GRILL);

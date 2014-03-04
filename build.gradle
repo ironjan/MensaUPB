@@ -1,6 +1,6 @@
-def versionMajor = 0
-def versionMinor = 0
-def versionPatch = 4
+def versionMajor = 0 // incompatible API changes
+def versionMinor = 1 // added functionality in a backwards-compatible manner
+def versionPatch = 0 // backwards-compatible bug fixes
 def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 
 buildscript {
@@ -10,7 +10,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.1'
+        classpath 'com.android.tools.build:gradle:0.9.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.1'
     }
 }
@@ -57,7 +57,7 @@ android {
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
-        minSdkVersion 14
+        minSdkVersion 8
         targetSdkVersion 19
 
         packageName "de.najidev.mensaupb"
@@ -104,7 +104,7 @@ dependencies {
     unitTestCompile 'junit:junit:4.11'
 
 //    tests support in AS
-    instrumentTestCompile 'junit:junit:4.11'
+    androidTestCompile 'junit:junit:4.11'
 }
 
 sourceSets {

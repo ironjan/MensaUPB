@@ -3,10 +3,6 @@
           package="de.najidev.mensaupb"
     >
 
-    <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="15"/>
-
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
     <uses-permission android:name="android.permission.READ_SYNC_STATS"/>
@@ -20,7 +16,7 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity
             android:uiOptions="splitActionBarWhenNarrow"
-            android:name="de.najidev.mensaupb.activities.Test_"
+            android:name="de.najidev.mensaupb.activities.Menus_"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

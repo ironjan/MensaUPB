@@ -1,5 +1,7 @@
 package de.najidev.mensaupb.activities;
 
+
+import android.annotation.*;
 import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
@@ -22,8 +24,8 @@ import de.najidev.mensaupb.stw.Menu;
 import de.najidev.mensaupb.sync.*;
 
 @EActivity(R.layout.activity_menu_listing)
-public class Test extends ActionBarActivity implements ActionBar.OnNavigationListener, SyncStatusObserver {
-    private final Logger LOGGER = LoggerFactory.getLogger(Test.class.getSimpleName());
+public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener, SyncStatusObserver {
+    private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
     public static final int WEEKEND_OFFSET = 2;
     @ViewById(R.id.pager)
     ViewPager mViewPager;
@@ -211,21 +213,43 @@ public class Test extends ActionBarActivity implements ActionBar.OnNavigationLis
     @Override
     @UiThread
     public void onStatusChanged(int status) {
+        final boolean isSyncing;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            isSyncing = checkSyncingStateHC();
+        } else {
+            isSyncing = checkSyncingStatePreHC();
+        }
+        setProgressBarIndeterminate(isSyncing);
+        setProgressBarVisibility(isSyncing);
+    }
+
+    @SuppressWarnings("deprecation")
+    private boolean checkSyncingStatePreHC() {
+        final SyncInfo currentSync = ContentResolver.getCurrentSync();
+        if (isMensaUpbSync(currentSync)) return true;
+
+        return false;
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private boolean checkSyncingStateHC() {
         List<SyncInfo> currentSyncs = ContentResolver.getCurrentSyncs();
 
+
         for (SyncInfo syncInfo : currentSyncs) {
-            String name = syncInfo.account.name;
-            String authority = syncInfo.authority;
-
-
-            if (name.equals(AccountCreator.ACCOUNT) && authority.equals(authority)) {
-                setProgressBarIndeterminate(true);
-                setProgressBarVisibility(true);
-                return;
-
-            }
+            if (isMensaUpbSync(syncInfo)) return true;
         }
-        setProgressBarIndeterminate(false);
-        setProgressBarVisibility(false);
+        return false;
+    }
+
+    private boolean isMensaUpbSync(SyncInfo syncInfo) {
+        String name = syncInfo.account.name;
+        String authority = syncInfo.authority;
+
+
+        if (name.equals(AccountCreator.ACCOUNT) && authority.equals(authority)) {
+            return true;
+        }
+        return false;
     }
 }
