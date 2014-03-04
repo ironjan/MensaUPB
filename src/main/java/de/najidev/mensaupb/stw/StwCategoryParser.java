@@ -29,12 +29,14 @@ public class StwCategoryParser {
     public static final String CATEGORY_SOUP = "Suppe";
 
     public static final int SORT_MAIN_DISHES = 0,
+            SORT_SOUP = 5,
             SORT_HK = 20,
             SORT_GRILL = 25,
             SORT_SALAD = 30,
             SORT_DESSERT = 32,
             SORT_BUFFET = 35,
             SORT_DISH_EXPENSIVE = 40,
+            SORT_SMALL_SOUP = 60,
             SORT_DESSERT_EXPENSIVE = 90;
 
     static {
@@ -90,9 +92,9 @@ public class StwCategoryParser {
         sortMapping.put("WOK-Buffet Mensa", SORT_BUFFET);
 
         categoryMapping.put("Stamm Eintopf 1 f 1,80€", CATEGORY_EINTOPF);
-        sortMapping.put("Stamm Eintopf 1 f 1,80€", 5);
+        sortMapping.put("Stamm Eintopf 1 f 1,80€", SORT_SOUP);
         categoryMapping.put("Stamm Tagessuppe 0,55€", CATEGORY_SOUP);
-        sortMapping.put("Stamm Tagessuppe 0,55€", 60);
+        sortMapping.put("Stamm Tagessuppe 0,55€", SORT_SMALL_SOUP);
 
     }
 
