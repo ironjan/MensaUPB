@@ -1,4 +1,4 @@
-package main.java.de.najidev.mensaupb.stw;
+package de.najidev.mensaupb.stw;
 
 import android.content.*;
 import android.text.*;

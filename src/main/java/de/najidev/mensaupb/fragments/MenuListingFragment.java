@@ -1,44 +1,30 @@
 package de.najidev.mensaupb.fragments;
 
-import android.accounts.Account;
-import android.content.ContentResolver;
-import android.content.SyncInfo;
-import android.content.SyncStatusObserver;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.accounts.*;
+import android.content.*;
+import android.database.*;
+import android.net.*;
+import android.os.*;
+import android.support.v4.app.*;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.SimpleCursorAdapter;
+import android.view.*;
+import android.widget.*;
 
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ItemClick;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.UiThread;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.androidannotations.annotations.*;
+import org.slf4j.*;
 
-import java.util.List;
-
-import de.najidev.mensaupb.BuildConfig;
-import de.najidev.mensaupb.R;
-import de.najidev.mensaupb.stw.Allergene;
+import de.najidev.mensaupb.*;
+import de.najidev.mensaupb.stw.*;
 import de.najidev.mensaupb.stw.Menu;
-import de.najidev.mensaupb.sync.AccountCreator;
-import de.najidev.mensaupb.sync.MenuContentProvider;
+import de.najidev.mensaupb.sync.*;
 
 /**
  * Created by ljan on 01.02.14.
  */
 @EFragment(R.layout.fragment_menu_listing)
 @OptionsMenu(R.menu.main)
-public class MenuListingFragment extends ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, SyncStatusObserver {
+public class MenuListingFragment extends ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String SELECTION = de.najidev.mensaupb.stw.Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
 
@@ -94,8 +80,6 @@ public class MenuListingFragment extends ListFragment implements android.support
         setListAdapter(adapter);
         setupSynchronization();
 
-        int mask = ContentResolver.SYNC_OBSERVER_TYPE_ACTIVE | ContentResolver.SYNC_OBSERVER_TYPE_PENDING | ContentResolver.SYNC_OBSERVER_TYPE_SETTINGS;
-        ContentResolver.addStatusChangeListener(mask, this);
     }
 
     private void setupSynchronization() {
@@ -121,26 +105,6 @@ public class MenuListingFragment extends ListFragment implements android.support
     }
 
 
-    @Override
-    @UiThread
-    public void onStatusChanged(int status) {
-        List<SyncInfo> currentSyncs = ContentResolver.getCurrentSyncs();
-
-        for (SyncInfo syncInfo : currentSyncs) {
-            String name = syncInfo.account.name;
-            String authority = syncInfo.authority;
-
-
-            if (name.equals(AccountCreator.ACCOUNT) && authority.equals(authority)) {
-                getActivity().setProgressBarIndeterminate(true);
-                getActivity().setProgressBarVisibility(true);
-                return;
-
-            }
-        }
-        getActivity().setProgressBarIndeterminate(false);
-        getActivity().setProgressBarVisibility(false);
-    }
 
     @ItemClick
     void listItemClicked(int pos) {
