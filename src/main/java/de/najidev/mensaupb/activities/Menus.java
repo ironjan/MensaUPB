@@ -226,7 +226,9 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @SuppressWarnings("deprecation")
     private boolean checkSyncingStatePreHC() {
         final SyncInfo currentSync = ContentResolver.getCurrentSync();
-        if (isMensaUpbSync(currentSync)) return true;
+
+        if (currentSync != null && isMensaUpbSync(currentSync)) return 
+true;
 
         return false;
     }
