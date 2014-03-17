@@ -4,10 +4,8 @@ package de.najidev.mensaupb.fragments;
 import android.accounts.*;
 import android.content.*;
 import android.database.*;
-import android.net.*;
 import android.os.*;
 import android.support.v4.app.*;
-import android.support.v4.content.*;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.*;
@@ -17,7 +15,6 @@ import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
 import de.najidev.mensaupb.*;
-import de.najidev.mensaupb.stw.*;
 import de.najidev.mensaupb.stw.Menu;
 import de.najidev.mensaupb.sync.*;
 
@@ -115,18 +112,9 @@ public class MenuListingFragment extends ListFragment implements android.support
     @ItemClick
     void listItemClicked(int pos) {
         final long _id = getListAdapter().getItemId(pos);
-        Uri uri = Uri.withAppendedPath(MenuContentProvider.MENU_URI, "" + _id);
-        String[] projection = {Menu.NAME_GERMAN, Menu.ALLERGENES, Menu.ID};
-        Cursor query = getActivity().getContentResolver().query(uri, projection, null, null, null);
 
-        query.moveToNext();
-        String name = query.getString(0);
-        String allergenes = query.getString(1);
-        query.close();
-
-        String explainedAllergens = Allergene.getExplanation(allergenes);
-
-        LOGGER.warn(name);
-        LOGGER.warn(explainedAllergens);
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        MenuDetailFragment fragment = MenuDetailFragment.newInstance(_id);
+        fragment.show(fm, "fragment_edit_name");
     }
 }

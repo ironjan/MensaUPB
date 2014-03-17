@@ -4,7 +4,7 @@ import org.slf4j.*;
 
 import java.util.*;
 
-import de.najidev.mensaupb.BuildConfig;
+import de.najidev.mensaupb.*;
 
 /**
  * Created by ljan on 31.01.14.
@@ -28,9 +28,8 @@ public class StwCategoryParser {
 
     public static final String CATEGORY_SOUP = "Suppe";
 
-    public static final int SORT_MAIN_DISHES = 0,
-            SORT_SOUP = 5,
-            SORT_HK = 20,
+    public static final int SORT_HK = 5,
+            SORT_SOUP = 6,
             SORT_GRILL = 25,
             SORT_SALAD = 30,
             SORT_DESSERT = 32,
@@ -61,6 +60,9 @@ public class StwCategoryParser {
 
         categoryMapping.put("Aktionsdessert 1,20€", CATEGORY_SPECIAL_DESSER);
         sortMapping.put("Aktionsdessert 1,20€", SORT_DESSERT_EXPENSIVE);
+        categoryMapping.put("Counter Dessert 1 1,20€", CATEGORY_SPECIAL_DESSER);
+        sortMapping.put("Counter Dessert 1 1,20€€", SORT_DESSERT_EXPENSIVE);
+
         categoryMapping.put("PUB Dessert", CATEGORY_DESSERT);
         sortMapping.put("PUB Dessert", SORT_DESSERT);
         categoryMapping.put("Stamm Dessert 0,55€", CATEGORY_DESSERT);
@@ -78,13 +80,13 @@ public class StwCategoryParser {
         sortMapping.put("Pastabuffet", SORT_BUFFET);
 
         categoryMapping.put("PUB Fladenbrot", CATEGORY_ESSEN);
-        sortMapping.put("PUB Fladenbrot", SORT_MAIN_DISHES);
+        sortMapping.put("PUB Fladenbrot", SORT_HK);
 
         categoryMapping.put("PUB Hauptkompononte", CATEGORY_ESSEN);
         sortMapping.put("PUB Hauptkompononte", SORT_HK);
 
         categoryMapping.put("PUB Mittags-Angebot", CATEGORY_ESSEN);
-        sortMapping.put("PUB Mittags-Angebot", SORT_MAIN_DISHES);
+        sortMapping.put("PUB Mittags-Angebot", SORT_HK);
         categoryMapping.put("Stamm HK Essen 1 1,05€", CATEGORY_ESSEN);
         sortMapping.put("Stamm HK Essen 1 1,05€", SORT_HK);
         categoryMapping.put("Stamm HK Essen 2 1,60€", CATEGORY_ESSEN);

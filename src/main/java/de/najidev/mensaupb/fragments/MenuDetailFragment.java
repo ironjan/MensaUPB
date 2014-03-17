@@ -1,43 +1,57 @@
 package de.najidev.mensaupb.fragments;
 
 
-import android.database.Cursor;
-import android.net.Uri;
-import android.support.v4.app.DialogFragment;
-import android.widget.TextView;
+import android.database.*;
+import android.net.*;
+import android.os.*;
+import android.support.v4.app.*;
+import android.widget.*;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.*;
+import org.slf4j.*;
 
-import de.najidev.mensaupb.R;
-import de.najidev.mensaupb.stw.Allergene;
-import de.najidev.mensaupb.stw.Menu;
-import de.najidev.mensaupb.sync.MenuContentProvider;
+import de.najidev.mensaupb.*;
+import de.najidev.mensaupb.stw.*;
+import de.najidev.mensaupb.sync.*;
 
 @EFragment(R.layout.fragment_menu_detail)
 public class MenuDetailFragment extends DialogFragment {
 
-    public static final String KEY_ID = "_id";
+    public static final String ARG_ID = "ARG_ID";
 
     @ViewById
     TextView textName, textCategory, textAllergenes;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
+
     @AfterViews
     void bindData() {
-        final long _id = getArguments().getLong(KEY_ID);
+        final long _id = getArguments().getLong(ARG_ID);
         Uri uri = Uri.withAppendedPath(MenuContentProvider.MENU_URI, "" + _id);
         String[] projection = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.ALLERGENES, Menu.ID};
         Cursor query = getActivity().getContentResolver().query(uri, projection, null, null, null);
 
-        query.moveToNext();
+        query.moveToFirst();
         String name = query.getString(0);
         String category = query.getString(1);
         String allergenes = query.getString(2);
         query.close();
 
+        getDialog().setTitle("Allergene & Zusatzstoffe");
+
         textName.setText(name);
         textCategory.setText(category);
         textAllergenes.setText(Allergene.getExplanation(allergenes));
+    }
+
+    public static MenuDetailFragment newInstance(long _id) {
+        Bundle args = new Bundle();
+        args.putLong(ARG_ID, _id);
+
+        MenuDetailFragment menuDetailFragment = new MenuDetailFragment_();
+        menuDetailFragment.setArguments(args);
+
+        if (BuildConfig.DEBUG) LOGGER.debug("Created new MenuDetailFragment({})", _id);
+        return menuDetailFragment;
     }
 }
