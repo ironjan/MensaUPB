@@ -74,10 +74,12 @@ android {
     buildTypes {
         debug {
             buildConfigField "int", "SYNC_INTERVAL", "60" // 1 minute
+            buildConfigField "String", "STW_URL", "\"\""
         }
 
         release {
             buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 12" // 12 hours
+            buildConfigField "String", "STW_URL", "\"\""
         }
     }
 

@@ -4,6 +4,7 @@ package de.najidev.mensaupb.fragments;
 import android.accounts.*;
 import android.content.*;
 import android.database.*;
+import android.net.*;
 import android.os.*;
 import android.support.v4.app.*;
 import android.support.v4.content.CursorLoader;
@@ -116,5 +117,13 @@ public class MenuListingFragment extends ListFragment implements android.support
         FragmentManager fm = getActivity().getSupportFragmentManager();
         MenuDetailFragment fragment = MenuDetailFragment.newInstance(_id);
         fragment.show(fm, "fragment_edit_name");
+    }
+
+    @OptionsItem(R.id.ab_STW)
+    void stwClicked() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("http://www.studentenwerk-pb.de/startseite/"));
+        startActivity(intent);
     }
 }
