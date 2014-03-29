@@ -31,4 +31,5 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew --debug connectedAndroidTest
+  - ./gradlew --debug assemble
+  #  - ./gradlew --debug connectedAndroidTest
