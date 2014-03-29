@@ -12,8 +12,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import de.najidev.mensaupb.BuildConfig;
-import de.najidev.mensaupb.persistence.*;
+import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.stw.*;
 
 /**
@@ -29,7 +28,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
     private final ContentResolver mContentResolver;
-    private final Context mContext;
     private static Object lock = new Object();
 
     public static MenuSyncAdapter getInstance(Context context) {
@@ -55,14 +53,12 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
-        mContext = context;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private MenuSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
         mContentResolver = context.getContentResolver();
-        mContext = context;
     }
 
 
@@ -72,7 +68,11 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             LOGGER.debug("onPerformeSync({},{},{},{},{})", new Object[]{account, bundle, s, contentProviderClient, syncResult});
         }
 
-        try{
+        if (syncDisabled(bundle)) {
+            return;
+        }
+
+        try {
             InputStream inputStream = downloadFile();
             if (BuildConfig.DEBUG) LOGGER.debug("parseInputStream({})", inputStream);
 
@@ -101,13 +101,31 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
             if (BuildConfig.DEBUG)
                 LOGGER.debug("parseInputStream({}) done, {} were new, {} were updated", new Object[]{inputStream, counter});
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             syncResult.stats.numIoExceptions++;
         }
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("onPerformeSync({},{},{},{},{}) done", new Object[]{account, bundle, s, contentProviderClient, syncResult});
         }
+    }
+
+    private boolean syncDisabled(Bundle bundle) {
+        if (bundle.containsKey(ContentResolver.SYNC_EXTRAS_MANUAL)) {
+            return false;
+        }
+
+        AccountManager am = AccountManager.get(getContext());
+        Account account = am.getAccountsByType(AccountCreator.ACCOUNT_TYPE)[0];
+        final boolean isYourAccountSyncEnabled = ContentResolver.getSyncAutomatically(account, AccountCreator.AUTHORITY);
+        final boolean isMasterSyncEnabled = ContentResolver.getMasterSyncAutomatically();
+
+        final boolean syncEnabled = isYourAccountSyncEnabled && isMasterSyncEnabled;
+
+        if (syncEnabled) {
+            return false;
+        }
+
+        return true;
     }
 
     void createOrUpdate(ContentResolver cr, int[] counter, String[] selectionArgs, ContentValues menu, String[] parts) {
@@ -175,13 +193,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         return menu;
     }
 
-    private void clear() {
-        DatabaseManager dbManager = new DatabaseManager();
-        int count = dbManager.getHelper(getContext())
-                .getWritableDatabase()
-                .delete(Menu.TABLE, null, null);
-        if (BuildConfig.DEBUG) LOGGER.info("Deleted {} menus from database.", count);
-    }
 
     private InputStream downloadFile() throws IOException {
         LOGGER.debug("downloadFile()");
@@ -192,7 +203,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         conn.setConnectTimeout(15000 /* milliseconds */);
         conn.setRequestMethod("GET");
         conn.setDoInput(true);
-        // Starts the query
         conn.connect();
         LOGGER.debug("downloadFile() done");
         return conn.getInputStream();

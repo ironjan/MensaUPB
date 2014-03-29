@@ -45,6 +45,7 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/license.txt'
+        exclude 'LICENSE.txt'
     }
 
     // This is important, it will run lint checks but won't abort build
