@@ -24,6 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name="de.najidev.mensaupb.activities.About_"
+            android:label="@string/app_name"
+            android:uiOptions="splitActionBarWhenNarrow"/>
 
         <!--sync-->
         <service android:name="de.najidev.mensaupb.sync.AuthenticatorService">

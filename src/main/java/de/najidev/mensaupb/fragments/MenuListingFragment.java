@@ -16,6 +16,7 @@ import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
 import de.najidev.mensaupb.*;
+import de.najidev.mensaupb.activities.*;
 import de.najidev.mensaupb.stw.Menu;
 import de.najidev.mensaupb.sync.*;
 
@@ -125,5 +126,10 @@ public class MenuListingFragment extends ListFragment implements android.support
         intent.setAction(Intent.ACTION_VIEW);
         intent.setData(Uri.parse("http://www.studentenwerk-pb.de/startseite/"));
         startActivity(intent);
+    }
+
+    @OptionsItem(R.id.ab_about)
+    void aboutClicked() {
+        About_.intent(this).start();
     }
 }

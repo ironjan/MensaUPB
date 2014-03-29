@@ -4,33 +4,33 @@
     <string name="hello">Hello World, MensaUPBActivity!</string>
     <string name="app_name">Mensa UPB</string>
     <string name="startday">Startort</string>
-    
-<!--     opening times - misc -->
-    <string name="mo_do_label">Mo&#8211;Do:</string>
-    <string name="mo_fr_label">Mo&#8211;Fr:</string>
+
+    <!-- opening times - misc -->
+    <string name="mo_do_label">Mo–Do:</string>
+    <string name="mo_fr_label">Mo–Fr:</string>
     <string name="fr_label">Fr:</string>
     <string name="mittag">Mittagsessen</string>
-    
-<!--     mensa opening times -->
+
+    <!-- mensa opening times -->
     <string name="mensa_headline">Mensa</string>
-    <string name="mensa_mo_do">11:15 &#8211; 14:00 Uhr</string>
-    <string name="mensa_fr">11:15 &#8211; 13:30 Uhr</string>
-    
-<!--     pub opening times -->
+    <string name="mensa_mo_do">11:15 – 14:00 Uhr</string>
+    <string name="mensa_fr">11:15 – 13:30 Uhr</string>
+
+    <!-- pub opening times -->
     <string name="pub_headline">Pub:</string>
-    <string name="pub_mo_do">08:00 &#8211; 23:00 Uhr</string>
-    <string name="pub_fr">08:00 &#8211; 18:00 Uhr</string>
-    <string name="pub_mittag_mo_fr">11:30 &#8211; 14:00 Uhr</string>
+    <string name="pub_mo_do">08:00 – 23:00 Uhr</string>
+    <string name="pub_fr">08:00 – 18:00 Uhr</string>
+    <string name="pub_mittag_mo_fr">11:30 – 14:00 Uhr</string>
 
     <!-- hotspot opening times -->
     <string name="hotspot_headline">Hotspot</string>
     <string name="mo_label">Montag</string>
     <string name="di_to_fr_label">Dienstag-Freitag</string>
     <string name="sonst_label">Sa, So, Feiertage</string>
-    <string name="hotspot_mo">09:00 &#8211; 15:30 Uhr</string>
-    <string name="hotspot_di_to_fr">09:00 &#8211; 17:00 Uhr</string>
-    <string name="hotspot_sonst">11:00 &#8211; 17:00 Uhr</string>
-    <string name="hotspot_mittag">11:30 &#8211; 14:00 Uhr</string>
+    <string name="hotspot_mo">09:00 – 15:30 Uhr</string>
+    <string name="hotspot_di_to_fr">09:00 – 17:00 Uhr</string>
+    <string name="hotspot_sonst">11:00 – 17:00 Uhr</string>
+    <string name="hotspot_mittag">11:30 – 14:00 Uhr</string>
     <string name="hotspot_mittag_label">Essensausgabe</string>
 
     <!-- main action bar -->
@@ -40,6 +40,8 @@
     <string name="settings">Einstellungen</string>
     <string name="select_Location">Ort wählen</string>
 
-    
+    <!-- about -->
+    <string name="aboutText">MensaUPB ist eine Neubau von Davids Android Mensa App für die Uni Paderborn und zeigt für die jeweilige Woche an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen Version eine XML vom Studentenwerk runtergeladen und gecached, bis sie nicht mehr verwendet werden konnte. Es wurde damals vom Studentenwerk untersagt, diese App im Play Store zu vertreiben.\n\nMittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine API bereit; daher wurde die App von Grund auf neu geschrieben und ist nun endlich wieder im PlayStore ;)</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

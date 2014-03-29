@@ -93,9 +93,7 @@ android {
 dependencies {
     compile 'com.android.support:support-v4:19.0.0'
     compile 'com.android.support:appcompat-v7:19.0.0'
-
     compile 'com.j256.ormlite:ormlite-android:4.47'
-
     apt "org.androidannotations:androidannotations:3.0"
     compile "org.androidannotations:androidannotations-api:3.0"
 
@@ -110,13 +108,13 @@ dependencies {
 }
 
 sourceSets {
-        unitTest {
-            java.srcDir file('src/test/java')
-            resources.srcDir file('src/test/resources')
-        }
+    unitTest {
+        java.srcDir file('src/test/java')
+        resources.srcDir file('src/test/resources')
+    }
 }
 
-task unitTest(type:Test, dependsOn: assemble){
+task unitTest(type: Test, dependsOn: assemble) {
     description = 'run unit tests'
     testClassesDir = project.sourceSets.unitTest.output.classesDir
     classpath = project.sourceSets.unitTest.runtimeClasspath
