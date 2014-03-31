@@ -84,11 +84,15 @@ android {
         }
     }
 
-    if (project.hasProperty("mensaupb.signing")
-            && new File(project.property("mensaupb.signing") + ".gradle").exists()) {
-        apply from: project.property("mensaupb.signing") + ".gradle";
+    if (project.hasProperty("mensaupb.signing")){
+        println "project has property mensaupb.signing:"
+        println project.property("mensaupb.signing")
+        if(new File(project.property("mensaupb.signing") + ".gradle").exists()) {
+            apply from: project.property("mensaupb.signing") + ".gradle";
+            println "Applied properties"
+            
+        }
     }
-
 }
 
 dependencies {
