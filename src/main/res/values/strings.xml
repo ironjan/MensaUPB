@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, MensaUPBActivity!</string>
     <string name="app_name">Mensa UPB</string>
-    <string name="startday">Startort</string>
 
     <!-- opening times - misc -->
     <string name="mo_do_label">Mo–Do:</string>
@@ -34,14 +32,13 @@
     <string name="hotspot_mittag_label">Essensausgabe</string>
 
     <!-- main action bar -->
-    <string name="change_location">Ortswechsel</string>
     <string name="refresh">Aktualisieren</string>
-    <string name="opening_times">Öffnungszeiten</string>
-    <string name="settings">Einstellungen</string>
-    <string name="select_Location">Ort wählen</string>
 
     <!-- about -->
     <string name="aboutText">MensaUPB ist eine Neubau von Davids Android Mensa App für die Uni Paderborn und zeigt für die jeweilige Woche an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen Version eine XML vom Studentenwerk runtergeladen und gecached, bis sie nicht mehr verwendet werden konnte. Es wurde damals vom Studentenwerk untersagt, diese App im Play Store zu vertreiben.\n\nMittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine API bereit; daher wurde die App von Grund auf neu geschrieben und ist nun endlich wieder im PlayStore ;)</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="source">Quelle</string>
+    <string name="about">Über die App</string>
+    <string name="menusLoading1">Speisepläne werden geladen.</string>
+    <string name="menusLoading2">Dies könnte beim ersten Start einige Minuten dauern. Die Pläne werden jedoch auf dem Gerät gespeichert - beim nächsten Mal sind sie sofort verfügbar ;)</string>
 
 </resources>

@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
-        android:background="#33b5e5"
-        android:textColor="#fff"
+        android:background="#fff3f3f3"
+        android:textColor="@android:color/primary_text_light"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"/>
 

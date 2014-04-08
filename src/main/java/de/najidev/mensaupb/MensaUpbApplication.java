@@ -26,7 +26,18 @@ public class MensaUpbApplication extends Application {
         if (BuildConfig.DEBUG) LOGGER.debug("onCreate()");
         super.onCreate();
         setupSynchronization();
+        initFirstSync();
         if (BuildConfig.DEBUG) LOGGER.debug("onCreate() done");
+    }
+
+    private void initFirstSync() {
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+
+        ContentResolver.requestSync(mAccountCreator.build(this), mAccountCreator.getAuthority(), settingsBundle);
     }
 
     private void setupSynchronization() {

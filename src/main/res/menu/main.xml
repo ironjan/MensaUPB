@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/ab_refresh"
-        android:icon="@drawable/ic_navigation_refresh_dark"
+        android:icon="@drawable/ic_action_refresh"
         app:showAsAction="always"
         android:title="@string/refresh"
         />
@@ -12,14 +12,14 @@
     <item
         android:id="@+id/ab_STW"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_location_web_site_dark"
-        android:title="Quelle"
+        android:icon="@drawable/ic_action_web_site"
+        android:title="@string/source"
         />
 
     <item
         android:id="@+id/ab_about"
         android:showAsAction="ifRoom"
-        android:icon="@drawable/ic_action_about_dark"
-        android:title="Über die App"/>
+        android:icon="@drawable/action_about_light_holo"
+        android:title="@string/about"/>
 
 </menu>

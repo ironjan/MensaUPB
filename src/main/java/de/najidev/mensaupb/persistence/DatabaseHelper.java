@@ -13,9 +13,7 @@ import java.sql.*;
 
 import de.najidev.mensaupb.stw.*;
 
-/**
- * Created by ljan on 11.01.14.
- */
+
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
 

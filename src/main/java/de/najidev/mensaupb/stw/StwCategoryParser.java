@@ -6,9 +6,6 @@ import java.util.*;
 
 import de.najidev.mensaupb.*;
 
-/**
- * Created by ljan on 31.01.14.
- */
 public class StwCategoryParser {
     private static Hashtable<String, String> categoryMapping = new Hashtable<String, String>();
     private static HashMap<String, Integer> sortMapping = new HashMap<String, Integer>();

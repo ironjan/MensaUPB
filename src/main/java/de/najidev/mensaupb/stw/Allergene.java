@@ -75,8 +75,7 @@ public class Allergene {
     public static final String ALLEGERNE_DELIMITER = ", ";
 
     public static String descriptionFromKey(String key) {
-        final String description = mapping.get(key);
-        return description;
+        return mapping.get(key);
     }
 
     public static String filterAllergenes(String s) {

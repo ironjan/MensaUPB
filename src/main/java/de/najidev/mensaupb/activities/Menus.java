@@ -156,8 +156,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
         @Override
         public Fragment getItem(int i) {
-            Fragment fragment = getMenuListingFragment(i);
-            return fragment;
+            return getMenuListingFragment(i);
         }
 
         Fragment getMenuListingFragment(int i) {
@@ -219,18 +218,16 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         } else {
             isSyncing = checkSyncingStatePreHC();
         }
-        setProgressBarIndeterminate(isSyncing);
-        setProgressBarVisibility(isSyncing);
+//        setProgressBarIndeterminate(isSyncing);
+//        setProgressBarVisibility(isSyncing);
     }
 
     @SuppressWarnings("deprecation")
     private boolean checkSyncingStatePreHC() {
         final SyncInfo currentSync = ContentResolver.getCurrentSync();
 
-        if (currentSync != null && isMensaUpbSync(currentSync)) return 
-true;
-
-        return false;
+        final boolean isSyncing = currentSync != null && isMensaUpbSync(currentSync);
+        return isSyncing;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -249,9 +246,7 @@ true;
         String authority = syncInfo.authority;
 
 
-        if (name.equals(AccountCreator.ACCOUNT) && authority.equals(authority)) {
-            return true;
-        }
-        return false;
+        final boolean isMensaUpbSync = name.equals(AccountCreator.ACCOUNT) && authority.equals(authority);
+        return isMensaUpbSync;
     }
 }
