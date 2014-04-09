@@ -20,11 +20,7 @@ import de.najidev.mensaupb.activities.*;
 import de.najidev.mensaupb.stw.Menu;
 import de.najidev.mensaupb.sync.*;
 
-/**
- * Created by ljan on 01.02.14.
- */
 @EFragment(R.layout.fragment_menu_listing)
-@OptionsMenu(R.menu.main)
 public class MenuListingFragment extends ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String SELECTION = de.najidev.mensaupb.stw.Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
@@ -41,8 +37,6 @@ public class MenuListingFragment extends ListFragment implements android.support
     public static final String[] LIST_PROJECTION = {de.najidev.mensaupb.stw.Menu.NAME_GERMAN, de.najidev.mensaupb.stw.Menu.CATEGORY, de.najidev.mensaupb.stw.Menu.ALLERGENES, de.najidev.mensaupb.stw.Menu.ID};
     private SimpleCursorAdapter adapter;
 
-    @Bean
-    AccountCreator mAccountCreator;
 
 
     @Override
@@ -51,10 +45,8 @@ public class MenuListingFragment extends ListFragment implements android.support
 
         final String[] selectionArgs = {getArguments().getString(ARG_DATE), getArguments().getString(ARG_LOCATION)};
 
-        CursorLoader cursorLoader = new CursorLoader(getActivity(),
+        return new CursorLoader(getActivity(),
                 MenuContentProvider.MENU_URI, projection, SELECTION, selectionArgs, null);
-
-        return cursorLoader;
     }
 
     @Override
@@ -73,7 +65,6 @@ public class MenuListingFragment extends ListFragment implements android.support
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadContent();
-        setupSynchronization();
 
     }
 
@@ -87,28 +78,7 @@ public class MenuListingFragment extends ListFragment implements android.support
         setListAdapter(adapter);
     }
 
-    @Background
-    void setupSynchronization() {
-        final Account account = mAccountCreator.build(getActivity());
 
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-        ContentResolver.requestSync(account, mAccountCreator.getAuthority(), settingsBundle);
-
-        ContentResolver.addPeriodicSync(account, mAccountCreator.getAuthority(), new Bundle(), BuildConfig.SYNC_INTERVAL);
-    }
-
-    @OptionsItem(R.id.ab_refresh)
-    void refreshClicked() {
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-
-        ContentResolver.requestSync(mAccountCreator.build(getActivity()), mAccountCreator.getAuthority(), settingsBundle);
-    }
 
 
     @ItemClick
@@ -120,16 +90,4 @@ public class MenuListingFragment extends ListFragment implements android.support
         fragment.show(fm, "fragment_edit_name");
     }
 
-    @OptionsItem(R.id.ab_STW)
-    void stwClicked() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("http://www.studentenwerk-pb.de/startseite/"));
-        startActivity(intent);
-    }
-
-    @OptionsItem(R.id.ab_about)
-    void aboutClicked() {
-        About_.intent(this).start();
-    }
 }

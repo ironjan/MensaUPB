@@ -15,9 +15,6 @@ import de.najidev.mensaupb.persistence.DatabaseHelper;
 import de.najidev.mensaupb.persistence.DatabaseManager;
 import de.najidev.mensaupb.stw.Menu;
 
-/**
- * Created by ljan on 10.01.14.
- */
 @EProvider
 public class MenuContentProvider extends ContentProvider {
 
@@ -25,7 +22,7 @@ public class MenuContentProvider extends ContentProvider {
     private static final String SINGLE_MENUS_PATH = MENUS_PATH + "/#";
 
     private static final Uri ROOT = Uri.parse("content://" + ProviderContract.AUTHORITY + "/");
-    public static final Uri MENU_URI = ROOT.withAppendedPath(ROOT, MENUS_PATH);
+    public static final Uri MENU_URI = Uri.withAppendedPath(ROOT, MENUS_PATH);
     private static final int MENUS_MATCH = 1;
     private static final int SINGLE_MENUS_MATCH = 2;
 

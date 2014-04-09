@@ -6,9 +6,6 @@ import android.content.*;
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
-/**
- * Created by ljan on 10.01.14.
- */
 @EBean
 public class AccountCreator {
     @RootContext
@@ -41,9 +38,6 @@ public class AccountCreator {
         return mAccount;
     }
 
-    public boolean wasAccountCreated() {
-        return mAccountCreated;
-    }
 
     public String getAuthority() {
         return AUTHORITY;

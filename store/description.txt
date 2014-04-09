@@ -1,0 +1,6 @@
+MensaUPB zeigt dir die Speisepläne der Einrichtungen des Studentenwerks an der Universität Paderborn:
+Mensa inkl. Abendmensa, Gownsmen Pub und Hotspot. 
+
+Geplante Features:
+* Automatisches Wechseln der Einrichtung, damit man sofort den richtigen Plan sieht
+* Ausblenden von unerwünschten Speisen (gewisse Allergene oder einfach nicht schmackhaft genug)

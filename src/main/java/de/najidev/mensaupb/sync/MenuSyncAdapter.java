@@ -15,12 +15,8 @@ import java.util.*;
 import de.najidev.mensaupb.*;
 import de.najidev.mensaupb.stw.*;
 
-/**
- * Created by ljan on 10.01.14.
- */
 public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
-    public static final String SYNC_FINISHED = "SYNC_FINISHED";
     public static final String WHERE = Menu.DATE + " = ? and " + Menu.LOCATION + " = ? and " + Menu.NAME_GERMAN + " = ?";
     public static final int SELECTION_ARG_LOCATION = 1;
     public static final int SELECTION_ARG_DATE = 0;
@@ -28,7 +24,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
     private final ContentResolver mContentResolver;
-    private static Object lock = new Object();
+    private static final Object lock = new Object();
 
     public static MenuSyncAdapter getInstance(Context context) {
         synchronized (lock) {
@@ -89,7 +85,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             while (sc.hasNextLine()) {
                 String[] parts = prepareNextLine(sc);
                 if (skipThisLine(parts)) {
-                    continue;
+                    // skip
                 } else {
                     menu = parseLine(menu, parts, selectionArgs);
 
@@ -119,13 +115,9 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         final boolean isYourAccountSyncEnabled = ContentResolver.getSyncAutomatically(account, AccountCreator.AUTHORITY);
         final boolean isMasterSyncEnabled = ContentResolver.getMasterSyncAutomatically();
 
-        final boolean syncEnabled = isYourAccountSyncEnabled && isMasterSyncEnabled;
+        final boolean syncDisabled = !( isYourAccountSyncEnabled && isMasterSyncEnabled);
 
-        if (syncEnabled) {
-            return false;
-        }
-
-        return true;
+        return syncDisabled;
     }
 
     void createOrUpdate(ContentResolver cr, int[] counter, String[] selectionArgs, ContentValues menu, String[] parts) {

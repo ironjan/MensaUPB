@@ -1,0 +1,6 @@
+MensaUPB shows you the menus of the Studentenwerk's restaurants: Mensa including Abendmensa, Hotspot
+and Gownsmen Pub.
+
+Planned Features:
+* Automatic change of restaurant, so you get the correct menus at the right time
+* Hiding of unwanted menus (containing certain allergens or just not tasty enough)
