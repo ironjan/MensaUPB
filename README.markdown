@@ -1,8 +1,14 @@
 # Projektbeschreibung
 
-MensaUPB ist eine Neubau von Davids und Najis Android Mensa App für die Uni Paderborn und zeigt für die jeweilige Woche an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen Version eine XML vom Studentenwerk runtergeladen und gecached, bis sie nicht mehr verwendet werden konnte. Es wurde damals vom Studentenwerk untersagt, diese App im Play Store zu vertreiben.
+MensaUPB ist ein Neubau von Davids und Najis Android Mensa App für die Uni Paderborn und zeigt für
+die kommenden Tage an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen
+Version eine XML vom Studentenwerk runtergeladen und gecached, bis sie nicht mehr verwendet werden
+konnte. Es wurde damals vom Studentenwerk untersagt, diese App im Play Store zu vertreiben - daher
+wurde sie damals wieder entfernt.
 
-Mittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine API bereit; daher wurde die App von Grund auf neu geschrieben und ist nun endlich wieder im PlayStore ;)
+Mittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine Schnittstelle bereit,
+über die die Speisepläne heruntergeladen werden können; daher wurde die App zu einem Großteil neu
+geschrieben und ist nun endlich wieder im PlayStore ;)
 
 # Issue tracking
 
