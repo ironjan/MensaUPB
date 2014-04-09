@@ -3,6 +3,7 @@ package de.najidev.mensaupb.activities;
 
 import android.annotation.*;
 import android.content.*;
+import android.net.*;
 import android.os.*;
 import android.support.v4.app.*;
 import android.support.v4.view.*;
@@ -24,6 +25,7 @@ import de.najidev.mensaupb.stw.Menu;
 import de.najidev.mensaupb.sync.*;
 
 @EActivity(R.layout.activity_menu_listing)
+@OptionsMenu(R.menu.main)
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener, SyncStatusObserver {
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
     public static final int WEEKEND_OFFSET = 2;
@@ -31,7 +33,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     ViewPager mViewPager;
     private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
     private static final SimpleDateFormat SDF = Menu.DATABASE_DATE_FORMAT;
-    public static final String[] RESTAURANTS = new String[]{"Mensa", "Gownsmen's Pub", "HNF (Hotspot)"};
+    public static final String[] RESTAURANTS = new String[]{"Mensa", "Abendmensa", "Gownsmen's Pub", "HNF (Hotspot)"};
     private String mLocation = "Mensa";
     private DemoCollectionPagerAdapter[] adapters = new DemoCollectionPagerAdapter[4];
     private static final int DISPLAYED_DAYS_COUNT = 3;
@@ -248,5 +250,31 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
         final boolean isMensaUpbSync = name.equals(AccountCreator.ACCOUNT) && authority.equals(authority);
         return isMensaUpbSync;
+    }
+    @Bean
+    AccountCreator mAccountCreator;
+
+    @OptionsItem(R.id.ab_refresh)
+    void refreshClicked() {
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+
+        ContentResolver.requestSync(mAccountCreator.build(this), mAccountCreator.getAuthority(), settingsBundle);
+    }
+
+    @OptionsItem(R.id.ab_STW)
+    void stwClicked() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("http://www.studentenwerk-pb.de/startseite/"));
+        startActivity(intent);
+    }
+
+    @OptionsItem(R.id.ab_about)
+    void aboutClicked() {
+        About_.intent(this).start();
     }
 }
