@@ -41,10 +41,22 @@
     <string name="select_Location">Ort wählen</string>
 
     <!-- about -->
-    <string name="aboutText">MensaUPB ist eine Neubau von Davids Android Mensa App für die Uni Paderborn und zeigt für die jeweilige Woche an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen Version eine XML vom Studentenwerk runtergeladen und gecached, bis sie nicht mehr verwendet werden konnte. Es wurde damals vom Studentenwerk untersagt, diese App im Play Store zu vertreiben.\n\nMittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine API bereit; daher wurde die App von Grund auf neu geschrieben und ist nun endlich wieder im PlayStore ;)</string>
+    <string name="aboutText">MensaUPB ist ein Neubau von Davids und Najis Android Mensa App für die Uni Paderborn und zeigt für
+die kommenden Tage an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen
+Version eine XML vom Studentenwerk runtergeladen und gecached, bis sie nicht mehr verwendet werden
+konnte. Es wurde damals vom Studentenwerk untersagt, diese App im Play Store zu vertreiben - daher
+wurde sie damals wieder entfernt.\n
+\n
+Mittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine Schnittstelle bereit,
+über die die Speisepläne heruntergeladen werden können; daher wurde die App zu einem Großteil neu
+geschrieben und ist nun endlich wieder im PlayStore ;)
+</string>
     <string name="source">Quelle</string>
     <string name="about">Über die App</string>
-    <string name="menusLoading1">Speisepläne werden geladen.</string>
-    <string name="menusLoading2">Dies könnte beim ersten Start einige Minuten dauern. Die Pläne werden jedoch auf dem Gerät gespeichert - beim nächsten Mal sind sie sofort verfügbar ;)</string>
+    <string name="menusLoading1">Speisepläne werden geladen. Dies könnte beim ersten Start einige Minuten dauern.</string>
+    <string name="menusLoading2">Die Pläne werden jedoch auf dem Gerät gespeichert - beim nächsten Mal sind sie sofort verfügbar ;)\n
+\n
+(Freitag hat die Abendmensa geschlossen und es gibt daher keine Gerichte zum Anzeigen 
+und dieser Ladebildschirm wird gezeigt. Das werde ich aber bei Gelegenheit ändern)</string>
 
 </resources>
