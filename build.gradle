@@ -1,6 +1,6 @@
 def versionMajor = 1 // incompatible API changes
 def versionMinor = 3 // added functionality in a backwards-compatible manner
-def versionPatch = 2 // backwards-compatible bug fixes
+def versionPatch = 3 // backwards-compatible bug fixes
 def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 
 buildscript {
@@ -79,7 +79,7 @@ android {
         }
 
         release {
-            buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 12" // 12 hours
+            buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 24 * 2" // 2 days
             buildConfigField "String", "STW_URL", "\"\""
         }
     }

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"/>
         <TextView android:layout_marginTop="@dimen/elementMargin"
             android:layout_width="match_parent"
-            android:id="@+id/txtDependencies" android:autoLink="web"
+            android:id="@+id/txtDependencies"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>

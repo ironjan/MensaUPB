@@ -37,7 +37,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Bean
     AccountCreator mAccountCreator;
     private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
-    private String mLocation = "Mensa";
+    private String mLocation = null;
     private DemoCollectionPagerAdapter[] adapters = new DemoCollectionPagerAdapter[4];
 
     @Override
@@ -50,14 +50,14 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
     @Trace
     @AfterViews
+    @Background
     void init() {
-        initActionBar();
         initDays();
-        initPager();
+        initActionBar();
+       initPager();
     }
 
     @Trace
-    @Background
     void initDays() {
         for (int i = 0; i < DISPLAYED_DAYS_COUNT; i++) {
             getNextWeekDayAsString(i);
@@ -65,6 +65,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     }
 
     @Trace
+            @UiThread
     void initActionBar() {
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
@@ -89,6 +90,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Background
     @Trace
     void loadPagerAdapter(int i) {
+        if(BuildConfig.DEBUG) LOGGER.debug("loadPagerAdapter({})",i);
         mDemoCollectionPagerAdapter =
                 getPagerAdapter(i);
         if (BuildConfig.DEBUG) LOGGER.info("Got adapter: {}", mDemoCollectionPagerAdapter);
@@ -105,6 +107,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
     @Trace
     DemoCollectionPagerAdapter getPagerAdapter(int i) {
+        if(BuildConfig.DEBUG) LOGGER.debug("getPagerAdapter({})",i);
         if (adapters[i] == null) {
             createNewAdapter(i);
         }
@@ -114,6 +117,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Trace
     @Background
     void createNewAdapter(int i) {
+        if(BuildConfig.DEBUG) LOGGER.debug("createNewAdapter({})",i);
         adapters[i] =
                 new DemoCollectionPagerAdapter(
                         getSupportFragmentManager(), RESTAURANTS[i]);
@@ -122,9 +126,12 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
     @Trace
     synchronized String getNextWeekDayAsString(int i) {
+
         if (weekDaysAsString[i] == null) {
             weekDaysAsString[i] = SDF.format(getNextWeekDay(i));
         }
+
+        if(BuildConfig.DEBUG) LOGGER.debug("getNextWeekDayAsString({}) -> {}", i, weekDaysAsString[i]);
         return weekDaysAsString[i];
     }
 
@@ -136,10 +143,13 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Override
     @Trace
     public boolean onNavigationItemSelected(int i, long l) {
-        if (TextUtils.equals(mLocation, RESTAURANTS[i]))
+        if (TextUtils.equals(mLocation, RESTAURANTS[i])){
+            if(BuildConfig.DEBUG) LOGGER.debug("onNavigationItemSelected({},{}) but is same location", i,l);
             return true;
+        }
 
         mLocation = RESTAURANTS[i];
+        if(BuildConfig.DEBUG) LOGGER.debug("onNavigationItemSelected({},{}), location := {}", new Object[]{i,l, mLocation});
 
         loadPagerAdapter(i);
 
@@ -153,6 +163,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
     @Trace
     Date getNextWeekDay(int offset) {
+        if(BuildConfig.DEBUG) LOGGER.debug("getNextWeekDay({})", offset);
         Calendar cal = Calendar.getInstance();
 
         cal.add(Calendar.DAY_OF_WEEK, offset);

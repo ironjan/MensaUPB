@@ -4,3 +4,7 @@ and Gownsmen Pub.
 Planned Features:
 * Automatic change of restaurant, so you get the correct menus at the right time
 * Hiding of unwanted menus (containing certain allergens or just not tasty enough)
+
+Permissions all are needed to use the Android sync framework - to remove 
+the permissions I would have to replicate the sync framework myself. 
+That would take too much work for very little benefit.

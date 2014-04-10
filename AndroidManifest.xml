@@ -27,7 +27,12 @@
         <activity
             android:name="de.ironjan.mensaupb.activities.About_"
             android:label="@string/app_name"
-            android:uiOptions="splitActionBarWhenNarrow"/>
+            android:uiOptions="splitActionBarWhenNarrow" android:parentActivityName="de.ironjan.mensaupb.activities.Menus_" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.ironjan.mensaupb.activities.Menus_" />
+
+            </activity>
 
         <!--sync-->
         <service android:name="de.ironjan.mensaupb.sync.AuthenticatorService">

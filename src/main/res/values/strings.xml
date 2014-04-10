@@ -52,13 +52,15 @@ Mittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine Schnit
 geschrieben und ist nun endlich wieder im PlayStore ;)
 </string>
     <string name="dependencies">
-MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="">github&lt;/a>. Feedback und Fehlermeldungen können via Email an &lt;a href="mailto:lippertsjan+mensaupb@gmail.com">lippertsjan@gmail.com&lt;/a> gesendet werden.&lt;br>
+MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="">github&lt;/a>. Feedback und Fehlermeldungen können via Email an &lt;a href="mailto:lippertsjan+mensaupb@gmail.com?subject=MensaUPB">lippertsjan@gmail.com&lt;/a> gesendet werden.&lt;br>
 &lt;br>
-Des weiteren benutzt die folgenden Open Source Bibliotheken:&lt;br>
+        Die Speisepläne werden über eine Schnittstelle des Studentenwerk Paderborns abgerufen. Näheres dazu &lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/">hier&lt;/a>&lt;br>
+&lt;br>
+        Des weiteren benutzt die folgenden Open Source Bibliotheken:&lt;br>
 &lt;br>
 * &lt;a href="https://github.com/excilys/androidannotations/">Androidannotations&lt;/a>, unter der &lt;a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0&lt;/a>&lt;br>
 * &lt;a href="http://developer.android.com/tools/support-library/index.html">Android support libraries v4 and v7, unter der &lt;a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0&lt;/a>&lt;br>
-* &lt;br>&lt;a href="http://www.slf4j.org/android/">SLF4J-android&lt;/a>, unter der &lt;a href="http://www.slf4j.org/license.html">MIT License&lt;/a>&lt;br>
+* &lt;a href="http://www.slf4j.org/android/">SLF4J-android&lt;/a>, unter der &lt;a href="http://www.slf4j.org/license.html">MIT License&lt;/a>&lt;br>
 * &lt;a href="http://ormlite.com/">ormlite&lt;a/>, unter einer &lt;a href="http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_9.html#License">eigenen Lizenz&lt;/a></string>
     <!--menu-->
     <string name="source">Quelle</string>

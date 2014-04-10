@@ -4,3 +4,8 @@ Mensa inkl. Abendmensa, Gownsmen Pub und Hotspot.
 Geplante Features:
 * Automatisches Wechseln der Einrichtung, damit man sofort den richtigen Plan sieht
 * Ausblenden von unerwünschten Speisen (gewisse Allergene oder einfach nicht schmackhaft genug)
+
+Berechtigungen werden benötigt, damit das Android Sync Framework genutzt 
+werden kann - um auf die Berechtigungen zu verzichten, müsste ich mein 
+eigenes Sync Framework bauen. Dies würde deutlich zu viel Aufwand für 
+geringfügige Verbesserungen.
