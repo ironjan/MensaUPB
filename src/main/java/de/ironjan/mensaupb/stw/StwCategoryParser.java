@@ -1,30 +1,17 @@
-package de.najidev.mensaupb.stw;
+package de.ironjan.mensaupb.stw;
 
 import org.slf4j.*;
 
 import java.util.*;
 
-import de.najidev.mensaupb.*;
-
+import de.ironjan.mensaupb.*;
 public class StwCategoryParser {
-    private static Hashtable<String, String> categoryMapping = new Hashtable<String, String>();
-    private static HashMap<String, Integer> sortMapping = new HashMap<String, Integer>();
-
-
     public static final String CATEGORY_ESSEN = "Essen";
-
-    private static final String CATEGORY_GRILL = "Grill";
-
     public static final String CATEGORY_PASTA = "Pasta";
-
     public static final String CATEGORY_SALAD_BUFFET = "Salatbuffet";
-
     public static final String CATEGORY_WOK = "Wok";
-
     public static final String CATEGORY_EINTOPF = "Eintopf";
-
     public static final String CATEGORY_SOUP = "Suppe";
-
     public static final int SORT_HK = 5,
             SORT_SOUP = 6,
             SORT_GRILL = 25,
@@ -34,13 +21,9 @@ public class StwCategoryParser {
             SORT_DISH_EXPENSIVE = 40,
             SORT_SMALL_SOUP = 60,
             SORT_DESSERT_EXPENSIVE = 90;
-
     public static final String CATEGORY_SPECIAL_DESSER = "Aktionsdessert";
-
     public static final String CATEGORY_DESSERT = "Dessert";
-
     public static final String CATEGORY_SPECIAL_LUNCH = "Aktionsessen";
-
     static {
         categoryMapping.put("PUB Beilage Waage", "Beilage");
         sortMapping.put("PUB Beilage Waage", SORT_SALAD);
@@ -102,8 +85,10 @@ public class StwCategoryParser {
         sortMapping.put("Stamm Tagessuppe 0,55€", SORT_SMALL_SOUP);
 
     }
-
+    private static final String CATEGORY_GRILL = "Grill";
     private static final Logger LOGGER = LoggerFactory.getLogger(StwCategoryParser.class.getSimpleName());
+    private static Hashtable<String, String> categoryMapping = new Hashtable<String, String>();
+    private static HashMap<String, Integer> sortMapping = new HashMap<String, Integer>();
 
     public static String getCategory(String key) {
         final String category = categoryMapping.get(key);

@@ -1,7 +1,6 @@
-package de.najidev.mensaupb.stw;
+package de.ironjan.mensaupb.stw;
 
 import android.content.*;
-
 public class MenuToContentValuesConverter {
     public static ContentValues convert(Menu menu) {
         ContentValues cv = new ContentValues();

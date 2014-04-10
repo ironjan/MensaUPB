@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.sync;
+package de.ironjan.mensaupb.sync;
 
 import android.accounts.*;
 import android.content.*;

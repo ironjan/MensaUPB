@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.sync;
+package de.ironjan.mensaupb.sync;
 
 import android.accounts.*;
 import android.annotation.*;
@@ -12,19 +12,29 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import de.najidev.mensaupb.*;
-import de.najidev.mensaupb.stw.*;
-
+import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.stw.*;
 public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public static final String WHERE = Menu.DATE + " = ? and " + Menu.LOCATION + " = ? and " + Menu.NAME_GERMAN + " = ?";
     public static final int SELECTION_ARG_LOCATION = 1;
     public static final int SELECTION_ARG_DATE = 0;
     public static final int SELECTION_ARG_GERMAN_NAME = 2;
+    private static final Object lock = new Object();
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
     private final ContentResolver mContentResolver;
-    private static final Object lock = new Object();
+
+    private MenuSyncAdapter(Context context, boolean autoInitialize) {
+        super(context, autoInitialize);
+        mContentResolver = context.getContentResolver();
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private MenuSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
+        super(context, autoInitialize, allowParallelSyncs);
+        mContentResolver = context.getContentResolver();
+    }
 
     public static MenuSyncAdapter getInstance(Context context) {
         synchronized (lock) {
@@ -45,18 +55,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             return new MenuSyncAdapter(applicationContext, true);
         }
     }
-
-    private MenuSyncAdapter(Context context, boolean autoInitialize) {
-        super(context, autoInitialize);
-        mContentResolver = context.getContentResolver();
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private MenuSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
-        super(context, autoInitialize, allowParallelSyncs);
-        mContentResolver = context.getContentResolver();
-    }
-
 
     @Override
     public void onPerformSync(Account account, Bundle bundle, String s, ContentProviderClient contentProviderClient, SyncResult syncResult) {

@@ -1,12 +1,12 @@
-package de.najidev.mensaupb.sync;
+package de.ironjan.mensaupb.sync;
 
 import android.app.*;
 import android.content.*;
 import android.os.*;
 
 public class SyncService extends Service {
-    private static MenuSyncAdapter sMenuSyncAdapter = null;
     private static final Object sSyncAdapterLock = new Object();
+    private static MenuSyncAdapter sMenuSyncAdapter = null;
 
     public SyncService() {
     }

@@ -1,19 +1,15 @@
-package de.najidev.mensaupb.sync;
+package de.ironjan.mensaupb.sync;
 
-import android.content.ContentProvider;
-import android.content.ContentValues;
-import android.content.UriMatcher;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQueryBuilder;
-import android.net.Uri;
-import android.text.TextUtils;
+import android.content.*;
+import android.database.*;
+import android.database.sqlite.*;
+import android.net.*;
+import android.text.*;
 
-import org.androidannotations.annotations.EProvider;
+import org.androidannotations.annotations.*;
 
-import de.najidev.mensaupb.persistence.DatabaseHelper;
-import de.najidev.mensaupb.persistence.DatabaseManager;
-import de.najidev.mensaupb.stw.Menu;
+import de.ironjan.mensaupb.persistence.*;
+import de.ironjan.mensaupb.stw.*;
 
 @EProvider
 public class MenuContentProvider extends ContentProvider {

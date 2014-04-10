@@ -2,7 +2,7 @@
 
 
 <fragment android:id="@+id/aboutFragment"
-    android:name="de.najidev.mensaupb.fragments.AboutFragment_"
+    android:name="de.ironjan.mensaupb.fragments.AboutFragment_"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"/>
+    android:layout_height="match_parent"/>

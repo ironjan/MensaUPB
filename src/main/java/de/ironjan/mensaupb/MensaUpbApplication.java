@@ -1,4 +1,4 @@
-package de.najidev.mensaupb;
+package de.ironjan.mensaupb;
 
 import android.accounts.*;
 import android.app.*;
@@ -8,18 +8,17 @@ import android.os.*;
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
-import de.najidev.mensaupb.sync.*;
+import de.ironjan.mensaupb.sync.*;
 
 /**
  * Used to set up synchronization on first start.
  */
 @EApplication
 public class MensaUpbApplication extends Application {
-    @Bean
-    AccountCreator mAccountCreator;
-
     private final Logger LOGGER = LoggerFactory.getLogger(MensaUpbApplication.class.getSimpleName()
     );
+    @Bean
+    AccountCreator mAccountCreator;
 
     @Override
     public void onCreate() {

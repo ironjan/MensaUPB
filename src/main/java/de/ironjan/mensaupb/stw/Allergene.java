@@ -1,17 +1,16 @@
-package de.najidev.mensaupb.stw;
+package de.ironjan.mensaupb.stw;
 
 import org.slf4j.*;
 
 import java.util.*;
 
-import de.najidev.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.*;
 
 public class Allergene {
+    public static final String ALLEGERNE_DELIMITER = ", ";
     private static final Logger LOGGER = LoggerFactory.getLogger(Allergene.class.getSimpleName());
-
     private static final HashMap<String, String> mapping = new HashMap<String, String>();
     private static final List<String> allowed = new ArrayList<String>();
-
     static {
         mapping.put("1"
                 , "Farbstoff");
@@ -71,8 +70,6 @@ public class Allergene {
 
         allowed.addAll(mapping.keySet());
     }
-
-    public static final String ALLEGERNE_DELIMITER = ", ";
 
     public static String descriptionFromKey(String key) {
         return mapping.get(key);

@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.persistence;
+package de.ironjan.mensaupb.persistence;
 
 import android.content.*;
 import android.database.sqlite.*;
@@ -11,7 +11,7 @@ import org.slf4j.*;
 
 import java.sql.*;
 
-import de.najidev.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.*;
 
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {

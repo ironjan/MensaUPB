@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.stw;
+package de.ironjan.mensaupb.stw;
 
 import android.provider.*;
 
@@ -46,15 +46,15 @@ public class Menu {
     @DatabaseField(columnName = SORT)
     private int sort;
 
+    public Menu() {
+    }
+
     public int getSort() {
         return sort;
     }
 
     public void setSort(int sort) {
         this.sort = sort;
-    }
-
-    public Menu() {
     }
 
     public String getAllergenes() {

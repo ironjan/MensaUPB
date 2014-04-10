@@ -1,9 +1,8 @@
-package de.najidev.mensaupb.persistence;
+package de.ironjan.mensaupb.persistence;
 
 import android.content.*;
 
 import com.j256.ormlite.android.apptools.*;
-
 public class DatabaseManager {
 
     private DatabaseHelper databaseHelper = null;

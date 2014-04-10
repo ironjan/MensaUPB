@@ -61,7 +61,7 @@ android {
         minSdkVersion 8
         targetSdkVersion 19
 
-        packageName "de.najidev.mensaupb"
+        packageName "de.ironjan.mensaupb"
     }
 
 

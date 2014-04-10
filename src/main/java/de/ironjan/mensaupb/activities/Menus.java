@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.activities;
+package de.ironjan.mensaupb.activities;
 
 
 import android.annotation.*;
@@ -19,25 +19,26 @@ import org.slf4j.*;
 import java.text.*;
 import java.util.*;
 
-import de.najidev.mensaupb.*;
-import de.najidev.mensaupb.fragments.*;
-import de.najidev.mensaupb.stw.Menu;
-import de.najidev.mensaupb.sync.*;
-
+import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.fragments.*;
+import de.ironjan.mensaupb.stw.Menu;
+import de.ironjan.mensaupb.sync.*;
 @EActivity(R.layout.activity_menu_listing)
 @OptionsMenu(R.menu.main)
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener, SyncStatusObserver {
-    private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
     public static final int WEEKEND_OFFSET = 2;
-    @ViewById(R.id.pager)
-    ViewPager mViewPager;
-    private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
-    private static final SimpleDateFormat SDF = Menu.DATABASE_DATE_FORMAT;
     public static final String[] RESTAURANTS = new String[]{"Mensa", "Abendmensa", "Gownsmen's Pub", "HNF (Hotspot)"};
-    private String mLocation = "Mensa";
-    private DemoCollectionPagerAdapter[] adapters = new DemoCollectionPagerAdapter[4];
+    private static final SimpleDateFormat SDF = Menu.DATABASE_DATE_FORMAT;
     private static final int DISPLAYED_DAYS_COUNT = 3;
     private String[] weekDaysAsString = new String[DISPLAYED_DAYS_COUNT];
+    private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
+    @ViewById(R.id.pager)
+    ViewPager mViewPager;
+    @Bean
+    AccountCreator mAccountCreator;
+    private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
+    private String mLocation = "Mensa";
+    private DemoCollectionPagerAdapter[] adapters = new DemoCollectionPagerAdapter[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +128,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         return weekDaysAsString[i];
     }
 
-
     @Trace
     boolean dayIsWeekend(Calendar cal) {
         return cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
@@ -145,53 +145,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
         return true;
     }
-
-    public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
-
-        Fragment[] fragments = new Fragment[3];
-        String mLocation;
-
-        public DemoCollectionPagerAdapter(FragmentManager fm, String location) {
-            super(fm);
-            mLocation = location;
-        }
-
-        @Override
-        public Fragment getItem(int i) {
-            return getMenuListingFragment(i);
-        }
-
-        Fragment getMenuListingFragment(int i) {
-            if (fragments[i] == null) {
-                Fragment fragment = initMenuListingFragment(i);
-                fragments[i] = fragment;
-            }
-
-            return fragments[i];
-        }
-
-        Fragment initMenuListingFragment(int i) {
-            Fragment fragment = new MenuListingFragment_();
-            Bundle arguments = new Bundle();
-
-            arguments.putString(MenuListingFragment.ARG_DATE, getNextWeekDayAsString(i));
-            arguments.putString(MenuListingFragment.ARG_LOCATION, mLocation);
-
-            fragment.setArguments(arguments);
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return DISPLAYED_DAYS_COUNT;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return getNextWeekDayAsString(position);
-        }
-    }
-
 
     @Trace
     String getLocation() {
@@ -251,8 +204,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         final boolean isMensaUpbSync = name.equals(AccountCreator.ACCOUNT) && authority.equals(authority);
         return isMensaUpbSync;
     }
-    @Bean
-    AccountCreator mAccountCreator;
 
     @OptionsItem(R.id.ab_refresh)
     void refreshClicked() {
@@ -276,5 +227,51 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @OptionsItem(R.id.ab_about)
     void aboutClicked() {
         About_.intent(this).start();
+    }
+
+    public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
+
+        Fragment[] fragments = new Fragment[3];
+        String mLocation;
+
+        public DemoCollectionPagerAdapter(FragmentManager fm, String location) {
+            super(fm);
+            mLocation = location;
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            return getMenuListingFragment(i);
+        }
+
+        Fragment getMenuListingFragment(int i) {
+            if (fragments[i] == null) {
+                Fragment fragment = initMenuListingFragment(i);
+                fragments[i] = fragment;
+            }
+
+            return fragments[i];
+        }
+
+        Fragment initMenuListingFragment(int i) {
+            Fragment fragment = new MenuListingFragment_();
+            Bundle arguments = new Bundle();
+
+            arguments.putString(MenuListingFragment.ARG_DATE, getNextWeekDayAsString(i));
+            arguments.putString(MenuListingFragment.ARG_LOCATION, mLocation);
+
+            fragment.setArguments(arguments);
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return DISPLAYED_DAYS_COUNT;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return getNextWeekDayAsString(position);
+        }
     }
 }

@@ -1,4 +1,4 @@
-package de.najidev.mensaupb.sync;
+package de.ironjan.mensaupb.sync;
 
 import android.accounts.*;
 import android.content.*;
@@ -8,11 +8,6 @@ import org.slf4j.*;
 
 @EBean
 public class AccountCreator {
-    @RootContext
-    Context mContext;
-    @SystemService
-    AccountManager mAccountManager;
-
     /**
      * Neded for synchroniztation initialization
      */
@@ -20,8 +15,11 @@ public class AccountCreator {
 
             ACCOUNT = ProviderContract.ACCOUNT;
     public static final String ACCOUNT_TYPE = ProviderContract.ACCOUNT_TYPE;
-
     private final Logger LOGGER = LoggerFactory.getLogger(AccountCreator.class.getSimpleName());
+    @RootContext
+    Context mContext;
+    @SystemService
+    AccountManager mAccountManager;
     private boolean mAccountCreated = false;
     private Account mAccount;
 
