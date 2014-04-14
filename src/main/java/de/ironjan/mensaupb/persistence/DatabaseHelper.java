@@ -1,23 +1,24 @@
 package de.ironjan.mensaupb.persistence;
 
-import android.content.*;
-import android.database.sqlite.*;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
-import com.j256.ormlite.android.apptools.*;
-import com.j256.ormlite.support.*;
-import com.j256.ormlite.table.*;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import java.sql.SQLException;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.Menu;
 
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
 
@@ -48,9 +49,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 } catch (SQLException e) {
                     LOGGER.error(e.getMessage(), e);
                 }
+                onCreate(sqLiteDatabase, connectionSource);
+                break;
+            case 2:
+                // there was a bug which added many entries to abendmensa....
+                sqLiteDatabase.delete(Menu.TABLE, Menu.LOCATION + " = ?", new String[]{"Abendmensa"});
+                break;
         }
         LOGGER.info("onUpgrade() done");
-        onCreate(sqLiteDatabase, connectionSource);
     }
 
 }

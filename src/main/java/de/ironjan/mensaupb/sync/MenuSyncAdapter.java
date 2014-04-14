@@ -1,19 +1,32 @@
 package de.ironjan.mensaupb.sync;
 
-import android.accounts.*;
-import android.annotation.*;
-import android.content.*;
-import android.os.*;
-import android.text.*;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.annotation.TargetApi;
+import android.content.AbstractThreadedSyncAdapter;
+import android.content.ContentProviderClient;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.SyncResult;
+import android.os.Build;
+import android.os.Bundle;
+import android.text.TextUtils;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.stw.Allergene;
+import de.ironjan.mensaupb.stw.Menu;
+import de.ironjan.mensaupb.stw.StwCategoryParser;
+
 public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public static final String WHERE = Menu.DATE + " = ? and " + Menu.LOCATION + " = ? and " + Menu.NAME_GERMAN + " = ?";
@@ -87,7 +100,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
                 } else {
                     menu = parseLine(menu, parts, selectionArgs);
 
-                    createOrUpdate(mContentResolver, counter, selectionArgs, menu, parts);
+                    createOrUpdate(mContentResolver, counter, selectionArgs, menu);
 
                     cr.notifyChange(MenuContentProvider.MENU_URI, null);
                 }
@@ -118,7 +131,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         return syncDisabled;
     }
 
-    void createOrUpdate(ContentResolver cr, int[] counter, String[] selectionArgs, ContentValues menu, String[] parts) {
+    void createOrUpdate(ContentResolver cr, int[] counter, String[] selectionArgs, ContentValues menu) {
         int updatedLines = tryUpdate(cr, counter, selectionArgs, menu);
 
         if (0 == updatedLines) {
@@ -143,7 +156,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
 
     private String[] prepareNextLine(Scanner sc) {
-        if (BuildConfig.DEBUG) LOGGER.debug("prepareNextLine(..)");
+        if (BuildConfig.DEBUG) LOGGER.trace("prepareNextLine(..)");
 
         String line = sc.nextLine();
 
@@ -156,28 +169,39 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private ContentValues parseLine(ContentValues menu, String[] parts, String[] selectionArgs) {
-        if (BuildConfig.DEBUG) LOGGER.debug("parseLine({}) {}", parts, "");
+        if (BuildConfig.DEBUG) LOGGER.trace("parseLine({}) {}", parts, "");
 
         if (menu == null) {
             menu = new ContentValues();
         }
 
-        menu.put(Menu.LOCATION, parts[1]);
-        menu.put(Menu.DATE, parts[2]);
+        String date = parts[2];
+        String name = parts[6];
+        final String location;
+        if ("a".equals(parts[5])) {
+            location = "Abendmensa";
+        } else {
+            location = parts[1];
+        }
+        menu.put(Menu.LOCATION, location);
+
+
+        menu.put(Menu.DATE, date);
         menu.put(Menu.CATEGORY, StwCategoryParser.getCategory(parts[3]));
         menu.put(Menu.SORT, StwCategoryParser.getSort(parts[3]));
 
-        if ("a".equals(parts[5])) menu.put(Menu.LOCATION, "Abendmensa");
+        // FIXME can i use resource here?
 
-        menu.put(Menu.NAME_GERMAN, parts[6]);
+
+        menu.put(Menu.NAME_GERMAN, name);
 
         menu.put(Menu.NAME_ENGLISH, parts[7]);
         menu.put(Menu.ALLERGENES, Allergene.filterAllergenes(parts[8]));
 
 
-        selectionArgs[SELECTION_ARG_LOCATION] = parts[1];
-        selectionArgs[SELECTION_ARG_DATE] = parts[2];
-        selectionArgs[SELECTION_ARG_GERMAN_NAME] = parts[6];
+        selectionArgs[SELECTION_ARG_LOCATION] = location;
+        selectionArgs[SELECTION_ARG_DATE] = date;
+        selectionArgs[SELECTION_ARG_GERMAN_NAME] = name;
 
         if (BuildConfig.DEBUG) LOGGER.debug("parseLine({}) -> {}", parts, menu);
         return menu;
@@ -185,7 +209,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
 
     private InputStream downloadFile() throws IOException {
-        LOGGER.debug("downloadFile()");
+        if (BuildConfig.DEBUG) LOGGER.trace("downloadFile()");
 
         URL url = new URL(BuildConfig.STW_URL);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -194,7 +218,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         conn.setRequestMethod("GET");
         conn.setDoInput(true);
         conn.connect();
-        LOGGER.debug("downloadFile() done");
+        if (BuildConfig.DEBUG) LOGGER.debug("downloadFile() done");
         return conn.getInputStream();
 
     }
