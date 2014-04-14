@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#000</color>
     <color name="white">#fff</color>
-    <color name="cardShadow">#ddd</color>
+    <color name="cardShadow">#ccc</color>
     <color name="backgroundBehindCards">#eee</color>
     <color name="backgroundCards">#eee</color>
 </resources>

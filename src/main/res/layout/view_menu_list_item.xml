@@ -3,8 +3,9 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card_background"
-                android:padding="@dimen/elementMargin"
+    android:paddingTop="@dimen/elementMargin"
+    android:paddingLeft="@dimen/elementMargin"
+    android:paddingRight="@dimen/elementMargin"
     >
 
 
@@ -39,4 +40,11 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text="2, 15, A7, A10, (S)"
         android:layout_alignTop="@+id/textCategory"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textAllergenes"
+        android:src="@color/cardShadow" />
 </RelativeLayout>
