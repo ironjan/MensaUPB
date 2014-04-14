@@ -61,7 +61,8 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="">github&lt;/
 * &lt;a href="https://github.com/excilys/androidannotations/">Androidannotations&lt;/a>, unter der &lt;a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0&lt;/a>&lt;br>
 * &lt;a href="http://developer.android.com/tools/support-library/index.html">Android support libraries v4 and v7, unter der &lt;a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0&lt;/a>&lt;br>
 * &lt;a href="http://www.slf4j.org/android/">SLF4J-android&lt;/a>, unter der &lt;a href="http://www.slf4j.org/license.html">MIT License&lt;/a>&lt;br>
-* &lt;a href="http://ormlite.com/">ormlite&lt;a/>, unter einer &lt;a href="http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_9.html#License">eigenen Lizenz&lt;/a></string>
+* &lt;a href="http://ormlite.com/">ormlite&lt;/a>, unter einer &lt;a href="http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_9.html#License">eigenen Lizenz&lt;/a>&lt;br>
+* &lt;a href="http://android-holo-colors.com/">android-holo-colors&lt;/a>, um einige Resourcen zu generieren</string>
     <!--menu-->
     <string name="source">Quelle</string>
     <string name="about">Über die App</string>

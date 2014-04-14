@@ -1,19 +1,27 @@
 package de.ironjan.mensaupb.fragments;
 
 
-import android.database.*;
-import android.os.*;
-import android.support.v4.app.*;
-import android.support.v4.content.*;
-import android.support.v4.widget.*;
-import android.view.*;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ListFragment;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import org.androidannotations.annotations.*;
-import org.slf4j.*;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ItemClick;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.stw.Menu;
-import de.ironjan.mensaupb.sync.*;
+import de.ironjan.mensaupb.sync.MenuContentProvider;
+
 @EFragment(R.layout.fragment_menu_listing)
 public class MenuListingFragment extends ListFragment implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -71,11 +79,15 @@ public class MenuListingFragment extends ListFragment implements android.support
 
     @ItemClick
     void listItemClicked(int pos) {
+        if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);
+
         final long _id = getListAdapter().getItemId(pos);
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
         MenuDetailFragment fragment = MenuDetailFragment.newInstance(_id);
         fragment.show(fm, "fragment_edit_name");
+
+        if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({}) done", pos);
     }
 
 }

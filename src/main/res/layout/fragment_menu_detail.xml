@@ -6,6 +6,7 @@
                 android:padding="@dimen/elementMargin"
     >
 
+    <!--<include layout="@layout/fragment_menu_detail_title"/>-->
 
     <TextView
         android:layout_width="match_parent"
@@ -14,6 +15,7 @@
         tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"
         android:singleLine="false"
         android:textStyle="bold"
+        android:layout_marginTop="@dimen/elementMargin"
         android:textColor="@color/black"
         android:id="@+id/textName"/>
 

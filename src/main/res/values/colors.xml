@@ -2,7 +2,13 @@
 <resources>
     <color name="black">#000</color>
     <color name="white">#fff</color>
+    <color name="transparent">#00ffffff</color>
     <color name="cardShadow">#ccc</color>
     <color name="backgroundBehindCards">#eee</color>
     <color name="backgroundCards">#eee</color>
+    <color name="greenBase">#d2c4d31e</color>
+    <color name="iconBg">@color/greenBase</color>
+    <color name="pressedSelectable">#d2c4d31e</color>
+    <color name="focusedSelectable">#d2e4eb96</color>
+    <color name="linkTextColor">@color/greenBase</color>
 </resources>

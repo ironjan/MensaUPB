@@ -1,28 +1,49 @@
 package de.ironjan.mensaupb.activities;
 
 
-import android.annotation.*;
-import android.content.*;
-import android.net.*;
-import android.os.*;
-import android.support.v4.app.*;
-import android.support.v4.view.*;
-import android.support.v7.app.*;
-import android.text.*;
-import android.view.*;
-import android.widget.*;
+import android.annotation.TargetApi;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.SyncInfo;
+import android.content.SyncStatusObserver;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerTabStrip;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
+import android.view.Window;
+import android.widget.ArrayAdapter;
 
-import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.Trace;
-import org.slf4j.*;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.text.*;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.fragments.*;
+import de.ironjan.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.fragments.MenuListingFragment;
+import de.ironjan.mensaupb.fragments.MenuListingFragment_;
 import de.ironjan.mensaupb.stw.Menu;
-import de.ironjan.mensaupb.sync.*;
+import de.ironjan.mensaupb.sync.AccountCreator;
+
 @EActivity(R.layout.activity_menu_listing)
 @OptionsMenu(R.menu.main)
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener, SyncStatusObserver {
@@ -32,8 +53,12 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     private static final int DISPLAYED_DAYS_COUNT = 3;
     private String[] weekDaysAsString = new String[DISPLAYED_DAYS_COUNT];
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
+
     @ViewById(R.id.pager)
     ViewPager mViewPager;
+    @ViewById(R.id.pager_title_strip)
+    PagerTabStrip mPagerTabStrip;
+
     @Bean
     AccountCreator mAccountCreator;
     private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
@@ -84,6 +109,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void initPager() {
         // ViewPager and its adapters use support library
         // fragments, so use getSupportFragmentManager.
+        mPagerTabStrip.setTabIndicatorColorResource(R.color.iconBg);
+        mPagerTabStrip.setDrawFullUnderline(true);
         loadPagerAdapter(0);
     }
 
@@ -284,5 +311,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         public CharSequence getPageTitle(int position) {
             return getNextWeekDayAsString(position);
         }
+
     }
+
 }
