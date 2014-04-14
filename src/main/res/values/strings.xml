@@ -43,6 +43,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="">github&lt;/
 \n
 (Freitag hat die Abendmensa geschlossen und es gibt daher keine Gerichte zum Anzeigen 
 und dieser Ladebildschirm wird gezeigt. Das werde ich aber bei Gelegenheit ändern)</string>
+    <string name="openingTimes">Öffnungszeiten</string>
 
 
 </resources>

@@ -23,30 +23,28 @@ public class RestaurantDetailFragment extends DialogFragment {
     @ViewById
     TextView content;
 
-    @StringArrayRes(R.array.restaurants)
-    String[] restaurants;
+    @StringArrayRes(R.array.displayedRestaurants)
+    String[] mDisplayedRestaurants;
 
     @StringArrayRes(R.array.opening_times)
     String[] mOpeningTimes;
 
-    public static RestaurantDetailFragment newInstance(long _id) {
+    public static RestaurantDetailFragment newInstance(int _id) {
         if (BuildConfig.DEBUG) LOGGER.debug("newInstance({})", _id);
 
         Bundle args = new Bundle();
-        args.putLong(ARG_ID, _id);
+        args.putInt(ARG_ID, _id);
 
         RestaurantDetailFragment menuDetailFragment = new RestaurantDetailFragment_();
         menuDetailFragment.setArguments(args);
 
-        if (BuildConfig.DEBUG) LOGGER.debug("Created new MenuDetailFragment({})", _id);
-
-        if (BuildConfig.DEBUG) LOGGER.debug("newInstance({}) done", _id);
+        if (BuildConfig.DEBUG) LOGGER.trace("Created new MenuDetailFragment({})", _id);
         return menuDetailFragment;
     }
 
     @AfterViews
     void bindData() {
-        if (BuildConfig.DEBUG) LOGGER.debug("bindData()");
+        if (BuildConfig.DEBUG) LOGGER.trace("bindData()");
 
         final int _id = getArguments().getInt(ARG_ID);
 
@@ -57,8 +55,12 @@ public class RestaurantDetailFragment extends DialogFragment {
     }
 
     private void showDetails(int _id) {
-        setTitle(restaurants[_id]);
+        if (BuildConfig.DEBUG) LOGGER.debug("showDetails({})", _id);
+
+        setTitle(mDisplayedRestaurants[_id]);
         content.setText(mOpeningTimes[_id]);
+
+        if (BuildConfig.DEBUG) LOGGER.debug("showDetails({}) done", _id);
     }
 
 

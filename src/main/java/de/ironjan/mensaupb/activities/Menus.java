@@ -62,6 +62,9 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @StringArrayRes(R.array.restaurants)
     String[] mRestaurants;
 
+    @StringArrayRes(R.array.displayedRestaurants)
+    String[] mDisplayedRestaurants;
+
     @Bean
     AccountCreator mAccountCreator;
     private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
@@ -102,7 +105,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         // Specify a SpinnerAdapter to populate the dropdown list.
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(actionBar.getThemedContext(),
                 android.R.layout.simple_spinner_item, android.R.id.text1,
-                mRestaurants);
+                mDisplayedRestaurants);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         actionBar.setListNavigationCallbacks(adapter, this);
@@ -114,7 +117,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         // fragments, so use getSupportFragmentManager.
         mPagerTabStrip.setTabIndicatorColorResource(R.color.iconBg);
         mPagerTabStrip.setDrawFullUnderline(true);
-        loadPagerAdapter(0);
+        loadPagerAdapter(mLocation);
     }
 
     @Background
@@ -174,17 +177,11 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Override
     @Trace
     public boolean onNavigationItemSelected(int i, long l) {
-        if (mLocation == i) {
-            if (BuildConfig.DEBUG)
-                LOGGER.debug("onNavigationItemSelected({},{}) but is same location", i, l);
-            return true;
-        }
-
         mLocation = i;
         if (BuildConfig.DEBUG)
             LOGGER.debug("onNavigationItemSelected({},{}), location := {}", new Object[]{i, l, mLocation});
 
-        loadPagerAdapter(i);
+        loadPagerAdapter(mLocation);
 
         return true;
     }
@@ -278,12 +275,13 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
 
         Fragment[] fragments = new Fragment[3];
-        String mLocation;
+        String mRestaurant;
 
-        public DemoCollectionPagerAdapter(FragmentManager fm, String location) {
+        public DemoCollectionPagerAdapter(FragmentManager fm, String restaurant) {
             super(fm);
-            mLocation = location;
+            mRestaurant = restaurant;
         }
+
 
         @Override
         public Fragment getItem(int i) {
@@ -304,7 +302,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
             Bundle arguments = new Bundle();
 
             arguments.putString(MenuListingFragment.ARG_DATE, getNextWeekDayAsString(i));
-            arguments.putString(MenuListingFragment.ARG_LOCATION, mLocation);
+            arguments.putString(MenuListingFragment.ARG_LOCATION, mRestaurant);
 
             fragment.setArguments(arguments);
             return fragment;

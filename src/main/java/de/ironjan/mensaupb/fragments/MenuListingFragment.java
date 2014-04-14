@@ -75,8 +75,6 @@ public class MenuListingFragment extends ListFragment implements android.support
     }
 
 
-
-
     @ItemClick
     void listItemClicked(int pos) {
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);

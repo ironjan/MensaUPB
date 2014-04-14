@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--beware! appcompat library -> app:showAsAction instead of android:showAsAction-->
 
     <item
         android:id="@+id/ab_refresh"
         android:icon="@drawable/ic_action_refresh"
         app:showAsAction="always"
-        android:title="@string/refresh"
-        />
+        android:orderInCategory="1"
+        android:title="@string/refresh" />
 
     <item
+        android:orderInCategory="5"
+        android:id="@+id/ab_times"
+        android:title="@string/openingTimes"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_action_about" />
+
+    <item
+        android:orderInCategory="10"
         android:id="@+id/ab_STW"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_action_web_site"
-        android:title="@string/source"
-        />
+        android:title="@string/source" />
+
 
     <item
+        android:orderInCategory="90"
         android:id="@+id/ab_about"
-        android:showAsAction="ifRoom"
-        android:icon="@drawable/action_about_light_holo"
-        android:title="@string/about"/>
+        android:showAsAction="never"
+        android:title="@string/about" />
 
 </menu>

@@ -5,8 +5,15 @@
     <string-array name="restaurants">
         <item>Mensa</item>
         <item>Abendmensa</item>
+        <item>Gownsmen\'s Pub</item>
+        <item>HNF (Hotspot)</item>
+    </string-array>
+
+    <string-array name="displayedRestaurants">
+        <item>Mensa</item>
+        <item>Abendmensa</item>
         <item>Pub</item>
-        <item>Hotspot (HNF)</item>
+        <item>Hotspot</item>
     </string-array>
 
     <string-array name="opening_times">
