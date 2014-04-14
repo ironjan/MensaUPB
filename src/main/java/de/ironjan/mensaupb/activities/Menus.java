@@ -16,7 +16,6 @@ import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 
@@ -29,6 +28,7 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.Trace;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,6 +41,7 @@ import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.fragments.MenuListingFragment;
 import de.ironjan.mensaupb.fragments.MenuListingFragment_;
+import de.ironjan.mensaupb.fragments.RestaurantDetailFragment;
 import de.ironjan.mensaupb.stw.Menu;
 import de.ironjan.mensaupb.sync.AccountCreator;
 
@@ -48,7 +49,6 @@ import de.ironjan.mensaupb.sync.AccountCreator;
 @OptionsMenu(R.menu.main)
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener, SyncStatusObserver {
     public static final int WEEKEND_OFFSET = 2;
-    public static final String[] RESTAURANTS = new String[]{"Mensa", "Abendmensa", "Gownsmen's Pub", "HNF (Hotspot)"};
     private static final SimpleDateFormat SDF = Menu.DATABASE_DATE_FORMAT;
     private static final int DISPLAYED_DAYS_COUNT = 3;
     private String[] weekDaysAsString = new String[DISPLAYED_DAYS_COUNT];
@@ -59,10 +59,13 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @ViewById(R.id.pager_title_strip)
     PagerTabStrip mPagerTabStrip;
 
+    @StringArrayRes(R.array.restaurants)
+    String[] mRestaurants;
+
     @Bean
     AccountCreator mAccountCreator;
     private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
-    private String mLocation = null;
+    private int mLocation = 0;
     private DemoCollectionPagerAdapter[] adapters = new DemoCollectionPagerAdapter[4];
 
     @Override
@@ -79,7 +82,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void init() {
         initDays();
         initActionBar();
-       initPager();
+        initPager();
     }
 
     @Trace
@@ -90,7 +93,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     }
 
     @Trace
-            @UiThread
+    @UiThread
     void initActionBar() {
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
@@ -99,7 +102,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         // Specify a SpinnerAdapter to populate the dropdown list.
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(actionBar.getThemedContext(),
                 android.R.layout.simple_spinner_item, android.R.id.text1,
-                RESTAURANTS);
+                mRestaurants);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         actionBar.setListNavigationCallbacks(adapter, this);
@@ -117,7 +120,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Background
     @Trace
     void loadPagerAdapter(int i) {
-        if(BuildConfig.DEBUG) LOGGER.debug("loadPagerAdapter({})",i);
+        if (BuildConfig.DEBUG) LOGGER.debug("loadPagerAdapter({})", i);
         mDemoCollectionPagerAdapter =
                 getPagerAdapter(i);
         if (BuildConfig.DEBUG) LOGGER.info("Got adapter: {}", mDemoCollectionPagerAdapter);
@@ -134,7 +137,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
     @Trace
     DemoCollectionPagerAdapter getPagerAdapter(int i) {
-        if(BuildConfig.DEBUG) LOGGER.debug("getPagerAdapter({})",i);
+        if (BuildConfig.DEBUG) LOGGER.debug("getPagerAdapter({})", i);
         if (adapters[i] == null) {
             createNewAdapter(i);
         }
@@ -144,10 +147,10 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Trace
     @Background
     void createNewAdapter(int i) {
-        if(BuildConfig.DEBUG) LOGGER.debug("createNewAdapter({})",i);
+        if (BuildConfig.DEBUG) LOGGER.debug("createNewAdapter({})", i);
         adapters[i] =
                 new DemoCollectionPagerAdapter(
-                        getSupportFragmentManager(), RESTAURANTS[i]);
+                        getSupportFragmentManager(), mRestaurants[i]);
         loadPagerAdapter(i);
     }
 
@@ -158,7 +161,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
             weekDaysAsString[i] = SDF.format(getNextWeekDay(i));
         }
 
-        if(BuildConfig.DEBUG) LOGGER.debug("getNextWeekDayAsString({}) -> {}", i, weekDaysAsString[i]);
+        if (BuildConfig.DEBUG)
+            LOGGER.debug("getNextWeekDayAsString({}) -> {}", i, weekDaysAsString[i]);
         return weekDaysAsString[i];
     }
 
@@ -170,13 +174,15 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Override
     @Trace
     public boolean onNavigationItemSelected(int i, long l) {
-        if (TextUtils.equals(mLocation, RESTAURANTS[i])){
-            if(BuildConfig.DEBUG) LOGGER.debug("onNavigationItemSelected({},{}) but is same location", i,l);
+        if (mLocation == i) {
+            if (BuildConfig.DEBUG)
+                LOGGER.debug("onNavigationItemSelected({},{}) but is same location", i, l);
             return true;
         }
 
-        mLocation = RESTAURANTS[i];
-        if(BuildConfig.DEBUG) LOGGER.debug("onNavigationItemSelected({},{}), location := {}", new Object[]{i,l, mLocation});
+        mLocation = i;
+        if (BuildConfig.DEBUG)
+            LOGGER.debug("onNavigationItemSelected({},{}), location := {}", new Object[]{i, l, mLocation});
 
         loadPagerAdapter(i);
 
@@ -184,13 +190,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     }
 
     @Trace
-    String getLocation() {
-        return mLocation;
-    }
-
-    @Trace
     Date getNextWeekDay(int offset) {
-        if(BuildConfig.DEBUG) LOGGER.debug("getNextWeekDay({})", offset);
+        if (BuildConfig.DEBUG) LOGGER.debug("getNextWeekDay({})", offset);
         Calendar cal = Calendar.getInstance();
 
         cal.add(Calendar.DAY_OF_WEEK, offset);
@@ -265,6 +266,13 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @OptionsItem(R.id.ab_about)
     void aboutClicked() {
         About_.intent(this).start();
+    }
+
+    @OptionsItem(R.id.ab_times)
+    void timesClicked() {
+        FragmentManager fm = getSupportFragmentManager();
+        RestaurantDetailFragment fragment = RestaurantDetailFragment.newInstance(mLocation);
+        fragment.show(fm, "fragment_edit_name");
     }
 
     public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
