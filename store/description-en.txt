@@ -1,5 +1,5 @@
 MensaUPB shows you the menus of the Studentenwerk's restaurants: Mensa including Abendmensa, Hotspot
-and Gownsmen Pub.
+and Gownsmen Pub. Since this app is actively developed, there will be updates every one to two weeks.
 
 Planned Features:
 * Automatic change of restaurant, so you get the correct menus at the right time
