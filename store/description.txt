@@ -1,5 +1,6 @@
 MensaUPB zeigt dir die Speisepläne der Einrichtungen des Studentenwerks an der Universität Paderborn:
-Mensa inkl. Abendmensa, Gownsmen Pub und Hotspot. 
+Mensa inkl. Abendmensa, Gownsmen Pub und Hotspot. Diese App befindet sich in aktiver Entwicklung, 
+daher wird es ca. ein- bis zweiwöchig ein Update geben.
 
 Geplante Features:
 * Automatisches Wechseln der Einrichtung, damit man sofort den richtigen Plan sieht
