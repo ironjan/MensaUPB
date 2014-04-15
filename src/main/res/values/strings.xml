@@ -20,15 +20,11 @@
     <string name="hotspot">HNF (Hotspot)</string>
 
     <!-- about -->
-    <string name="aboutText">MensaUPB ist ein Neubau von Davids und Najis Android Mensa App für die Uni Paderborn und zeigt für
-die kommenden Tage an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen
-Version eine XML vom Studentenwerk runtergeladen und gecached, bis sie nicht mehr verwendet werden
-konnte. Es wurde damals vom Studentenwerk untersagt, diese App im Play Store zu vertreiben - daher
-wurde sie damals wieder entfernt.\n
-\n
-Mittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine Schnittstelle bereit,
-über die die Speisepläne heruntergeladen werden können; daher wurde die App zu einem Großteil neu
-geschrieben und ist nun endlich wieder im PlayStore ;)
+    <string name="aboutText">MensaUPB ist ein Neubau von
+        &lt;a href="https://plus.google.com/112214633916360855280">David Maichers&lt;/a> und &lt;a href="https://plus.google.com/104836562609964067147">Tony Lemkes&lt;/a> Mensa App für die Uni Paderborn: Mensa UPB.&lt;br/>
+        Diese zeigt für die kommenden Tage an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen Version eine XML vom Studentenwerk runtergeladen und gecached, bis sie nicht mehr verwendet werden konnte. Es wurde damals vom Studentenwerk untersagt, diese App im Play Store zu vertreiben - daher wurde sie damals wieder entfernt.&lt;br/>
+&lt;br/>
+Mittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine Schnittstelle bereit, über die die Speisepläne heruntergeladen werden können; daher wurde die App zu einem Großteil neu geschrieben und ist nun endlich wieder im PlayStore ;)
 </string>
     <string name="dependencies">
 MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="">github&lt;/a>. Feedback und Fehlermeldungen können via Email an &lt;a href="mailto:lippertsjan+mensaupb@gmail.com?subject=MensaUPB">lippertsjan@gmail.com&lt;/a> gesendet werden.&lt;br>

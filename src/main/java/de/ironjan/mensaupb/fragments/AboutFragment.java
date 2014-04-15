@@ -2,7 +2,6 @@ package de.ironjan.mensaupb.fragments;
 
 import android.support.v4.app.*;
 import android.text.method.*;
-import android.text.util.*;
 import android.widget.*;
 
 import org.androidannotations.annotations.*;
@@ -18,13 +17,19 @@ public class AboutFragment extends Fragment {
 
     @ViewById(R.id.txtDependencies)
     @FromHtml(R.string.dependencies)
-    TextView txtDependencies;
+    TextView mTxtDependencies;
+
+    @ViewById(R.id.txtAbout)
+    @FromHtml(R.string.aboutText)
+    TextView mTxtAbout;
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
 
     @AfterViews
     void linkify() {
-        txtDependencies.setMovementMethod   (LinkMovementMethod.getInstance());
+        final MovementMethod movementMethod = LinkMovementMethod.getInstance();
+        mTxtDependencies.setMovementMethod(movementMethod);
+        mTxtAbout.setMovementMethod(movementMethod);
         if (BuildConfig.DEBUG) LOGGER.debug("linkify() done");
     }
 }
