@@ -13,3 +13,11 @@ geschrieben und ist nun endlich wieder im PlayStore ;)
 # Issue tracking
 
 See https://www.pivotaltracker.com/s/projects/1007590 - free for open source/public projects.
+
+# Travis CI
+
+master: [![Build Status master](https://travis-ci.org/ironjan/MensaUPB.svg?branch=master)](https://travis-ci.org/ironjan/MensaUPB)
+
+develop: [![Build Status develop](https://travis-ci.org/ironjan/MensaUPB.svg?branch=develop)](https://travis-ci.org/ironjan/MensaUPB)
+
+Travis CI kann von open source Projekten kostenlos genutzt werden.
