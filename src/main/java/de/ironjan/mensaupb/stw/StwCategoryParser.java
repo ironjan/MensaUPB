@@ -42,11 +42,15 @@ public class StwCategoryParser {
         sortMapping.put("Stamm Gemüsebeil. 1 0,50€", SORT_SALAD);
         categoryMapping.put("Stamm Sättigungbeil 0,50€", "Beilage");
         sortMapping.put("Stamm Sättigungbeil 0,50€", SORT_SALAD);
+        categoryMapping.put("PUB Salatbeilage", "Beilage");
+        sortMapping.put("PUB Salatbeilage", SORT_SALAD);
+
+
 
         categoryMapping.put("Aktionsdessert 1,20€", CATEGORY_SPECIAL_DESSER);
         sortMapping.put("Aktionsdessert 1,20€", SORT_DESSERT_EXPENSIVE);
         categoryMapping.put("Counter Dessert 1 1,20€", CATEGORY_SPECIAL_DESSER);
-        sortMapping.put("Counter Dessert 1 1,20€€", SORT_DESSERT_EXPENSIVE);
+        sortMapping.put("Counter Dessert 1 1,20€", SORT_DESSERT_EXPENSIVE);
 
         categoryMapping.put("PUB Dessert", CATEGORY_DESSERT);
         sortMapping.put("PUB Dessert", SORT_DESSERT);
