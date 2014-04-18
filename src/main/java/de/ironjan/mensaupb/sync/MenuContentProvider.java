@@ -7,7 +7,9 @@ import android.net.*;
 import android.text.*;
 
 import org.androidannotations.annotations.*;
+import org.slf4j.*;
 
+import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.persistence.*;
 import de.ironjan.mensaupb.stw.*;
 
@@ -23,6 +25,8 @@ public class MenuContentProvider extends ContentProvider {
     private static final int SINGLE_MENUS_MATCH = 2;
 
     private static UriMatcher sUriMatcher = new UriMatcher(0);
+
+    private final Logger LOGGER = LoggerFactory.getLogger(MenuContentProvider.class.getSimpleName());
 
     static {
         sUriMatcher.addURI(ProviderContract.AUTHORITY, MENUS_PATH, MENUS_MATCH);
@@ -77,28 +81,48 @@ public class MenuContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
-        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        // TODO check projection
+        switch (sUriMatcher.match(uri)) {
+            case MENUS_MATCH:
 
-        queryBuilder.setTables(Menu.TABLE);
+                SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+                // TODO check projection
 
-        SQLiteDatabase db = getHelper().getWritableDatabase();
+                queryBuilder.setTables(Menu.TABLE);
 
-        long _id = db.insert(Menu.TABLE, null, contentValues);
-        return Uri.withAppendedPath(MENU_URI, "/" + _id);
+                SQLiteDatabase db = getHelper().getWritableDatabase();
+
+                long _id = db.insert(Menu.TABLE, null, contentValues);
+                return Uri.withAppendedPath(MENU_URI, "/" + _id);
+            default:
+                throw new IllegalArgumentException("Unknown Uri");
+        }
     }
 
     @Override
-    public int delete(Uri uri, String s, String[] strings) {
-        return 0;
+    public int delete(Uri uri, String where, String[] whereArgs) {
+        switch (sUriMatcher.match(uri)) {
+            case MENUS_MATCH:
+                final SQLiteDatabase db = getHelper().getWritableDatabase();
+                final int delete = db.delete(Menu.TABLE, where, whereArgs);
+                if (BuildConfig.DEBUG)
+                    LOGGER.info("Deleted {} menus via delete({},{},{})", new Object[]{delete, uri, where, whereArgs});
+                return delete;
+            default:
+                throw new IllegalArgumentException("Unknown Uri");
+        }
     }
 
     @Override
     public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
-        // TODO check projection
+        switch (sUriMatcher.match(uri)) {
+            case MENUS_MATCH:
+                SQLiteDatabase db = getHelper().getWritableDatabase();
+                // TODO check projection
+                return db.update(Menu.TABLE, contentValues, s, strings);
+            default:
+                throw new IllegalArgumentException("Unknown Uri");
+        }
 
-        SQLiteDatabase db = getHelper().getWritableDatabase();
 
-        return db.update(Menu.TABLE, contentValues, s, strings);
     }
 }

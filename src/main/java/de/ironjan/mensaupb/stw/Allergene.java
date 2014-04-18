@@ -11,6 +11,7 @@ public class Allergene {
     private static final Logger LOGGER = LoggerFactory.getLogger(Allergene.class.getSimpleName());
     private static final HashMap<String, String> mapping = new HashMap<String, String>();
     private static final List<String> allowed = new ArrayList<String>();
+
     static {
         mapping.put("1"
                 , "Farbstoff");
@@ -76,7 +77,7 @@ public class Allergene {
     }
 
     public static String filterAllergenes(String s) {
-        if (BuildConfig.DEBUG) LOGGER.debug("filterAllergenes({})", s);
+        if (BuildConfig.DEBUG) LOGGER.trace("filterAllergenes({})", s);
 
 
         StringBuffer filtered = new StringBuffer();
@@ -113,14 +114,13 @@ public class Allergene {
         String next;
         if (sc.hasNext()) {
             next = sc.next();
-                explanation.append(" * ").append(descriptionFromKey(next));
-        }
-        else{
+            explanation.append(" * ").append(descriptionFromKey(next));
+        } else {
             explanation.append("Keine Zusatzstoffe oder Allergene angegeben.");
         }
         while (sc.hasNext()) {
             next = sc.next();
-                explanation.append("\n * ").append(descriptionFromKey(next));
+            explanation.append("\n * ").append(descriptionFromKey(next));
         }
         explanation.append("\n\nAlle Angaben ohne Gewähr. Bitte informieren Sie sich an der Essensausgabe.");
 

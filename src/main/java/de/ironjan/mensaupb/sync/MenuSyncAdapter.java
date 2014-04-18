@@ -1,31 +1,19 @@
 package de.ironjan.mensaupb.sync;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.annotation.TargetApi;
-import android.content.AbstractThreadedSyncAdapter;
-import android.content.ContentProviderClient;
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.SyncResult;
-import android.os.Build;
-import android.os.Bundle;
-import android.text.TextUtils;
+import android.accounts.*;
+import android.annotation.*;
+import android.content.*;
+import android.os.*;
+import android.text.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
-import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.stw.Allergene;
-import de.ironjan.mensaupb.stw.Menu;
-import de.ironjan.mensaupb.stw.StwCategoryParser;
+import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.stw.*;
 
 public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
@@ -34,6 +22,10 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     public static final int SELECTION_ARG_DATE = 0;
     public static final int SELECTION_ARG_GERMAN_NAME = 2;
     private static final Object lock = new Object();
+    public static final int CREATE_INDEX = 0;
+    public static final int UPDATE_INDEX = 1;
+    public static final int TWO_DAYS_IN_MILLIS = 2 * 24 * 3600 * 1000;
+    public static final int DOWNLOADED_INDEX = 2;
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
     private final ContentResolver mContentResolver;
@@ -79,6 +71,9 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             return;
         }
 
+        final long startTimeStamp = System.currentTimeMillis();
+
+
         try {
             InputStream inputStream = downloadFile();
             if (BuildConfig.DEBUG) LOGGER.debug("parseInputStream({})", inputStream);
@@ -89,31 +84,49 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
             sc.nextLine(); // skip description line
 
-            int[] counter = {0, 0};
+            int[] counter = {0, 0, 0};
 
             ContentValues menu = null;
             final String[] selectionArgs = new String[3];
             while (sc.hasNextLine()) {
                 String[] parts = prepareNextLine(sc);
+                counter[DOWNLOADED_INDEX]++;
                 if (skipThisLine(parts)) {
                     // skip
                 } else {
                     menu = parseLine(menu, parts, selectionArgs);
+                    menu.put(Menu.LAST_UPDATE_TIMESTAMP, startTimeStamp);
 
-                    createOrUpdate(mContentResolver, counter, selectionArgs, menu);
+                    createOrUpdate(counter, selectionArgs, menu);
 
                     cr.notifyChange(MenuContentProvider.MENU_URI, null);
                 }
             }
 
+            int deleted = deleteOldEntries();
+
+            syncResult.stats.numDeletes = deleted;
+            syncResult.stats.numEntries = counter[DOWNLOADED_INDEX];
+            syncResult.stats.numInserts = counter[CREATE_INDEX];
+            syncResult.stats.numSkippedEntries = counter[DOWNLOADED_INDEX] - (counter[CREATE_INDEX] + counter[UPDATE_INDEX]);
+            syncResult.stats.numUpdates = counter[UPDATE_INDEX];
             if (BuildConfig.DEBUG)
                 LOGGER.debug("parseInputStream({}) done, {} were new, {} were updated", new Object[]{inputStream, counter});
         } catch (IOException e) {
             syncResult.stats.numIoExceptions++;
         }
+
+        // TODO save report
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("onPerformeSync({},{},{},{},{}) done", new Object[]{account, bundle, s, contentProviderClient, syncResult});
         }
+    }
+
+    private int deleteOldEntries() {
+        String where = Menu.LAST_UPDATE_TIMESTAMP + " < ?";
+        final long deprecatedTimeWeekAgo = System.currentTimeMillis() - TWO_DAYS_IN_MILLIS;
+        String[] selectionArgs = new String[]{"" + deprecatedTimeWeekAgo};
+        return mContentResolver.delete(MenuContentProvider.MENU_URI, where, selectionArgs);
     }
 
     private boolean syncDisabled(Bundle bundle) {
@@ -126,27 +139,27 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         final boolean isYourAccountSyncEnabled = ContentResolver.getSyncAutomatically(account, AccountCreator.AUTHORITY);
         final boolean isMasterSyncEnabled = ContentResolver.getMasterSyncAutomatically();
 
-        final boolean syncDisabled = !( isYourAccountSyncEnabled && isMasterSyncEnabled);
+        final boolean syncDisabled = !(isYourAccountSyncEnabled && isMasterSyncEnabled);
 
         return syncDisabled;
     }
 
-    void createOrUpdate(ContentResolver cr, int[] counter, String[] selectionArgs, ContentValues menu) {
-        int updatedLines = tryUpdate(cr, counter, selectionArgs, menu);
+    void createOrUpdate(int[] counter, String[] selectionArgs, ContentValues menu) {
+        int updatedLines = tryUpdate(counter, selectionArgs, menu);
 
         if (0 == updatedLines) {
-            doInsert(cr, counter, menu);
+            doInsert(counter, menu);
         }
     }
 
-    private void doInsert(ContentResolver cr, int[] counter, ContentValues menu) {
-        cr.insert(MenuContentProvider.MENU_URI, menu);
-        counter[0]++;
+    private void doInsert(int[] counter, ContentValues menu) {
+        mContentResolver.insert(MenuContentProvider.MENU_URI, menu);
+        counter[CREATE_INDEX]++;
     }
 
-    private int tryUpdate(ContentResolver cr, int[] counter, String[] selectionArgs, ContentValues menu) {
-        int updatedLines = cr.update(MenuContentProvider.MENU_URI, menu, WHERE, selectionArgs);
-        counter[1] += updatedLines;
+    private int tryUpdate(int[] counter, String[] selectionArgs, ContentValues menu) {
+        int updatedLines = mContentResolver.update(MenuContentProvider.MENU_URI, menu, WHERE, selectionArgs);
+        counter[UPDATE_INDEX] += updatedLines;
         return updatedLines;
     }
 

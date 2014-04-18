@@ -41,8 +41,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="">github&lt;/
     <string name="menusLoading1">Speisepläne werden geladen. Dies könnte beim ersten Start einige Minuten dauern.</string>
     <string name="menusLoading2">Die Pläne werden jedoch auf dem Gerät gespeichert - beim nächsten Mal sind sie sofort verfügbar ;)\n
 \n
-(Freitag hat die Abendmensa geschlossen und es gibt daher keine Gerichte zum Anzeigen 
-und dieser Ladebildschirm wird gezeigt. Das werde ich aber bei Gelegenheit ändern)</string>
+(Wenn an einem Tag eines der Rastaurants geschlossen hat, gibt es keine Speisepläne und dieser Ladebildschirm wird gezeigt. Das werde ich aber bei Gelegenheit ändern)</string>
     <string name="openingTimes">Öffnungszeiten</string>
 
 

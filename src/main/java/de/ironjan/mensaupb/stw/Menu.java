@@ -21,6 +21,7 @@ public class Menu {
     public static final String SORT = "sort";
     private static final String DATABASE_DATE_FORMAT_STRING = "dd.MM.yyyy";
     public static final SimpleDateFormat DATABASE_DATE_FORMAT = new SimpleDateFormat(DATABASE_DATE_FORMAT_STRING);
+    public static final String LAST_UPDATE_TIMESTAMP = "lastUpdateTimestamp";
 
     @DatabaseField(columnName = ID, generatedId = true)
     private long _id;
@@ -45,6 +46,9 @@ public class Menu {
 
     @DatabaseField(columnName = SORT)
     private int sort;
+
+    @DatabaseField(columnName = LAST_UPDATE_TIMESTAMP)
+    private long lastUpdateTimestamp;
 
     public Menu() {
     }
@@ -118,6 +122,14 @@ public class Menu {
         this._id = _id;
     }
 
+    public long getLastUpdateTimestamp() {
+        return lastUpdateTimestamp;
+    }
+
+    public void setLastUpdateTimestamp(long lastUpdateTimestamp) {
+        this.lastUpdateTimestamp = lastUpdateTimestamp;
+    }
+
     @Override
     public String toString() {
         return "Menu{" +
@@ -128,6 +140,8 @@ public class Menu {
                 ", location='" + location + '\'' +
                 ", category='" + category + '\'' +
                 ", allergenes='" + allergenes + '\'' +
+                ", sort=" + sort +
+                ", lastUpdateTimestamp=" + lastUpdateTimestamp +
                 '}';
     }
 }

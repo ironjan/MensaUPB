@@ -5,6 +5,7 @@ import org.slf4j.*;
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
+
 public class StwCategoryParser {
     public static final String CATEGORY_ESSEN = "Essen";
     public static final String CATEGORY_PASTA = "Pasta";
@@ -46,7 +47,6 @@ public class StwCategoryParser {
         sortMapping.put("PUB Salatbeilage", SORT_SALAD);
 
 
-
         categoryMapping.put("Aktionsdessert 1,20€", CATEGORY_SPECIAL_DESSER);
         sortMapping.put("Aktionsdessert 1,20€", SORT_DESSERT_EXPENSIVE);
         categoryMapping.put("Counter Dessert 1 1,20€", CATEGORY_SPECIAL_DESSER);
@@ -55,7 +55,7 @@ public class StwCategoryParser {
         categoryMapping.put("PUB Dessert", CATEGORY_DESSERT);
         sortMapping.put("PUB Dessert", SORT_DESSERT);
         categoryMapping.put("Stamm Dessert 0,55€", CATEGORY_DESSERT);
-        sortMapping.put("Stamm Dessert", SORT_DESSERT);
+        sortMapping.put("Stamm Dessert 0,55€", SORT_DESSERT);
 
         categoryMapping.put(CATEGORY_SPECIAL_LUNCH, CATEGORY_SPECIAL_LUNCH);
         sortMapping.put(CATEGORY_SPECIAL_LUNCH, SORT_DISH_EXPENSIVE);
