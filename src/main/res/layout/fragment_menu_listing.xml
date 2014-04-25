@@ -44,17 +44,6 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@android:id/content"
-        android:layout_width="match_parent"
-        android:layout_gravity="center_vertical"
-        android:layout_height="match_parent">
 
-        <TextView
-            android:text="Heute gibt es hier nichts zu essen. Ist die Einrichtung vielleicht geschlossen?"
-            android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="wrap_content"/>
-    </FrameLayout>
 
 </LinearLayout>

@@ -42,7 +42,7 @@ import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.fragments.MenuListingFragment;
 import de.ironjan.mensaupb.fragments.MenuListingFragment_;
 import de.ironjan.mensaupb.fragments.RestaurantDetailFragment;
-import de.ironjan.mensaupb.stw.Menu;
+import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.sync.AccountCreator;
 
 @EActivity(R.layout.activity_menu_listing)
@@ -70,6 +70,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
     private int mLocation = 0;
     private DemoCollectionPagerAdapter[] adapters = new DemoCollectionPagerAdapter[4];
+    @Bean
+    RestaurantProvider mRestaurantProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +85,10 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @AfterViews
     @Background
     void init() {
+        mLocation = mRestaurantProvider.getLocation();
         initDays();
-        initActionBar();
         initPager();
+        initActionBar();
     }
 
     @Trace
@@ -109,6 +112,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         actionBar.setListNavigationCallbacks(adapter, this);
+        actionBar.setSelectedNavigationItem(mLocation);
     }
 
     @Trace
@@ -117,6 +121,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         // fragments, so use getSupportFragmentManager.
         mPagerTabStrip.setTabIndicatorColorResource(R.color.iconBg);
         mPagerTabStrip.setDrawFullUnderline(true);
+
         loadPagerAdapter(mLocation);
     }
 

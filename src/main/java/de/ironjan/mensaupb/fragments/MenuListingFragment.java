@@ -12,6 +12,7 @@ import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.stw.Menu;
 import de.ironjan.mensaupb.sync.*;
 
@@ -29,9 +30,15 @@ public class MenuListingFragment extends ListFragment implements android.support
     View mLoadingView;
     @ViewById(android.R.id.content)
     View mNoMenus;
+    @Bean
+    OpeningTimesLookup mOpeningTimesLookup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (mOpeningTimesLookup.isPotentiallyClosed(getArgDate()
+                , getArgLocation())) {
+            return inflater.inflate(R.layout.fragment_menu_listing_closed, null);
+        }
         return null;
     }
 
@@ -39,10 +46,18 @@ public class MenuListingFragment extends ListFragment implements android.support
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = LIST_PROJECTION;
 
-        final String[] selectionArgs = {getArguments().getString(ARG_DATE), getArguments().getString(ARG_LOCATION)};
+        final String[] selectionArgs = {getArgDate(), getArgLocation()};
 
         return new CursorLoader(getActivity(),
                 MenuContentProvider.MENU_URI, projection, SELECTION, selectionArgs, null);
+    }
+
+    private String getArgLocation() {
+        return getArguments().getString(ARG_LOCATION);
+    }
+
+    private String getArgDate() {
+        return getArguments().getString(ARG_DATE);
     }
 
     @Override

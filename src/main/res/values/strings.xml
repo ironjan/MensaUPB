@@ -12,6 +12,13 @@
     <string name="settings">Einstellungen</string>
     <string name="select_Location">Ort wählen</string>
 
+    <!--locations api-->
+
+    <string name="mensa">Mensa</string>
+    <string name="abendmensa">Abendmensa</string>
+    <string name="pub">Gownsmen\'s Pub</string>
+    <string name="hotspot">HNF (Hotspot)</string>
+
     <!-- about -->
     <string name="aboutText">MensaUPB ist ein Neubau von Davids und Najis Android Mensa App für die Uni Paderborn und zeigt für
 die kommenden Tage an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen
