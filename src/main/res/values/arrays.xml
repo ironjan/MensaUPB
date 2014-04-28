@@ -3,10 +3,10 @@
 
     <!--see also stw.Restaurants-->
     <string-array name="restaurants">
-        <item>Mensa</item>
-        <item>Abendmensa</item>
-        <item>Gownsmen\'s Pub</item>
-        <item>HNF (Hotspot)</item>
+        <item>@string/mensa</item>
+        <item>@string/abendmensa</item>
+        <item>@string/pub</item>
+        <item>@string/hotspot</item>
     </string-array>
 
     <string-array name="displayedRestaurants">
@@ -20,7 +20,11 @@
         <item>Mo - Do:	11:15 - 14:00\n
 Fr:	11:15 - 13:30
         </item>
-        <item>Mo - Fr: 17:00 - 19:30
+        <item>Bis zum 19.07.2014:\n
+Mo - Do: 17:00 - 19:30\n
+\n
+Ab 20.07.2014:\n
+Mo-Fr: 17:00-19:30
         </item>
         <item>Mittagessen:\n
 Mo - Fr: 11:30 - 14:00\n

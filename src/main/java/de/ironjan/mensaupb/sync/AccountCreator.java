@@ -36,6 +36,9 @@ public class AccountCreator {
         return mAccount;
     }
 
+    public boolean ismAccountCreated() {
+        return mAccountCreated;
+    }
 
     public String getAuthority() {
         return AUTHORITY;

@@ -25,29 +25,27 @@ public class MensaUpbApplication extends Application {
         if (BuildConfig.DEBUG) LOGGER.debug("onCreate()");
         super.onCreate();
         setupSynchronization();
-        initFirstSync();
         if (BuildConfig.DEBUG) LOGGER.debug("onCreate() done");
-    }
-
-    private void initFirstSync() {
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-
-        ContentResolver.requestSync(mAccountCreator.build(this), mAccountCreator.getAuthority(), settingsBundle);
     }
 
     private void setupSynchronization() {
         if (BuildConfig.DEBUG) LOGGER.debug("setupSynchronization()");
         final Account account = mAccountCreator.build(this);
-
-        Bundle settingsBundle = new Bundle();
-        ContentResolver.requestSync(account, mAccountCreator.getAuthority(), settingsBundle);
-
         ContentResolver.addPeriodicSync(account, mAccountCreator.getAuthority(), new Bundle(), BuildConfig.SYNC_INTERVAL);
 
+        if(mAccountCreator.ismAccountCreated()) {
+            forceFirstSync(account);
+
+        }
         if (BuildConfig.DEBUG) LOGGER.debug("setupSynchronization() done");
+    }
+
+    private void forceFirstSync(Account account) {
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_MANUAL, true);
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        ContentResolver.requestSync(account, mAccountCreator.getAuthority(), settingsBundle);
     }
 }
