@@ -13,7 +13,9 @@ import java.sql.*;
 
 import de.ironjan.mensaupb.stw.*;
 
-
+/**
+ * TODO javadoc
+ */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
 

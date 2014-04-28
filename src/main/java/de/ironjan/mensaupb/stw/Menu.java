@@ -8,6 +8,9 @@ import com.j256.ormlite.table.*;
 import java.text.*;
 import java.util.*;
 
+/**
+ * TODO javadoc
+ */
 @DatabaseTable(tableName = Menu.TABLE)
 public class Menu {
     public static final String TABLE = "menus";
@@ -91,6 +94,9 @@ public class Menu {
         return date;
     }
 
+    /**
+     * TODO javadoc
+     */
     public void setDate(String date) throws IllegalFormatException {
         try {
             DATABASE_DATE_FORMAT.parse(date);

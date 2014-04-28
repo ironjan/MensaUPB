@@ -5,12 +5,19 @@ import org.androidannotations.annotations.*;
 import java.text.*;
 import java.util.*;
 
+/**
+ * TODO javadoc
+ */
 @EBean(scope = EBean.Scope.Singleton)
 public class OpeningTimesLookup {
     @Bean
     Restaurants mRestaurants;
+
     private static final SimpleDateFormat SDF = Menu.DATABASE_DATE_FORMAT;
 
+    /**
+     * TODO javadoc
+     */
     public boolean isPotentiallyClosed(String argDate, String argLocation) {
         try {
             Date date = SDF.parse(argDate);
@@ -29,7 +36,7 @@ public class OpeningTimesLookup {
         final boolean isFriday = Calendar.FRIDAY == dayOfWeek;
         final boolean isAbendmensa = mRestaurants.getAbendmensa().equals(argLocation);
 
-        calendar.set(2014,07,17,0,0,0);
+        calendar.set(2014, 07, 17, 0, 0, 0);
         final Date specialTimeEnd = calendar.getTime();
 
         final boolean isSpecialTime = date.before(specialTimeEnd);

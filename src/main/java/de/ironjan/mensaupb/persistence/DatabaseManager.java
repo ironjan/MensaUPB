@@ -3,11 +3,18 @@ package de.ironjan.mensaupb.persistence;
 import android.content.*;
 
 import com.j256.ormlite.android.apptools.*;
+
+/**
+ * TODO javadoc
+ */
 public class DatabaseManager {
 
     private DatabaseHelper databaseHelper = null;
 
-    //gets a helper once one is created ensures it doesnt create a new one
+    /**
+     * TODO javadoc
+     * //gets a helper once one is created ensures it doesnt create a new one
+     */
     public DatabaseHelper getHelper(Context context) {
         if (databaseHelper == null) {
             databaseHelper =
@@ -16,7 +23,10 @@ public class DatabaseManager {
         return databaseHelper;
     }
 
-    //releases the helper once usages has ended
+    /**
+     * TODO javadoc
+     * //releases the helper once usages has ended
+     */
     public void releaseHelper(DatabaseHelper helper) {
         if (databaseHelper != null) {
             OpenHelperManager.releaseHelper();

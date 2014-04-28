@@ -1,7 +1,17 @@
 package de.ironjan.mensaupb.stw;
 
 import android.content.*;
+
+
+/**
+ * TODO javadoc
+ */
 public class MenuToContentValuesConverter {
+
+
+    /**
+     * TODO javadoc
+     */
     public static ContentValues convert(Menu menu) {
         ContentValues cv = new ContentValues();
 

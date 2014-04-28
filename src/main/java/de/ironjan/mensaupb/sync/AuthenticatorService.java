@@ -11,6 +11,9 @@ public class AuthenticatorService extends Service {
 
     private StubAuthenticator mAuthenticator;
 
+    /**
+     * TODO javadoc
+     */
     public AuthenticatorService() {
     }
 

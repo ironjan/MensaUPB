@@ -5,8 +5,12 @@ import android.provider.*;
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
 
+/**
+ * TODO javadoc
+ */
 @DatabaseTable(tableName = SynchronizationReport.TABLE)
 public class SynchronizationReport {
+
     public static final String TABLE = "SynchronizationReports";
     public static final String ID = BaseColumns._ID;
     public static final String START_TIME_STAMP = "startTimeStamp";
@@ -16,6 +20,7 @@ public class SynchronizationReport {
     public static final String CREATED = "created";
     public static final String DELETED = "deleted";
     public static final String SUCCESS = "success";
+
     @DatabaseField(columnName = ID, generatedId = true)
     private long _id;
     @DatabaseField(columnName = START_TIME_STAMP)
