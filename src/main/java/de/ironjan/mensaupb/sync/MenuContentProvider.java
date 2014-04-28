@@ -58,7 +58,7 @@ public class MenuContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = String.format(" %s ASC", Menu.SORT);
+                    sortOrder = String.format(" %s ASC, %s ASC", Menu.SORT, Menu.NAME_GERMAN);
                 }
                 break;
             case SINGLE_MENUS_MATCH:
