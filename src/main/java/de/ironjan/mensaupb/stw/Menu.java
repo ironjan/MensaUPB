@@ -23,6 +23,8 @@ public class Menu {
     public static final SimpleDateFormat DATABASE_DATE_FORMAT = new SimpleDateFormat(DATABASE_DATE_FORMAT_STRING);
     public static final String LAST_UPDATE_TIMESTAMP = "lastUpdateTimestamp";
 
+    public static final String[] COLUMNS = {ID, NAME_GERMAN, NAME_GERMAN, DATE, LOCATION, CATEGORY, ALLERGENES, SORT, LAST_UPDATE_TIMESTAMP};
+
     @DatabaseField(columnName = ID, generatedId = true)
     private long _id;
 

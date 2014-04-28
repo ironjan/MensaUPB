@@ -10,10 +10,15 @@ import android.text.*;
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
+import java.util.*;
+
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.persistence.*;
 import de.ironjan.mensaupb.stw.*;
 
+/**
+ * A content provider for the downloaded menu data.
+ */
 @SuppressLint("Registered")
 @EProvider
 public class MenuContentProvider extends ContentProvider {
@@ -49,7 +54,7 @@ public class MenuContentProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        // TODO check projection
+        checkProjection(uri, projection);
 
         queryBuilder.setTables(Menu.TABLE);
 
@@ -74,6 +79,38 @@ public class MenuContentProvider extends ContentProvider {
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
 
         return cursor;
+    }
+
+    private void checkProjection(Uri uri, String[] projection) {
+        final String[] allowedColumns = buildAllowedColumns(uri);
+        checkAllowedColumns(projection, allowedColumns);
+    }
+
+    private void checkAllowedColumns(String[] projection, String[] allowedColumns) {
+        HashSet<String> allowedColumnsSet = new HashSet<String>(allowedColumns.length);
+        for (String column : allowedColumns) {
+            allowedColumnsSet.add(column);
+        }
+
+        for (String requestedColumn : projection) {
+            boolean columnIsNotAllowed = !allowedColumnsSet.contains(requestedColumn);
+            if (columnIsNotAllowed) {
+                throw new IllegalArgumentException(requestedColumn + " is not an allowedColumnsSet column.");
+            }
+        }
+    }
+
+    private String[] buildAllowedColumns(Uri uri) {
+        final String[] allowedColumns;
+        switch (sUriMatcher.match(uri)) {
+            case MENUS_MATCH:
+            case SINGLE_MENUS_MATCH:
+                allowedColumns = Menu.COLUMNS;
+                break;
+            default:
+                throw new IllegalArgumentException("Uri unknown.");
+        }
+        return allowedColumns;
     }
 
     @Override
