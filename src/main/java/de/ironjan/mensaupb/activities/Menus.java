@@ -39,6 +39,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
     @StringArrayRes(R.array.displayedRestaurants)
     String[] mDisplayedRestaurants;
+    @StringArrayRes(R.array.restaurantUrls)
+    String[] mRestaurantUrls;
 
     @Bean
     WeekdayHelper mwWeekdayHelper;
@@ -150,7 +152,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void stwClicked() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("http://www.studentenwerk-pb.de/startseite/"));
+        intent.setData(Uri.parse(mRestaurantUrls[mLocation]));
         startActivity(intent);
     }
 

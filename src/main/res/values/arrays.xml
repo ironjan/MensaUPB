@@ -16,6 +16,13 @@
         <item>Hotspot</item>
     </string-array>
 
+    <string-array name="restaurantUrls">
+        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/mensa/</item>
+        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/abendmensa/</item>
+        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/gownsmen-s-pub/</item>
+        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/bistro-hotspot/</item>
+    </string-array>
+
     <string-array name="opening_times">
         <item>Mo - Do:	11:15 - 14:00\n
 Fr:	11:15 - 13:30
