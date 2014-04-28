@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.activities;
+package de.ironjan.mensaupb.adapters;
 
 import android.content.*;
 import android.os.*;
@@ -6,14 +6,14 @@ import android.support.v4.app.*;
 
 import de.ironjan.mensaupb.fragments.*;
 
-public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
+public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
 
     Fragment[] fragments = new Fragment[3];
     String mRestaurant;
 
     WeekdayHelper mWeekdayHelper;
 
-    public DemoCollectionPagerAdapter(Context context, FragmentManager fm, String restaurant) {
+    public WeekdayPagerAdapter(Context context, FragmentManager fm, String restaurant) {
         super(fm);
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
         mRestaurant = restaurant;

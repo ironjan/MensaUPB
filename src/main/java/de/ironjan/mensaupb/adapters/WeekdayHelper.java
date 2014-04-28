@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.activities;
+package de.ironjan.mensaupb.adapters;
 
 import org.androidannotations.annotations.*;
 import org.slf4j.*;

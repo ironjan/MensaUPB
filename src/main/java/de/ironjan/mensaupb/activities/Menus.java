@@ -16,6 +16,7 @@ import org.androidannotations.annotations.res.*;
 import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.fragments.*;
 import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.sync.*;
@@ -44,9 +45,9 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
     @Bean
     AccountCreator mAccountCreator;
-    private DemoCollectionPagerAdapter mDemoCollectionPagerAdapter;
+    private WeekdayPagerAdapter mWeekdayPagerAdapter;
     private int mLocation = 0;
-    private DemoCollectionPagerAdapter[] adapters = new DemoCollectionPagerAdapter[4];
+    private WeekdayPagerAdapter[] adapters = new WeekdayPagerAdapter[4];
     @Bean
     RestaurantProvider mRestaurantProvider;
 
@@ -88,10 +89,10 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Trace
     void loadPagerAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("loadPagerAdapter({})", i);
-        mDemoCollectionPagerAdapter =
+        mWeekdayPagerAdapter =
                 getPagerAdapter(i);
-        if (BuildConfig.DEBUG) LOGGER.info("Got adapter: {}", mDemoCollectionPagerAdapter);
-        if (mDemoCollectionPagerAdapter != null) {
+        if (BuildConfig.DEBUG) LOGGER.info("Got adapter: {}", mWeekdayPagerAdapter);
+        if (mWeekdayPagerAdapter != null) {
             switchAdapter();
         }
     }
@@ -99,11 +100,11 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @UiThread
     @Trace
     void switchAdapter() {
-        mViewPager.setAdapter(mDemoCollectionPagerAdapter);
+        mViewPager.setAdapter(mWeekdayPagerAdapter);
     }
 
     @Trace
-    DemoCollectionPagerAdapter getPagerAdapter(int i) {
+    WeekdayPagerAdapter getPagerAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("getPagerAdapter({})", i);
         if (adapters[i] == null) {
             createNewAdapter(i);
@@ -116,7 +117,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void createNewAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("createNewAdapter({})", i);
         adapters[i] =
-                new DemoCollectionPagerAdapter(this, getSupportFragmentManager(), mRestaurants[i]);
+                new WeekdayPagerAdapter(this, getSupportFragmentManager(), mRestaurants[i]);
         loadPagerAdapter(i);
     }
 
