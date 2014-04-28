@@ -1,17 +1,13 @@
 package de.ironjan.mensaupb.activities;
 
-import org.androidannotations.annotations.AfterInject;
-import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.Trace;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.androidannotations.annotations.*;
+import org.slf4j.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.text.*;
+import java.util.*;
 
-import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.stw.Menu;
+import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.stw.*;
 
 /**
  * Created by ljan on 4/28/14.

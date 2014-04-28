@@ -1,36 +1,26 @@
 package de.ironjan.mensaupb.activities;
 
 
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.PagerTabStrip;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.widget.ArrayAdapter;
+import android.annotation.*;
+import android.content.*;
+import android.net.*;
+import android.os.*;
+import android.support.v4.app.*;
+import android.support.v4.view.*;
+import android.support.v7.app.*;
+import android.widget.*;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.Trace;
-import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.androidannotations.annotations.res.*;
+import org.slf4j.*;
 
-import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.fragments.RestaurantDetailFragment;
-import de.ironjan.mensaupb.stw.RestaurantProvider;
-import de.ironjan.mensaupb.sync.AccountCreator;
+import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.fragments.*;
+import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.sync.*;
 
+@SuppressLint("Registered")
 @EActivity(R.layout.activity_menu_listing)
 @OptionsMenu(R.menu.main)
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener {

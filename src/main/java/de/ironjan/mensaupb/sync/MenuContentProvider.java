@@ -1,5 +1,6 @@
 package de.ironjan.mensaupb.sync;
 
+import android.annotation.*;
 import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
@@ -13,6 +14,7 @@ import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.persistence.*;
 import de.ironjan.mensaupb.stw.*;
 
+@SuppressLint("Registered")
 @EProvider
 public class MenuContentProvider extends ContentProvider {
 

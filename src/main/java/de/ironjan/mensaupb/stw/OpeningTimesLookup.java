@@ -33,9 +33,6 @@ public class OpeningTimesLookup {
         final Date specialTimeEnd = calendar.getTime();
 
         final boolean isSpecialTime = date.before(specialTimeEnd);
-        if (isFriday && isAbendmensa && isSpecialTime) {
-            return false;
-        }
-        return true;
+        return !(isFriday && isAbendmensa && isSpecialTime);
     }
 }

@@ -1,19 +1,15 @@
 package de.ironjan.mensaupb.fragments;
 
 
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.widget.TextView;
+import android.os.*;
+import android.support.v4.app.*;
+import android.widget.*;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.res.*;
+import org.slf4j.*;
 
-import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.*;
 
 @EFragment(R.layout.fragment_restaurant_detail)
 public class RestaurantDetailFragment extends DialogFragment {

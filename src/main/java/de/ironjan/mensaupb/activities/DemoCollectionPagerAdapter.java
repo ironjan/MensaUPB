@@ -1,13 +1,10 @@
 package de.ironjan.mensaupb.activities;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.content.*;
+import android.os.*;
+import android.support.v4.app.*;
 
-import de.ironjan.mensaupb.fragments.MenuListingFragment;
-import de.ironjan.mensaupb.fragments.MenuListingFragment_;
+import de.ironjan.mensaupb.fragments.*;
 
 public class DemoCollectionPagerAdapter extends FragmentStatePagerAdapter {
 

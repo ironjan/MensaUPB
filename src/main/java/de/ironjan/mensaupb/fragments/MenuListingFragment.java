@@ -12,8 +12,8 @@ import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.stw.Menu;
+import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.sync.*;
 
 @EFragment(R.layout.fragment_menu_listing)

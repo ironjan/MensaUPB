@@ -1,24 +1,19 @@
 package de.ironjan.mensaupb.fragments;
 
 
-import android.app.Dialog;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Bundle;
+import android.app.*;
+import android.database.*;
+import android.net.*;
+import android.os.*;
 import android.support.v4.app.DialogFragment;
-import android.widget.TextView;
+import android.widget.*;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.androidannotations.annotations.*;
+import org.slf4j.*;
 
-import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.stw.Allergene;
-import de.ironjan.mensaupb.stw.Menu;
-import de.ironjan.mensaupb.sync.MenuContentProvider;
+import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.sync.*;
 
 @EFragment(R.layout.fragment_menu_detail)
 public class MenuDetailFragment extends DialogFragment {

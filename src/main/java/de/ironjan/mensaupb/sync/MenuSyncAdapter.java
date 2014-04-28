@@ -103,9 +103,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
                 }
             }
 
-            int deleted = deleteOldEntries();
-
-            syncResult.stats.numDeletes = deleted;
+            syncResult.stats.numDeletes = deleteOldEntries();
             syncResult.stats.numEntries = counter[DOWNLOADED_INDEX];
             syncResult.stats.numInserts = counter[CREATE_INDEX];
             syncResult.stats.numSkippedEntries = counter[DOWNLOADED_INDEX] - (counter[CREATE_INDEX] + counter[UPDATE_INDEX]);
@@ -139,9 +137,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         final boolean isYourAccountSyncEnabled = ContentResolver.getSyncAutomatically(account, AccountCreator.AUTHORITY);
         final boolean isMasterSyncEnabled = ContentResolver.getMasterSyncAutomatically();
 
-        final boolean syncDisabled = !(isYourAccountSyncEnabled && isMasterSyncEnabled);
-
-        return syncDisabled;
+        return !(isYourAccountSyncEnabled && isMasterSyncEnabled);
     }
 
     void createOrUpdate(int[] counter, String[] selectionArgs, ContentValues menu) {

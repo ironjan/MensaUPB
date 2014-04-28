@@ -1,17 +1,18 @@
 package de.ironjan.mensaupb.activities;
 
+import android.annotation.*;
 import android.os.*;
 import android.support.v4.app.*;
 import android.support.v7.app.*;
 
 import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.rest.*;
 
 import de.ironjan.mensaupb.*;
 
 /**
  * Wrapping activity for {@link de.ironjan.mensaupb.fragments.AboutFragment}.
  */
+@SuppressLint("Registered")
 @EActivity(R.layout.activity_about)
 public class About extends ActionBarActivity {
     @Override
