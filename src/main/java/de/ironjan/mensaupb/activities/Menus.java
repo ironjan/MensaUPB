@@ -47,7 +47,7 @@ import de.ironjan.mensaupb.sync.AccountCreator;
 
 @EActivity(R.layout.activity_menu_listing)
 @OptionsMenu(R.menu.main)
-public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener, SyncStatusObserver {
+public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener {
     public static final int WEEKEND_OFFSET = 2;
     private static final SimpleDateFormat SDF = Menu.DATABASE_DATE_FORMAT;
     private static final int DISPLAYED_DAYS_COUNT = 3;
@@ -72,14 +72,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     private DemoCollectionPagerAdapter[] adapters = new DemoCollectionPagerAdapter[4];
     @Bean
     RestaurantProvider mRestaurantProvider;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        int mask = ContentResolver.SYNC_OBSERVER_TYPE_ACTIVE | ContentResolver.SYNC_OBSERVER_TYPE_PENDING | ContentResolver.SYNC_OBSERVER_TYPE_SETTINGS;
-        ContentResolver.addStatusChangeListener(mask, this);
-        this.requestWindowFeature(Window.FEATURE_PROGRESS);
-    }
 
     @Trace
     @AfterViews
@@ -202,48 +194,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
             cal.add(Calendar.DAY_OF_WEEK, WEEKEND_OFFSET);
         }
         return cal.getTime();
-    }
-
-
-    @Override
-    @UiThread
-    public void onStatusChanged(int status) {
-        final boolean isSyncing;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            isSyncing = checkSyncingStateHC();
-        } else {
-            isSyncing = checkSyncingStatePreHC();
-        }
-//        setProgressBarIndeterminate(isSyncing);
-//        setProgressBarVisibility(isSyncing);
-    }
-
-    @SuppressWarnings("deprecation")
-    private boolean checkSyncingStatePreHC() {
-        final SyncInfo currentSync = ContentResolver.getCurrentSync();
-
-        final boolean isSyncing = currentSync != null && isMensaUpbSync(currentSync);
-        return isSyncing;
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private boolean checkSyncingStateHC() {
-        List<SyncInfo> currentSyncs = ContentResolver.getCurrentSyncs();
-
-
-        for (SyncInfo syncInfo : currentSyncs) {
-            if (isMensaUpbSync(syncInfo)) return true;
-        }
-        return false;
-    }
-
-    private boolean isMensaUpbSync(SyncInfo syncInfo) {
-        String name = syncInfo.account.name;
-        String authority = syncInfo.authority;
-
-
-        final boolean isMensaUpbSync = name.equals(AccountCreator.ACCOUNT) && authority.equals(authority);
-        return isMensaUpbSync;
     }
 
     @OptionsItem(R.id.ab_refresh)
