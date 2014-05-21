@@ -43,28 +43,26 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int old, int newVersion) {
         LOGGER.info("onUpgrade()");
-        switch (old) {
-            case 1:
-                try {
+        try {
+            switch (old) {
+                case 1:
                     TableUtils.dropTable(connectionSource, Menu.class, true);
-                } catch (SQLException e) {
-                    LOGGER.error(e.getMessage(), e);
-                }
-                onCreate(sqLiteDatabase, connectionSource);
-                break;
-            case 2:
-                // there was a bug which added many entries to abendmensa....
-                sqLiteDatabase.delete(Menu.TABLE, Menu.LOCATION + " = ?", new String[]{"Abendmensa"});
-                break;
-            case 3:
-                try {
+                    onCreate(sqLiteDatabase, connectionSource);
+                    break;
+                case 2:
+                    // there was a bug which added many entries to abendmensa....
+                    sqLiteDatabase.delete(Menu.TABLE, Menu.LOCATION + " = ?", new String[]{"Abendmensa"});
+                    break;
+                case 3:
                     TableUtils.createTable(connectionSource, SynchronizationReport.class);
                     sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " + Menu.LAST_UPDATE_TIMESTAMP + " long");
                     sqLiteDatabase.execSQL("UPDATE " + Menu.TABLE + " SET " + Menu.LAST_UPDATE_TIMESTAMP + "=0");
-                } catch (SQLException e) {
-                    LOGGER.error(e.getMessage(), e);
-                }
-
+                case 4:
+                    sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " + Menu.PRICE + " real");
+                    // TODO request sync
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
         }
         LOGGER.info("onUpgrade() done");
     }

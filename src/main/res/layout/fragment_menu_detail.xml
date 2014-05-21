@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/elementMargin"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/elementMargin"
     >
 
     <!--<include layout="@layout/fragment_menu_detail_title"/>-->
@@ -20,7 +22,6 @@
         android:id="@+id/textName"/>
 
 
-
     <TextView
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/elementMargin"
@@ -32,7 +33,7 @@
 
     <TextView
         android:layout_marginTop="@dimen/elementMargin"
-        android:id="@+id/textAllergenes"
+        android:id="@+id/textPrice"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

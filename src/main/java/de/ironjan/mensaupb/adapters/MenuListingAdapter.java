@@ -16,10 +16,11 @@ import de.ironjan.mensaupb.sync.*;
  * An adapter to load the list of menus for a MenuListingFragment.
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
-    public static final String[] LIST_PROJECTION = {de.ironjan.mensaupb.stw.Menu.NAME_GERMAN, de.ironjan.mensaupb.stw.Menu.CATEGORY, de.ironjan.mensaupb.stw.Menu.ALLERGENES, de.ironjan.mensaupb.stw.Menu.ID};
     private static final String SELECTION = de.ironjan.mensaupb.stw.Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
 
-    static int[] BIND_TO = {R.id.textName, R.id.textCategory, R.id.textAllergenes};
+    public static final String[] LIST_PROJECTION = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.PRICE, Menu.ID};
+    static int[] BIND_TO = {R.id.textName, R.id.textCategory, R.id.textPrice};
+
     private final String mDate;
     private final String mLocation;
 

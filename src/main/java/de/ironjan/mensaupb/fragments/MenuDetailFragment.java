@@ -21,7 +21,7 @@ public class MenuDetailFragment extends DialogFragment {
     public static final String ARG_ID = "ARG_ID";
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
     @ViewById
-    TextView textName, textCategory, textAllergenes;
+    TextView textName, textCategory, textPrice;
 
     public static MenuDetailFragment newInstance(long _id) {
         if (BuildConfig.DEBUG) LOGGER.debug("newInstance({})", _id);
@@ -41,7 +41,7 @@ public class MenuDetailFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setTitle("Allergene und Zusatzstoffe");
+        dialog.setTitle("Details");
         return dialog;
     }
 
@@ -62,7 +62,7 @@ public class MenuDetailFragment extends DialogFragment {
 
         textName.setText(name);
         textCategory.setText(category);
-        textAllergenes.setText(Allergene.getExplanation(allergenes));
+        textPrice.setText(Allergene.getExplanation(allergenes));
 
         if (BuildConfig.DEBUG) LOGGER.debug("bindData()");
     }

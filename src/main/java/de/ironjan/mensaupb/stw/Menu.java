@@ -21,12 +21,13 @@ public class Menu {
     public static final String LOCATION = "location";
     public static final String CATEGORY = "category";
     public static final String ALLERGENES = "allergenes";
+    public static final String PRICE = "price";
     public static final String SORT = "sort";
     private static final String DATABASE_DATE_FORMAT_STRING = "dd.MM.yyyy";
     public static final SimpleDateFormat DATABASE_DATE_FORMAT = new SimpleDateFormat(DATABASE_DATE_FORMAT_STRING);
     public static final String LAST_UPDATE_TIMESTAMP = "lastUpdateTimestamp";
 
-    public static final String[] COLUMNS = {ID, NAME_GERMAN, NAME_GERMAN, DATE, LOCATION, CATEGORY, ALLERGENES, SORT, LAST_UPDATE_TIMESTAMP};
+    public static final String[] COLUMNS = {ID, NAME_GERMAN, NAME_GERMAN, DATE, LOCATION, CATEGORY, ALLERGENES, SORT, LAST_UPDATE_TIMESTAMP, PRICE};
 
     @DatabaseField(columnName = ID, generatedId = true)
     private long _id;
@@ -54,6 +55,9 @@ public class Menu {
 
     @DatabaseField(columnName = LAST_UPDATE_TIMESTAMP)
     private long lastUpdateTimestamp;
+
+    @DatabaseField(columnName = PRICE)
+    private long price;
 
     public Menu() {
     }
@@ -138,6 +142,14 @@ public class Menu {
         this.lastUpdateTimestamp = lastUpdateTimestamp;
     }
 
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "Menu{" +
@@ -150,6 +162,7 @@ public class Menu {
                 ", allergenes='" + allergenes + '\'' +
                 ", sort=" + sort +
                 ", lastUpdateTimestamp=" + lastUpdateTimestamp +
+                ", price=" + price +
                 '}';
     }
 }
