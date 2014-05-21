@@ -6,13 +6,15 @@ import android.database.*;
 import android.net.*;
 import android.os.*;
 import android.support.v4.app.DialogFragment;
+import android.view.*;
 import android.widget.*;
 
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.adapters.*;
+import de.ironjan.mensaupb.stw.Menu;
 import de.ironjan.mensaupb.sync.*;
 
 @EFragment(R.layout.fragment_menu_detail)
@@ -21,7 +23,7 @@ public class MenuDetailFragment extends DialogFragment {
     public static final String ARG_ID = "ARG_ID";
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
     @ViewById
-    TextView textName, textCategory, textPrice;
+    TextView textName, textCategory, textAllergens, textPrice;
 
     public static MenuDetailFragment newInstance(long _id) {
         if (BuildConfig.DEBUG) LOGGER.debug("newInstance({})", _id);
@@ -51,18 +53,20 @@ public class MenuDetailFragment extends DialogFragment {
 
         final long _id = getArguments().getLong(ARG_ID);
         Uri uri = Uri.withAppendedPath(MenuContentProvider.MENU_URI, "" + _id);
-        String[] projection = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.ALLERGENES, Menu.ID};
+        String[] projection = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.ALLERGENES, Menu.PRICE, Menu.ID};
+        int[] bindTo = {R.id.textName, R.id.textCategory, R.id.textAllergens, R.id.textPrice};
+
         Cursor query = getActivity().getContentResolver().query(uri, projection, null, null, null);
-
         query.moveToFirst();
-        String name = query.getString(0);
-        String category = query.getString(1);
-        String allergenes = query.getString(2);
-        query.close();
 
-        textName.setText(name);
-        textCategory.setText(category);
-        textPrice.setText(Allergene.getExplanation(allergenes));
+        MenuDetailViewBinder viewBinder = new MenuDetailViewBinder();
+
+        for (int i = 0; i < bindTo.length; i++) {
+            View view = getView().findViewById(bindTo[i]);
+            viewBinder.setViewValue(view, query, i);
+        }
+
+        query.close();
 
         if (BuildConfig.DEBUG) LOGGER.debug("bindData()");
     }
