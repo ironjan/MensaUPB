@@ -58,6 +58,7 @@ public class MenuListingFragment extends ListFragment {
 
     void loadContent() {
         adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
+        adapter.setViewBinder(new MenuListItemViewBinder());
         getLoaderManager().initLoader(0, null, adapter);
         setListAdapter(adapter);
     }
