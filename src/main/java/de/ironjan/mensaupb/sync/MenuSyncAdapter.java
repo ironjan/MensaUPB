@@ -10,6 +10,7 @@ import org.slf4j.*;
 
 import java.io.*;
 import java.net.*;
+import java.text.*;
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
@@ -24,8 +25,17 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final Object lock = new Object();
     public static final int CREATE_INDEX = 0;
     public static final int UPDATE_INDEX = 1;
+    private static final int DOWNLOADED_INDEX = 2;
     public static final int TWO_DAYS_IN_MILLIS = 2 * 24 * 3600 * 1000;
-    public static final int DOWNLOADED_INDEX = 2;
+    public static final int CSV_LOCATION = 1,
+            CSV_DATE = 2,
+            CSV_CATEGORY = 3,
+            CSV_ABENDMENSA = 5,
+            CSV_NAME_GERMAN = 6,
+            CSV_NAME_ENGLISH = 7,
+            CSV_ALLERGENS = 8,
+            CSV_PRICE_STUDENTS = 10;
+
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
     private final ContentResolver mContentResolver;
@@ -87,7 +97,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             int[] counter = {0, 0, 0};
 
             ContentValues menu = null;
-            final String[] selectionArgs = new String[3];
+            final String[] selectionArgs = new String[CSV_CATEGORY];
             while (sc.hasNextLine()) {
                 String[] parts = prepareNextLine(sc);
                 counter[DOWNLOADED_INDEX]++;
@@ -160,7 +170,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private boolean skipThisLine(String[] parts) {
-        return parts.length < 2 || TextUtils.equals("Mensa Hamm", parts[1]);
+        return parts.length < CSV_DATE || TextUtils.equals("Mensa Hamm", parts[1]);
     }
 
 
@@ -184,29 +194,35 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             menu = new ContentValues();
         }
 
-        String date = parts[2];
-        String name = parts[6];
+        String date = parts[CSV_DATE];
+        String name = parts[CSV_NAME_GERMAN];
         final String location;
-        if ("a".equals(parts[5])) {
+        if ("a".equals(parts[CSV_ABENDMENSA])) {
             location = "Abendmensa";
         } else {
-            location = parts[1];
+            location = parts[CSV_LOCATION];
         }
         menu.put(Menu.LOCATION, location);
 
 
         menu.put(Menu.DATE, date);
-        menu.put(Menu.CATEGORY, StwCategoryParser.getCategory(parts[3]));
-        menu.put(Menu.SORT, StwCategoryParser.getSort(parts[3]));
+        menu.put(Menu.CATEGORY, StwCategoryParser.getCategory(parts[CSV_CATEGORY]));
+        menu.put(Menu.SORT, StwCategoryParser.getSort(parts[CSV_CATEGORY]));
 
         // FIXME can i use resource here?
 
 
         menu.put(Menu.NAME_GERMAN, name);
 
-        menu.put(Menu.NAME_ENGLISH, parts[7]);
-        menu.put(Menu.ALLERGENES, Allergene.filterAllergenes(parts[8]));
+        menu.put(Menu.NAME_ENGLISH, parts[CSV_NAME_ENGLISH]);
+        menu.put(Menu.ALLERGENES, Allergene.filterAllergenes(parts[CSV_ALLERGENS]));
 
+        Double price = parsePrice(parts);
+        if (price != null) {
+            menu.put(Menu.PRICE, price);
+        } else {
+            menu.put(Menu.PRICE, "");
+        }
 
         selectionArgs[SELECTION_ARG_LOCATION] = location;
         selectionArgs[SELECTION_ARG_DATE] = date;
@@ -214,6 +230,17 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
         if (BuildConfig.DEBUG) LOGGER.debug("parseLine({}) -> {}", parts, menu);
         return menu;
+    }
+
+    private Double parsePrice(String[] parts) {
+        // german locale because of STW format
+        NumberFormat format = NumberFormat.getInstance(Locale.GERMAN);
+        try {
+            Number n = format.parse(parts[CSV_PRICE_STUDENTS]);
+            return n.doubleValue();
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
 

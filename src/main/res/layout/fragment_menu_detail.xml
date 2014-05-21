@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/elementMargin"
+<RelativeLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/elementMargin"
     >
 
     <!--<include layout="@layout/fragment_menu_detail_title"/>-->
@@ -15,28 +17,42 @@
         tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"
         android:singleLine="false"
         android:textStyle="bold"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/elementMargin"
         android:textColor="@color/black"
         android:id="@+id/textName"/>
 
 
-
     <TextView
+        android:layout_below="@+id/textName"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/elementMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text="Essen"
+        android:layout_alignParentLeft="true"
         android:id="@+id/textCategory"/>
 
     <TextView
+        android:layout_below="@+id/textName"
+        android:textColor="@color/black"
         android:layout_marginTop="@dimen/elementMargin"
-        android:id="@+id/textAllergenes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:text="1,20 €"
+        android:layout_alignParentRight="true"
+        android:id="@+id/textPrice"/>
+
+    <TextView
+        android:layout_below="@+id/textCategory"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:id="@+id/textAllergens"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text=" * Ganz viele Stoffe...\n * Mehrzeilig sogar\nAlle Angaben ohne Foo"
         />
-</LinearLayout>
+</RelativeLayout>

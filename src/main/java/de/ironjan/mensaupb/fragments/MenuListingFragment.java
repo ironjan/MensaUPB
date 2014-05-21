@@ -38,7 +38,6 @@ public class MenuListingFragment extends ListFragment {
     }
 
 
-
     private String getArgLocation() {
         return getArguments().getString(ARG_LOCATION);
     }
@@ -46,7 +45,6 @@ public class MenuListingFragment extends ListFragment {
     private String getArgDate() {
         return getArguments().getString(ARG_DATE);
     }
-
 
 
     @Override
@@ -58,6 +56,7 @@ public class MenuListingFragment extends ListFragment {
 
     void loadContent() {
         adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
+        adapter.setViewBinder(new MenuDetailViewBinder());
         getLoaderManager().initLoader(0, null, adapter);
         setListAdapter(adapter);
     }

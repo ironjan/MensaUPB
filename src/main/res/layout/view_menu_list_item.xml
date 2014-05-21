@@ -28,23 +28,23 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text="Essen"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/textAllergenes"
+        android:layout_toLeftOf="@+id/textPrice"
         android:id="@+id/textCategory"/>
 
     <TextView
-        android:id="@+id/textAllergenes"
+        android:id="@+id/textPrice"
         android:textColor="@color/black"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        tools:text="2, 15, A7, A10, (S)"
+        tools:text="1,20€"
         android:layout_alignTop="@+id/textCategory"/>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="8dp"
-        android:layout_below="@+id/textAllergenes"
+        android:layout_below="@+id/textPrice"
         android:src="@color/cardShadow" />
 </RelativeLayout>
