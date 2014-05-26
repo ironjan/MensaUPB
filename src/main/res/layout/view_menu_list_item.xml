@@ -31,14 +31,25 @@
         android:layout_toLeftOf="@+id/textPrice"
         android:id="@+id/textCategory"/>
 
+
     <TextView
-        android:id="@+id/textPrice"
+        android:id="@+id/textPricePer100g"
         android:textColor="@color/black"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        tools:text="/100g"
+        android:layout_alignTop="@+id/textCategory"/>
+
+    <TextView
+        android:id="@+id/textPrice"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         tools:text="1,20€"
+        android:layout_toLeftOf="@+id/textPricePer100g"
         android:layout_alignTop="@+id/textCategory"/>
 
     <ImageView

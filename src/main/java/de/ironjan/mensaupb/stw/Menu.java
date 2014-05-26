@@ -22,7 +22,9 @@ public class Menu {
     public static final String CATEGORY = "category";
     public static final String ALLERGENES = "allergenes";
     public static final String PRICE = "price";
+    public static final String PRICE_PER_100G = "pricePer100g";
     public static final String SORT = "sort";
+
     private static final String DATABASE_DATE_FORMAT_STRING = "dd.MM.yyyy";
     public static final SimpleDateFormat DATABASE_DATE_FORMAT = new SimpleDateFormat(DATABASE_DATE_FORMAT_STRING);
     public static final String LAST_UPDATE_TIMESTAMP = "lastUpdateTimestamp";
@@ -58,6 +60,9 @@ public class Menu {
 
     @DatabaseField(columnName = PRICE)
     private long price;
+
+    @DatabaseField(columnName = PRICE_PER_100G)
+    private boolean pricePer100g;
 
     public Menu() {
     }
@@ -150,6 +155,14 @@ public class Menu {
         this.price = price;
     }
 
+    public boolean isPricePer100g() {
+        return pricePer100g;
+    }
+
+    public void setPricePer100g(boolean pricePer100g) {
+        this.pricePer100g = pricePer100g;
+    }
+
     @Override
     public String toString() {
         return "Menu{" +
@@ -163,6 +176,7 @@ public class Menu {
                 ", sort=" + sort +
                 ", lastUpdateTimestamp=" + lastUpdateTimestamp +
                 ", price=" + price +
+                ", pricePer100g=" + pricePer100g +
                 '}';
     }
 }

@@ -18,8 +18,8 @@ import de.ironjan.mensaupb.sync.*;
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
     private static final String SELECTION = de.ironjan.mensaupb.stw.Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
 
-    public static final String[] LIST_PROJECTION = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.PRICE, Menu.ID};
-    static int[] BIND_TO = {R.id.textName, R.id.textCategory, R.id.textPrice};
+    public static final String[] LIST_PROJECTION = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.PRICE, Menu.PRICE_PER_100G, Menu.ID};
+    static int[] BIND_TO = {R.id.textName, R.id.textCategory, R.id.textPrice, R.id.textPricePer100g};
 
     private final String mDate;
     private final String mLocation;

@@ -34,7 +34,8 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             CSV_NAME_GERMAN = 6,
             CSV_NAME_ENGLISH = 7,
             CSV_ALLERGENS = 8,
-            CSV_PRICE_STUDENTS = 10;
+            CSV_PRICE_STUDENTS = 10,
+            CSV_PRICE_PER_100G = 13;
 
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
@@ -217,11 +218,17 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         menu.put(Menu.NAME_ENGLISH, parts[CSV_NAME_ENGLISH]);
         menu.put(Menu.ALLERGENES, Allergene.filterAllergenes(parts[CSV_ALLERGENS]));
 
+        boolean pricePer100G = parsePricePer100G(parts);
+        String dbPricePer100G = (pricePer100G) ? "1" : "0";
+        menu.put(Menu.PRICE_PER_100G, dbPricePer100G);
+
         Double price = parsePrice(parts);
-        if (price != null) {
-            menu.put(Menu.PRICE, price);
-        } else {
+        if (price == null) {
             menu.put(Menu.PRICE, "");
+        } else if (pricePer100G) {
+            menu.put(Menu.PRICE, price / 10);
+        } else {
+            menu.put(Menu.PRICE, price);
         }
 
         selectionArgs[SELECTION_ARG_LOCATION] = location;
@@ -230,6 +237,10 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
         if (BuildConfig.DEBUG) LOGGER.debug("parseLine({}) -> {}", parts, menu);
         return menu;
+    }
+
+    private boolean parsePricePer100G(String[] parts) {
+        return "Tara".equals(parts[CSV_PRICE_PER_100G]);
     }
 
     private Double parsePrice(String[] parts) {

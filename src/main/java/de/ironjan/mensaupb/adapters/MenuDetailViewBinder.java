@@ -33,6 +33,9 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
             case R.id.textPrice:
                 bindPrice((TextView) view, cursor, columnIndex);
                 return true;
+            case R.id.textPricePer100g:
+                bindPricePer100g((TextView) view, cursor, columnIndex);
+                return true;
             default:
                 textView.setText(cursor.getString(columnIndex));
                 return true;
@@ -40,11 +43,23 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
     }
 
     private void bindPrice(TextView view, Cursor cursor, int columnIndex) {
-        double price = cursor.getDouble(columnIndex);
+        Double price = cursor.getDouble(columnIndex);
         if (price != 0) {
             // it can be 0 when syncing and not yet set
             String priceAsString = String.format(Locale.GERMAN, "%.2f €", price);
             view.setText(priceAsString);
+        }
+    }
+
+    private void bindPricePer100g(TextView view, Cursor cursor, int columnIndex) {
+        Double price = cursor.getDouble(columnIndex - 1);
+        if (price == 0) {
+            return;
+        }
+
+        Boolean pricePer100g = "1".equals(cursor.getString(columnIndex));
+        if (pricePer100g) {
+            view.setText("/100g");
         }
     }
 }
