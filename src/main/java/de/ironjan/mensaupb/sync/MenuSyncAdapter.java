@@ -35,7 +35,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             CSV_NAME_ENGLISH = 7,
             CSV_ALLERGENS = 8,
             CSV_PRICE_STUDENTS = 10,
-            CSV_PRICE_PER_100G = 13;
+            CSV_PRICE_PER_100G = 12;
 
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
@@ -171,7 +171,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private boolean skipThisLine(String[] parts) {
-        return parts.length < CSV_DATE || TextUtils.equals("Mensa Hamm", parts[1]);
+        return parts.length < CSV_PRICE_PER_100G || TextUtils.equals("Mensa Hamm", parts[1]);
     }
 
 

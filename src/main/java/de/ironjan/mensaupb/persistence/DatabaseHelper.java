@@ -19,7 +19,7 @@ import de.ironjan.mensaupb.stw.*;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 6;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
 
@@ -48,21 +48,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 case 1:
                     TableUtils.dropTable(connectionSource, Menu.class, true);
                     onCreate(sqLiteDatabase, connectionSource);
-                    break;
                 case 2:
                     // there was a bug which added many entries to abendmensa....
                     sqLiteDatabase.delete(Menu.TABLE, Menu.LOCATION + " = ?", new String[]{"Abendmensa"});
                     // TODO request sync
-                    break;
                 case 3:
                     TableUtils.createTable(connectionSource, SynchronizationReport.class);
                     sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " + Menu.LAST_UPDATE_TIMESTAMP + " INTEGER");
                     sqLiteDatabase.execSQL("UPDATE " + Menu.TABLE + " SET " + Menu.LAST_UPDATE_TIMESTAMP + "=0");
-                    break;
-                case 4:
                     sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " + Menu.PRICE + " REAL");
                     // TODO request sync
-                    break;
+                case 4:
                 case 5:
                     sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " +
                             Menu.PRICE_PER_100G + " INTEGERr");
@@ -70,7 +66,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                             Menu.PRICE_PER_100G + " = 0 WHERE " +
                             Menu.PRICE_PER_100G + " IS NULL");
                     // TODO request sync
-                    break;
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
