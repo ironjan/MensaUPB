@@ -145,7 +145,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         settingsBundle.putBoolean(
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 
-        ContentResolver.requestSync(mAccountCreator.build(this), mAccountCreator.getAuthority(), settingsBundle);
+        ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
     }
 
     @OptionsItem(R.id.ab_STW)

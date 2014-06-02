@@ -36,7 +36,7 @@ public class AccountCreator {
     /**
      * TODO javadoc
      */
-    public Account build(Context context) {
+    public Account getAccount() {
         if (mAccount == null) {
             mAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
             mAccountCreated = mAccountManager.addAccountExplicitly(mAccount, null, null);

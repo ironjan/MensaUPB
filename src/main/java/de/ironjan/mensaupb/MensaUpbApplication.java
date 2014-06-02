@@ -30,7 +30,7 @@ public class MensaUpbApplication extends Application {
 
     private void setupSynchronization() {
         if (BuildConfig.DEBUG) LOGGER.debug("setupSynchronization()");
-        final Account account = mAccountCreator.build(this);
+        final Account account = mAccountCreator.getAccount();
         ContentResolver.addPeriodicSync(account, mAccountCreator.getAuthority(), new Bundle(), BuildConfig.SYNC_INTERVAL);
 
         if(mAccountCreator.ismAccountCreated()) {
