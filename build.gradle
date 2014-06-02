@@ -7,11 +7,13 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url 'http://repo1.maven.org/maven2' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:0.9.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.1'
+        classpath 'org.robolectric.gradle:gradle-android-test-plugin:0.9.+'
     }
 }
 
@@ -21,6 +23,8 @@ repositories {
 
 apply plugin: 'android'
 apply plugin: 'android-apt'
+apply plugin: 'android-test'
+apply plugin: 'idea'
 
 configurations {
     apt
@@ -69,7 +73,6 @@ android {
         main {
             manifest.srcFile 'AndroidManifest.xml'
         }
-
     }
 
     buildTypes {
@@ -84,20 +87,20 @@ android {
         }
     }
 
-    if (project.hasProperty("mensaupb.signing")){
+    if (project.hasProperty("mensaupb.signing")) {
         println "project has property mensaupb.signing:"
         println project.property("mensaupb.signing")
-        if(new File(project.property("mensaupb.signing") + ".gradle").exists()) {
+        if (new File(project.property("mensaupb.signing") + ".gradle").exists()) {
             apply from: project.property("mensaupb.signing") + ".gradle";
             println "Applied properties"
-            
+
         }
     }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.0.0'
-    compile 'com.android.support:appcompat-v7:19.0.0'
+    compile 'com.android.support:support-v4:19.1.+'
+    compile 'com.android.support:appcompat-v7:19.0.1'
     compile 'com.j256.ormlite:ormlite-android:4.47'
     apt "org.androidannotations:androidannotations:3.0"
     compile "org.androidannotations:androidannotations-api:3.0"
@@ -105,28 +108,17 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 
 //     tests
-    unitTestCompile files("$project.buildDir/classes/release")
-    unitTestCompile 'junit:junit:4.11'
-
-//    tests support in AS
     androidTestCompile 'junit:junit:4.11'
+    androidTestCompile 'org.robolectric:robolectric:2.3'
+    androidTestCompile 'com.squareup:fest-android:1.0.0'
 }
 
-sourceSets {
-    unitTest {
-        java.srcDir file('src/test/java')
-        resources.srcDir file('src/test/resources')
-    }
+androidTest {
+    include '**/*Test.class'
+    maxHeapSize = "2048m"
 }
-
-task unitTest(type: Test, dependsOn: assemble) {
-    description = 'run unit tests'
-    testClassesDir = project.sourceSets.unitTest.output.classesDir
-    classpath = project.sourceSets.unitTest.runtimeClasspath
-}
-
-check.dependsOn unitTest
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.9'
 }
+
