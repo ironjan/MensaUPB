@@ -1,6 +1,5 @@
 package de.ironjan.mensaupb;
 
-import android.accounts.*;
 import android.app.*;
 import android.content.*;
 import android.os.*;
@@ -30,22 +29,19 @@ public class MensaUpbApplication extends Application {
 
     private void setupSynchronization() {
         if (BuildConfig.DEBUG) LOGGER.debug("setupSynchronization()");
-        final Account account = mAccountCreator.getAccount();
-        ContentResolver.addPeriodicSync(account, mAccountCreator.getAuthority(), new Bundle(), BuildConfig.SYNC_INTERVAL);
+        ContentResolver.addPeriodicSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), new Bundle(), BuildConfig.SYNC_INTERVAL);
 
-        if(mAccountCreator.ismAccountCreated()) {
-            forceFirstSync(account);
+        forceFirstSync();
 
-        }
         if (BuildConfig.DEBUG) LOGGER.debug("setupSynchronization() done");
     }
 
-    private void forceFirstSync(Account account) {
+    private void forceFirstSync() {
         Bundle settingsBundle = new Bundle();
         settingsBundle.putBoolean(
                 ContentResolver.SYNC_EXTRAS_MANUAL, true);
         settingsBundle.putBoolean(
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-        ContentResolver.requestSync(account, mAccountCreator.getAuthority(), settingsBundle);
+        ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
     }
 }

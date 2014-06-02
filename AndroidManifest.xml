@@ -53,8 +53,8 @@
         <service
             android:name="de.ironjan.mensaupb.sync.SyncService"
             android:exported="true"
-            android:process=":sync">
-            <intent-filter>
+            >
+        <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
             <meta-data

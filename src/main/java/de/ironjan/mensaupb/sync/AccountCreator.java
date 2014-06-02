@@ -56,13 +56,6 @@ public class AccountCreator {
     /**
      * TODO javadoc
      */
-    public boolean ismAccountCreated() {
-        return mAccountCreated;
-    }
-
-    /**
-     * TODO javadoc
-     */
     public String getAuthority() {
         return AUTHORITY;
     }
