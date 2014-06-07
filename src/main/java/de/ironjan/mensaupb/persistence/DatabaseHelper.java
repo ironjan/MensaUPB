@@ -11,7 +11,9 @@ import org.slf4j.*;
 
 import java.sql.*;
 
+import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.sync.*;
 
 /**
  * TODO javadoc
@@ -22,9 +24,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 6;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
+    private final Context mContext;
+
+    AccountCreator mAccountCreator;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.mContext = context;
+        mAccountCreator = AccountCreator_.getInstance_(context);
     }
 
     @Override
@@ -48,16 +55,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 case 1:
                     TableUtils.dropTable(connectionSource, Menu.class, true);
                     onCreate(sqLiteDatabase, connectionSource);
+                    break;
                 case 2:
                     // there was a bug which added many entries to abendmensa....
                     sqLiteDatabase.delete(Menu.TABLE, Menu.LOCATION + " = ?", new String[]{"Abendmensa"});
-                    // TODO request sync
+                    break;
                 case 3:
                     TableUtils.createTable(connectionSource, SynchronizationReport.class);
                     sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " + Menu.LAST_UPDATE_TIMESTAMP + " INTEGER");
                     sqLiteDatabase.execSQL("UPDATE " + Menu.TABLE + " SET " + Menu.LAST_UPDATE_TIMESTAMP + "=0");
                     sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " + Menu.PRICE + " REAL");
-                    // TODO request sync
+                    break;
                 case 4:
                 case 5:
                     sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " +
@@ -65,12 +73,23 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                     sqLiteDatabase.execSQL("UPDATE " + Menu.TABLE + " SET " +
                             Menu.PRICE_PER_100G + " = 0 WHERE " +
                             Menu.PRICE_PER_100G + " IS NULL");
-                    // TODO request sync
+                    break;
+                default:
+                    if(BuildConfig.DEBUG) LOGGER.warn("Default upgrade method. Deleting and Recreating.");
+                    mContext.deleteDatabase(DATABASE_NAME);
+                    onCreate(sqLiteDatabase,connectionSource);
             }
+            requestSync();
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error("Failed to upgrade database; deleting and recreating.", e);
+            mContext.deleteDatabase(DATABASE_NAME);
+            onCreate(sqLiteDatabase,connectionSource);
         }
         LOGGER.info("onUpgrade() done");
+    }
+
+    private void requestSync() {
+
     }
 
 }

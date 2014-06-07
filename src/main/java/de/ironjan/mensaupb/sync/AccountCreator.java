@@ -36,9 +36,13 @@ public class AccountCreator {
     /**
      * TODO javadoc
      */
-    public Account build(Context context) {
+    public Account getAccount() {
         if (mAccount == null) {
             mAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
+            if (mAccountManager == null) {
+                LOGGER.warn("AccountManager was null.");
+                return mAccount;
+            }
             mAccountCreated = mAccountManager.addAccountExplicitly(mAccount, null, null);
             if (mAccountCreated) {
                 LOGGER.info("Synchronization account added.");
@@ -47,13 +51,6 @@ public class AccountCreator {
             }
         }
         return mAccount;
-    }
-
-    /**
-     * TODO javadoc
-     */
-    public boolean ismAccountCreated() {
-        return mAccountCreated;
     }
 
     /**

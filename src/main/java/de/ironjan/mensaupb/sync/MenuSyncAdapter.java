@@ -121,9 +121,13 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             syncResult.stats.numUpdates = counter[UPDATE_INDEX];
             if (BuildConfig.DEBUG)
                 LOGGER.debug("parseInputStream({}) done, {} were new, {} were updated", new Object[]{inputStream, counter});
+        } catch (MalformedURLException e) {
+            LOGGER.error("Developer forgot to set gradle.properties and does not provide a STW_URL!");
         } catch (IOException e) {
+            e.printStackTrace();
             syncResult.stats.numIoExceptions++;
         }
+
 
         // TODO save report
         if (LOGGER.isDebugEnabled()) {
