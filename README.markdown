@@ -17,13 +17,25 @@ geschrieben und ist nun endlich wieder im PlayStore ;)
 Aufgrund von Beschränkungen durch das Studentenwerk gibt es leider kein einfaches clonen dieses Projekts, welches 
 direkt funktioniert. Es wird jedoch bereits nach Lösungen für dieses Problem gesucht. Aktuelle Methode:
 
-1. Schreibe eine Email an "Rittmeier, Florian" <Rittmeier@studentenwerk-pb.de> um einen eigenen Zugriffsschlüssel für 
+1. Schreibe eine Email an "Rittmeier, Florian" <Rittmeier@studentenwerk-pb.de> um eine eigene geheime URL für 
 die Studentenwerks-API zu erhalten
 2. Erstelle eine Datei namens "mensaupb.gradle" an einem beliebigen Ort (außerhalb des Projektordners)
-3. Erstelle eine Datei namens "gradle.properties" mit dem Inhalt "mensaupb.signing=<obiger pfad>"
+3. Erstelle eine Datei namens "gradle.properties" mit dem Inhalt "mensaupb.signing=Pfad_zu_obiger_Datei"
 
-Füge folgenden Inhalt in die mensaupb.gradle ein:
+Füge folgenden Inhalt in die mensaupb.gradle ein und ersetze GEHEIME_URL durch deine geheime URL:
 
+```
+android {
+  buildTypes {
+    release {
+      buildConfigField "String", "STW_URL", "\"GEHEIME_URL\""
+    }
+    debug {
+      buildConfigField "String", "STW_URL", "\"GEHEIME_URL\""
+    }
+  }
+}
+```
 
 # Issue tracking, Plans for the future
 
