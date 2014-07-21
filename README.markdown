@@ -12,6 +12,19 @@ Mittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine Schnit
 über die die Speisepläne heruntergeladen werden können; daher wurde die App zu einem Großteil neu
 geschrieben und ist nun endlich wieder im PlayStore ;)
 
+# Wie man mitentwickelt
+
+Aufgrund von Beschränkungen durch das Studentenwerk gibt es leider kein einfaches clonen dieses Projekts, welches 
+direkt funktioniert. Es wird jedoch bereits nach Lösungen für dieses Problem gesucht. Aktuelle Methode:
+
+1. Schreibe eine Email an "Rittmeier, Florian" <Rittmeier@studentenwerk-pb.de> um einen eigenen Zugriffsschlüssel für 
+die Studentenwerks-API zu erhalten
+2. Erstelle eine Datei namens "mensaupb.gradle" an einem beliebigen Ort (außerhalb des Projektordners)
+3. Erstelle eine Datei namens "gradle.properties" mit dem Inhalt "mensaupb.signing=<obiger pfad>"
+
+Füge folgenden Inhalt in die mensaupb.gradle ein:
+
+
 # Issue tracking, Plans for the future
 
 See https://www.pivotaltracker.com/s/projects/1007590 - free for open source/public projects.
