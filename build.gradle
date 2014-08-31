@@ -11,9 +11,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.0'
+        classpath 'com.android.tools.build:gradle:0.12.2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.1'
-        classpath 'org.robolectric.gradle:gradle-android-test-plugin:0.9.+'
+        classpath 'org.robolectric.gradle:gradle-android-test-plugin:0.9.4'
     }
 }
 
@@ -21,9 +21,9 @@ repositories {
     mavenCentral()
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-apply plugin: 'android-test'
+//apply plugin: 'android-test'
 apply plugin: 'idea'
 
 configurations {
@@ -39,8 +39,8 @@ def getSourceSetName(variant) {
 
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19"
+    compileSdkVersion 20
+    buildToolsVersion '19.1.0'
 
     packagingOptions {
         // prevents Error: duplicate files during packaging of APK
@@ -63,9 +63,9 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         minSdkVersion 8
-        targetSdkVersion 19
+        targetSdkVersion 20
 
-        packageName "de.ironjan.mensaupb"
+        applicationId "de.ironjan.mensaupb"
     }
 
 
@@ -99,8 +99,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.1.0'
-    compile 'com.android.support:appcompat-v7:19.0.1'
+    compile 'com.android.support:support-v4:20.0.0'
+    compile 'com.android.support:appcompat-v7:20.0.0'
     compile 'com.j256.ormlite:ormlite-android:4.47'
     apt "org.androidannotations:androidannotations:3.0"
     compile "org.androidannotations:androidannotations-api:3.0"
@@ -108,15 +108,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 
 //     tests
-    androidTestCompile 'junit:junit:4.11'
-    androidTestCompile 'org.robolectric:robolectric:2.3'
-    androidTestCompile 'com.squareup:fest-android:1.0.0'
+//    androidTestCompile 'junit:junit:4.11'
+//    androidTestCompile 'org.robolectric:robolectric:2.3'
+//    androidTestCompile 'com.squareup:fest-android:1.0.0'
 }
 
-androidTest {
-    include '**/*Test.class'
-    maxHeapSize = "2048m"
-}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.9'
