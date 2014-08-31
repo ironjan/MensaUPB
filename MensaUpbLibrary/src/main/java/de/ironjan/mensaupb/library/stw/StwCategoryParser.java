@@ -1,10 +1,12 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.library.stw;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Hashtable;
 
-import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.library.BuildConfig;
 
 public class StwCategoryParser {
     public static final String CATEGORY_ESSEN = "Essen";

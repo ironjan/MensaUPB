@@ -37,7 +37,7 @@
         </activity>
 
         <!--sync-->
-        <service android:name="de.ironjan.mensaupb.sync.AuthenticatorService">
+        <service android:name=".sync.AuthenticatorService">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
@@ -51,7 +51,7 @@
             android:exported="false"
             android:syncable="true" />
         <service
-            android:name="de.ironjan.mensaupb.sync.SyncService"
+            android:name=".sync.SyncService"
             android:exported="true"
             >
         <intent-filter>

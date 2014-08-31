@@ -6,7 +6,7 @@ import android.database.*;
 import android.net.*;
 import android.os.*;
 import android.support.v4.app.DialogFragment;
-import android.view.*;
+import android.view.View;
 import android.widget.*;
 
 import org.androidannotations.annotations.*;
@@ -14,7 +14,7 @@ import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.stw.Menu;
+import de.ironjan.mensaupb.library.stw.Menu;
 import de.ironjan.mensaupb.sync.*;
 
 @EFragment(R.layout.fragment_menu_detail)

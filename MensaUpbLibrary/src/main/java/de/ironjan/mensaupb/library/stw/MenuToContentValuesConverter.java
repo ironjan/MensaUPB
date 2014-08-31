@@ -1,6 +1,6 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.library.stw;
 
-import android.content.*;
+import android.content.ContentValues;
 
 
 /**

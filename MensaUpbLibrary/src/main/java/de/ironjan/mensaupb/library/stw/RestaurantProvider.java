@@ -1,12 +1,15 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.library.stw;
 
-import org.androidannotations.annotations.*;
-import org.slf4j.*;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.text.*;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.library.BuildConfig;
 
 /**
  * TODO javadoc

@@ -1,10 +1,14 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.library.stw;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
-import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.library.BuildConfig;
 
 public class Allergene {
     public static final String ALLEGERNE_DELIMITER = ", ";

@@ -1,26 +1,29 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.library.stw;
 
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.res.*;
-import org.slf4j.*;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.res.StringArrayRes;
+import org.androidannotations.annotations.res.StringRes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.library.BuildConfig;
+import de.ironjan.mensaupb.library.R;
 
 /**
  * TODO this class needs to be transformed into a "resource access point"
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class Restaurants {
-    @StringRes(R.string.mensa)
+    @StringRes(resName="mensa")
     String mensa;
-    @StringRes(R.string.abendmensa)
+    @StringRes(resName="abendmensa")
     String abendmensa;
-    @StringRes(R.string.pub)
+    @StringRes(resName="pub")
     String pub;
-    @StringRes(R.string.hotspot)
+    @StringRes(resName="hotspot")
     String hotspot;
 
-    @StringArrayRes(R.array.restaurants)
+    @StringArrayRes(resName="restaurants")
     String[] restaurants;
 
     private final Logger LOGGER = LoggerFactory.getLogger(Restaurants.class.getSimpleName());

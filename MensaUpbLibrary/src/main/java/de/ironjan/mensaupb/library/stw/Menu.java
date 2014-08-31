@@ -1,12 +1,13 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.library.stw;
 
-import android.provider.*;
+import android.provider.BaseColumns;
 
-import com.j256.ormlite.field.*;
-import com.j256.ormlite.table.*;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-import java.text.*;
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.IllegalFormatException;
 
 /**
  * TODO javadoc
