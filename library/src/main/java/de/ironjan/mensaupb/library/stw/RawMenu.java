@@ -49,7 +49,7 @@ public class RawMenu {
     private double priceStudents;
     private double priceWorkers;
     private double priceGuests;
-    private String[] allergenes;
+    private String[] allergens;
     int order_info;
     private String[] badges;
     private String restaurant;
@@ -157,12 +157,12 @@ public class RawMenu {
         this.priceGuests = priceGuests;
     }
 
-    public String[] getAllergenes() {
-        return allergenes;
+    public String[] getAllergens() {
+        return allergens;
     }
 
-    public void setAllergenes(String[] allergenes) {
-        this.allergenes = allergenes;
+    public void setAllergens(String[] allergens) {
+        this.allergens = allergens;
     }
 
     public int getOrder_info() {
@@ -228,7 +228,7 @@ public class RawMenu {
                 ", priceStudents=" + priceStudents +
                 ", priceWorkers=" + priceWorkers +
                 ", priceGuests=" + priceGuests +
-                ", allergenes=" + Arrays.toString(allergenes) +
+                ", allergens=" + Arrays.toString(allergens) +
                 ", order_info=" + order_info +
                 ", badges=" + Arrays.toString(badges) +
                 ", restaurant='" + restaurant + '\'' +

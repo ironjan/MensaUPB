@@ -90,8 +90,8 @@ android {
     if (project.hasProperty("mensaupb.signing")) {
         println "project has property mensaupb.signing:"
         println project.property("mensaupb.signing")
-        if (new File(project.property("mensaupb.signing") + ".gradle").exists()) {
-            apply from: project.property("mensaupb.signing") + ".gradle";
+        if (new File(project.property("mensaupb.signing")).exists()) {
+            apply from: project.property("mensaupb.signing");
             println "Applied properties"
 
         }

@@ -73,8 +73,8 @@ android {
     if (project.hasProperty("mensaupb.signing")) {
         println "project has property mensaupb.signing:"
         println project.property("mensaupb.signing")
-        if (new File(project.property("mensaupb.signing") + ".gradle").exists()) {
-            apply from: project.property("mensaupb.signing") + ".gradle";
+        if (new File(project.property("mensaupb.signing")).exists()) {
+            apply from: project.property("mensaupb.signing");
             println "Applied properties"
         }
     }
@@ -89,4 +89,6 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:4.47'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.2'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.4.2'
+    compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
 }
