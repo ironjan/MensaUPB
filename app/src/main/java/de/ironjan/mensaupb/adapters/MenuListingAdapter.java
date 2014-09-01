@@ -9,14 +9,14 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.library.stw.*;
 import de.ironjan.mensaupb.sync.*;
 
 /**
  * An adapter to load the list of menus for a MenuListingFragment.
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String SELECTION = de.ironjan.mensaupb.stw.Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
+    private static final String SELECTION = Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
 
     public static final String[] LIST_PROJECTION = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.PRICE, Menu.PRICE_PER_100G, Menu.ID};
     static int[] BIND_TO = {R.id.textName, R.id.textCategory, R.id.textPrice, R.id.textPricePer100g};
