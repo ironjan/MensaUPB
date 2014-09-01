@@ -63,7 +63,7 @@ android {
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         minSdkVersion 8
-        targetSdkVersion 20
+        targetSdkVersion L
 
         applicationId "de.ironjan.mensaupb"
     }
