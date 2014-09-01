@@ -110,7 +110,7 @@ dependencies {
     //    androidTestCompile 'junit:junit:4.11'
     //    androidTestCompile 'org.robolectric:robolectric:2.3'
     //    androidTestCompile 'com.squareup:fest-android:1.0.0'
-    compile project(':MensaUpbLibrary')
+    compile project(':library')
 }
 
 

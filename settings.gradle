@@ -1,1 +1,1 @@
-include ':app', ':MensaUpbLibrary'
+include ':app', ':library'
