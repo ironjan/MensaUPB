@@ -13,7 +13,6 @@ import java.sql.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.library.stw.*;
-import de.ironjan.mensaupb.library.stw.deprecated.*;
 import de.ironjan.mensaupb.sync.*;
 
 /**
@@ -54,25 +53,25 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             switch (old) {
                 case 1:
-                    TableUtils.dropTable(connectionSource, Menu.class, true);
+                    TableUtils.dropTable(connectionSource, RawMenu.class, true);
                     onCreate(sqLiteDatabase, connectionSource);
                     break;
                 case 2:
                     // there was a bug which added many entries to abendmensa....
-                    sqLiteDatabase.delete(Menu.TABLE, Menu.LOCATION + " = ?", new String[]{"Abendmensa"});
+                    sqLiteDatabase.delete("menus", "location" + " = ?", new String[]{"Abendmensa"});
                     break;
                 case 3:
-                    sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " + Menu.LAST_UPDATE_TIMESTAMP + " INTEGER");
-                    sqLiteDatabase.execSQL("UPDATE " + Menu.TABLE + " SET " + Menu.LAST_UPDATE_TIMESTAMP + "=0");
-                    sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " + Menu.PRICE + " REAL");
+                    sqLiteDatabase.execSQL("ALTER TABLE " + "menus" + " ADD COLUMN " + "lastUpdateTimestamp" + " INTEGER");
+                    sqLiteDatabase.execSQL("UPDATE " + "menus" + " SET " + "lastUpdateTimestamp" + "=0");
+                    sqLiteDatabase.execSQL("ALTER TABLE " + "menus" + " ADD COLUMN " + "price" + " REAL");
                     break;
                 case 4:
                 case 5:
-                    sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " +
-                            Menu.PRICE_PER_100G + " INTEGER");
-                    sqLiteDatabase.execSQL("UPDATE " + Menu.TABLE + " SET " +
-                            Menu.PRICE_PER_100G + " = 0 WHERE " +
-                            Menu.PRICE_PER_100G + " IS NULL");
+                    sqLiteDatabase.execSQL("ALTER TABLE " + "menus" + " ADD COLUMN " +
+                            "pricePer100g" + " INTEGER");
+                    sqLiteDatabase.execSQL("UPDATE " + "menus" + " SET " +
+                            "pricePer100g" + " = 0 WHERE " +
+                            "pricePer100g" + " IS NULL");
                     break;
                 case 6:
                     sqLiteDatabase.execSQL("DROP TABLE menus");

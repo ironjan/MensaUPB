@@ -15,7 +15,6 @@ import java.util.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.library.stw.*;
-import de.ironjan.mensaupb.library.stw.deprecated.*;
 import de.ironjan.mensaupb.persistence.*;
 
 /**
@@ -107,7 +106,7 @@ public class MenuContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
             case SINGLE_MENUS_MATCH:
-                allowedColumns = Menu.COLUMNS;
+                allowedColumns = new String[]{}; // TODO use real allowed columns
                 break;
             default:
                 throw new IllegalArgumentException("Uri unknown.");
