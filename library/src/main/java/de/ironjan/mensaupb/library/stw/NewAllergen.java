@@ -1,8 +1,11 @@
 package de.ironjan.mensaupb.library.stw;
 
+import com.fasterxml.jackson.databind.annotation.*;
+
 /**
  * Rewrite of the Allergen class
  */
+@JsonDeserialize(using = AllergenDeserializer.class)
 public enum NewAllergen {
     UNKNOWN(0, ""),
     COLORED(1, Constants.COLORED),

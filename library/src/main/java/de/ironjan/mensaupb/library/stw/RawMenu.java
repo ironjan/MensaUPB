@@ -1,5 +1,7 @@
 package de.ironjan.mensaupb.library.stw;
 
+import android.provider.*;
+
 import com.fasterxml.jackson.annotation.*;
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
@@ -9,9 +11,11 @@ import java.util.*;
 /**
  * A class representing a raw menu with all possible information
  */
-@DatabaseTable(tableName = "rawMenus")
+@DatabaseTable(tableName = RawMenu.TABLE)
 public class RawMenu {
-    @DatabaseField(generatedId = true)
+    public static final String TABLE = "menus";
+    public static final String PSEUDO_HASH = "pseudoHash";
+    @DatabaseField(generatedId = true,columnName = BaseColumns._ID)
     long _id;
     @DatabaseField
     int order_info;
@@ -41,7 +45,7 @@ public class RawMenu {
     @DatabaseField(canBeNull = false)
     private double priceGuests;
     @DatabaseField
-    private String[] allergens;
+    private NewAllergen[] allergens;
     @DatabaseField
     private String[] badges;
     @DatabaseField
@@ -52,7 +56,7 @@ public class RawMenu {
     private String image;
     @DatabaseField
     private String thumbnail;
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = false, columnName = PSEUDO_HASH)
     private long pseudoHash;
 
     public RawMenu() {
@@ -165,11 +169,11 @@ public class RawMenu {
         this.priceGuests = priceGuests;
     }
 
-    public String[] getAllergens() {
+    public NewAllergen[] getAllergens() {
         return allergens;
     }
 
-    public void setAllergens(String[] allergens) {
+    public void setAllergens(NewAllergen[] allergens) {
         this.allergens = allergens;
     }
 
