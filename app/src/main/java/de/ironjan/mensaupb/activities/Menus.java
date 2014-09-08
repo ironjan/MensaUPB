@@ -27,6 +27,7 @@ import de.ironjan.mensaupb.sync.*;
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener {
 
 
+    private static final int NUM_LOCATIONS = 4;
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
 
     @ViewById(R.id.pager)
@@ -49,7 +50,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     AccountCreator mAccountCreator;
     private WeekdayPagerAdapter mWeekdayPagerAdapter;
     private int mLocation = 0;
-    private WeekdayPagerAdapter[] adapters = new WeekdayPagerAdapter[4];
+    private WeekdayPagerAdapter[] adapters = new WeekdayPagerAdapter[NUM_LOCATIONS];
 
     @Trace
     @AfterViews
