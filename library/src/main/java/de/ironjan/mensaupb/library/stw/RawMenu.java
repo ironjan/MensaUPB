@@ -1,36 +1,69 @@
 package de.ironjan.mensaupb.library.stw;
 
 import com.fasterxml.jackson.annotation.*;
+import com.j256.ormlite.field.*;
+import com.j256.ormlite.table.*;
 
 import java.util.*;
 
 /**
  * A class representing a raw menu with all possible information
  */
+@DatabaseTable(tableName = "rawMenus")
 public class RawMenu {
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date date;
-    private String name_de;
-    private String name_en;
-    private String description_de;
-    private String description_en;
-    private String category_de;
-    private String category_en;
-    private String subcategory_de;
-    private String subcategory_en;
-    private double priceStudents;
-    private double priceWorkers;
-    private double priceGuests;
-    private String[] allergens;
+    @DatabaseField(generatedId = true)
+    long _id;
+    @DatabaseField
     int order_info;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @DatabaseField(canBeNull = false)
+    private Date date;
+    @DatabaseField(canBeNull = false)
+    private String name_de;
+    @DatabaseField(canBeNull = false)
+    private String name_en;
+    @DatabaseField
+    private String description_de;
+    @DatabaseField
+    private String description_en;
+    @DatabaseField
+    private String category_de;
+    @DatabaseField
+    private String category_en;
+    @DatabaseField
+    private String subcategory_de;
+    @DatabaseField
+    private String subcategory_en;
+    @DatabaseField(canBeNull = false)
+    private double priceStudents;
+    @DatabaseField(canBeNull = false)
+    private double priceWorkers;
+    @DatabaseField(canBeNull = false)
+    private double priceGuests;
+    @DatabaseField
+    private String[] allergens;
+    @DatabaseField
     private String[] badges;
+    @DatabaseField
     private String restaurant;
+    @DatabaseField(canBeNull = false)
     private PriceType pricetype;
+    @DatabaseField
     private String image;
+    @DatabaseField
     private String thumbnail;
+    @DatabaseField(canBeNull = false)
     private long pseudoHash;
 
     public RawMenu() {
+    }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
     }
 
     public Date getDate() {
