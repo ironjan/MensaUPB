@@ -1,13 +1,12 @@
 package de.ironjan.mensaupb.library.stw.deprecated;
 
-import android.provider.BaseColumns;
+import android.provider.*;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+import com.j256.ormlite.field.*;
+import com.j256.ormlite.table.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.IllegalFormatException;
+import java.text.*;
+import java.util.*;
 
 /**
  * TODO javadoc
@@ -26,13 +25,10 @@ public class Menu {
     public static final String PRICE = "price";
     public static final String PRICE_PER_100G = "pricePer100g";
     public static final String SORT = "sort";
-
+    public static final String LAST_UPDATE_TIMESTAMP = "lastUpdateTimestamp";
+    public static final String[] COLUMNS = {ID, NAME_GERMAN, NAME_GERMAN, DATE, LOCATION, CATEGORY, ALLERGENES, SORT, LAST_UPDATE_TIMESTAMP, PRICE, PRICE_PER_100G};
     private static final String DATABASE_DATE_FORMAT_STRING = "dd.MM.yyyy";
     public static final SimpleDateFormat DATABASE_DATE_FORMAT = new SimpleDateFormat(DATABASE_DATE_FORMAT_STRING);
-    public static final String LAST_UPDATE_TIMESTAMP = "lastUpdateTimestamp";
-
-    public static final String[] COLUMNS = {ID, NAME_GERMAN, NAME_GERMAN, DATE, LOCATION, CATEGORY, ALLERGENES, SORT, LAST_UPDATE_TIMESTAMP, PRICE, PRICE_PER_100G};
-
     @DatabaseField(columnName = ID, generatedId = true)
     private long _id;
 

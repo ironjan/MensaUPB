@@ -44,14 +44,6 @@ public enum NewAllergen {
         this.type = type;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public int getOrdinal() {
-        return ordinal;
-    }
-
     public static NewAllergen fromType(String s) {
         if (COLORED.equals(s)) {
             return COLORED;
@@ -112,6 +104,14 @@ public enum NewAllergen {
         } else {
             return UNKNOWN;
         }
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getOrdinal() {
+        return ordinal;
     }
 
     private static class Constants {

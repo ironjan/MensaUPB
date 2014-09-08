@@ -1,14 +1,11 @@
 package de.ironjan.mensaupb.library.stw.deprecated;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-import de.ironjan.mensaupb.library.BuildConfig;
+import de.ironjan.mensaupb.library.*;
+
 @Deprecated
 public class Allergene {
     public static final String ALLEGERNE_DELIMITER = ", ";

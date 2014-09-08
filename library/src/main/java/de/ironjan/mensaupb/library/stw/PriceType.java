@@ -19,15 +19,6 @@ public enum PriceType {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    @JsonValue
-    public String getName() {
-        return name;
-    }
-
     public static PriceType fromString(String s) {
         if (Constants.FIXED_STRING.equals(s)) {
             return FIXED;
@@ -36,6 +27,15 @@ public enum PriceType {
             return WEIGHT;
         }
         return null;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @JsonValue
+    public String getName() {
+        return name;
     }
 
     private static class Constants {

@@ -13,7 +13,7 @@ import java.sql.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.library.stw.*;
-import de.ironjan.mensaupb.library.stw.deprecated.Menu;
+import de.ironjan.mensaupb.library.stw.deprecated.*;
 import de.ironjan.mensaupb.sync.*;
 
 /**
@@ -79,15 +79,16 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                     sqLiteDatabase.execSQL("DROP TABLE menus");
                     TableUtils.createTable(connectionSource, RawMenu.class);
                 default:
-                    if(BuildConfig.DEBUG) LOGGER.warn("Default upgrade method. Deleting and Recreating.");
+                    if (BuildConfig.DEBUG)
+                        LOGGER.warn("Default upgrade method. Deleting and Recreating.");
                     mContext.deleteDatabase(DATABASE_NAME);
-                    onCreate(sqLiteDatabase,connectionSource);
+                    onCreate(sqLiteDatabase, connectionSource);
             }
             requestSync();
         } catch (SQLException e) {
             LOGGER.error("Failed to upgrade database; deleting and recreating.", e);
             mContext.deleteDatabase(DATABASE_NAME);
-            onCreate(sqLiteDatabase,connectionSource);
+            onCreate(sqLiteDatabase, connectionSource);
         }
         LOGGER.info("onUpgrade() done");
     }

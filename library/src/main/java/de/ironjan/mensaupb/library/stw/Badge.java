@@ -24,23 +24,24 @@ public enum Badge {
         this.type = type;
     }
 
-public static Badge fromString(String s){
-    if(Constants.LOW_CALORIE.equals(s)){
-        return LOW_CALORIE;
-    } else if(Constants.FAT_FREE.equals(s)){
-        return FAT_FREE;
-    } else if(Constants.VEGETARIAN.equals(s)){
-        return VEGETARIAN;
-    } else if(Constants.VEGAN.equals(s)){
-        return VEGAN;
-    } else if(Constants.NO_LACTOSE.equals(s)){
-        return NO_LACTOSE;
-    } else if(Constants.NO_GLUTEN.equals(s)){
-        return NO_GLUTEN;
-    } else
+    public static Badge fromString(String s) {
+        if (Constants.LOW_CALORIE.equals(s)) {
+            return LOW_CALORIE;
+        } else if (Constants.FAT_FREE.equals(s)) {
+            return FAT_FREE;
+        } else if (Constants.VEGETARIAN.equals(s)) {
+            return VEGETARIAN;
+        } else if (Constants.VEGAN.equals(s)) {
+            return VEGAN;
+        } else if (Constants.NO_LACTOSE.equals(s)) {
+            return NO_LACTOSE;
+        } else if (Constants.NO_GLUTEN.equals(s)) {
+            return NO_GLUTEN;
+        } else
 
-    return null;
-}
+            return null;
+    }
+
     private static class Constants {
         public static final String LOW_CALORIE = "low-calorie";
         public static final String FAT_FREE = "nonfat";

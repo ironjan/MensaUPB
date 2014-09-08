@@ -22,7 +22,7 @@ public class About extends ActionBarActivity {
     }
 
     @OptionsItem(android.R.id.home)
-    void navUp(){
+    void navUp() {
         NavUtils.navigateUpFromSameTask(this);
     }
 }

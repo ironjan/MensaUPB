@@ -8,19 +8,17 @@ import java.util.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.library.stw.*;
-import de.ironjan.mensaupb.library.stw.deprecated.*;
 
 /**
  * Created by ljan on 4/28/14.
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class WeekdayHelper {
+    public static final int WEEKEND_OFFSET = 2;
     protected static final int DISPLAYED_DAYS_COUNT = 3;
     private String[] weekDaysAsString = new String[DISPLAYED_DAYS_COUNT];
-
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
-    public static final int WEEKEND_OFFSET = 2;
     private static final SimpleDateFormat SDF = new SimpleDateFormat(RawMenu.DATE_FORMAT);
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
 
     @Trace
     synchronized String getNextWeekDayAsString(int i) {
@@ -71,7 +69,8 @@ public class WeekdayHelper {
      * friday       |    | +2 | +2 |
      * saturday     | +2 | +2 | +2 |
      * }
-     * @param offset offset applied to dayOfWeek
+     *
+     * @param offset    offset applied to dayOfWeek
      * @param dayOfWeek the day which is "today"
      * @return true, if weekend offset has to be added
      */

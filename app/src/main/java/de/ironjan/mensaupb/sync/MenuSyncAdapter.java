@@ -3,26 +3,16 @@ package de.ironjan.mensaupb.sync;
 import android.accounts.*;
 import android.annotation.*;
 import android.content.*;
-import android.database.*;
-import android.database.sqlite.*;
 import android.os.*;
-import android.provider.*;
-import android.text.*;
 
 import com.j256.ormlite.android.*;
 import com.j256.ormlite.dao.*;
-import com.j256.ormlite.stmt.query.*;
 import com.j256.ormlite.support.*;
 
 import org.slf4j.*;
 
-import java.io.*;
-import java.net.*;
-import java.sql.*;
-import java.text.*;
 import java.util.*;
 
-import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.library.stw.*;
 import de.ironjan.mensaupb.persistence.*;
 

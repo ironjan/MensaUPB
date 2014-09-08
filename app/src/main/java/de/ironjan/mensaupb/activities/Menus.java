@@ -5,7 +5,6 @@ import android.annotation.*;
 import android.content.*;
 import android.net.*;
 import android.os.*;
-import android.support.v4.app.*;
 import android.support.v4.view.*;
 import android.support.v7.app.*;
 import android.widget.*;
@@ -17,8 +16,6 @@ import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.fragments.*;
-import de.ironjan.mensaupb.library.stw.deprecated.*;
 import de.ironjan.mensaupb.sync.*;
 
 @SuppressLint("Registered")
@@ -28,29 +25,24 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
 
     private static final int NUM_LOCATIONS = 4;
+    private WeekdayPagerAdapter[] adapters = new WeekdayPagerAdapter[NUM_LOCATIONS];
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
-
     @ViewById(R.id.pager)
     ViewPager mViewPager;
     @ViewById(R.id.pager_title_strip)
     PagerTabStrip mPagerTabStrip;
-
     @StringArrayRes(R.array.restaurants)
     String[] mRestaurants;
-
     @StringArrayRes(R.array.displayedRestaurants)
     String[] mDisplayedRestaurants;
     @StringArrayRes(R.array.restaurantUrls)
     String[] mRestaurantUrls;
-
     @Bean
     WeekdayHelper mwWeekdayHelper;
-
     @Bean
     AccountCreator mAccountCreator;
     private WeekdayPagerAdapter mWeekdayPagerAdapter;
     private int mLocation = 0;
-    private WeekdayPagerAdapter[] adapters = new WeekdayPagerAdapter[NUM_LOCATIONS];
 
     @Trace
     @AfterViews
@@ -158,7 +150,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void aboutClicked() {
         About_.intent(this).start();
     }
-
 
 
 }

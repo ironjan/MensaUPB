@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.*;
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
 
-import java.text.*;
 import java.util.*;
 
 /**
@@ -23,14 +22,14 @@ public class RawMenu {
     public static final String DATE = "date";
     public static final String RESTAURANT = "restaurant";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
-    @DatabaseField(generatedId = true,columnName = BaseColumns._ID)
+    @DatabaseField(generatedId = true, columnName = BaseColumns._ID)
     long _id;
     @DatabaseField
     int order_info;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
-    @DatabaseField(canBeNull = false,columnName = DATE, dataType = DataType.DATE_STRING, format = DATE_FORMAT)
+    @DatabaseField(canBeNull = false, columnName = DATE, dataType = DataType.DATE_STRING, format = DATE_FORMAT)
     private Date date;
-    @DatabaseField(canBeNull = false,columnName = "name_de")
+    @DatabaseField(canBeNull = false, columnName = "name_de")
     private String name_de;
     @DatabaseField(canBeNull = false)
     private String name_en;
@@ -46,7 +45,7 @@ public class RawMenu {
     private String subcategory_de;
     @DatabaseField
     private String subcategory_en;
-    @DatabaseField(canBeNull = false,columnName = STUDENTS_PRICE)
+    @DatabaseField(canBeNull = false, columnName = STUDENTS_PRICE)
     private double priceStudents;
     @DatabaseField(canBeNull = false)
     private double priceWorkers;
@@ -58,7 +57,7 @@ public class RawMenu {
     private Badge[] badges;
     @DatabaseField(columnName = RESTAURANT)
     private String restaurant;
-    @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE,columnName = PRICE_TYPE)
+    @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE, columnName = PRICE_TYPE)
     private PriceType pricetype;
     @DatabaseField
     private String image;

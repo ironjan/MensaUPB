@@ -8,8 +8,6 @@ import android.net.*;
 import android.provider.*;
 import android.text.*;
 
-import com.j256.ormlite.stmt.query.*;
-
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 

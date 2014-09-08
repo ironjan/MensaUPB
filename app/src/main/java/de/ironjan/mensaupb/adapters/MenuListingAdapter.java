@@ -9,21 +9,16 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.*;
 
-import com.j256.ormlite.stmt.query.*;
-
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.library.stw.*;
-import de.ironjan.mensaupb.library.stw.deprecated.*;
 import de.ironjan.mensaupb.sync.*;
 
 /**
  * An adapter to load the list of menus for a MenuListingFragment.
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
+    public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.CATEGORY, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, BaseColumns._ID};
     private static final String SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " = ?";
-
-    public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.CATEGORY, RawMenu.STUDENTS_PRICE,RawMenu.PRICE_TYPE, BaseColumns._ID};
-
     static int[] BIND_TO = {R.id.textName, R.id.textCategory, R.id.textPrice, R.id.textPricePer100g};
 
     private final String mDate;
