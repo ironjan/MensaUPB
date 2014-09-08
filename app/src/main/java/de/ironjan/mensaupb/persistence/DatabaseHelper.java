@@ -62,7 +62,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                     sqLiteDatabase.delete(Menu.TABLE, Menu.LOCATION + " = ?", new String[]{"Abendmensa"});
                     break;
                 case 3:
-                    TableUtils.createTable(connectionSource, SynchronizationReport.class);
                     sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " + Menu.LAST_UPDATE_TIMESTAMP + " INTEGER");
                     sqLiteDatabase.execSQL("UPDATE " + Menu.TABLE + " SET " + Menu.LAST_UPDATE_TIMESTAMP + "=0");
                     sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " + Menu.PRICE + " REAL");
