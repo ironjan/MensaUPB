@@ -12,6 +12,7 @@ import org.slf4j.*;
 import java.sql.*;
 
 import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.library.stw.*;
 import de.ironjan.mensaupb.library.stw.deprecated.Menu;
 import de.ironjan.mensaupb.sync.*;
 
@@ -21,7 +22,7 @@ import de.ironjan.mensaupb.sync.*;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
 
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
     private final Context mContext;
@@ -38,7 +39,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
             LOGGER.info("onCreate()");
-            TableUtils.createTable(connectionSource, Menu.class);
+            TableUtils.createTable(connectionSource, RawMenu.class);
             LOGGER.info("Created database.");
         } catch (SQLException e) {
             LOGGER.error("Can't create database", e);
@@ -69,11 +70,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                 case 4:
                 case 5:
                     sqLiteDatabase.execSQL("ALTER TABLE " + Menu.TABLE + " ADD COLUMN " +
-                            Menu.PRICE_PER_100G + " INTEGERr");
+                            Menu.PRICE_PER_100G + " INTEGER");
                     sqLiteDatabase.execSQL("UPDATE " + Menu.TABLE + " SET " +
                             Menu.PRICE_PER_100G + " = 0 WHERE " +
                             Menu.PRICE_PER_100G + " IS NULL");
                     break;
+                case 6:
+                    sqLiteDatabase.execSQL("DROP TABLE menus");
+                    TableUtils.createTable(connectionSource, RawMenu.class);
                 default:
                     if(BuildConfig.DEBUG) LOGGER.warn("Default upgrade method. Deleting and Recreating.");
                     mContext.deleteDatabase(DATABASE_NAME);
