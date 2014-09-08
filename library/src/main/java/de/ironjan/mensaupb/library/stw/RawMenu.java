@@ -15,6 +15,7 @@ import java.util.*;
 public class RawMenu {
     public static final String TABLE = "menus";
     public static final String PSEUDO_HASH = "pseudoHash";
+    public static final String NAME_GERMAN = "name_de";
     @DatabaseField(generatedId = true,columnName = BaseColumns._ID)
     long _id;
     @DatabaseField
@@ -22,7 +23,7 @@ public class RawMenu {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DatabaseField(canBeNull = false)
     private Date date;
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = false,columnName = "name_de")
     private String name_de;
     @DatabaseField(canBeNull = false)
     private String name_en;
@@ -46,8 +47,8 @@ public class RawMenu {
     private double priceGuests;
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private NewAllergen[] allergens;
-    @DatabaseField
-    private String[] badges;
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    private Badge[] badges;
     @DatabaseField
     private String restaurant;
     @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE)
@@ -185,11 +186,11 @@ public class RawMenu {
         this.order_info = order_info;
     }
 
-    public String[] getBadges() {
+    public Badge[] getBadges() {
         return badges;
     }
 
-    public void setBadges(String[] badges) {
+    public void setBadges(Badge[] badges) {
         this.badges = badges;
     }
 
