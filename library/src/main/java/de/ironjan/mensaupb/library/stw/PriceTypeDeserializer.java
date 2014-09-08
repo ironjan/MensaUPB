@@ -16,10 +16,6 @@ public class PriceTypeDeserializer extends JsonDeserializer<NewPriceType> {
         if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
             jp.nextToken();
         }
-        if (RawMenu.PRICETYPE.equals(jp.getCurrentName())) {
-            return NewPriceType.fromString(jp.getValueAsString());
-        }
-
-        return null;
+        return NewPriceType.fromString(jp.getValueAsString());
     }
 }

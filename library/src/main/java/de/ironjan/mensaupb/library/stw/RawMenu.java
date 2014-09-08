@@ -10,7 +10,6 @@ import java.util.*;
  * A class representing a raw menu with all possible information
  */
 public class RawMenu {
-    public static final String PRICETYPE = "pricetype";
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
     private String name_de;
@@ -28,7 +27,6 @@ public class RawMenu {
     int order_info;
     private String[] badges;
     private String restaurant;
-    @JsonProperty(PRICETYPE)
     private NewPriceType pricetype;
     private String image;
     private String thumbnail;
