@@ -7,6 +7,7 @@ import java.text.*;
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.library.stw.*;
 import de.ironjan.mensaupb.library.stw.deprecated.*;
 
 /**
@@ -19,7 +20,7 @@ public class WeekdayHelper {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
     public static final int WEEKEND_OFFSET = 2;
-    private static final SimpleDateFormat SDF = Menu.DATABASE_DATE_FORMAT;
+    private static final SimpleDateFormat SDF = new SimpleDateFormat(RawMenu.DATE_FORMAT);
 
     @Trace
     synchronized String getNextWeekDayAsString(int i) {

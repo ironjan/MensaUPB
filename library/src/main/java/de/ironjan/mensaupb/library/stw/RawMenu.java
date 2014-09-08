@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
 
+import java.text.*;
 import java.util.*;
 
 /**
@@ -21,12 +22,13 @@ public class RawMenu {
     public static final String PRICE_TYPE = "pricetype";
     public static final String DATE = "date";
     public static final String RESTAURANT = "restaurant";
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
     @DatabaseField(generatedId = true,columnName = BaseColumns._ID)
     long _id;
     @DatabaseField
     int order_info;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @DatabaseField(canBeNull = false,columnName = DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @DatabaseField(canBeNull = false,columnName = DATE, dataType = DataType.DATE_STRING, format = DATE_FORMAT)
     private Date date;
     @DatabaseField(canBeNull = false,columnName = "name_de")
     private String name_de;
