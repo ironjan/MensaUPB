@@ -5,15 +5,19 @@ import android.app.*;
 import android.database.*;
 import android.net.*;
 import android.os.*;
+import android.provider.*;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.*;
+
+import com.j256.ormlite.stmt.query.*;
 
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
+import de.ironjan.mensaupb.library.stw.*;
 import de.ironjan.mensaupb.library.stw.deprecated.Menu;
 import de.ironjan.mensaupb.sync.*;
 
@@ -53,9 +57,11 @@ public class MenuDetailFragment extends DialogFragment {
 
         final long _id = getArguments().getLong(ARG_ID);
         Uri uri = Uri.withAppendedPath(MenuContentProvider.MENU_URI, "" + _id);
-        String[] projection = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.ALLERGENES, Menu.PRICE, Menu.ID};
-        int[] bindTo = {R.id.textName, R.id.textCategory, R.id.textAllergens, R.id.textPrice};
 
+        // FIXME allergens!
+        String[] projection = {RawMenu.NAME_GERMAN, RawMenu.CATEGORY, RawMenu.STUDENTS_PRICE, BaseColumns._ID};
+        int[] bindTo = {R.id.textName, R.id.textCategory, R.id.textPrice};
+textAllergens.setText("Allergene werden zur Zeit nicht angezeigt. Bitte informieren Sie sich an der Essensausgabe!");
         Cursor query = getActivity().getContentResolver().query(uri, projection, null, null, null);
         query.moveToFirst();
 

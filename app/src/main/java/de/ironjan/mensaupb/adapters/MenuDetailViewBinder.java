@@ -28,7 +28,7 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
         switch (view.getId()) {
             case R.id.textAllergens:
                 String allergenes = cursor.getString(columnIndex);
-                textView.setText(Allergene.getExplanation(allergenes));
+//                textView.setText(Allergene.getExplanation(allergenes));
                 return true;
             case R.id.textPrice:
                 bindPrice((TextView) view, cursor, columnIndex);
