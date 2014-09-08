@@ -44,13 +44,13 @@ public class RawMenu {
     private double priceWorkers;
     @DatabaseField(canBeNull = false)
     private double priceGuests;
-    @DatabaseField
+    @DatabaseField(dataType = DataType.SERIALIZABLE)
     private NewAllergen[] allergens;
     @DatabaseField
     private String[] badges;
     @DatabaseField
     private String restaurant;
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE)
     private PriceType pricetype;
     @DatabaseField
     private String image;
