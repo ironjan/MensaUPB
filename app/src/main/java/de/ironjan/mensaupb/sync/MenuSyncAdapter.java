@@ -86,14 +86,13 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             Dao<RawMenu, ?> dao = DaoManager.createDao(connectionSource, RawMenu.class);
 
             for (RawMenu rawMenu : stwRest.getAll()) {
-                LOGGER.warn("{}",rawMenu    );
                 List<RawMenu> local = dao.queryForEq(RawMenu.PSEUDO_HASH, rawMenu.getPseudoHash());
-                if(local.size() > 0){
+                if (local.size() > 0) {
                     rawMenu.set_id(local.get(0).get_id());
                 }
                 dao.createIfNotExists(rawMenu);
             }
-
+            getContext().getContentResolver().notifyChange(MenuContentProvider.MENU_URI, null, false);
             databaseManager.releaseHelper(helper);
         } catch (java.sql.SQLException e) {
             LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
