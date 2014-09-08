@@ -4,7 +4,6 @@
     <!--see also stw.Restaurants-->
     <string-array name="restaurants">
         <item>@string/mensa</item>
-        <item>@string/mensaExt</item>
         <item>@string/bistroHotspot</item>
         <item>@string/grillCafe</item>
         <item>@string/cafete</item>
@@ -12,7 +11,6 @@
 
     <string-array name="displayedRestaurants">
         <item>Mensa</item>
-        <item>Mensa Erweiterung</item>
         <item>Bistro Hotspot</item>
         <item>Grill | Café</item>
         <item>Caféte</item>
