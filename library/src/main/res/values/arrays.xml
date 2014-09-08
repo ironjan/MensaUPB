@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="allergens">
+        <item>Farbstoff</item>
+        <item>konserviert</item>
+        <item>Antioxidationsmittel</item>
+        <item>Geschmacksverstärker</item>
+        <item>Phosphat</item>
+        <item>geschwefelt</item>
+        <item>gewachst</item>
+        <item>geschwärzt</item>
+        <item>Süßungsmittel</item>
+        <item>enthält eine Phenylalaninquelle</item>
+        <item>Taurin</item>
+        <item>Nitratpökelsalz</item>
+        <item>koffeinhaltig</item>
+        <item>chininhaltig</item>
+        <item>Milcheiweiß</item>
+        <item>Krebstiere und Krebstiererzeugnisse</item>
+        <item>Eier und Eiererzeugnisse</item>
+        <item>Fisch</item>
+        <item>Soja und Sojaerzeugnisse</item>
+        <item>Milch und Milcherzeugnisse(einschließlich Lactose)</item>
+        <item>Schalenfrüchte sowie daraus hergest. Erzeugnisse</item>
+        <item>Sellerie und Sellerieerzeugnisse</item>
+        <item>Senf und Senferzeugnisse</item>
+        <item>Sesamsamen und Sesamsamenerzeugnisse</item>
+        <item>Schwefeldioxid und Sulfite</item>
+        <item>Weichtiere und Weichtiererzeugnisse</item>
+        <item>Lupinen und Lupinenerzeugnisse</item>
+    </string-array>
+</resources>
