@@ -2,7 +2,7 @@ language: android
 android:
   components:
     - build-tools-19.1.0
-    - android-L
+    - android-20
     - sys-img-armeabi-v7a-android-l
     - add-on
     - extra
