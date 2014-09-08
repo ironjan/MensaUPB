@@ -58,20 +58,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
                     break;
                 case 2:
                     // there was a bug which added many entries to abendmensa....
-                    sqLiteDatabase.delete("menus", "location" + " = ?", new String[]{"Abendmensa"});
+                    sqLiteDatabase.delete("menus", "location = ?", new String[]{"Abendmensa"});
                     break;
                 case 3:
-                    sqLiteDatabase.execSQL("ALTER TABLE " + "menus" + " ADD COLUMN " + "lastUpdateTimestamp" + " INTEGER");
-                    sqLiteDatabase.execSQL("UPDATE " + "menus" + " SET " + "lastUpdateTimestamp" + "=0");
-                    sqLiteDatabase.execSQL("ALTER TABLE " + "menus" + " ADD COLUMN " + "price" + " REAL");
+                    sqLiteDatabase.execSQL("ALTER TABLE menus ADD COLUMN lastUpdateTimestamp INTEGER");
+                    sqLiteDatabase.execSQL("UPDATE menus SET lastUpdateTimestamp=0");
+                    sqLiteDatabase.execSQL("ALTER TABLE menus ADD COLUMN price REAL");
                     break;
                 case 4:
                 case 5:
-                    sqLiteDatabase.execSQL("ALTER TABLE " + "menus" + " ADD COLUMN " +
-                            "pricePer100g" + " INTEGER");
-                    sqLiteDatabase.execSQL("UPDATE " + "menus" + " SET " +
-                            "pricePer100g" + " = 0 WHERE " +
-                            "pricePer100g" + " IS NULL");
+                    sqLiteDatabase.execSQL("ALTER TABLE menus ADD COLUMN pricePer100g INTEGER");
+                    sqLiteDatabase.execSQL("UPDATE menus SET pricePer100g = 0 WHERE pricePer100g IS NULL");
                     break;
                 case 6:
                     sqLiteDatabase.execSQL("DROP TABLE menus");
