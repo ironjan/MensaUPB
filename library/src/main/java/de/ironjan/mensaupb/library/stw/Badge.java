@@ -3,6 +3,8 @@ package de.ironjan.mensaupb.library.stw;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.*;
 
+import de.ironjan.mensaupb.library.stw.deserializer.*;
+
 /**
  * Enum for the badges used
  */

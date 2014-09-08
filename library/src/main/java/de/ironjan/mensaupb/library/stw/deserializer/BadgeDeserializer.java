@@ -1,9 +1,11 @@
-package de.ironjan.mensaupb.library.stw;
+package de.ironjan.mensaupb.library.stw.deserializer;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 
 import java.io.*;
+
+import de.ironjan.mensaupb.library.stw.*;
 
 /**
  * Deserializer for badges

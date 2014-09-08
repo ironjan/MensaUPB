@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.library.stw;
 import com.fasterxml.jackson.databind.annotation.*;
 
 import de.ironjan.mensaupb.library.*;
+import de.ironjan.mensaupb.library.stw.deserializer.*;
 
 /**
  * Rewrite of the Allergen class
