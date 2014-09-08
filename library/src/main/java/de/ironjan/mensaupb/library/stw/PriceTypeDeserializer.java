@@ -7,7 +7,7 @@ import com.j256.ormlite.stmt.query.*;
 import java.io.*;
 
 /**
- * Created by ljan on 01.09.14.
+ * A class to deserialize NewPriceTypes
  */
 public class PriceTypeDeserializer extends JsonDeserializer<NewPriceType> {
 

@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.*;
 import java.io.*;
 
 /**
- * Created by ljan on 01.09.14.
+ * A class to deserialize NewAllergens
  */
 public class AllergenDeserializer extends JsonDeserializer<NewAllergen> {
 

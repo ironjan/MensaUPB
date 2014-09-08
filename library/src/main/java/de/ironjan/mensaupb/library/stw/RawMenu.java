@@ -5,34 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.*;
 
 /**
- * <code>
- * {
- * "date": "2014-08-27",
- * "name_de": "Kabeljau auf Linsen-Mango-Salsa, Chili-Kartoffelpüree",
- * "name_en": "Codfish of lentils mango salsa, chili potato puree",
- * "description_de": "",
- * "description_en": "",
- * "category_de": "Essen",
- * "category_en": "Dish",
- * "subcategory_de": "",
- * "subcategory_en": "",
- * "priceStudents": 5.2,
- * "priceWorkers": 5.2,
- * "priceGuests": 5.2,
- * "allergens": [
- * "15",
- * "A7"
- * ],
- * "order_info": 0,
- * "badges": [
- * "nonfat"
- * ],
- * "restaurant": "mensa-paderborn",
- * "pricetype": "fixed",
- * "image": "http://www.studentenwerk-pb.de/fileadmin/shareddata/images/3556.jpg",
- * "thumbnail": "http://www.studentenwerk-pb.de/fileadmin/shareddata/thumb.php?src=3556.jpg"
- * }
- * </code>
+ * A class representing a raw menu with all possible information
  */
 public class RawMenu {
     public static final String PRICETYPE = "pricetype";
@@ -57,6 +30,7 @@ public class RawMenu {
     private NewPriceType pricetype;
     private String image;
     private String thumbnail;
+    private int hash;
 
     public RawMenu() {
     }
@@ -68,6 +42,7 @@ public class RawMenu {
     public void setDate(Date date) {
         this.date = date;
     }
+
 
     public String getName_de() {
         return name_de;
@@ -237,4 +212,6 @@ public class RawMenu {
                 ", thumbnail='" + thumbnail + '\'' +
                 '}';
     }
+
+
 }

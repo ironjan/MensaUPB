@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.*;
 
 /**
- * Created by ljan on 01.09.14.
+ * An enum to list all possible price types
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @JsonDeserialize(using = PriceTypeDeserializer.class)

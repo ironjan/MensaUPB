@@ -18,6 +18,9 @@ import java.util.*;
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.library.stw.*;
 
+/**
+ * SyncAdapter to download and persist menus.
+ */
 public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
 
@@ -68,7 +71,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         }
 
         for(RawMenu rawMenu: stwRest.getAll()){
-            LOGGER.trace("{}",rawMenu);
+            // TODO: persist update
         }
 
         if (LOGGER.isDebugEnabled()) {

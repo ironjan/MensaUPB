@@ -1,7 +1,7 @@
 package de.ironjan.mensaupb.library.stw;
 
 /**
- * Created by ljan on 07.09.14.
+ * Rewrite of the Allergen class
  */
 public enum NewAllergen {
     UNKNOWN(0, ""),
