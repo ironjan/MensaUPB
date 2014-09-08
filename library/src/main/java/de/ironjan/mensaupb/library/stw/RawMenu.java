@@ -1,5 +1,7 @@
 package de.ironjan.mensaupb.library.stw;
 
+import android.util.*;
+
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.*;
@@ -30,7 +32,7 @@ public class RawMenu {
     private NewPriceType pricetype;
     private String image;
     private String thumbnail;
-    private int hash;
+    private long pseudoHash;
 
     public RawMenu() {
     }
@@ -41,15 +43,17 @@ public class RawMenu {
 
     public void setDate(Date date) {
         this.date = date;
+        updatePseudoHash();
     }
-
 
     public String getName_de() {
         return name_de;
     }
 
+
     public void setName_de(String name_de) {
         this.name_de = name_de;
+        updatePseudoHash();
     }
 
     public String getName_en() {
@@ -162,6 +166,7 @@ public class RawMenu {
 
     public void setRestaurant(String restaurant) {
         this.restaurant = restaurant;
+        updatePseudoHash();
     }
 
     public NewPriceType getPricetype() {
@@ -188,11 +193,25 @@ public class RawMenu {
         this.thumbnail = thumbnail;
     }
 
+    private void updatePseudoHash() {
+        // using some arbitrary positive non-zero ints as base
+        int dateHash = (date != null) ? date.hashCode() : 3;
+        int nameHash = (name_de != null) ? name_de.hashCode() : 5;
+        int restaurantHash = (restaurant != null) ? restaurant.hashCode() : 7;
+        long pseudoHash = 17;
+        pseudoHash = 31 * pseudoHash + dateHash;
+        pseudoHash = 31 * pseudoHash + nameHash;
+        pseudoHash = 31 * pseudoHash + restaurantHash;
+        this.pseudoHash = pseudoHash;
+    }
+
     @Override
     public String toString() {
         return "RawMenu{" +
                 "date=" + date +
                 ", name_de='" + name_de + '\'' +
+                ", restaurant='" + restaurant + '\'' +
+                ", pseudoHash=" + pseudoHash +
                 ", name_en='" + name_en + '\'' +
                 ", description_de='" + description_de + '\'' +
                 ", description_en='" + description_en + '\'' +
@@ -206,12 +225,13 @@ public class RawMenu {
                 ", allergens=" + Arrays.toString(allergens) +
                 ", order_info=" + order_info +
                 ", badges=" + Arrays.toString(badges) +
-                ", restaurant='" + restaurant + '\'' +
                 ", pricetype=" + pricetype +
                 ", image='" + image + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
                 '}';
     }
 
-
+    public long getPseudoHash() {
+        return pseudoHash;
+    }
 }
