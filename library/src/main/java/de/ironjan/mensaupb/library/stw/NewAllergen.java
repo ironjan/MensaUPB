@@ -2,46 +2,50 @@ package de.ironjan.mensaupb.library.stw;
 
 import com.fasterxml.jackson.databind.annotation.*;
 
+import de.ironjan.mensaupb.library.*;
+
 /**
  * Rewrite of the Allergen class
  */
 @JsonDeserialize(using = AllergenDeserializer.class)
 public enum NewAllergen {
-    UNKNOWN(0, ""),
-    COLORED(1, Constants.COLORED),
-    CONSERVED(2, Constants.CONSERVED),
-    ANTIOXIDANTS(3, Constants.ANTIOXIDANTS),
-    FLAVOR_ENHANCERS(4, Constants.FLAVOR_ENHANCERS),
-    PHOSPHAT(5, Constants.PHOSPHAT),
-    SULFURATED(6, Constants.SULFURATED),
-    WAXED(7, Constants.WAXED),
-    BLACKENED(8, Constants.BLACKENED),
-    SWEETENER(9, Constants.SWEETENER),
-    PHENYLALANINE(10, Constants.PHENYLALANINE),
-    TAURINE(11, Constants.TAURINE),
-    NITRATE_SALT(12, Constants.NITRATE_SALT),
-    COFFEINE(13, Constants.COFFEINE),
-    QUININE(14, Constants.QUININE),
-    LACTOPROTEIN(15, Constants.LACTOPROTEIN),
-    CRUSTACEAN(16, Constants.CRUSTACEAN),
-    EGGS(17, Constants.EGGS),
-    FISH(18, Constants.FISH),
-    SOYA(19, Constants.SOYA),
-    LACTOSE(20, Constants.LACTOSE),
-    NUTS(21, Constants.NUTS),
-    CELERIAC(22, Constants.CELERIAC),
-    MUSTARD(23, Constants.MUSTARD),
-    SESAME(24, Constants.SESAME),
-    SULFITES(25, Constants.SULFITES),
-    MOLLUSKS(26, Constants.MOLLUSKS),
-    LUPINE(27, Constants.LUPINE);
+    UNKNOWN(0, "", R.string.empty),
+    COLORED(1, Constants.COLORED, R.string.colored),
+    CONSERVED(2, Constants.CONSERVED, R.string.conserved),
+    ANTIOXIDANTS(3, Constants.ANTIOXIDANTS, R.string.antioxidants),
+    FLAVOR_ENHANCERS(4, Constants.FLAVOR_ENHANCERS, R.string.tasteEnhancer),
+    PHOSPHAT(5, Constants.PHOSPHAT, R.string.phosphate),
+    SULFURATED(6, Constants.SULFURATED, R.string.sulfured),
+    WAXED(7, Constants.WAXED, R.string.waxed),
+    BLACKENED(8, Constants.BLACKENED, R.string.blackened),
+    SWEETENER(9, Constants.SWEETENER, R.string.sweetener),
+    PHENYLALANINE(10, Constants.PHENYLALANINE, R.string.phenylalanine),
+    TAURINE(11, Constants.TAURINE, R.string.taurine),
+    NITRATE_SALT(12, Constants.NITRATE_SALT, R.string.nitrate_salt),
+    COFFEINE(13, Constants.COFFEINE, R.string.caffeine),
+    QUININE(14, Constants.QUININE, R.string.quinine),
+    LACTOPROTEIN(15, Constants.LACTOPROTEIN, R.string.lacto_protein),
+    CRUSTACEAN(16, Constants.CRUSTACEAN, R.string.crustacean),
+    EGGS(17, Constants.EGGS, R.string.eggs),
+    FISH(18, Constants.FISH, R.string.fish),
+    SOYA(19, Constants.SOYA, R.string.soy),
+    LACTOSE(20, Constants.LACTOSE, R.string.milk),
+    NUTS(21, Constants.NUTS, R.string.nuts),
+    CELERIAC(22, Constants.CELERIAC, R.string.celeriac),
+    MUSTARD(23, Constants.MUSTARD, R.string.mustard),
+    SESAME(24, Constants.SESAME, R.string.sesame),
+    SULFITES(25, Constants.SULFITES, R.string.sulfates),
+    MOLLUSKS(26, Constants.MOLLUSKS, R.string.mollusks),
+    LUPINE(27, Constants.LUPINE, R.string.lupines);
 
     private int ordinal;
     private String type;
+    private int string;
 
-    NewAllergen(int ordinal, String type) {
+    NewAllergen(int ordinal, String type, int string) {
         this.ordinal = ordinal;
         this.type = type;
+        string = string;
     }
 
     public static NewAllergen fromType(String s) {
@@ -114,6 +118,10 @@ public enum NewAllergen {
         return ordinal;
     }
 
+    public int getString() {
+        return string;
+    }
+
     private static class Constants {
         public static final String COLORED = "1";
         public static final String CONSERVED = "2";
@@ -140,7 +148,7 @@ public enum NewAllergen {
         public static final String MUSTARD = "A10";
         public static final String SESAME = "A11";
         public static final String SULFITES = "A12";
-        public static final String MOLLUSKS = "A14";
         public static final String LUPINE = "A13";
+        public static final String MOLLUSKS = "A14";
     }
 }
