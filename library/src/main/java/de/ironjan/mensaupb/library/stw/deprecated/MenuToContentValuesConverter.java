@@ -1,11 +1,14 @@
-package de.ironjan.mensaupb.library.stw;
+package de.ironjan.mensaupb.library.stw.deprecated;
 
 import android.content.ContentValues;
+
+import de.ironjan.mensaupb.library.stw.deprecated.*;
 
 
 /**
  * TODO javadoc
  */
+@Deprecated
 public class MenuToContentValuesConverter {
 
 

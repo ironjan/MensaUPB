@@ -13,7 +13,7 @@ import org.slf4j.*;
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.library.stw.deprecated.*;
 import de.ironjan.mensaupb.persistence.*;
 
 /**

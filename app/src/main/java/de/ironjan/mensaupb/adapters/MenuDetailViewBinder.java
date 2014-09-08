@@ -7,7 +7,7 @@ import android.widget.*;
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.library.stw.deprecated.*;
 
 /**
  * Extension of MenuListItemViewBinder to show explained allergens too

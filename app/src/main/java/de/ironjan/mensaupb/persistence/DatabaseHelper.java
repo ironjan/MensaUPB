@@ -12,7 +12,7 @@ import org.slf4j.*;
 import java.sql.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.library.stw.Menu;
+import de.ironjan.mensaupb.library.stw.deprecated.Menu;
 import de.ironjan.mensaupb.sync.*;
 
 /**

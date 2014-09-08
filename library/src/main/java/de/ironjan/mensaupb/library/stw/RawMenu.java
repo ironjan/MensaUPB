@@ -1,7 +1,5 @@
 package de.ironjan.mensaupb.library.stw;
 
-import android.util.*;
-
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.*;
@@ -27,7 +25,7 @@ public class RawMenu {
     int order_info;
     private String[] badges;
     private String restaurant;
-    private NewPriceType pricetype;
+    private PriceType pricetype;
     private String image;
     private String thumbnail;
     private long pseudoHash;
@@ -167,11 +165,11 @@ public class RawMenu {
         updatePseudoHash();
     }
 
-    public NewPriceType getPricetype() {
+    public PriceType getPricetype() {
         return pricetype;
     }
 
-    public void setPricetype(NewPriceType pricetype) {
+    public void setPricetype(PriceType pricetype) {
         this.pricetype = pricetype;
     }
 

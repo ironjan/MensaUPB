@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.library.stw;
+package de.ironjan.mensaupb.library.stw.deprecated;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +8,7 @@ import java.util.Hashtable;
 
 import de.ironjan.mensaupb.library.BuildConfig;
 
+@Deprecated
 public class StwCategoryParser {
     public static final String CATEGORY_ESSEN = "Essen";
     public static final String CATEGORY_PASTA = "Pasta";

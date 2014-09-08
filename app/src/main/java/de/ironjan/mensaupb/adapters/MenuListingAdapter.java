@@ -9,7 +9,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.library.stw.deprecated.*;
 import de.ironjan.mensaupb.sync.*;
 
 /**

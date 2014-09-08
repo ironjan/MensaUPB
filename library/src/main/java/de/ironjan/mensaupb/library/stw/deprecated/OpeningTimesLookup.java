@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.library.stw;
+package de.ironjan.mensaupb.library.stw.deprecated;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
@@ -12,6 +12,7 @@ import java.util.Date;
  * TODO javadoc
  */
 @EBean(scope = EBean.Scope.Singleton)
+@Deprecated
 public class OpeningTimesLookup {
     @Bean
     Restaurants mRestaurants;

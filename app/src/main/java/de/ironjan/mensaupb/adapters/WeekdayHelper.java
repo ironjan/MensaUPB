@@ -7,7 +7,7 @@ import java.text.*;
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.library.stw.deprecated.*;
 
 /**
  * Created by ljan on 4/28/14.

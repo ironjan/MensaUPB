@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.library.stw;
+package de.ironjan.mensaupb.library.stw.deprecated;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.res.StringArrayRes;
@@ -7,12 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.library.BuildConfig;
-import de.ironjan.mensaupb.library.R;
 
 /**
  * TODO this class needs to be transformed into a "resource access point"
  */
 @EBean(scope = EBean.Scope.Singleton)
+@Deprecated
 public class Restaurants {
     @StringRes(resName="mensa")
     String mensa;

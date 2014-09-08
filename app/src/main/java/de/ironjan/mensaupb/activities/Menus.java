@@ -18,7 +18,7 @@ import org.slf4j.*;
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.fragments.*;
-import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.library.stw.deprecated.*;
 import de.ironjan.mensaupb.sync.*;
 
 @SuppressLint("Registered")

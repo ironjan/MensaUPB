@@ -8,13 +8,13 @@ import com.fasterxml.jackson.databind.annotation.*;
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @JsonDeserialize(using = PriceTypeDeserializer.class)
-public enum NewPriceType {
+public enum PriceType {
     FIXED(0, Constants.FIXED_STRING), WEIGHT(1, Constants.WEIGHT_STRING);
 
     private final int id;
     private final String name;
 
-    private NewPriceType(final int id, final String name) {
+    private PriceType(final int id, final String name) {
         this.id = id;
         this.name = name;
     }
@@ -28,7 +28,7 @@ public enum NewPriceType {
         return name;
     }
 
-    public static NewPriceType fromString(String s) {
+    public static PriceType fromString(String s) {
         if (Constants.FIXED_STRING.equals(s)) {
             return FIXED;
         }

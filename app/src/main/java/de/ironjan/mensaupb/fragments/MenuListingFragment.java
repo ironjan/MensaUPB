@@ -10,7 +10,7 @@ import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.library.stw.deprecated.*;
 
 @EFragment(R.layout.fragment_menu_listing)
 public class MenuListingFragment extends ListFragment {

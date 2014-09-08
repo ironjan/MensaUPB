@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.library.stw;
+package de.ironjan.mensaupb.library.stw.deprecated;
 
 import android.provider.BaseColumns;
 
@@ -13,6 +13,7 @@ import java.util.IllegalFormatException;
  * TODO javadoc
  */
 @DatabaseTable(tableName = Menu.TABLE)
+@Deprecated
 public class Menu {
     public static final String TABLE = "menus";
     public static final String NAME_GERMAN = "nameGerman";

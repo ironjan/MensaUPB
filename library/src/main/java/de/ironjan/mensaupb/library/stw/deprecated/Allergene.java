@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.library.stw;
+package de.ironjan.mensaupb.library.stw.deprecated;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import de.ironjan.mensaupb.library.BuildConfig;
-
+@Deprecated
 public class Allergene {
     public static final String ALLEGERNE_DELIMITER = ", ";
     private static final Logger LOGGER = LoggerFactory.getLogger(Allergene.class.getSimpleName());

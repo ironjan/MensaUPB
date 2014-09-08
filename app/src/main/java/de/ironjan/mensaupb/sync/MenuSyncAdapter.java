@@ -34,14 +34,14 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
-        stwRest = new StwRest_() ;
+        stwRest = new StwRest_(context) ;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private MenuSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
         mContentResolver = context.getContentResolver();
-        stwRest = new StwRest_() ;
+        stwRest = new StwRest_(context) ;
     }
 
     public static MenuSyncAdapter getInstance(Context context) {
