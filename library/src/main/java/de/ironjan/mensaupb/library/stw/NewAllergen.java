@@ -46,7 +46,7 @@ public enum NewAllergen {
     NewAllergen(int ordinal, String type, int string) {
         this.ordinal = ordinal;
         this.type = type;
-        string = string;
+        this.string = string;
     }
 
     public static NewAllergen fromType(String s) {
