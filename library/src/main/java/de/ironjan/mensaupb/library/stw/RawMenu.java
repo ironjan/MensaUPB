@@ -16,12 +16,17 @@ public class RawMenu {
     public static final String TABLE = "menus";
     public static final String PSEUDO_HASH = "pseudoHash";
     public static final String NAME_GERMAN = "name_de";
+    public static final String CATEGORY = "category_de";
+    public static final String STUDENTS_PRICE = "priceStudents";
+    public static final String PRICE_TYPE = "pricetype";
+    public static final String DATE = "date";
+    public static final String RESTAURANT = "restaurant";
     @DatabaseField(generatedId = true,columnName = BaseColumns._ID)
     long _id;
     @DatabaseField
     int order_info;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = false,columnName = DATE)
     private Date date;
     @DatabaseField(canBeNull = false,columnName = "name_de")
     private String name_de;
@@ -39,7 +44,7 @@ public class RawMenu {
     private String subcategory_de;
     @DatabaseField
     private String subcategory_en;
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = false,columnName = STUDENTS_PRICE)
     private double priceStudents;
     @DatabaseField(canBeNull = false)
     private double priceWorkers;
@@ -49,9 +54,9 @@ public class RawMenu {
     private NewAllergen[] allergens;
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private Badge[] badges;
-    @DatabaseField
+    @DatabaseField(columnName = RESTAURANT)
     private String restaurant;
-    @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE)
+    @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE,columnName = PRICE_TYPE)
     private PriceType pricetype;
     @DatabaseField
     private String image;
