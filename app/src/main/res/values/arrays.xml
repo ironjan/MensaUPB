@@ -4,23 +4,26 @@
     <!--see also stw.Restaurants-->
     <string-array name="restaurants">
         <item>@string/mensa</item>
-        <item>@string/abendmensa</item>
-        <item>@string/pub</item>
-        <item>@string/hotspot</item>
+        <item>@string/mensaExt</item>
+        <item>@string/bistroHotspot</item>
+        <item>@string/grillCafe</item>
+        <item>@string/cafete</item>
     </string-array>
 
     <string-array name="displayedRestaurants">
         <item>Mensa</item>
-        <item>Abendmensa</item>
-        <item>Pub</item>
-        <item>Hotspot</item>
+        <item>Mensa Erweiterung</item>
+        <item>Bistro Hotspot</item>
+        <item>Grill | Café</item>
+        <item>Caféte</item>
     </string-array>
 
     <string-array name="restaurantUrls">
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/mensa/</item>
-        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/abendmensa/</item>
-        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/gownsmen-s-pub/</item>
+        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/mensa/</item>
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/bistro-hotspot/</item>
+        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/grill-cafe/</item>
+        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/cafete/</item>
     </string-array>
 
     <string-array name="opening_times">

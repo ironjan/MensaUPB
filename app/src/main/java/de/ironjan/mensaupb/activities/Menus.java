@@ -50,14 +50,11 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     private WeekdayPagerAdapter mWeekdayPagerAdapter;
     private int mLocation = 0;
     private WeekdayPagerAdapter[] adapters = new WeekdayPagerAdapter[4];
-    @Bean
-    RestaurantProvider mRestaurantProvider;
 
     @Trace
     @AfterViews
     @Background
     void init() {
-        mLocation = mRestaurantProvider.getLocation();
         initPager();
         initActionBar();
     }
@@ -161,12 +158,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         About_.intent(this).start();
     }
 
-    @OptionsItem(R.id.ab_times)
-    void timesClicked() {
-        FragmentManager fm = getSupportFragmentManager();
-        RestaurantDetailFragment fragment = RestaurantDetailFragment.newInstance(mLocation);
-        fragment.show(fm, "fragment_edit_name");
-    }
 
 
 }
