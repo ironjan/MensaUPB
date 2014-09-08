@@ -16,7 +16,7 @@ import de.ironjan.mensaupb.library.stw.deprecated.*;
 public class MenuListingFragment extends ListFragment {
 
     public static String ARG_DATE = "date";
-    public static String ARG_LOCATION = "location";
+    public static String ARG_LOCATION = "restaurant";
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
     private MenuListingAdapter adapter;
@@ -25,15 +25,9 @@ public class MenuListingFragment extends ListFragment {
     View mLoadingView;
     @ViewById(android.R.id.content)
     View mNoMenus;
-    @Bean
-    OpeningTimesLookup mOpeningTimesLookup;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (mOpeningTimesLookup.isPotentiallyClosed(getArgDate()
-                , getArgLocation())) {
-            return inflater.inflate(R.layout.fragment_menu_listing_closed, null);
-        }
         return null;
     }
 
