@@ -7,6 +7,7 @@ import android.widget.*;
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.library.stw.*;
 
 /**
  * Extension of MenuListItemViewBinder to show explained allergens too
@@ -51,16 +52,14 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
     }
 
     private void bindPricePer100g(TextView view, Cursor cursor, int columnIndex) {
-        // TODO fix with enum type
-//        cursor.getBlob(columnIndex-1);
-//        Double price = cursor.getDouble(columnIndex - 1);
-//        if (price == 0) {
-//            return;
-//        }
-//
-//        Boolean pricePer100g = "1".equals(cursor.getStringId(columnIndex));
-//        if (pricePer100g) {
-//            view.setText("/100g");
-//        }
+        double price = cursor.getDouble(columnIndex - 1);
+        if (price == 0) {
+            return;
+        }
+
+        PriceType priceType = PriceType.fromString(cursor.getString(columnIndex));
+        if (priceType == PriceType.WEIGHT) {
+            view.setText("/100g");
+        }
     }
 }
