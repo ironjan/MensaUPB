@@ -76,11 +76,18 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             Dao<RawMenu, ?> dao = DaoManager.createDao(connectionSource, RawMenu.class);
 
             for (RawMenu rawMenu : stwRest.getAll()) {
-                List<RawMenu> local = dao.queryForEq(RawMenu.PSEUDO_HASH, rawMenu.getPseudoHash());
+                List<RawMenu> local = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, rawMenu.getName_de())
+                        .and().eq(RawMenu.DATE, rawMenu.getDate())
+                        .and().eq(RawMenu.RESTAURANT, rawMenu.getRestaurant())
+                        .query();
                 if (local.size() > 0) {
                     rawMenu.set_id(local.get(0).get_id());
                 }
-                dao.createOrUpdate(rawMenu);
+                Dao.CreateOrUpdateStatus orUpdate = dao.createOrUpdate(rawMenu);
+                if (orUpdate.isCreated())
+                    LOGGER.info("Created new menu in db.");
+                else
+                    LOGGER.info("Updated menu in db.");
             }
             getContext().getContentResolver().notifyChange(MenuContentProvider.MENU_URI, null, false);
             databaseManager.releaseHelper(helper);
