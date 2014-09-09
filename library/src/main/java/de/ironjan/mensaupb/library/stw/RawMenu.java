@@ -14,7 +14,6 @@ import java.util.*;
 @DatabaseTable(tableName = RawMenu.TABLE)
 public class RawMenu {
     public static final String TABLE = "menus";
-    public static final String PSEUDO_HASH = "pseudoHash";
     public static final String NAME_GERMAN = "name_de";
     public static final String CATEGORY = "category_de";
     public static final String STUDENTS_PRICE = "priceStudents";
@@ -27,7 +26,7 @@ public class RawMenu {
     long _id;
     @DatabaseField
     int order_info;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT, timezone = "CET")
     @DatabaseField(canBeNull = false, columnName = DATE, dataType = DataType.DATE_STRING, format = DATE_FORMAT)
     private Date date;
     @DatabaseField(canBeNull = false, columnName = "name_de")
@@ -64,8 +63,6 @@ public class RawMenu {
     private String image;
     @DatabaseField
     private String thumbnail;
-    @DatabaseField(canBeNull = false, columnName = PSEUDO_HASH)
-    private long pseudoHash;
 
     public RawMenu() {
     }
@@ -84,7 +81,6 @@ public class RawMenu {
 
     public void setDate(Date date) {
         this.date = date;
-        updatePseudoHash();
     }
 
     public String getName_de() {
@@ -94,7 +90,6 @@ public class RawMenu {
 
     public void setName_de(String name_de) {
         this.name_de = name_de;
-        updatePseudoHash();
     }
 
     public String getName_en() {
@@ -220,7 +215,6 @@ public class RawMenu {
 
     public void setRestaurant(String restaurant) {
         this.restaurant = restaurant;
-        updatePseudoHash();
     }
 
     public PriceType getPricetype() {
@@ -247,17 +241,6 @@ public class RawMenu {
         this.thumbnail = thumbnail;
     }
 
-    private synchronized void updatePseudoHash() {
-        // using some arbitrary positive non-zero ints as base
-        int dateHash = (date != null) ? date.hashCode() : 3;
-        int nameHash = (name_de != null) ? name_de.hashCode() : 5;
-        int restaurantHash = (restaurant != null) ? restaurant.hashCode() : 7;
-        long pseudoHash = 17;
-        pseudoHash = 31 * pseudoHash + dateHash;
-        pseudoHash = 31 * pseudoHash + nameHash;
-        pseudoHash = 31 * pseudoHash + restaurantHash;
-        this.pseudoHash = pseudoHash;
-    }
 
     @Override
     public String toString() {
@@ -265,7 +248,6 @@ public class RawMenu {
                 "date=" + date +
                 ", name_de='" + name_de + '\'' +
                 ", restaurant='" + restaurant + '\'' +
-                ", pseudoHash=" + pseudoHash +
                 ", name_en='" + name_en + '\'' +
                 ", description_de='" + description_de + '\'' +
                 ", description_en='" + description_en + '\'' +
@@ -285,7 +267,4 @@ public class RawMenu {
                 '}';
     }
 
-    public long getPseudoHash() {
-        return pseudoHash;
-    }
 }
