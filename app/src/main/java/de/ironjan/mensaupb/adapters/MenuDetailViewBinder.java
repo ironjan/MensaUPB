@@ -58,7 +58,7 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
 //            return;
 //        }
 //
-//        Boolean pricePer100g = "1".equals(cursor.getString(columnIndex));
+//        Boolean pricePer100g = "1".equals(cursor.getStringId(columnIndex));
 //        if (pricePer100g) {
 //            view.setText("/100g");
 //        }

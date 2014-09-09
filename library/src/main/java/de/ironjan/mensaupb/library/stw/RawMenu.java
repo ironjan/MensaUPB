@@ -22,6 +22,7 @@ public class RawMenu {
     public static final String DATE = "date";
     public static final String RESTAURANT = "restaurant";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String ALLERGENS = "allergens";
     @DatabaseField(generatedId = true, columnName = BaseColumns._ID)
     long _id;
     @DatabaseField
@@ -51,13 +52,13 @@ public class RawMenu {
     private double priceWorkers;
     @DatabaseField(canBeNull = false)
     private double priceGuests;
-    @DatabaseField(dataType = DataType.SERIALIZABLE)
+    @DatabaseField(columnName = ALLERGENS, dataType = DataType.SERIALIZABLE)
     private NewAllergen[] allergens;
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private Badge[] badges;
     @DatabaseField(columnName = RESTAURANT)
     private String restaurant;
-    @DatabaseField(canBeNull = false, dataType = DataType.SERIALIZABLE, columnName = PRICE_TYPE)
+    @DatabaseField(canBeNull = false, columnName = PRICE_TYPE)
     private PriceType pricetype;
     @DatabaseField
     private String image;
@@ -182,6 +183,19 @@ public class RawMenu {
 
     public void setAllergens(NewAllergen[] allergens) {
         this.allergens = allergens;
+        cleanAllergens();
+    }
+
+    private synchronized void cleanAllergens() {
+        Vector<NewAllergen> copy = new Vector<NewAllergen>(allergens.length);
+        for (NewAllergen allergen : allergens) {
+            if (allergen != NewAllergen.UNKNOWN) {
+                copy.add(allergen);
+            }
+        }
+        allergens = new NewAllergen[copy.size()];
+        copy.copyInto(allergens);
+        System.currentTimeMillis();
     }
 
     public int getOrder_info() {
@@ -233,7 +247,7 @@ public class RawMenu {
         this.thumbnail = thumbnail;
     }
 
-    private void updatePseudoHash() {
+    private synchronized void updatePseudoHash() {
         // using some arbitrary positive non-zero ints as base
         int dateHash = (date != null) ? date.hashCode() : 3;
         int nameHash = (name_de != null) ? name_de.hashCode() : 5;

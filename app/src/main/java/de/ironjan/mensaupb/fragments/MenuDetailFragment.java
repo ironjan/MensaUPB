@@ -2,21 +2,20 @@ package de.ironjan.mensaupb.fragments;
 
 
 import android.app.*;
-import android.database.*;
-import android.net.*;
 import android.os.*;
-import android.provider.*;
 import android.support.v4.app.DialogFragment;
-import android.view.*;
 import android.widget.*;
+
+import com.j256.ormlite.android.*;
+import com.j256.ormlite.dao.*;
+import com.j256.ormlite.support.*;
 
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.library.stw.*;
-import de.ironjan.mensaupb.sync.*;
+import de.ironjan.mensaupb.persistence.*;
 
 @EFragment(R.layout.fragment_menu_detail)
 public class MenuDetailFragment extends DialogFragment {
@@ -53,23 +52,35 @@ public class MenuDetailFragment extends DialogFragment {
         if (BuildConfig.DEBUG) LOGGER.debug("bindData()");
 
         final long _id = getArguments().getLong(ARG_ID);
-        Uri uri = Uri.withAppendedPath(MenuContentProvider.MENU_URI, "" + _id);
 
-        // FIXME allergens!
-        String[] projection = {RawMenu.NAME_GERMAN, RawMenu.CATEGORY, RawMenu.STUDENTS_PRICE, BaseColumns._ID};
-        int[] bindTo = {R.id.textName, R.id.textCategory, R.id.textPrice};
-        textAllergens.setText("Allergene werden zur Zeit nicht angezeigt. Bitte informieren Sie sich an der Essensausgabe!");
-        Cursor query = getActivity().getContentResolver().query(uri, projection, null, null, null);
-        query.moveToFirst();
-
-        MenuDetailViewBinder viewBinder = new MenuDetailViewBinder();
-
-        for (int i = 0; i < bindTo.length; i++) {
-            View view = getView().findViewById(bindTo[i]);
-            viewBinder.setViewValue(view, query, i);
+        try {
+            DatabaseManager databaseManager = new DatabaseManager();
+            DatabaseHelper helper = (databaseManager.getHelper(getActivity()));
+            ConnectionSource connectionSource =
+                    new AndroidConnectionSource(helper);
+            Dao<RawMenu, Long> dao = DaoManager.createDao(connectionSource, RawMenu.class);
+            RawMenu rawMenu = dao.queryForId(_id);
+            if (rawMenu != null) {
+                textName.setText(rawMenu.getName_de());
+                textCategory.setText(rawMenu.getCategory_de());
+                textPrice.setText(rawMenu.getPriceStudents() + "");
+                boolean notFirst = false;
+                for (NewAllergen allergen : rawMenu.getAllergens()) {
+                    if (notFirst) {
+                        textAllergens.append("\n");
+                    } else {
+                        notFirst = true;
+                    }
+                    int stringId = allergen.getStringId();
+                    String string = getResources().getString(stringId);
+                    textAllergens.append(string);
+                }
+            } else {
+                // notify fail load
+            }
+        } catch (java.sql.SQLException e) {
+            LOGGER.error("Could not load menu details", e);
         }
-
-        query.close();
 
         if (BuildConfig.DEBUG) LOGGER.debug("bindData()");
     }

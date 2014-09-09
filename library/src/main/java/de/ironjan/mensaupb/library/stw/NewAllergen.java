@@ -2,6 +2,8 @@ package de.ironjan.mensaupb.library.stw;
 
 import com.fasterxml.jackson.databind.annotation.*;
 
+import org.slf4j.*;
+
 import de.ironjan.mensaupb.library.*;
 import de.ironjan.mensaupb.library.stw.deserializer.*;
 
@@ -50,65 +52,66 @@ public enum NewAllergen {
     }
 
     public static NewAllergen fromType(String s) {
-        if (COLORED.equals(s)) {
+        if (Constants.COLORED.equals(s)) {
             return COLORED;
-        } else if (CONSERVED.equals(s)) {
+        } else if (Constants.CONSERVED.equals(s)) {
             return CONSERVED;
-        } else if (ANTIOXIDANTS.equals(s)) {
+        } else if (Constants.ANTIOXIDANTS.equals(s)) {
             return ANTIOXIDANTS;
-        } else if (FLAVOR_ENHANCERS.equals(s)) {
+        } else if (Constants.FLAVOR_ENHANCERS.equals(s)) {
             return FLAVOR_ENHANCERS;
-        } else if (PHOSPHAT.equals(s)) {
+        } else if (Constants.PHOSPHAT.equals(s)) {
             return PHOSPHAT;
-        } else if (SULFURATED.equals(s)) {
+        } else if (Constants.SULFURATED.equals(s)) {
             return SULFURATED;
-        } else if (WAXED.equals(s)) {
+        } else if (Constants.WAXED.equals(s)) {
             return WAXED;
-        } else if (BLACKENED.equals(s)) {
+        } else if (Constants.BLACKENED.equals(s)) {
             return BLACKENED;
-        } else if (SWEETENER.equals(s)) {
+        } else if (Constants.SWEETENER.equals(s)) {
             return SWEETENER;
-        } else if (BLACKENED.equals(s)) {
+        } else if (Constants.BLACKENED.equals(s)) {
             return BLACKENED;
-        } else if (PHENYLALANINE.equals(s)) {
+        } else if (Constants.PHENYLALANINE.equals(s)) {
             return PHENYLALANINE;
-        } else if (TAURINE.equals(s)) {
+        } else if (Constants.TAURINE.equals(s)) {
             return TAURINE;
-        } else if (NITRATE_SALT.equals(s)) {
+        } else if (Constants.NITRATE_SALT.equals(s)) {
             return NITRATE_SALT;
-        } else if (COFFEINE.equals(s)) {
+        } else if (Constants.COFFEINE.equals(s)) {
             return COFFEINE;
-        } else if (QUININE.equals(s)) {
+        } else if (Constants.QUININE.equals(s)) {
             return QUININE;
-        } else if (LACTOPROTEIN.equals(s)) {
+        } else if (Constants.LACTOPROTEIN.equals(s)) {
             return LACTOPROTEIN;
-        } else if (CRUSTACEAN.equals(s)) {
+        } else if (Constants.CRUSTACEAN.equals(s)) {
             return CRUSTACEAN;
-        } else if (EGGS.equals(s)) {
+        } else if (Constants.EGGS.equals(s)) {
             return EGGS;
-        } else if (FISH.equals(s)) {
+        } else if (Constants.FISH.equals(s)) {
             return FISH;
-        } else if (SOYA.equals(s)) {
+        } else if (Constants.SOYA.equals(s)) {
             return SOYA;
-        } else if (LACTOSE.equals(s)) {
+        } else if (Constants.LACTOSE.equals(s)) {
             return LACTOSE;
-        } else if (NUTS.equals(s)) {
+        } else if (Constants.NUTS.equals(s)) {
             return NUTS;
-        } else if (CELERIAC.equals(s)) {
+        } else if (Constants.CELERIAC.equals(s)) {
             return CELERIAC;
-        } else if (MUSTARD.equals(s)) {
+        } else if (Constants.MUSTARD.equals(s)) {
             return MUSTARD;
-        } else if (SESAME.equals(s)) {
+        } else if (Constants.SESAME.equals(s)) {
             return SESAME;
-        } else if (SULFITES.equals(s)) {
+        } else if (Constants.SULFITES.equals(s)) {
             return SULFITES;
-        } else if (MOLLUSKS.equals(s)) {
+        } else if (Constants.MOLLUSKS.equals(s)) {
             return MOLLUSKS;
-        } else if (LUPINE.equals(s)) {
+        } else if (Constants.LUPINE.equals(s)) {
             return LUPINE;
-        } else {
-            return UNKNOWN;
         }
+
+        LoggerFactory.getLogger(NewAllergen.class).debug("Requested unknown value: " + s);
+        return UNKNOWN;
     }
 
     public String getType() {
@@ -119,7 +122,7 @@ public enum NewAllergen {
         return ordinal;
     }
 
-    public int getString() {
+    public int getStringId() {
         return string;
     }
 
