@@ -80,7 +80,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
                 if (local.size() > 0) {
                     rawMenu.set_id(local.get(0).get_id());
                 }
-                dao.createIfNotExists(rawMenu);
+                dao.createOrUpdate(rawMenu);
             }
             getContext().getContentResolver().notifyChange(MenuContentProvider.MENU_URI, null, false);
             databaseManager.releaseHelper(helper);
