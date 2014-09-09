@@ -63,6 +63,7 @@ public class MenuDetailFragment extends DialogFragment {
             if (rawMenu != null) {
                 textName.setText(rawMenu.getName_de());
                 textCategory.setText(rawMenu.getCategory_de());
+                // fixme price should be formatted x.xx€(/100g)?
                 textPrice.setText(rawMenu.getPriceStudents() + "");
                 boolean notFirst = false;
                 for (NewAllergen allergen : rawMenu.getAllergens()) {
