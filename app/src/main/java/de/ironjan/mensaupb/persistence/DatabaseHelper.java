@@ -16,7 +16,7 @@ import de.ironjan.mensaupb.library.stw.*;
 import de.ironjan.mensaupb.sync.*;
 
 /**
- * TODO javadoc
+ * Class to manage the underlying database scheme.
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
