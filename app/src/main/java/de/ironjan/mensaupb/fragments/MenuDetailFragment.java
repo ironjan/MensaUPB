@@ -13,6 +13,8 @@ import com.j256.ormlite.support.*;
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
+import java.util.*;
+
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.library.stw.*;
 import de.ironjan.mensaupb.persistence.*;
@@ -63,8 +65,15 @@ public class MenuDetailFragment extends DialogFragment {
             if (rawMenu != null) {
                 textName.setText(rawMenu.getName_de());
                 textCategory.setText(rawMenu.getCategory_de());
-                // fixme price should be formatted x.xx€(/100g)?
-                textPrice.setText(rawMenu.getPriceStudents() + "");
+
+                double price = rawMenu.getPriceStudents();
+                String priceAsString = String.format(Locale.GERMAN, "%.2f €", price);
+
+                textPrice.setText(priceAsString);
+                if (rawMenu.getPricetype() == PriceType.WEIGHT) {
+                    textPrice.append("/100g");
+                }
+
                 boolean notFirst = false;
                 for (NewAllergen allergen : rawMenu.getAllergens()) {
                     if (notFirst) {

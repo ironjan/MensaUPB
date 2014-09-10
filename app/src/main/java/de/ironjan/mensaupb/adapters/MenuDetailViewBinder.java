@@ -57,8 +57,8 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
             return;
         }
 
-        PriceType priceType = PriceType.fromString(cursor.getString(columnIndex));
-        if (priceType == PriceType.WEIGHT) {
+        String string = cursor.getString(columnIndex);
+        if (PriceType.WEIGHT.toString().equals(string)) {
             view.setText("/100g");
         }
     }
