@@ -17,18 +17,20 @@ public class WeekdayHelper {
     public static final int WEEKEND_OFFSET = 2;
     protected static final int DISPLAYED_DAYS_COUNT = 3;
     private String[] weekDaysAsString = new String[DISPLAYED_DAYS_COUNT];
+    private String[] weekDaysforUi = new String[DISPLAYED_DAYS_COUNT];
     private static final SimpleDateFormat SDF = new SimpleDateFormat(RawMenu.DATE_FORMAT);
+    private static final DateFormat UI_FORMAT = SimpleDateFormat.getDateInstance();
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
 
     @Trace
-    synchronized String getNextWeekDayAsString(int i) {
+    synchronized String getNextWeekDayAsKey(int i) {
 
         if (weekDaysAsString[i] == null) {
             weekDaysAsString[i] = SDF.format(getNextWeekDay(i));
         }
 
         if (BuildConfig.DEBUG)
-            LOGGER.debug("getNextWeekDayAsString({}) -> {}", i, weekDaysAsString[i]);
+            LOGGER.debug("getNextWeekDayAsKey({}) -> {}", i, weekDaysAsString[i]);
         return weekDaysAsString[i];
     }
 
@@ -36,7 +38,7 @@ public class WeekdayHelper {
     @Trace
     void initDays() {
         for (int i = 0; i < DISPLAYED_DAYS_COUNT; i++) {
-            getNextWeekDayAsString(i);
+            getNextWeekDayAsKey(i);
         }
     }
 
@@ -81,4 +83,13 @@ public class WeekdayHelper {
     }
 
 
+    public String getNextWeekDayForUI(int i) {
+        if (weekDaysforUi[i] == null) {
+            weekDaysforUi[i] = UI_FORMAT.format(getNextWeekDay(i));
+        }
+
+        if (BuildConfig.DEBUG)
+            LOGGER.debug("getNextWeekDayAsKey({}) -> {}", i, weekDaysforUi[i]);
+        return weekDaysforUi[i];
+    }
 }
