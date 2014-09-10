@@ -82,12 +82,12 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
                         .query();
                 if (local.size() > 0) {
                     rawMenu.set_id(local.get(0).get_id());
-                }
-                Dao.CreateOrUpdateStatus orUpdate = dao.createOrUpdate(rawMenu);
-                if (orUpdate.isCreated())
-                    LOGGER.info("Created new menu in db.");
-                else
+                    dao.update(rawMenu);
                     LOGGER.info("Updated menu in db.");
+                } else {
+                    dao.create(rawMenu);
+                    LOGGER.info("Created new menu in db.");
+                }
             }
             getContext().getContentResolver().notifyChange(MenuContentProvider.MENU_URI, null, false);
             databaseManager.releaseHelper(helper);
