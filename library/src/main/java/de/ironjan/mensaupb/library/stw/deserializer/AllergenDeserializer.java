@@ -14,6 +14,7 @@ import de.ironjan.mensaupb.library.stw.*;
  */
 public class AllergenDeserializer extends JsonDeserializer<NewAllergen> {
     Logger LOGGER = LoggerFactory.getLogger(AllergenDeserializer.class);
+
     @Override
     public NewAllergen deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
@@ -21,8 +22,6 @@ public class AllergenDeserializer extends JsonDeserializer<NewAllergen> {
         try {
             String valueAsString = jp.getValueAsString();
             NewAllergen newAllergen = NewAllergen.fromType(valueAsString);
-            JsonToken jsonToken = jp.getCurrentToken();
-            LOGGER.info("", jsonToken);
             return newAllergen;
         } catch (IllegalArgumentException e) {
             LOGGER.warn("Could not deserialize Allergen");
