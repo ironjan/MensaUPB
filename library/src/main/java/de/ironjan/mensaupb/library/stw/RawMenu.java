@@ -2,10 +2,12 @@ package de.ironjan.mensaupb.library.stw;
 
 import android.provider.*;
 
-import com.fasterxml.jackson.annotation.*;
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
 
+import org.slf4j.*;
+
+import java.text.*;
 import java.util.*;
 
 /**
@@ -22,11 +24,11 @@ public class RawMenu {
     public static final String RESTAURANT = "restaurant";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String ALLERGENS = "allergens";
+    public static final Logger LOGGER = LoggerFactory.getLogger(RawMenu.class);
     @DatabaseField(generatedId = true, columnName = BaseColumns._ID)
     long _id;
     @DatabaseField
     int order_info;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT, timezone = "CET")
     @DatabaseField(canBeNull = false, columnName = DATE, dataType = DataType.DATE_STRING, format = DATE_FORMAT)
     private Date date;
     @DatabaseField(canBeNull = false, columnName = "name_de")
@@ -79,8 +81,14 @@ public class RawMenu {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(String dateString) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+        try {
+            this.date = simpleDateFormat.parse(dateString);
+        } catch (ParseException e) {
+            LOGGER.error("Could not parse date", e);
+        }
+        LOGGER.info("Parsed {} to {}", dateString, date);
     }
 
     public String getName_de() {
@@ -90,6 +98,8 @@ public class RawMenu {
 
     public void setName_de(String name_de) {
         this.name_de = name_de;
+
+        LOGGER.info("Set name to {}", name_de);
     }
 
     public String getName_en() {
@@ -244,8 +254,9 @@ public class RawMenu {
 
     @Override
     public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return "RawMenu{" +
-                "date=" + date +
+                "date=" + sdf.format(date) + " -- " + date +
                 ", name_de='" + name_de + '\'' +
                 ", restaurant='" + restaurant + '\'' +
                 ", name_en='" + name_en + '\'' +
