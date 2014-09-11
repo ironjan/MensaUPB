@@ -75,21 +75,22 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         try {
             Dao<RawMenu, ?> dao = DaoManager.createDao(connectionSource, RawMenu.class);
 
+            ContentResolver contentResolver = getContext().getContentResolver();
+
             for (RawMenu rawMenu : stwRest.getAll()) {
                 List<RawMenu> local = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, rawMenu.getName_de())
                         .and().eq(RawMenu.DATE, rawMenu.getDate())
                         .and().eq(RawMenu.RESTAURANT, rawMenu.getRestaurant())
                         .query();
+
                 if (local.size() > 0) {
                     rawMenu.set_id(local.get(0).get_id());
                     dao.update(rawMenu);
-                    LOGGER.info("Updated menu in db.");
                 } else {
                     dao.create(rawMenu);
-                    LOGGER.info("Created new menu in db.");
                 }
+                contentResolver.notifyChange(MenuContentProvider.MENU_URI, null, false);
             }
-            getContext().getContentResolver().notifyChange(MenuContentProvider.MENU_URI, null, false);
             databaseManager.releaseHelper(helper);
         } catch (java.sql.SQLException e) {
             LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
