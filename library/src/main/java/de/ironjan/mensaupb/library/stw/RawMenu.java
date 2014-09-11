@@ -88,7 +88,6 @@ public class RawMenu {
         } catch (ParseException e) {
             LOGGER.error("Could not parse date", e);
         }
-        LOGGER.info("Parsed {} to {}", dateString, date);
     }
 
     public String getName_de() {
@@ -98,8 +97,6 @@ public class RawMenu {
 
     public void setName_de(String name_de) {
         this.name_de = name_de;
-
-        LOGGER.info("Set name to {}", name_de);
     }
 
     public String getName_en() {
