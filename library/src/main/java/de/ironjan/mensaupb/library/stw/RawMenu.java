@@ -1,6 +1,7 @@
 package de.ironjan.mensaupb.library.stw;
 
 import android.provider.*;
+import android.text.*;
 
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
@@ -44,9 +45,9 @@ public class RawMenu {
     @DatabaseField
     private String category_en;
     @DatabaseField
-    private String subcategory_de;
+    private String subcategory_de = "";
     @DatabaseField
-    private String subcategory_en;
+    private String subcategory_en = "";
     @DatabaseField(canBeNull = false, columnName = STUDENTS_PRICE)
     private double priceStudents;
     @DatabaseField(canBeNull = false)
@@ -129,6 +130,7 @@ public class RawMenu {
 
     public void setCategory_de(String category_de) {
         this.category_de = category_de;
+        updateCategories();
     }
 
     public String getCategory_en() {
@@ -137,6 +139,7 @@ public class RawMenu {
 
     public void setCategory_en(String category_en) {
         this.category_en = category_en;
+        updateCategories();
     }
 
     public String getSubcategory_de() {
@@ -145,6 +148,7 @@ public class RawMenu {
 
     public void setSubcategory_de(String subcategory_de) {
         this.subcategory_de = subcategory_de;
+        updateCategories();
     }
 
     public String getSubcategory_en() {
@@ -153,6 +157,7 @@ public class RawMenu {
 
     public void setSubcategory_en(String subcategory_en) {
         this.subcategory_en = subcategory_en;
+        updateCategories();
     }
 
     public double getPriceStudents() {
@@ -248,6 +253,29 @@ public class RawMenu {
         this.thumbnail = thumbnail;
     }
 
+
+    public void updateCategories() {
+        updateDeCategory();
+        updateEnCategory();
+    }
+
+    private void updateDeCategory() {
+        if (subcategory_de != null && TextUtils.isEmpty(subcategory_de.trim())) {
+            return;
+        }
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("Updating category from {} to subcategory's value ({}), {}", category_de, subcategory_de, "TEST");
+        category_de = subcategory_de;
+    }
+
+    private void updateEnCategory() {
+        if (subcategory_en != null && TextUtils.isEmpty(subcategory_en.trim())) {
+            return;
+        }
+        if (LOGGER.isDebugEnabled())
+            LOGGER.debug("Updating category from {} to subcategory's value ({})", category_en, subcategory_en);
+        category_en = subcategory_en;
+    }
 
     @Override
     public String toString() {
