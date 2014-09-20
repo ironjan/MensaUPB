@@ -11,6 +11,6 @@ import de.ironjan.mensaupb.library.*;
  */
 @Rest(converters = MappingJackson2HttpMessageConverter.class, rootUrl = BuildConfig.STW_URL)
 public interface StwRest {
-    @Get("")
-    RawMenu[] getAll();
+    @Get("&restaurant={restaurant}")
+    RawMenu[] getMenus(String restaurant);
 }

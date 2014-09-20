@@ -28,11 +28,16 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
     private final ContentResolver mContentResolver;
     private final StwRest stwRest;
+    private final String[] restaurants;
+    private Dao<RawMenu, ?> dao;
+    private final ContentResolver contentResolver;
 
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
         stwRest = new StwRest_(context);
+        restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
+        contentResolver = context.getContentResolver();
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -40,6 +45,8 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         super(context, autoInitialize, allowParallelSyncs);
         mContentResolver = context.getContentResolver();
         stwRest = new StwRest_(context);
+        restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
+        contentResolver = context.getContentResolver();
     }
 
     public static MenuSyncAdapter getInstance(Context context) {
@@ -73,23 +80,10 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
                 new AndroidConnectionSource(helper);
 
         try {
-            Dao<RawMenu, ?> dao = DaoManager.createDao(connectionSource, RawMenu.class);
+            dao = DaoManager.createDao(connectionSource, RawMenu.class);
 
-            ContentResolver contentResolver = getContext().getContentResolver();
-
-            for (RawMenu rawMenu : stwRest.getAll()) {
-                List<RawMenu> local = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, rawMenu.getName_de())
-                        .and().eq(RawMenu.DATE, rawMenu.getDate())
-                        .and().eq(RawMenu.RESTAURANT, rawMenu.getRestaurant())
-                        .query();
-
-                if (local.size() > 0) {
-                    rawMenu.set_id(local.get(0).get_id());
-                    dao.update(rawMenu);
-                } else {
-                    dao.create(rawMenu);
-                }
-                contentResolver.notifyChange(MenuContentProvider.MENU_URI, null, false);
+            for (String restaurant : restaurants) {
+                downloadMenusForRestaurant(restaurant);
             }
             databaseManager.releaseHelper(helper);
         } catch (java.sql.SQLException e) {
@@ -98,6 +92,23 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         }
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("onPerformeSync({},{},{},{},{}) done", new Object[]{account, bundle, s, contentProviderClient, syncResult});
+        }
+    }
+
+    private void downloadMenusForRestaurant(String restaurant) throws java.sql.SQLException {
+        for (RawMenu rawMenu : stwRest.getMenus(restaurant)) {
+            List<RawMenu> local = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, rawMenu.getName_de())
+                    .and().eq(RawMenu.DATE, rawMenu.getDate())
+                    .and().eq(RawMenu.RESTAURANT, rawMenu.getRestaurant())
+                    .query();
+
+            if (local.size() > 0) {
+                rawMenu.set_id(local.get(0).get_id());
+                dao.update(rawMenu);
+            } else {
+                dao.create(rawMenu);
+            }
+            contentResolver.notifyChange(MenuContentProvider.MENU_URI, null, false);
         }
     }
 
