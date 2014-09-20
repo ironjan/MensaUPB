@@ -257,6 +257,7 @@ public class RawMenu {
     public void updateCategories() {
         updateDeCategory();
         updateEnCategory();
+        // TODO update sort order
     }
 
     private void updateDeCategory() {
