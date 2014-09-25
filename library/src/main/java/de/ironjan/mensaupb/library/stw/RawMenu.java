@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.library.stw;
 import android.provider.*;
 import android.text.*;
 
+import com.fasterxml.jackson.annotation.*;
 import com.j256.ormlite.field.*;
 import com.j256.ormlite.table.*;
 
@@ -40,6 +41,9 @@ public class RawMenu {
     private String description_de;
     @DatabaseField
     private String description_en;
+    @DatabaseField
+    @JsonProperty("category")
+    private String categoryIdentifier;
     @DatabaseField
     private String category_de;
     @DatabaseField
@@ -304,4 +308,11 @@ public class RawMenu {
                 '}';
     }
 
+    public String getCategoryIdentifier() {
+        return categoryIdentifier;
+    }
+
+    public void setCategoryIdentifier(String categoryIdentifier) {
+        this.categoryIdentifier = categoryIdentifier;
+    }
 }
