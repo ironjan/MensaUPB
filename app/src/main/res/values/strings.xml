@@ -13,8 +13,8 @@
     <string name="select_Location">Ort wählen</string>
 
     <!--locations api-->
-    <string name="mensa">mensa-paderborn</string>
-    <string name="mensaExt">mensa-paderborn-ext</string>
+    <string name="mensa">mensa-academica-paderborn</string>
+    <string name="mensaExt">mensa-forum-paderborn</string>
     <string name="bistroHotspot">bistro-hotspot</string>
     <string name="grillCafe">grill-cafe</string>
     <string name="cafete">cafete</string>
