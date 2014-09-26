@@ -308,6 +308,10 @@ public class RawMenu {
                 '}';
     }
 
+    @JsonAnySetter
+    public void setAny(String key, Object o) {
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("Any setter invoked: {} -> {}", key, o);
+    }
     public String getCategoryIdentifier() {
         return categoryIdentifier;
     }
