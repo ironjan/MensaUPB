@@ -70,6 +70,9 @@ public class RawMenu {
     private String image;
     @DatabaseField
     private String thumbnail;
+    @DatabaseField
+    private int sortOrder = 100;
+
 
     public RawMenu() {
     }
@@ -261,7 +264,6 @@ public class RawMenu {
     public void updateCategories() {
         updateDeCategory();
         updateEnCategory();
-        // TODO update sort order
     }
 
     private void updateDeCategory() {
@@ -315,5 +317,28 @@ public class RawMenu {
 
     public void setCategoryIdentifier(String categoryIdentifier) {
         this.categoryIdentifier = categoryIdentifier;
+        updateSortOrder();
+    }
+
+    private void updateSortOrder() {
+        if (categoryIdentifier.equals("dish-default")) {
+            sortOrder = 0;
+        } else if (categoryIdentifier.equals("soups")) {
+            sortOrder = 10;
+        } else if (categoryIdentifier.equals("dish-grill")) {
+            sortOrder = 20;
+        } else if (categoryIdentifier.equals("sidedish")) {
+            sortOrder = 30;
+        } else if (categoryIdentifier.equals("dessert")) {
+            sortOrder = 35;
+        } else if (categoryIdentifier.equals("dessert-counter")) {
+            sortOrder = 37;
+        } else if (categoryIdentifier.equals("dish-pasta")) {
+            sortOrder = 50;
+        } else if (categoryIdentifier.equals("dish-wok")) {
+            sortOrder = 55;
+        } else {
+            sortOrder = 100;
+        }
     }
 }
