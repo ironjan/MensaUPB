@@ -268,8 +268,6 @@ public class RawMenu {
         if (subcategory_de != null && TextUtils.isEmpty(subcategory_de.trim())) {
             return;
         }
-        if (LOGGER.isDebugEnabled())
-            LOGGER.debug("Updating category from {} to subcategory's value ({}), {}", category_de, subcategory_de, "TEST");
         category_de = subcategory_de;
     }
 
@@ -277,8 +275,6 @@ public class RawMenu {
         if (subcategory_en != null && TextUtils.isEmpty(subcategory_en.trim())) {
             return;
         }
-        if (LOGGER.isDebugEnabled())
-            LOGGER.debug("Updating category from {} to subcategory's value ({})", category_en, subcategory_en);
         category_en = subcategory_en;
     }
 
@@ -312,6 +308,7 @@ public class RawMenu {
     public void setAny(String key, Object o) {
         if (LOGGER.isDebugEnabled()) LOGGER.debug("Any setter invoked: {} -> {}", key, o);
     }
+
     public String getCategoryIdentifier() {
         return categoryIdentifier;
     }
