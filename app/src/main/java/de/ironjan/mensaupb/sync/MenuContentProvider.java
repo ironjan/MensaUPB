@@ -64,7 +64,7 @@ public class MenuContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
                 if (TextUtils.isEmpty(sortOrder)) {
-                    // TODO add sort orter
+                    sortOrder = RawMenu.SORT_ORDER + " ASC";
                 }
                 break;
             case SINGLE_MENUS_MATCH:
