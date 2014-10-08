@@ -3,9 +3,9 @@
 
     <!--see also stw.Restaurants-->
     <string-array name="restaurants">
-        <item>@string/mensa-academica-paderborn</item>
-        <item>@string/bistro-hotspot</item>
-        <item>@string/grill-cafe</item>
+        <item>@string/mensa_academica_paderborn</item>
+        <item>@string/bistro_hotspot</item>
+        <item>@string/grill_cafe</item>
         <item>@string/cafete</item>
     </string-array>
 
