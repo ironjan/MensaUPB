@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="allRestaurants">
+        <item>@string/mensa-academica-paderborn</item>
+        <item>@string/mensa-forum-paderborn</item>
+        <item>@string/cafete</item>
+        <item>@string/mensula</item>
+        <item>@string/one-way-snack</item>
+        <item>@string/bistro-hotspot</item>
+        <item>@string/mensa-hamm</item>
+        <item>@string/mensa-lippstadt</item>
+        <item>@string/grill-cafe</item>
+        <item>@string/campus-doener</item>
+    </string-array>
+
+    <string name="mensa-academica-paderborn">mensa-academica-paderborn</string>
+    <string name="mensa-forum-paderborn">mensa-forum-paderborn</string>
+    <string name="cafete">cafete</string>
+    <string name="mensula">mensula</string>
+    <string name="one-way-snack">one-way-snack</string>
+    <string name="bistro-hotspot">bistro-hotspot</string>
+    <string name="mensa-hamm">mensa-hamm</string>
+    <string name="mensa-lippstadt">mensa-lippstadt</string>
+    <string name="grill-cafe">grill-cafe</string>
+    <string name="campus-doener">campus-doener</string>
+</resources>
