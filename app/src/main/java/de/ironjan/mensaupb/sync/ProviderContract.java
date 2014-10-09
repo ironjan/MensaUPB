@@ -1,19 +1,10 @@
 package de.ironjan.mensaupb.sync;
 
 /**
- * TODO javadoc
+ * General contract for the content provider of this app
  */
 public class ProviderContract {
-    /**
-     * TODO javadoc
-     */
     public static final String AUTHORITY = "de.ironjan.mensaupb.provider";
-    /**
-     * TODO javadoc
-     */
     public static final String ACCOUNT_TYPE = "ironjan.MensaUPB";
-    /**
-     * TODO javadoc
-     */
     public static final String ACCOUNT = "dummy";
 }

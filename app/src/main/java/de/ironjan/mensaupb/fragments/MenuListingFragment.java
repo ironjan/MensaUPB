@@ -10,30 +10,22 @@ import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.stw.*;
 
 @EFragment(R.layout.fragment_menu_listing)
 public class MenuListingFragment extends ListFragment {
 
     public static String ARG_DATE = "date";
-    public static String ARG_LOCATION = "location";
+    public static String ARG_LOCATION = "restaurant";
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
-    private MenuListingAdapter adapter;
-
     @ViewById(android.R.id.empty)
     View mLoadingView;
     @ViewById(android.R.id.content)
     View mNoMenus;
-    @Bean
-    OpeningTimesLookup mOpeningTimesLookup;
+    private MenuListingAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (mOpeningTimesLookup.isPotentiallyClosed(getArgDate()
-                , getArgLocation())) {
-            return inflater.inflate(R.layout.fragment_menu_listing_closed, null);
-        }
         return null;
     }
 

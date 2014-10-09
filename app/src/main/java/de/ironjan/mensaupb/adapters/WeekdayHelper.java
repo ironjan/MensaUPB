@@ -7,29 +7,30 @@ import java.text.*;
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.library.stw.*;
 
 /**
  * Created by ljan on 4/28/14.
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class WeekdayHelper {
+    public static final int WEEKEND_OFFSET = 2;
     protected static final int DISPLAYED_DAYS_COUNT = 3;
     private String[] weekDaysAsString = new String[DISPLAYED_DAYS_COUNT];
-
+    private String[] weekDaysforUi = new String[DISPLAYED_DAYS_COUNT];
+    private static final SimpleDateFormat SDF = new SimpleDateFormat(RawMenu.DATE_FORMAT);
+    private static final DateFormat UI_FORMAT = SimpleDateFormat.getDateInstance();
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
-    public static final int WEEKEND_OFFSET = 2;
-    private static final SimpleDateFormat SDF = Menu.DATABASE_DATE_FORMAT;
 
     @Trace
-    synchronized String getNextWeekDayAsString(int i) {
+    synchronized String getNextWeekDayAsKey(int i) {
 
         if (weekDaysAsString[i] == null) {
             weekDaysAsString[i] = SDF.format(getNextWeekDay(i));
         }
 
         if (BuildConfig.DEBUG)
-            LOGGER.debug("getNextWeekDayAsString({}) -> {}", i, weekDaysAsString[i]);
+            LOGGER.debug("getNextWeekDayAsKey({}) -> {}", i, weekDaysAsString[i]);
         return weekDaysAsString[i];
     }
 
@@ -37,7 +38,7 @@ public class WeekdayHelper {
     @Trace
     void initDays() {
         for (int i = 0; i < DISPLAYED_DAYS_COUNT; i++) {
-            getNextWeekDayAsString(i);
+            getNextWeekDayAsKey(i);
         }
     }
 
@@ -70,7 +71,8 @@ public class WeekdayHelper {
      * friday       |    | +2 | +2 |
      * saturday     | +2 | +2 | +2 |
      * }
-     * @param offset offset applied to dayOfWeek
+     *
+     * @param offset    offset applied to dayOfWeek
      * @param dayOfWeek the day which is "today"
      * @return true, if weekend offset has to be added
      */
@@ -81,4 +83,13 @@ public class WeekdayHelper {
     }
 
 
+    public String getNextWeekDayForUI(int i) {
+        if (weekDaysforUi[i] == null) {
+            weekDaysforUi[i] = UI_FORMAT.format(getNextWeekDay(i));
+        }
+
+        if (BuildConfig.DEBUG)
+            LOGGER.debug("getNextWeekDayAsKey({}) -> {}", i, weekDaysforUi[i]);
+        return weekDaysforUi[i];
+    }
 }

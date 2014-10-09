@@ -12,12 +12,6 @@
     <string name="settings">Einstellungen</string>
     <string name="select_Location">Ort wählen</string>
 
-    <!--locations api-->
-
-    <string name="mensa">Mensa</string>
-    <string name="abendmensa">Abendmensa</string>
-    <string name="pub">Gownsmen\'s Pub</string>
-    <string name="hotspot">HNF (Hotspot)</string>
 
     <!-- about -->
     <string name="aboutText">MensaUPB ist ein Neubau von
@@ -46,6 +40,5 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="">github&lt;/
 \n
 (Wenn an einem Tag eines der Rastaurants geschlossen hat, gibt es keine Speisepläne und dieser Ladebildschirm wird gezeigt. Das werde ich aber bei Gelegenheit ändern)</string>
     <string name="openingTimes">Öffnungszeiten</string>
-
 
 </resources>

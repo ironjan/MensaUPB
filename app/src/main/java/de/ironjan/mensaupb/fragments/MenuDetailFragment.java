@@ -2,20 +2,22 @@ package de.ironjan.mensaupb.fragments;
 
 
 import android.app.*;
-import android.database.*;
-import android.net.*;
 import android.os.*;
 import android.support.v4.app.DialogFragment;
-import android.view.View;
 import android.widget.*;
+
+import com.j256.ormlite.android.*;
+import com.j256.ormlite.dao.*;
+import com.j256.ormlite.support.*;
 
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
+import java.util.*;
+
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.library.stw.Menu;
-import de.ironjan.mensaupb.sync.*;
+import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.persistence.*;
 
 @EFragment(R.layout.fragment_menu_detail)
 public class MenuDetailFragment extends DialogFragment {
@@ -52,21 +54,43 @@ public class MenuDetailFragment extends DialogFragment {
         if (BuildConfig.DEBUG) LOGGER.debug("bindData()");
 
         final long _id = getArguments().getLong(ARG_ID);
-        Uri uri = Uri.withAppendedPath(MenuContentProvider.MENU_URI, "" + _id);
-        String[] projection = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.ALLERGENES, Menu.PRICE, Menu.ID};
-        int[] bindTo = {R.id.textName, R.id.textCategory, R.id.textAllergens, R.id.textPrice};
 
-        Cursor query = getActivity().getContentResolver().query(uri, projection, null, null, null);
-        query.moveToFirst();
+        try {
+            DatabaseManager databaseManager = new DatabaseManager();
+            DatabaseHelper helper = (databaseManager.getHelper(getActivity()));
+            ConnectionSource connectionSource =
+                    new AndroidConnectionSource(helper);
+            Dao<RawMenu, Long> dao = DaoManager.createDao(connectionSource, RawMenu.class);
+            RawMenu rawMenu = dao.queryForId(_id);
+            if (rawMenu != null) {
+                textName.setText(rawMenu.getName_de());
+                textCategory.setText(rawMenu.getCategory_de());
 
-        MenuDetailViewBinder viewBinder = new MenuDetailViewBinder();
+                double price = rawMenu.getPriceStudents();
+                String priceAsString = String.format(Locale.GERMAN, "%.2f €", price);
 
-        for (int i = 0; i < bindTo.length; i++) {
-            View view = getView().findViewById(bindTo[i]);
-            viewBinder.setViewValue(view, query, i);
+                textPrice.setText(priceAsString);
+                if (rawMenu.getPricetype() == PriceType.WEIGHT) {
+                    textPrice.append("/100g");
+                }
+
+                boolean notFirst = false;
+                for (NewAllergen allergen : rawMenu.getAllergens()) {
+                    if (notFirst) {
+                        textAllergens.append("\n");
+                    } else {
+                        notFirst = true;
+                    }
+                    int stringId = allergen.getStringId();
+                    String string = getResources().getString(stringId);
+                    textAllergens.append(string);
+                }
+            } else {
+                // notify fail load
+            }
+        } catch (java.sql.SQLException e) {
+            LOGGER.error("Could not load menu details", e);
         }
-
-        query.close();
 
         if (BuildConfig.DEBUG) LOGGER.debug("bindData()");
     }

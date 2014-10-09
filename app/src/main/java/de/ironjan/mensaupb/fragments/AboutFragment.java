@@ -15,15 +15,13 @@ import de.ironjan.mensaupb.*;
 @EFragment(R.layout.fragment_about)
 public class AboutFragment extends Fragment {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
     @ViewById(R.id.txtDependencies)
     @FromHtml(R.string.dependencies)
     TextView mTxtDependencies;
-
     @ViewById(R.id.txtAbout)
     @FromHtml(R.string.aboutText)
     TextView mTxtAbout;
-
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
 
     @AfterViews
     void linkify() {

@@ -38,7 +38,7 @@ public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = new MenuListingFragment_();
         Bundle arguments = new Bundle();
 
-        arguments.putString(MenuListingFragment.ARG_DATE, mWeekdayHelper.getNextWeekDayAsString(i));
+        arguments.putString(MenuListingFragment.ARG_DATE, mWeekdayHelper.getNextWeekDayAsKey(i));
         arguments.putString(MenuListingFragment.ARG_LOCATION, mRestaurant);
 
         fragment.setArguments(arguments);
@@ -52,7 +52,7 @@ public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mWeekdayHelper.getNextWeekDayAsString(position);
+        return mWeekdayHelper.getNextWeekDayForUI(position);
     }
 
 }

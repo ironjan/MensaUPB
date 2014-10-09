@@ -5,6 +5,7 @@ import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
 import android.net.*;
+import android.provider.*;
 import android.text.*;
 
 import org.androidannotations.annotations.*;
@@ -13,8 +14,8 @@ import org.slf4j.*;
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.library.stw.*;
 import de.ironjan.mensaupb.persistence.*;
-import de.ironjan.mensaupb.stw.*;
 
 /**
  * A content provider for the downloaded menu data.
@@ -54,20 +55,20 @@ public class MenuContentProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        checkProjection(uri, projection);
+//        TODO checkProjection(uri, projection);
 
-        queryBuilder.setTables(Menu.TABLE);
+        queryBuilder.setTables(RawMenu.TABLE);
 
         SQLiteDatabase db = getHelper().getReadableDatabase();
 
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = String.format(" %s ASC, %s ASC", Menu.SORT, Menu.NAME_GERMAN);
+                    sortOrder = RawMenu.SORT_ORDER + " ASC";
                 }
                 break;
             case SINGLE_MENUS_MATCH:
-                selection = Menu.ID + " = ?";
+                selection = BaseColumns._ID + " = ?";
                 selectionArgs = new String[]{uri.getLastPathSegment()};
                 break;
             default:
@@ -105,7 +106,7 @@ public class MenuContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
             case SINGLE_MENUS_MATCH:
-                allowedColumns = Menu.COLUMNS;
+                allowedColumns = new String[]{}; // TODO use real allowed columns
                 break;
             default:
                 throw new IllegalArgumentException("Uri unknown.");
@@ -126,11 +127,11 @@ public class MenuContentProvider extends ContentProvider {
                 SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
                 // TODO check projection
 
-                queryBuilder.setTables(Menu.TABLE);
+                queryBuilder.setTables(RawMenu.TABLE);
 
                 SQLiteDatabase db = getHelper().getWritableDatabase();
 
-                long _id = db.insert(Menu.TABLE, null, contentValues);
+                long _id = db.insert(RawMenu.TABLE, null, contentValues);
                 return Uri.withAppendedPath(MENU_URI, "/" + _id);
             default:
                 throw new IllegalArgumentException("Unknown Uri");
@@ -142,7 +143,7 @@ public class MenuContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
                 final SQLiteDatabase db = getHelper().getWritableDatabase();
-                final int delete = db.delete(Menu.TABLE, where, whereArgs);
+                final int delete = db.delete(RawMenu.TABLE, where, whereArgs);
                 if (BuildConfig.DEBUG)
                     LOGGER.info("Deleted {} menus via delete({},{},{})", new Object[]{delete, uri, where, whereArgs});
                 return delete;
@@ -157,7 +158,7 @@ public class MenuContentProvider extends ContentProvider {
             case MENUS_MATCH:
                 SQLiteDatabase db = getHelper().getWritableDatabase();
                 // TODO check projection
-                return db.update(Menu.TABLE, contentValues, s, strings);
+                return db.update(RawMenu.TABLE, contentValues, s, strings);
             default:
                 throw new IllegalArgumentException("Unknown Uri");
         }

@@ -4,21 +4,21 @@ package de.ironjan.mensaupb.adapters;
 import android.content.*;
 import android.database.*;
 import android.os.*;
+import android.provider.*;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.library.stw.*;
 import de.ironjan.mensaupb.sync.*;
 
 /**
  * An adapter to load the list of menus for a MenuListingFragment.
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String SELECTION = de.ironjan.mensaupb.stw.Menu.DATE + " = ? AND " + Menu.LOCATION + " = ?";
-
-    public static final String[] LIST_PROJECTION = {Menu.NAME_GERMAN, Menu.CATEGORY, Menu.PRICE, Menu.PRICE_PER_100G, Menu.ID};
+    public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.CATEGORY, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, BaseColumns._ID};
+    private static final String SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " = ?";
     static int[] BIND_TO = {R.id.textName, R.id.textCategory, R.id.textPrice, R.id.textPricePer100g};
 
     private final String mDate;

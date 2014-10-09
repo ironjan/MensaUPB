@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!--see also stw.Restaurants-->
-    <string-array name="restaurants">
-        <item>@string/mensa</item>
-        <item>@string/abendmensa</item>
-        <item>@string/pub</item>
-        <item>@string/hotspot</item>
+    <string-array name="allRestaurants">
+        <item>@string/mensa_academica_paderborn</item>
+        <item>@string/mensa_forum_paderborn</item>
+        <item>@string/cafete</item>
+        <item>@string/mensula</item>
+        <item>@string/one_way_snack</item>
+        <item>@string/bistro_hotspot</item>
+        <item>@string/mensa_hamm</item>
+        <item>@string/mensa_lippstadt</item>
+        <item>@string/grill_cafe</item>
+        <item>@string/campus_doener</item>
     </string-array>
+
+    <string name="mensa_academica_paderborn">mensa-academica-paderborn</string>
+    <string name="mensa_forum_paderborn">mensa-forum-paderborn</string>
+    <string name="cafete">cafete</string>
+    <string name="mensula">mensula</string>
+    <string name="one_way_snack">one-way-snack</string>
+    <string name="bistro_hotspot">bistro-hotspot</string>
+    <string name="mensa_hamm">mensa-hamm</string>
+    <string name="mensa_lippstadt">mensa-lippstadt</string>
+    <string name="grill_cafe">grill-cafe</string>
+    <string name="campus_doener">campus-doener</string>
 </resources>

@@ -5,7 +5,6 @@ import android.annotation.*;
 import android.content.*;
 import android.net.*;
 import android.os.*;
-import android.support.v4.app.*;
 import android.support.v4.view.*;
 import android.support.v7.app.*;
 import android.widget.*;
@@ -17,8 +16,6 @@ import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.fragments.*;
-import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.sync.*;
 
 @SuppressLint("Registered")
@@ -27,37 +24,29 @@ import de.ironjan.mensaupb.sync.*;
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener {
 
 
+    private WeekdayPagerAdapter[] adapters;
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
-
     @ViewById(R.id.pager)
     ViewPager mViewPager;
     @ViewById(R.id.pager_title_strip)
     PagerTabStrip mPagerTabStrip;
-
     @StringArrayRes(R.array.restaurants)
     String[] mRestaurants;
-
     @StringArrayRes(R.array.displayedRestaurants)
     String[] mDisplayedRestaurants;
     @StringArrayRes(R.array.restaurantUrls)
     String[] mRestaurantUrls;
-
     @Bean
     WeekdayHelper mwWeekdayHelper;
-
     @Bean
     AccountCreator mAccountCreator;
     private WeekdayPagerAdapter mWeekdayPagerAdapter;
     private int mLocation = 0;
-    private WeekdayPagerAdapter[] adapters = new WeekdayPagerAdapter[4];
-    @Bean
-    RestaurantProvider mRestaurantProvider;
 
     @Trace
     @AfterViews
     @Background
     void init() {
-        mLocation = mRestaurantProvider.getLocation();
         initPager();
         initActionBar();
     }
@@ -108,6 +97,9 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Trace
     WeekdayPagerAdapter getPagerAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("getPagerAdapter({})", i);
+        if (adapters == null) {
+            adapters = new WeekdayPagerAdapter[mRestaurants.length];
+        }
         if (adapters[i] == null) {
             createNewAdapter(i);
         }
@@ -159,13 +151,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @OptionsItem(R.id.ab_about)
     void aboutClicked() {
         About_.intent(this).start();
-    }
-
-    @OptionsItem(R.id.ab_times)
-    void timesClicked() {
-        FragmentManager fm = getSupportFragmentManager();
-        RestaurantDetailFragment fragment = RestaurantDetailFragment.newInstance(mLocation);
-        fragment.show(fm, "fragment_edit_name");
     }
 
 
