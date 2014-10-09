@@ -28,4 +28,6 @@
     <string name="sulfates">Schwefeldioxid und Sulfite</string>
     <string name="mollusks">Weichtiere und Weichtiererzeugnisse</string>
     <string name="lupines">Lupinen und Lupinenerzeugnisse</string>
+    <string name="gluten">glutenhaltig</string>
+    <string name="peanuts">Erdnüsse und Erdnusserzeugnisse</string>
 </resources>

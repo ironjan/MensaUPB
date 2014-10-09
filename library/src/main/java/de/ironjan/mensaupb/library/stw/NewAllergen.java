@@ -39,7 +39,9 @@ public enum NewAllergen {
     SESAME(24, Constants.SESAME, R.string.sesame),
     SULFITES(25, Constants.SULFITES, R.string.sulfates),
     MOLLUSKS(26, Constants.MOLLUSKS, R.string.mollusks),
-    LUPINE(27, Constants.LUPINE, R.string.lupines);
+    LUPINE(27, Constants.LUPINE, R.string.lupines),
+    GLUTEN(28, Constants.GLUTEN, R.string.gluten),
+    PEANUTS(29, Constants.PEANUTS, R.string.peanuts);
 
     private int ordinal;
     private String type;
@@ -108,6 +110,10 @@ public enum NewAllergen {
             return MOLLUSKS;
         } else if (Constants.LUPINE.equals(s)) {
             return LUPINE;
+        } else if (Constants.GLUTEN.equals(s)) {
+            return GLUTEN;
+        } else if (Constants.PEANUTS.equals(s)) {
+            return PEANUTS;
         }
 
         LoggerFactory.getLogger(NewAllergen.class).debug("Requested unknown value: " + s);
@@ -154,5 +160,7 @@ public enum NewAllergen {
         public static final String SULFITES = "A12";
         public static final String LUPINE = "A13";
         public static final String MOLLUSKS = "A14";
+        public static final String GLUTEN = "A1";
+        public static final String PEANUTS = "A5";
     }
 }
