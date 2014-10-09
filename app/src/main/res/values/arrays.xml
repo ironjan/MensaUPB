@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--see also stw.Restaurants-->
     <string-array name="restaurants">
         <item>@string/mensa_academica_paderborn</item>
+        <item>@string/mensa_forum_paderborn</item>
         <item>@string/bistro_hotspot</item>
         <item>@string/grill_cafe</item>
         <item>@string/cafete</item>
     </string-array>
 
     <string-array name="displayedRestaurants">
-        <item>Mensa</item>
+        <item>Mensa Academica</item>
+        <item>Mensa Forum (neu)</item>
         <item>Bistro Hotspot</item>
         <item>Grill | Café</item>
         <item>Caféte</item>
@@ -18,6 +19,7 @@
 
     <string-array translateable="false" name="restaurantUrls">
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/mensa/</item>
+        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/</item>
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/bistro-hotspot/</item>
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/grill-cafe/</item>
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/cafete/</item>
