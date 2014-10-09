@@ -12,8 +12,6 @@ import org.slf4j.*;
 import java.text.*;
 import java.util.*;
 
-import de.ironjan.mensaupb.library.*;
-
 /**
  * A class representing a raw menu with all possible information
  */
@@ -128,11 +126,16 @@ public class RawMenu {
     }
 
     private String cleanName(String name) {
+        String potentialName = null;
         if (!TextUtils.isEmpty(name) && name.contains("|")) {
             String[] split = name.split("\\|");
-            name = split[0];
+            potentialName = split[0].trim();
         }
-        return name;
+
+        if (TextUtils.isEmpty(potentialName)) {
+            return name;
+        }
+        return potentialName;
     }
 
     public String getDescription_de() {

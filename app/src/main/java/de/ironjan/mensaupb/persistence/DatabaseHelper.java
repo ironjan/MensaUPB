@@ -20,7 +20,7 @@ import de.ironjan.mensaupb.sync.*;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
 
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 9;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
     private final Context mContext;
@@ -49,7 +49,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int old, int newVersion) {
         LOGGER.info("onUpgrade()");
-        if (old <= 7) {
+        if (old <= 8) {
             mContext.deleteDatabase(DATABASE_NAME);
             onCreate(sqLiteDatabase, connectionSource);
         }

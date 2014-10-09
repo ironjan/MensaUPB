@@ -8,9 +8,11 @@ public class RawMenuNameCleanerTest extends TestCase {
     final String CLEAN_NECESSARY_1_VERT = "CLEAN1|NECESSARY-1-VERT";
     final String CLEAN_NECESSARY_2_VERT = "CLEAN2|NECESSARY|2-VERT";
     final String CLEAN_NECESSARY_3_VERT = "CLEAN3|NECESSARY|3|VERT";
+    final String BREAK_FAST_BURGER = "Breakfast Burger |Sesambrötchen |Spiegelei |Speck |Basic Hot";
     final String CLEANED_1_VERT = "CLEAN1";
     final String CLEANED_2_VERT = "CLEAN2";
     final String CLEANED_3_VERT = "CLEAN3";
+    final String CLEANED_BREAK_FAST_BURGER = "Breakfast Burger";
 
     RawMenu menu = new RawMenu();
 
@@ -34,6 +36,10 @@ public class RawMenuNameCleanerTest extends TestCase {
         assertEquals(CLEANED_3_VERT, menu.getName_de());
     }
 
+    public void testSetBreakfastBurger() throws Exception {
+        menu.setName_de(BREAK_FAST_BURGER);
+        assertEquals(CLEANED_BREAK_FAST_BURGER, menu.getName_de());
+    }
 
     public void testSetName_enNoClean() throws Exception {
         menu.setName_en(NO_CLEAN_NECESSARY);
