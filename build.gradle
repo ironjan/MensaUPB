@@ -5,15 +5,100 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.2'
+        classpath 'com.android.tools.build:gradle:0.11.+'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.3'
+        classpath 'org.robolectric:robolectric-gradle-plugin:0.11.+'    }
+}
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'android'
+apply plugin: 'android-apt'
+apply plugin: 'idea'
+apply plugin: 'robolectric'
+
+configurations {
+    apt
+}
+
+
+
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.1.0"
+
+    packagingOptions {
+        // prevents Error: duplicate files during packaging of APK
+        // no wildcard support yet
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'LICENSE.txt'
+    }
+
+    // This is important, it will run lint checks but won't abort build
+    lintOptions {
+        abortOnError false
+    }
+
+
+    defaultConfig {
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        minSdkVersion 8
+        targetSdkVersion 19
+
+        applicationId "de.ironjan.mensaupb"
+    }
+
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "int", "SYNC_INTERVAL", "60" // 1 minute
+            buildConfigField "String", "STW_URL", "\"\""
+        }
+
+        release {
+            buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 24 * 2" // 2 days
+            buildConfigField "String", "STW_URL", "\"\""
+        }
+    }
+
+    if (project.hasProperty("mensaupb.signing")) {
+        println "project has property mensaupb.signing:"
+        println project.property("mensaupb.signing")
+        if (new File(project.property("mensaupb.signing") + ".gradle").exists()) {
+            apply from: project.property("mensaupb.signing") + ".gradle";
+            println "Applied properties"
+
+        }
     }
 }
 
-allprojects {
-    repositories {
-        mavenCentral()
-    }
+dependencies {
+    compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.android.support:appcompat-v7:19.0.1'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+    apt "org.androidannotations:androidannotations:3.0.1"
+    compile "org.androidannotations:androidannotations-api:3.0.1"
+    compile 'com.noveogroup.android:android-logger:1.3.1'
+
+    androidTestCompile 'junit:junit:4.10'
+    androidTestCompile 'org.robolectric:robolectric:2.3+'
+    androidTestCompile 'com.squareup:fest-android:1.0.+'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.9'
 }
