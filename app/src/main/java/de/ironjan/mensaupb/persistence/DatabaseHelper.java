@@ -2,6 +2,7 @@ package de.ironjan.mensaupb.persistence;
 
 import android.content.*;
 import android.database.sqlite.*;
+import android.os.*;
 
 import com.j256.ormlite.android.apptools.*;
 import com.j256.ormlite.support.*;
@@ -64,8 +65,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     private void requestSync() {
-        // TODO implement
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 
+        ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
     }
 
 }
