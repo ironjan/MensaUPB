@@ -2,6 +2,7 @@ package de.ironjan.mensaupb.persistence;
 
 import android.content.*;
 import android.database.sqlite.*;
+import android.os.*;
 
 import com.j256.ormlite.android.apptools.*;
 import com.j256.ormlite.support.*;
@@ -20,7 +21,7 @@ import de.ironjan.mensaupb.sync.*;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
 
-    private static final int DATABASE_VERSION = 9;
+    private static final int DATABASE_VERSION = 10;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
     private final Context mContext;
@@ -35,30 +36,41 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
+        if (LOGGER.isTraceEnabled()) LOGGER.trace("onCreate()");
         try {
-            LOGGER.info("onCreate()");
-            TableUtils.createTable(connectionSource, RawMenu.class);
-            LOGGER.info("Created database.");
+            TableUtils.createTableIfNotExists(connectionSource, RawMenu.class);
+            if (LOGGER.isInfoEnabled()) LOGGER.info("Created database.");
         } catch (SQLException e) {
             LOGGER.error("Can't create database", e);
             throw new RuntimeException(e);
         }
-        LOGGER.info("onCreate() done");
+        requestSync();
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("onCreate() done");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int old, int newVersion) {
-        LOGGER.info("onUpgrade()");
-        if (old <= 8) {
-            mContext.deleteDatabase(DATABASE_NAME);
-            onCreate(sqLiteDatabase, connectionSource);
+        if (LOGGER.isInfoEnabled()) LOGGER.info("onUpgrade()");
+        try {
+            if (old <= 9) {
+                TableUtils.dropTable(connectionSource, RawMenu.class, true);
+                onCreate(sqLiteDatabase, connectionSource);
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Can't update database", e);
+            throw new RuntimeException(e);
         }
         requestSync();
-        LOGGER.info("onUpgrade() done");
+        if (LOGGER.isDebugEnabled()) LOGGER.debug("onUpgrade() done");
     }
 
-    private void requestSync() {
 
+    private void requestSync() {
+        Bundle settingsBundle = new Bundle();
+        settingsBundle.putBoolean(
+                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+
+        ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
     }
 
 }
