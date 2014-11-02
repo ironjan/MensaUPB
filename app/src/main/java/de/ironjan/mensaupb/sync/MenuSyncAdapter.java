@@ -10,6 +10,7 @@ import com.j256.ormlite.dao.*;
 import com.j256.ormlite.support.*;
 
 import org.slf4j.*;
+import org.springframework.web.client.*;
 
 import java.util.*;
 
@@ -89,13 +90,16 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         } catch (java.sql.SQLException e) {
             LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
             LOGGER.error(e.getMessage(), e);
+        } catch (RestClientException e) {
+            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
+            LOGGER.error(e.getMessage(), e);
         }
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("onPerformeSync({},{},{},{},{}) done", new Object[]{account, bundle, s, contentProviderClient, syncResult});
         }
     }
 
-    private void downloadMenusForRestaurant(String restaurant) throws java.sql.SQLException {
+    private void downloadMenusForRestaurant(String restaurant) throws java.sql.SQLException, RestClientException {
         for (RawMenu rawMenu : stwRest.getMenus(restaurant)) {
             List<RawMenu> local = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, rawMenu.getName_de())
                     .and().eq(RawMenu.DATE, rawMenu.getDate())
