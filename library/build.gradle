@@ -1,4 +1,3 @@
-
 def versionMajor = 0 // incompatible API changes
 def versionMinor = 0 // added functionality in a backwards-compatible manner
 def versionPatch = 6 // backwards-compatible bug fixes
@@ -12,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.2'
+        classpath 'com.android.tools.build:gradle:0.14.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         classpath 'org.robolectric.gradle:gradle-android-test-plugin:0.9.4'
     }
