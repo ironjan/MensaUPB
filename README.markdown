@@ -12,6 +12,10 @@ Mittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine Schnit
 über die die Speisepläne heruntergeladen werden können; daher wurde die App zu einem Großteil neu
 geschrieben und ist nun endlich wieder im PlayStore ;)
 
+# Wie man Tester wird
+
+Hierzu verweise ich auf [meinen Blogeintrag](http://ironjan.de/mensaupb-beta/) zu diesem Thema.
+
 # Wie man mitentwickelt
 
 Aufgrund von Beschränkungen durch das Studentenwerk gibt es leider kein einfaches clonen dieses Projekts, welches 
