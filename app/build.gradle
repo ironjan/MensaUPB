@@ -11,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.13.2'
+        classpath 'com.android.tools.build:gradle:0.13.+'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         classpath 'org.robolectric.gradle:gradle-android-test-plugin:0.9.4'
     }
@@ -111,6 +111,7 @@ dependencies {
     //    androidTestCompile 'org.robolectric:robolectric:2.3'
     //    androidTestCompile 'com.squareup:fest-android:1.0.0'
     compile project(':library')
+    compile 'com.koushikdutta.ion:ion:2.+'
 }
 
 
