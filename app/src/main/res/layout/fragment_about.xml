@@ -6,26 +6,50 @@
     android:padding="@dimen/elementMargin"
     tools:context="de.ironjan.mensaupb.AboutFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
+            android:layout_marginTop="@dimen/elementMargin"
+            android:layout_width="wrap_content"
+            android:id="@+id/txtAppVersionHeader"
+            android:text="Version:"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_toRightOf="@+id/txtAppVersionHeader"
+            android:layout_marginLeft="8dp"
+            android:id="@+id/txtAppVersion"
+            android:layout_alignBaseline="@+id/txtAppVersionHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_below="@+id/txtAppVersionHeader"
             android:id="@+id/txtAbout"
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/aboutText"/>
 
         <TextView
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="16dp" android:text="Open Source"
+            android:layout_marginTop="8dp"
+            android:id="@+id/txtOpenSourceHeader"
+            android:text="@string/about_open_source"
+            android:layout_below="@+id/txtAbout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView android:layout_marginTop="@dimen/elementMargin"
-            android:layout_width="match_parent"
-            android:id="@+id/txtDependencies"
             android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/elementMargin"
+            android:layout_width="match_parent"
+            android:id="@+id/txtDependencies"
+            android:layout_below="@+id/txtOpenSourceHeader"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
 </ScrollView>

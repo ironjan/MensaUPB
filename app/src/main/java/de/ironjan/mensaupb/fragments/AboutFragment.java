@@ -23,11 +23,19 @@ public class AboutFragment extends Fragment {
     @FromHtml(R.string.aboutText)
     TextView mTxtAbout;
 
+    @ViewById(R.id.txtAppVersion)
+    TextView txtAppVersion;
+
     @AfterViews
     void linkify() {
         final MovementMethod movementMethod = LinkMovementMethod.getInstance();
         mTxtDependencies.setMovementMethod(movementMethod);
         mTxtAbout.setMovementMethod(movementMethod);
         if (BuildConfig.DEBUG) LOGGER.debug("linkify() done");
+    }
+
+    @AfterViews
+    void bindVersion() {
+        txtAppVersion.setText(BuildConfig.VERSION_NAME);
     }
 }
