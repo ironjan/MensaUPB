@@ -12,7 +12,7 @@ import de.ironjan.mensaupb.library.*;
  */
 @Rest(converters = MappingJackson2HttpMessageConverter.class, rootUrl = BuildConfig.STW_URL)
 public interface StwRest {
-    @Get("&restaurant={restaurant}")
+    @Get("&restaurant={restaurant}&date={date}")
     @Accept(MediaType.APPLICATION_JSON)
-    RawMenu[] getMenus(String restaurant);
+    RawMenu[] getMenus(String restaurant, String date);
 }
