@@ -119,10 +119,8 @@ public class RawMenu {
     }
 
     private void cleanNames() {
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("names: ({},{})", name_de, name_en);
         name_de = cleanName(name_de);
         name_en = cleanName(name_en);
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("---->  ({},{})", name_de, name_en);
     }
 
     private String cleanName(String name) {
