@@ -11,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.14.0'
+        classpath 'com.android.tools.build:gradle:0.14.2'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
         classpath 'org.robolectric.gradle:gradle-android-test-plugin:0.9.4'
     }
@@ -22,7 +22,7 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '21.0.1'
+    buildToolsVersion '21.0.2'
 
     packagingOptions {
         // prevents Error: duplicate files during packaging of APK
