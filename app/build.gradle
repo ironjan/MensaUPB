@@ -3,19 +3,6 @@ def versionMinor = 1 // added functionality in a backwards-compatible manner
 def versionPatch = 7 // backwards-compatible bug fixes
 def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 
-buildscript {
-    repositories {
-        mavenCentral()
-        maven { url 'http://repo1.maven.org/maven2' }
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.13.+'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
-        classpath 'org.robolectric.gradle:gradle-android-test-plugin:0.9.4'
-    }
-}
 
 repositories {
     mavenCentral()
