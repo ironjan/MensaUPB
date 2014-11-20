@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"
-        android:singleLine="false"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:id="@+id/textName"/>
