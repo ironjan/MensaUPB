@@ -1,13 +1,11 @@
 package de.ironjan.mensaupb.library.stw;
 
-import org.androidannotations.annotations.EBean;
-
 /**
  * Created by ljan on 21.11.14.
  */
-@EBean
 public class MockRestWrapper implements StwRest {
     private static final NewAllergen[] NO_ALLERGENS = new NewAllergen[0];
+    private static MockRestWrapper instance;
 
     NewAllergen[] ALL_ALLERGENS = {
             NewAllergen.COLORED,
@@ -40,6 +38,9 @@ public class MockRestWrapper implements StwRest {
             NewAllergen.GLUTEN,
             NewAllergen.PEANUTS
     };
+
+    private MockRestWrapper() {
+    }
 
     @Override
     public RawMenu[] getMenus(String restaurant, String date) {
@@ -77,5 +78,12 @@ public class MockRestWrapper implements StwRest {
         menu.setAllergens(allergens);
 
         return menu;
+    }
+
+    public static MockRestWrapper getInstance() {
+        if (instance == null) {
+            instance = new MockRestWrapper();
+        }
+        return instance;
     }
 }

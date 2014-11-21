@@ -23,22 +23,15 @@ public class StwRestWrapper implements StwRest {
     Context mContext;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(StwRestWrapper.class);
-    private MockRestWrapper mockRestWrapper;
 
     @Override
     public RawMenu[] getMenus(String restaurant, String date) {
         LOGGER.warn(BuildConfig.STW_URL);
         if (BuildConfig.STW_URL.isEmpty()) {
             LOGGER.warn("STW_URL is empty. Mocking response for ({},{})", restaurant, date);
-            return getMockRestWrapper().getMenus(restaurant, date);
+            return MockRestWrapper.getInstance().getMenus(restaurant, date);
         }
         return stwRest.getMenus(restaurant, date);
     }
 
-    public MockRestWrapper getMockRestWrapper() {
-        if (mockRestWrapper == null) {
-            mockRestWrapper = MockRestWrapper_.getInstance_(mContext);
-        }
-        return mockRestWrapper;
-    }
 }
