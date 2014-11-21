@@ -5,25 +5,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/elementMargin"
     >
 
     <!--<include layout="@layout/fragment_menu_detail_title"/>-->
 
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:padding="100dp"
+        android:id="@+id/progressBar"
+        android:indeterminate="true"/>
+
+    <de.ironjan.mensaupb.views.AspectRatioImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:id="@+id/image"
+        />
+
     <TextView
+        android:layout_marginLeft="@dimen/elementMargin"
+        android:layout_marginRight="@dimen/elementMargin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"
         android:singleLine="false"
         android:textStyle="bold"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/image"
         android:layout_marginTop="@dimen/elementMargin"
         android:textColor="@color/black"
         android:id="@+id/textName"/>
 
 
     <TextView
+        android:layout_marginLeft="@dimen/elementMargin"
+        android:layout_marginRight="@dimen/elementMargin"
         android:layout_below="@+id/textName"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/elementMargin"
@@ -35,6 +53,8 @@
         android:id="@+id/textCategory"/>
 
     <TextView
+        android:layout_marginLeft="@dimen/elementMargin"
+        android:layout_marginRight="@dimen/elementMargin"
         android:layout_below="@+id/textName"
         android:textColor="@color/black"
         android:layout_marginTop="@dimen/elementMargin"
@@ -46,6 +66,8 @@
         android:id="@+id/textPrice"/>
 
     <TextView
+        android:layout_marginLeft="@dimen/elementMargin"
+        android:layout_marginRight="@dimen/elementMargin"
         android:layout_below="@+id/textCategory"
         android:layout_marginTop="@dimen/elementMargin"
         android:id="@+id/textAllergens"
@@ -53,6 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginBottom="@dimen/elementMargin"
         tools:text=" * Ganz viele Stoffe...\n * Mehrzeilig sogar\nAlle Angaben ohne Foo"
         />
 </RelativeLayout>
