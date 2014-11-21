@@ -82,7 +82,7 @@ dependencies {
     compile 'com.noveogroup.android:android-logger:1.3.4'
     compile fileTree(dir: 'libs', include: '*.jar')
     compile project(':library')
-    compile 'com.koushikdutta.ion:ion:2.+'
+    compile 'com.koushikdutta.ion:ion:2.0.0'
 }
 
 

@@ -62,12 +62,12 @@ public class MenuDetailFragment extends DialogFragment {
 
     /**
      * Asynchronously load the image of the supplied menu
+     *
      * @param rawMenu
      */
     private void loadImage(RawMenu rawMenu) {
         if (!TextUtils.isEmpty(rawMenu.getImage())) {
             Ion.with(image)
-                    .crossfade()
                     .load(rawMenu.getImage())
                     .setCallback(new FutureCallback<ImageView>() {
                         @Override
