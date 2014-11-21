@@ -15,16 +15,17 @@ import de.ironjan.mensaupb.library.stw.*;
 @EBean(scope = EBean.Scope.Singleton)
 public class WeekdayHelper {
     public static final int WEEKEND_OFFSET = 2;
-    protected static final int DISPLAYED_DAYS_COUNT = 3;
-    private String[] weekDaysAsString = new String[DISPLAYED_DAYS_COUNT];
-    private String[] weekDaysforUi = new String[DISPLAYED_DAYS_COUNT];
+    public static final int DISPLAYED_DAYS_COUNT = 3;
+    private static final int CACHED_DAYS_COUNT = DISPLAYED_DAYS_COUNT + 2;
+    private String[] weekDaysAsString = new String[CACHED_DAYS_COUNT];
+    private String[] weekDaysforUi = new String[CACHED_DAYS_COUNT];
     private static final SimpleDateFormat SDF = new SimpleDateFormat(RawMenu.DATE_FORMAT);
     private static final DateFormat UI_FORMAT = SimpleDateFormat.getDateInstance();
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
+    private volatile boolean mDaysNotInitializedYet = true;
 
     @Trace
     synchronized String getNextWeekDayAsKey(int i) {
-
         if (weekDaysAsString[i] == null) {
             weekDaysAsString[i] = SDF.format(getNextWeekDay(i));
         }
@@ -34,12 +35,21 @@ public class WeekdayHelper {
         return weekDaysAsString[i];
     }
 
+    @Trace
+    public synchronized String[] getCachedDaysAsStrings() {
+        if (mDaysNotInitializedYet) {
+            initDays();
+        }
+        return weekDaysAsString.clone();
+    }
+
     @AfterInject
     @Trace
     void initDays() {
-        for (int i = 0; i < DISPLAYED_DAYS_COUNT; i++) {
+        for (int i = 0; i < CACHED_DAYS_COUNT; i++) {
             getNextWeekDayAsKey(i);
         }
+        mDaysNotInitializedYet = false;
     }
 
     @Trace

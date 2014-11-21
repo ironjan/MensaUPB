@@ -4,11 +4,15 @@ package de.ironjan.mensaupb.fragments;
 import android.app.*;
 import android.os.*;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.*;
 
 import com.j256.ormlite.android.*;
 import com.j256.ormlite.dao.*;
 import com.j256.ormlite.support.*;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.androidannotations.annotations.*;
 import org.slf4j.*;
@@ -26,9 +30,14 @@ public class MenuDetailFragment extends DialogFragment {
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
     @ViewById
     TextView textName, textCategory, textAllergens, textPrice;
+    @ViewById
+    ImageView image;
+    @ViewById
+    ProgressBar progressBar;
 
     public static MenuDetailFragment newInstance(long _id) {
-        if (BuildConfig.DEBUG) LOGGER.debug("newInstance({})", _id);
+        if (BuildConfig.DEBUG)
+            LOGGER.debug("newInstance({})", _id);
 
         Bundle args = new Bundle();
         args.putLong(ARG_ID, _id);
@@ -36,9 +45,11 @@ public class MenuDetailFragment extends DialogFragment {
         MenuDetailFragment menuDetailFragment = new MenuDetailFragment_();
         menuDetailFragment.setArguments(args);
 
-        if (BuildConfig.DEBUG) LOGGER.debug("Created new MenuDetailFragment({})", _id);
+        if (BuildConfig.DEBUG)
+            LOGGER.debug("Created new MenuDetailFragment({})", _id);
 
-        if (BuildConfig.DEBUG) LOGGER.debug("newInstance({}) done", _id);
+        if (BuildConfig.DEBUG)
+            LOGGER.debug("newInstance({}) done", _id);
         return menuDetailFragment;
     }
 
@@ -49,20 +60,46 @@ public class MenuDetailFragment extends DialogFragment {
         return dialog;
     }
 
+    /**
+     * Asynchronously load the image of the supplied menu
+     *
+     * @param rawMenu
+     */
+    private void loadImage(RawMenu rawMenu) {
+        if (!TextUtils.isEmpty(rawMenu.getImage())) {
+            Ion.with(image)
+                    .load(rawMenu.getImage())
+                    .setCallback(new FutureCallback<ImageView>() {
+                        @Override
+                        public void onCompleted(Exception e, ImageView result) {
+                            if (e != null) {
+                                e.printStackTrace();
+                                image.setVisibility(View.GONE);
+                            }
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+        } else {
+            image.setVisibility(ImageView.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
     @AfterViews
     void bindData() {
-        if (BuildConfig.DEBUG) LOGGER.debug("bindData()");
+        if (BuildConfig.DEBUG)
+            LOGGER.debug("bindData()");
 
         final long _id = getArguments().getLong(ARG_ID);
 
         try {
             DatabaseManager databaseManager = new DatabaseManager();
             DatabaseHelper helper = (databaseManager.getHelper(getActivity()));
-            ConnectionSource connectionSource =
-                    new AndroidConnectionSource(helper);
+            ConnectionSource connectionSource = new AndroidConnectionSource(helper);
             Dao<RawMenu, Long> dao = DaoManager.createDao(connectionSource, RawMenu.class);
             RawMenu rawMenu = dao.queryForId(_id);
             if (rawMenu != null) {
+                loadImage(rawMenu);
                 textName.setText(rawMenu.getName_de());
                 textCategory.setText(rawMenu.getCategory_de());
 
@@ -92,6 +129,7 @@ public class MenuDetailFragment extends DialogFragment {
             LOGGER.error("Could not load menu details", e);
         }
 
-        if (BuildConfig.DEBUG) LOGGER.debug("bindData()");
+        if (BuildConfig.DEBUG)
+            LOGGER.debug("bindData()");
     }
 }

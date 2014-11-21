@@ -40,5 +40,9 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="">github&lt;/
 \n
 (Wenn an einem Tag eines der Rastaurants geschlossen hat, gibt es keine Speisepläne und dieser Ladebildschirm wird gezeigt. Das werde ich aber bei Gelegenheit ändern)</string>
     <string name="openingTimes">Öffnungszeiten</string>
+    <string name="about_open_source">Open Source</string>
+    <string name="about_info">Allgemeine Infos</string>
 
+    <string name="devHeader">Entwickler</string>
+    <string name="devNames">David Maicher\nTony Lemke\nJan Lippert\nChristian Brüggemann</string>
 </resources>
