@@ -1,16 +1,22 @@
 package de.ironjan.mensaupb.library.stw;
 
-import android.provider.*;
-import android.text.*;
+import android.provider.BaseColumns;
+import android.text.TextUtils;
 
-import com.fasterxml.jackson.annotation.*;
-import com.j256.ormlite.field.*;
-import com.j256.ormlite.table.*;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.text.*;
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Vector;
 
 /**
  * A class representing a raw menu with all possible information
@@ -342,24 +348,6 @@ public class RawMenu {
     }
 
     private void updateSortOrder() {
-        if (categoryIdentifier.equals("dish-default")) {
-            sortOrder = 0;
-        } else if (categoryIdentifier.equals("soups")) {
-            sortOrder = 10;
-        } else if (categoryIdentifier.equals("sidedish")) {
-            sortOrder = 30;
-        } else if (categoryIdentifier.equals("dessert")) {
-            sortOrder = 35;
-        } else if (categoryIdentifier.equals("dessert-counter")) {
-            sortOrder = 37;
-        } else if (categoryIdentifier.equals("dish-grill")) {
-            sortOrder = 45;
-        } else if (categoryIdentifier.equals("dish-pasta")) {
-            sortOrder = 50;
-        } else if (categoryIdentifier.equals("dish-wok")) {
-            sortOrder = 55;
-        } else {
-            sortOrder = 100;
-        }
+        sortOrder = SortOrder.getSortOrder(categoryIdentifier);
     }
 }
