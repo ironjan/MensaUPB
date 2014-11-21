@@ -6,21 +6,12 @@ def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-//apply plugin: 'android-test'
 apply plugin: 'idea'
 
 
 configurations {
     apt
-    unitTestCompile.extendsFrom runtime
-    unitTestRuntime.extendsFrom unitTestCompile
 }
-
-
-def getSourceSetName(variant) {
-    return new File(variant.dirName).getName();
-}
-
 
 android {
     compileSdkVersion 21
@@ -90,10 +81,6 @@ dependencies {
     compile 'org.androidannotations:androidannotations-api:3.2'
     compile 'com.noveogroup.android:android-logger:1.3.4'
     compile fileTree(dir: 'libs', include: '*.jar')
-    //     tests
-    //    androidTestCompile 'junit:junit:4.11'
-    //    androidTestCompile 'org.robolectric:robolectric:2.3'
-    //    androidTestCompile 'com.squareup:fest-android:1.0.0'
     compile project(':library')
 }
 
