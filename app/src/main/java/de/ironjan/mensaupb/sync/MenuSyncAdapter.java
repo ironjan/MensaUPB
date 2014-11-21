@@ -1,22 +1,32 @@
 package de.ironjan.mensaupb.sync;
 
-import android.accounts.*;
-import android.annotation.*;
-import android.content.*;
-import android.os.*;
+import android.accounts.Account;
+import android.annotation.TargetApi;
+import android.content.AbstractThreadedSyncAdapter;
+import android.content.ContentProviderClient;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SyncResult;
+import android.os.Build;
+import android.os.Bundle;
 
-import com.j256.ormlite.android.*;
-import com.j256.ormlite.dao.*;
-import com.j256.ormlite.support.*;
+import com.j256.ormlite.android.AndroidConnectionSource;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.support.ConnectionSource;
 
-import org.slf4j.*;
-import org.springframework.web.client.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.client.RestClientException;
 
-import java.util.*;
+import java.util.List;
 
-import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.library.stw.*;
-import de.ironjan.mensaupb.persistence.*;
+import de.ironjan.mensaupb.adapters.WeekdayHelper_;
+import de.ironjan.mensaupb.library.stw.RawMenu;
+import de.ironjan.mensaupb.library.stw.StwRestWrapper;
+import de.ironjan.mensaupb.library.stw.StwRestWrapper_;
+import de.ironjan.mensaupb.persistence.DatabaseHelper;
+import de.ironjan.mensaupb.persistence.DatabaseManager;
 
 /**
  * SyncAdapter to download and persist menus.
@@ -29,16 +39,16 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
     private final ContentResolver mContentResolver;
-    private final StwRest stwRest;
     private final String[] restaurants;
     private final WeekdayHelper_ mWeekdayHelper;
     private Dao<RawMenu, ?> dao;
     private final ContentResolver contentResolver;
+    private final StwRestWrapper stwRestWrapper;
 
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
-        stwRest = new StwRest_(context);
+        stwRestWrapper = StwRestWrapper_.getInstance_(context);
         restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
@@ -48,7 +58,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private MenuSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
         mContentResolver = context.getContentResolver();
-        stwRest = new StwRest_(context);
+        stwRestWrapper = StwRestWrapper_.getInstance_(context);
         restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
@@ -120,7 +130,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
     @org.androidannotations.annotations.Trace
     RawMenu[] downloadMenus(String restaurant, String date) {
-        return stwRest.getMenus(restaurant, date);
+        return stwRestWrapper.getMenus(restaurant, date);
     }
 
     @org.androidannotations.annotations.Trace
