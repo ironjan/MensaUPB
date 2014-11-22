@@ -23,6 +23,9 @@ public class AboutFragment extends Fragment {
     @FromHtml(R.string.aboutText)
     TextView mTxtAbout;
 
+    @ViewById(R.id.txtDependencyNames)
+    @FromHtml(R.string.dependencyNames)
+    TextView mTxtDependencyNames;
     @ViewById(R.id.txtAppVersion)
     TextView txtAppVersion;
 
@@ -31,6 +34,7 @@ public class AboutFragment extends Fragment {
         final MovementMethod movementMethod = LinkMovementMethod.getInstance();
         mTxtDependencies.setMovementMethod(movementMethod);
         mTxtAbout.setMovementMethod(movementMethod);
+        mTxtDependencyNames.setMovementMethod(movementMethod);
         if (BuildConfig.DEBUG) LOGGER.debug("linkify() done");
     }
 
