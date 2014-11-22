@@ -22,10 +22,10 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * An adapter to load the list of menus for a MenuListingFragment.
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, StickyListHeadersAdapter {
-    public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.CATEGORY, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, BaseColumns._ID};
+    public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.CATEGORY, BaseColumns._ID};
     private static final String SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " = ?";
-    public static final int CATEGORY_INDEX = 1;
-    static int[] BIND_TO = {R.id.textName, R.id.textCategory, R.id.textPrice, R.id.textPricePer100g};
+    public static final int CATEGORY_INDEX = 3;
+    static int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g};
 
     private final String mDate;
     private final String mLocation;

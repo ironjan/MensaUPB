@@ -1,62 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-    android:paddingTop="@dimen/elementMargin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:paddingLeft="@dimen/elementMargin"
     android:paddingRight="@dimen/elementMargin"
-    >
+    android:paddingTop="@dimen/elementMargin">
 
 
     <TextView
+        android:id="@+id/textName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"
-        android:singleLine="true"
         android:ellipsize="end"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:id="@+id/textName"/>
+        tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros" />
 
-    <TextView
-        android:textColor="@color/black"
-        android:layout_below="@+id/textName"
-        android:layout_marginTop="@dimen/elementMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        tools:text="Essen"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/textPrice"
-        android:id="@+id/textCategory"/>
-
-
-    <TextView
-        android:id="@+id/textPricePer100g"
-        android:textColor="@color/black"
-        android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        tools:text="/100g"
-        android:layout_alignTop="@+id/textCategory"/>
 
     <TextView
         android:id="@+id/textPrice"
-        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textName"
+        android:layout_marginTop="@dimen/elementMargin"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        tools:text="1,20€"
-        android:layout_toLeftOf="@+id/textPricePer100g"
-        android:layout_alignTop="@+id/textCategory"/>
+        android:textColor="@color/black"
+        tools:text="1,20€" />
+
+    <TextView
+        android:id="@+id/textPricePer100g"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textName"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:layout_toRightOf="@+id/textPrice"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/black"
+        tools:text="/100g" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="8dp"
         android:layout_below="@+id/textPrice"
+        android:layout_marginTop="8dp"
         android:src="@color/cardShadow" />
 </RelativeLayout>
