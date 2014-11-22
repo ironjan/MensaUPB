@@ -7,6 +7,7 @@
     <color name="backgroundBehindCards">#eee</color>
     <color name="backgroundCards">#eee</color>
     <color name="greenBase">#d2c4d31e</color>
+    <color name="textDarkGreen">#ef7FBF1F</color>
     <color name="iconBg">@color/greenBase</color>
     <color name="pressedSelectable">#d2c4d31e</color>
     <color name="focusedSelectable">#d2e4eb96</color>
