@@ -24,7 +24,7 @@ public class SortOrder {
         } else if (categoryIdentifier.equals(DISH_PASTA)) {
             return 20;
         } else if (categoryIdentifier.equals(DISH_WOK)) {
-            return 30;
+            return 25;
         } else if (categoryIdentifier.equals(SIDEDISH)) {
             return 30;
         } else if (categoryIdentifier.equals(DESSERT)) {
