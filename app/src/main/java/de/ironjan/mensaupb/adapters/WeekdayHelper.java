@@ -1,6 +1,7 @@
 package de.ironjan.mensaupb.adapters;
 
 import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.res.*;
 import org.slf4j.*;
 
 import java.text.*;
@@ -20,9 +21,11 @@ public class WeekdayHelper {
     private String[] weekDaysAsString = new String[CACHED_DAYS_COUNT];
     private String[] weekDaysforUi = new String[CACHED_DAYS_COUNT];
     private static final SimpleDateFormat SDF = new SimpleDateFormat(RawMenu.DATE_FORMAT);
-    private static final DateFormat UI_FORMAT = SimpleDateFormat.getDateInstance();
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
     private volatile boolean mDaysNotInitializedYet = true;
+
+    @StringRes
+    String localizedDatePattern;
 
     @Trace
     synchronized String getNextWeekDayAsKey(int i) {
@@ -95,7 +98,8 @@ public class WeekdayHelper {
 
     public String getNextWeekDayForUI(int i) {
         if (weekDaysforUi[i] == null) {
-            weekDaysforUi[i] = UI_FORMAT.format(getNextWeekDay(i));
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(localizedDatePattern);
+            weekDaysforUi[i] = simpleDateFormat.format(getNextWeekDay(i));
         }
 
         if (BuildConfig.DEBUG)

@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Mensa UPB</string>
-    <string name="startday">Startort</string>
+    <string name="app_name" translateable="false" translatable="false">Mensa UPB</string>
 
 
     <!-- main action bar -->
     <string name="change_location">Ortswechsel</string>
     <string name="refresh">Aktualisieren</string>
-    <string name="opening_times">Öffnungszeiten</string>
     <string name="settings">Einstellungen</string>
-    <string name="select_Location">Ort wählen</string>
 
 
     <!-- about -->
@@ -21,28 +18,29 @@
 Mittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine Schnittstelle bereit, über die die Speisepläne heruntergeladen werden können; daher wurde die App zu einem Großteil neu geschrieben und ist nun endlich wieder im PlayStore ;)
 </string>
     <string name="dependencies">
-MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="">github&lt;/a>. Feedback und Fehlermeldungen können via Email an &lt;a href="mailto:lippertsjan+mensaupb@gmail.com?subject=MensaUPB">lippertsjan@gmail.com&lt;/a> gesendet werden.&lt;br>
+MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github.com/ironjan/MensaUPB">github&lt;/a>. Feedback und Fehlermeldungen können via Email an &lt;a href="mailto:lippertsjan+mensaupb@gmail.com?subject=MensaUPB">lippertsjan@gmail.com&lt;/a> gesendet werden.&lt;br>
 &lt;br>
         Die Speisepläne werden über eine Schnittstelle des Studentenwerk Paderborns abgerufen. Näheres dazu &lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/">hier&lt;/a>&lt;br>
 &lt;br>
-        Des weiteren benutzt die folgenden Open Source Bibliotheken:&lt;br>
-&lt;br>
-* &lt;a href="https://github.com/excilys/androidannotations/">Androidannotations&lt;/a>, unter der &lt;a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0&lt;/a>&lt;br>
-* &lt;a href="http://developer.android.com/tools/support-library/index.html">Android support libraries v4 and v7, unter der &lt;a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0&lt;/a>&lt;br>
-* &lt;a href="http://www.slf4j.org/android/">SLF4J-android&lt;/a>, unter der &lt;a href="http://www.slf4j.org/license.html">MIT License&lt;/a>&lt;br>
-* &lt;a href="http://ormlite.com/">ormlite&lt;/a>, unter einer &lt;a href="http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_9.html#License">eigenen Lizenz&lt;/a>&lt;br>
-* &lt;a href="http://android-holo-colors.com/">android-holo-colors&lt;/a>, um einige Resourcen zu generieren</string>
+        Des weiteren benutzt die folgenden Open Source Bibliotheken:</string>
+
+    <string name="dependencyNames" translatable="false">* &lt;a href="https://github.com/excilys/androidannotations/">Androidannotations&lt;/a>, &lt;a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0&lt;/a>&lt;br>
+ * &lt;a href="http://developer.android.com/tools/support-library/index.html">Android support libraries v4 and v7, &lt;a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0&lt;/a>&lt;br>
+ * &lt;a href="http://www.slf4j.org/android/">SLF4J-android&lt;/a>, &lt;a href="http://www.slf4j.org/license.html">MIT License&lt;/a>&lt;br>
+ * &lt;a href="http://ormlite.com/">ormlite&lt;/a>, &lt;a href="http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_9.html#License">ormlite license&lt;/a>&lt;br>
+ * &lt;a href="http://android-holo-colors.com/">android-holo-colors&lt;/a>
+    </string>
     <!--menu-->
     <string name="source">Quelle</string>
     <string name="about">Über die App</string>
     <string name="menusLoading1">Speisepläne werden geladen. Dies könnte beim ersten Start einige Minuten dauern.</string>
     <string name="menusLoading2">Die Pläne werden jedoch auf dem Gerät gespeichert - beim nächsten Mal sind sie sofort verfügbar ;)\n
 \n
-(Wenn an einem Tag eines der Rastaurants geschlossen hat, gibt es keine Speisepläne und dieser Ladebildschirm wird gezeigt. Das werde ich aber bei Gelegenheit ändern)</string>
-    <string name="openingTimes">Öffnungszeiten</string>
+(Wenn an einem Tag eines der Restaurants geschlossen hat, wird dieser Ladebildschirm wird gezeigt. Das werde ich aber bei Gelegenheit ändern.)</string>
     <string name="about_open_source">Open Source</string>
-    <string name="about_info">Allgemeine Infos</string>
 
     <string name="devHeader">Entwickler</string>
-    <string name="devNames">David Maicher\nTony Lemke\nJan Lippert\nChristian Brüggemann</string>
+    <string name="devNames" translateable="false" translatable="false">David Maicher\nTony Lemke\nJan Lippert\nChristian Brüggemann</string>
+
+    <string name="localizedDatePattern">EE, dd.MM.yyyy</string>
 </resources>

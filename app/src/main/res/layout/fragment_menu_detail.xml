@@ -23,11 +23,31 @@
             android:textStyle="bold"
             tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"/>
 
+        <TextView
+            android:layout_margin="@dimen/elementMargin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:id="@+id/textRestaurant"
+            android:layout_below="@+id/textName"
+            android:layout_alignParentLeft="true"
+            tools:text="Mensa Academica"/>
+
+        <TextView
+            android:id="@+id/textDate"
+            android:layout_alignBaseline="@+id/textRestaurant"
+            android:textColor="@color/black"
+            android:layout_margin="@dimen/elementMargin"
+            android:layout_alignParentRight="true"
+            tools:text="21.11.2014"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <FrameLayout
             android:id="@+id/frameImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textName">
+            android:layout_below="@+id/textRestaurant">
 
             <de.ironjan.mensaupb.views.AspectRatioImageView
                 android:id="@+id/image"

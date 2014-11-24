@@ -9,6 +9,7 @@ import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
 import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.activities.*;
 import de.ironjan.mensaupb.adapters.*;
 
 @EFragment(R.layout.fragment_menu_listing)
@@ -59,10 +60,7 @@ public class MenuListingFragment extends ListFragment {
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);
 
         final long _id = getListAdapter().getItemId(pos);
-
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        MenuDetailFragment fragment = MenuDetailFragment.newInstance(_id);
-        fragment.show(fm, "fragment_edit_name");
+        MenuDetails_.intent(this).menuId(_id).start();
 
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({}) done", pos);
     }
