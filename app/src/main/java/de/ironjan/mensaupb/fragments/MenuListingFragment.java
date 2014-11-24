@@ -1,19 +1,26 @@
 package de.ironjan.mensaupb.fragments;
 
 
-import android.os.*;
-import android.support.v4.app.*;
-import android.view.*;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.view.View;
 
-import org.androidannotations.annotations.*;
-import org.slf4j.*;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.ViewById;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.activities.*;
-import de.ironjan.mensaupb.adapters.*;
+import de.ironjan.mensaupb.adapters.MenuDetailViewBinder;
+import de.ironjan.mensaupb.adapters.MenuListingAdapter;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 @EFragment(R.layout.fragment_menu_listing)
-public class MenuListingFragment extends ListFragment {
+public class MenuListingFragment extends Fragment {
 
     public static String ARG_DATE = "date";
     public static String ARG_LOCATION = "restaurant";
@@ -23,13 +30,10 @@ public class MenuListingFragment extends ListFragment {
     View mLoadingView;
     @ViewById(android.R.id.content)
     View mNoMenus;
+    @ViewById(android.R.id.list)
+    StickyListHeadersListView list;
+
     private MenuListingAdapter adapter;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return null;
-    }
-
 
     private String getArgLocation() {
         return getArguments().getString(ARG_LOCATION);
@@ -39,19 +43,12 @@ public class MenuListingFragment extends ListFragment {
         return getArguments().getString(ARG_DATE);
     }
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        loadContent();
-
-    }
-
+    @AfterViews
     void loadContent() {
         adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
         adapter.setViewBinder(new MenuDetailViewBinder());
         getLoaderManager().initLoader(0, null, adapter);
-        setListAdapter(adapter);
+        list.setAdapter(adapter);
     }
 
 
@@ -59,7 +56,7 @@ public class MenuListingFragment extends ListFragment {
     void listItemClicked(int pos) {
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);
 
-        final long _id = getListAdapter().getItemId(pos);
+        final long _id = adapter.getItemId(pos);
         MenuDetails_.intent(this).menuId(_id).start();
 
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({}) done", pos);

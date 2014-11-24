@@ -1,25 +1,31 @@
 package de.ironjan.mensaupb.adapters;
 
 
-import android.content.*;
-import android.database.*;
-import android.os.*;
-import android.provider.*;
+import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.*;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.library.stw.*;
-import de.ironjan.mensaupb.sync.*;
+import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.library.stw.RawMenu;
+import de.ironjan.mensaupb.sync.MenuContentProvider;
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
  * An adapter to load the list of menus for a MenuListingFragment.
  */
-public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor> {
-    public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.CATEGORY, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, BaseColumns._ID};
+public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, StickyListHeadersAdapter {
+    public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.CATEGORY, BaseColumns._ID};
     private static final String SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " = ?";
-    static int[] BIND_TO = {R.id.textName, R.id.textCategory, R.id.textPrice, R.id.textPricePer100g};
+    public static final int CATEGORY_INDEX = 3;
+    static int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g};
 
     private final String mDate;
     private final String mLocation;
@@ -51,5 +57,33 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         swapCursor(null);
+    }
+
+    @Override
+    public View getHeaderView(int pos, View convertView, ViewGroup parent) {
+        String categoryOfPosition = getCategoryOfPosition(pos);
+        TextView view;
+        if (convertView == null) {
+            view = new TextView(mContext);
+            view.setBackgroundColor(Color.WHITE);
+            view.setTextColor(Color.BLACK);
+        } else {
+            view = (TextView) convertView;
+        }
+        view.setText(categoryOfPosition);
+
+        return view;
+    }
+
+    @Override
+    public long getHeaderId(int pos) {
+        String category = getCategoryOfPosition(pos);
+        return category.hashCode();
+    }
+
+    private String getCategoryOfPosition(int pos) {
+        Cursor cursor = getCursor();
+        cursor.moveToPosition(pos);
+        return cursor.getString(CATEGORY_INDEX);
     }
 }
