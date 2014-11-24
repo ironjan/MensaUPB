@@ -16,6 +16,7 @@ import android.widget.TextView;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.library.stw.RawMenu;
 import de.ironjan.mensaupb.sync.MenuContentProvider;
+import de.ironjan.mensaupb.views.*;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
@@ -62,13 +63,11 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
     @Override
     public View getHeaderView(int pos, View convertView, ViewGroup parent) {
         String categoryOfPosition = getCategoryOfPosition(pos);
-        TextView view;
+        MenuListingHeaderView view;
         if (convertView == null) {
-            view = new TextView(mContext);
-            view.setBackgroundColor(Color.WHITE);
-            view.setTextColor(Color.BLACK);
+            view = MenuListingHeaderView_.build(mContext);
         } else {
-            view = (TextView) convertView;
+            view = (MenuListingHeaderView) convertView;
         }
         view.setText(categoryOfPosition);
 

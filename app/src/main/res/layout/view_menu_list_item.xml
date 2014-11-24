@@ -5,6 +5,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/elementMargin"
                 android:paddingRight="@dimen/elementMargin"
+                android:minHeight="48dp"
+                android:background="@color/bright_foreground_material_dark"
                 android:paddingTop="@dimen/elementMargin">
 
 
@@ -26,9 +28,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textName"
-        android:layout_marginTop="@dimen/elementMargin"
+        android:layout_marginBottom="8dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/black"
+        android:textColor="@color/secondary_text_default_material_light"
         tools:text="1,20€"/>
 
     <TextView
@@ -36,16 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textName"
-        android:layout_marginTop="@dimen/elementMargin"
+        android:layout_alignBaseline="@+id/textPrice"
         android:layout_toRightOf="@+id/textPrice"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/black"
+        android:textColor="@color/secondary_text_default_material_light"
         tools:text="/100g"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/textPrice"
-        android:layout_marginTop="8dp"
-        android:src="@color/cardShadow"/>
 </RelativeLayout>
