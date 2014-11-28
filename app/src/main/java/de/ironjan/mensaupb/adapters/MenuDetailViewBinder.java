@@ -63,8 +63,9 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
         }
     }
 
-    private void bindBadges(TextView textView, Cursor cursor, int columnIndex) {
+    private void bindBadges(View view, Cursor cursor, int columnIndex) {
         String string = cursor.getString(columnIndex);
+        TextView textView = (TextView) view;
         textView.setText(string);
     }
 }
