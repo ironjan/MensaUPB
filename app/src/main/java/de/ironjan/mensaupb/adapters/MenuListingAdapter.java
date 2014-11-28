@@ -1,23 +1,20 @@
 package de.ironjan.mensaupb.adapters;
 
 
-import android.content.Context;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.provider.BaseColumns;
+import android.content.*;
+import android.database.*;
+import android.os.*;
+import android.provider.*;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.support.v4.widget.*;
+import android.view.*;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.library.stw.RawMenu;
-import de.ironjan.mensaupb.sync.MenuContentProvider;
+import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.sync.*;
 import de.ironjan.mensaupb.views.*;
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+import se.emilsjolander.stickylistheaders.*;
 
 /**
  * An adapter to load the list of menus for a MenuListingFragment.
@@ -25,7 +22,12 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, StickyListHeadersAdapter {
     public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.CATEGORY, BaseColumns._ID};
     private static final String SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " = ?";
-    public static final int CATEGORY_INDEX = 4;
+    public static final int NAME_GERMAN_INDEX = 0,
+            STUDENTS_PRICE_INDEX = 1,
+            PRICE_TYPE_INDEX = 2,
+            BADGES_INDEX = 3,
+            CATEGORY_INDEX = 4,
+            ID_INDEX = 5;
     static int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
 
     private final String mDate;

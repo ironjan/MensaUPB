@@ -1,23 +1,38 @@
 package de.ironjan.mensaupb.library;
 
+import android.text.*;
+
+import com.j256.ormlite.logger.*;
+
 import de.ironjan.mensaupb.library.stw.*;
 
 /**
  * Created by ljan on 28.11.14.
  */
 public class BadgesStringConverter {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(BadgesStringConverter.class);
+
     public static Badge[] convert(String badgesAsString) {
+        if (badgesAsString == null || TextUtils.isEmpty(badgesAsString)) {
+            return null;
+        }
         String[] split = badgesAsString.split(";");
         Badge[] tmpBadges = new Badge[split.length];
         for (int i = 0; i < split.length; i++) {
-            tmpBadges[i] = Badge.fromString(split[i]);
+            String string = split[i];
+            Badge badge = Badge.fromString(string);
+            tmpBadges[i] = badge;
+            LOGGER.debug("{} <-- {}", badge, string);
         }
+
+
         return tmpBadges.clone();
     }
 
     public static String convert(Badge[] badges) {
         if (badges == null || badges.length < 1) {
-            return "";
+            return null;
         }
 
         StringBuilder builder = new StringBuilder(badges[0].getType());

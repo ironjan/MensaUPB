@@ -17,7 +17,8 @@ public enum Badge {
     VEGETARIAN(3, Constants.VEGETARIAN, R.string.vegetarian),
     VEGAN(4, Constants.VEGAN, R.string.vegan),
     NO_LACTOSE(5, Constants.NO_LACTOSE, R.string.noLactose),
-    NO_GLUTEN(6, Constants.NO_GLUTEN, R.string.noGluten);
+    NO_GLUTEN(6, Constants.NO_GLUTEN, R.string.noGluten),
+    EMPTY(7, Constants.EMPTY, R.string.empty);
 
     private final int ordinal;
     private final String type;
@@ -44,8 +45,7 @@ public enum Badge {
         } else if (Constants.NO_GLUTEN.equals(s)) {
             return NO_GLUTEN;
         } else
-
-            return null;
+            return EMPTY;
     }
 
     public String getType() {
@@ -63,5 +63,6 @@ public enum Badge {
         public static final String VEGAN = "vegan";
         public static final String NO_LACTOSE = "lactose-free";
         public static final String NO_GLUTEN = "gluten-free";
+        public static final String EMPTY = "";
     }
 }
