@@ -44,6 +44,10 @@ public enum Badge {
             return null;
     }
 
+    public String getType() {
+        return type;
+    }
+
     private static class Constants {
         public static final String LOW_CALORIE = "low-calorie";
         public static final String FAT_FREE = "nonfat";

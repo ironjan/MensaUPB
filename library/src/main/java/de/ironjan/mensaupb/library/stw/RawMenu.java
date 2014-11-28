@@ -1,22 +1,16 @@
 package de.ironjan.mensaupb.library.stw;
 
-import android.provider.BaseColumns;
-import android.text.TextUtils;
+import android.provider.*;
+import android.text.*;
 
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.j256.ormlite.field.DataType;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
+import com.fasterxml.jackson.annotation.*;
+import com.j256.ormlite.field.*;
+import com.j256.ormlite.table.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Vector;
+import java.text.*;
+import java.util.*;
 
 /**
  * A class representing a raw menu with all possible information
@@ -34,6 +28,7 @@ public class RawMenu {
     public static final String ALLERGENS = "allergens";
     public static final Logger LOGGER = LoggerFactory.getLogger(RawMenu.class);
     public static final String SORT_ORDER = "sortOrder";
+    public static final String BADGES = "badges";
     @DatabaseField(generatedId = true, columnName = BaseColumns._ID)
     long _id;
     @DatabaseField
@@ -67,8 +62,12 @@ public class RawMenu {
     private double priceGuests;
     @DatabaseField(columnName = ALLERGENS, dataType = DataType.SERIALIZABLE)
     private NewAllergen[] allergens;
-    @DatabaseField(dataType = DataType.SERIALIZABLE)
+
     private Badge[] badges;
+
+    @DatabaseField(columnName = BADGES, dataType = DataType.SERIALIZABLE)
+    private String badgesAsString;
+
     @DatabaseField(columnName = RESTAURANT)
     private String restaurant;
     @DatabaseField(canBeNull = false, columnName = PRICE_TYPE)
@@ -253,6 +252,43 @@ public class RawMenu {
 
     public void setBadges(Badge[] badges) {
         this.badges = badges;
+        buildBadgesAsString();
+    }
+
+    private void buildBadgesAsString() {
+        if (badges == null || badges.length < 1) {
+            return;
+        }
+
+        StringBuilder builder = new StringBuilder(badges[0].getType());
+
+        for (int i = 1; i < badges.length; i++) {
+            Badge badge = badges[i];
+            builder.append(";")
+                    .append(badge.getType());
+        }
+
+        badgesAsString = builder.toString();
+        LOGGER.debug("{} -> {}", badges, badgesAsString);
+    }
+
+    public void setBadgesAsString(String badgesAsString) {
+        this.badgesAsString = badgesAsString;
+        buildArrayFromString();
+    }
+
+    public String getBadgesAsString() {
+        buildBadgesAsString();
+        return badgesAsString;
+    }
+
+    private void buildArrayFromString() {
+        String[] split = badgesAsString.split(";");
+        Badge[] tmpBadges = new Badge[split.length];
+        for (int i = 0; i < split.length; i++) {
+            tmpBadges[i] = badges[i];
+        }
+        badges = tmpBadges;
     }
 
     public String getRestaurant() {
