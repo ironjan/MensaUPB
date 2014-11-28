@@ -1,32 +1,26 @@
 package de.ironjan.mensaupb.sync;
 
-import android.accounts.Account;
-import android.annotation.TargetApi;
-import android.content.AbstractThreadedSyncAdapter;
-import android.content.ContentProviderClient;
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.SyncResult;
-import android.os.Build;
-import android.os.Bundle;
+import android.accounts.*;
+import android.annotation.*;
+import android.content.*;
+import android.os.*;
 
-import com.j256.ormlite.android.AndroidConnectionSource;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.android.*;
+import com.j256.ormlite.dao.*;
+import com.j256.ormlite.stmt.*;
+import com.j256.ormlite.stmt.query.*;
+import com.j256.ormlite.support.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.client.RestClientException;
+import org.slf4j.*;
+import org.springframework.core.*;
+import org.springframework.web.client.*;
 
-import java.util.List;
+import java.sql.*;
+import java.util.*;
 
-import de.ironjan.mensaupb.adapters.WeekdayHelper_;
-import de.ironjan.mensaupb.library.stw.RawMenu;
-import de.ironjan.mensaupb.library.stw.StwRestWrapper;
-import de.ironjan.mensaupb.library.stw.StwRestWrapper_;
-import de.ironjan.mensaupb.persistence.DatabaseHelper;
-import de.ironjan.mensaupb.persistence.DatabaseManager;
+import de.ironjan.mensaupb.adapters.*;
+import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.persistence.*;
 
 /**
  * SyncAdapter to download and persist menus.
@@ -41,7 +35,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final ContentResolver mContentResolver;
     private final String[] restaurants;
     private final WeekdayHelper_ mWeekdayHelper;
-    private Dao<RawMenu, ?> dao;
     private final ContentResolver contentResolver;
     private final StwRestWrapper stwRestWrapper;
 
@@ -96,10 +89,17 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         } catch (java.sql.SQLException e) {
             LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
             LOGGER.error(e.getMessage(), e);
+        } catch (ResourceAccessException e) {
+            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
+            LOGGER.error(e.getMessage(), e);
         } catch (RestClientException e) {
             LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
             LOGGER.error(e.getMessage(), e);
+        } catch (NestedRuntimeException e) {
+            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
+            LOGGER.error(e.getMessage(), e);
         }
+
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("onPerformeSync({},{},{},{},{}) done", new Object[]{account, bundle, s, contentProviderClient, syncResult});
         }
@@ -110,22 +110,23 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         DatabaseHelper helper = (databaseManager.getHelper(getContext()));
         ConnectionSource connectionSource =
                 new AndroidConnectionSource(helper);
-        dao = DaoManager.createDao(connectionSource, RawMenu.class);
+        Dao<RawMenu, ?> dao = DaoManager.createDao(connectionSource, RawMenu.class);
 
         String[] cachedDaysAsStrings = mWeekdayHelper.getCachedDaysAsStrings();
 
         for (String date : cachedDaysAsStrings) {
             for (String restaurant : restaurants) {
-                syncMenus(restaurant, date);
+                syncMenus(dao, restaurant, date);
             }
         }
+        cleanOldMenus(dao, cachedDaysAsStrings);
         databaseManager.releaseHelper(helper);
     }
 
     @org.androidannotations.annotations.Trace
-    void syncMenus(String restaurant, String date) throws java.sql.SQLException, RestClientException {
+    void syncMenus(Dao<RawMenu, ?> dao, String restaurant, String date) throws java.sql.SQLException, RestClientException {
         RawMenu[] menus = downloadMenus(restaurant, date);
-        persistMenus(menus);
+        persistMenus(dao, menus);
     }
 
     @org.androidannotations.annotations.Trace
@@ -134,7 +135,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    void persistMenus(RawMenu[] menus) throws java.sql.SQLException {
+    void persistMenus(Dao<RawMenu, ?> dao, RawMenu[] menus) throws java.sql.SQLException {
         for (RawMenu rawMenu : menus) {
             List<RawMenu> local = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, rawMenu.getName_de())
                     .and().eq(RawMenu.DATE, rawMenu.getDate())
@@ -149,6 +150,26 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
             }
             contentResolver.notifyChange(MenuContentProvider.MENU_URI, null, false);
         }
+    }
+
+    private void cleanOldMenus(Dao<RawMenu, ?> dao, String[] cachedDaysAsStrings) throws SQLException {
+        if (cachedDaysAsStrings == null || cachedDaysAsStrings.length < 1) {
+            return;
+        }
+
+        StringBuilder rawQueryBuilder = new StringBuilder("DELETE FROM ")
+                .append(RawMenu.TABLE)
+                .append(" WHERE ").append(RawMenu.DATE).append(" not in ('")
+                .append(cachedDaysAsStrings[0]);
+        for (int i = 1; i < cachedDaysAsStrings.length; i++) {
+            rawQueryBuilder.append("', '")
+                    .append(cachedDaysAsStrings[i]);
+        }
+        rawQueryBuilder.append("');");
+        String rawQuery = rawQueryBuilder.toString();
+
+        int rows = dao.executeRawNoArgs(rawQuery);
+        rows = (rows++) - 1;
     }
 
 
