@@ -249,6 +249,9 @@ public class RawMenu {
     }
 
     public Badge[] getBadges() {
+        if (badges == null && badgesAsString != null) {
+            badges = BadgesStringConverter.convert(this.badgesAsString);
+        }
         return badges;
     }
 

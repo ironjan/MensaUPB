@@ -32,7 +32,7 @@ public class MenuDetailFragment extends Fragment {
     public static final String ARG_ID = "ARG_ID";
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
     @ViewById
-    TextView textName, textCategory, textAllergens, textPrice, textRestaurant, textDate;
+    TextView textName, textCategory, textAllergens, textPrice, textRestaurant, textDate, textBadges;
     @ViewById
     ImageView image;
     @ViewById
@@ -99,8 +99,25 @@ public class MenuDetailFragment extends Fragment {
         bindDate(rawMenu);
         bindPrice(rawMenu);
         bindAllergens(rawMenu);
-
+        bindBadges(rawMenu);
         loadImage(rawMenu);
+    }
+
+    private void bindBadges(RawMenu rawMenu) {
+        Badge[] badges = rawMenu.getBadges();
+
+        if (badges == null || badges.length < 1) {
+            textBadges.setText("");
+            return;
+        }
+
+        StringBuilder stringBuilder = new StringBuilder(getActivity().getString(badges[0].getStringId()));
+        for (int i = 1; i < badges.length; i++) {
+            String badgeString = getActivity().getString(badges[i].getStringId());
+            stringBuilder.append(", ")
+                    .append(badgeString);
+        }
+        textBadges.setText(stringBuilder.toString());
     }
 
     private void bindRestaurant(RawMenu rawMenu) {
