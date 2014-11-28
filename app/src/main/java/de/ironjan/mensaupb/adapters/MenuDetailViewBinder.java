@@ -23,13 +23,8 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
             return false;
         }
 
-        TextView textView = (TextView) view;
 
         switch (view.getId()) {
-            case R.id.textAllergens:
-                String allergenes = cursor.getString(columnIndex);
-//                textView.setText(Allergene.getExplanation(allergenes));
-                return true;
             case R.id.textPrice:
                 bindPrice((TextView) view, cursor, columnIndex);
                 return true;
@@ -37,11 +32,10 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
                 bindPricePer100g((TextView) view, cursor, columnIndex);
                 return true;
             case R.id.textBadges:
-                String string = cursor.getString(columnIndex);
-                textView.setText(string);
+                bindBadges((TextView) view, cursor, columnIndex);
                 return true;
             default:
-                textView.setText(cursor.getString(columnIndex));
+                ((TextView) view).setText(cursor.getString(columnIndex));
                 return true;
         }
     }
@@ -67,5 +61,10 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
         } else {
             view.setText("");
         }
+    }
+
+    private void bindBadges(TextView textView, Cursor cursor, int columnIndex) {
+        String string = cursor.getString(columnIndex);
+        textView.setText(string);
     }
 }
