@@ -12,6 +12,8 @@ import org.slf4j.*;
 import java.text.*;
 import java.util.*;
 
+import de.ironjan.mensaupb.library.*;
+
 /**
  * A class representing a raw menu with all possible information
  */
@@ -256,38 +258,17 @@ public class RawMenu {
     }
 
     private void buildBadgesAsString() {
-        if (badges == null || badges.length < 1) {
-            return;
-        }
-
-        StringBuilder builder = new StringBuilder(badges[0].getType());
-
-        for (int i = 1; i < badges.length; i++) {
-            Badge badge = badges[i];
-            builder.append(";")
-                    .append(badge.getType());
-        }
-
-        badgesAsString = builder.toString();
+        badgesAsString = BadgesStringConverter.convert(badges.clone());
     }
 
     public void setBadgesAsString(String badgesAsString) {
         this.badgesAsString = badgesAsString;
-        buildArrayFromString();
+        badges = BadgesStringConverter.convert(this.badgesAsString);
     }
 
     public String getBadgesAsString() {
         buildBadgesAsString();
         return badgesAsString;
-    }
-
-    private void buildArrayFromString() {
-        String[] split = badgesAsString.split(";");
-        Badge[] tmpBadges = new Badge[split.length];
-        for (int i = 0; i < split.length; i++) {
-            tmpBadges[i] = badges[i];
-        }
-        badges = tmpBadges;
     }
 
     public String getRestaurant() {
