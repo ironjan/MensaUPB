@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="noGluten">gluten free</string>
+    <string name="noLactose">lactose  free</string>
+    <string name="vegan">vegan</string>
+    <string name="vegetarian">vegetarian</string>
+    <string name="lowCalorie">low calorie</string>
+    <string name="fatFree">reduced fat</string>
+</resources>
