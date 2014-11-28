@@ -65,7 +65,7 @@ public class RawMenu {
 
     private Badge[] badges;
 
-    @DatabaseField(columnName = BADGES, dataType = DataType.SERIALIZABLE)
+    @DatabaseField(columnName = BADGES)
     private String badgesAsString;
 
     @DatabaseField(columnName = RESTAURANT)
@@ -269,7 +269,6 @@ public class RawMenu {
         }
 
         badgesAsString = builder.toString();
-        LOGGER.debug("{} -> {}", badges, badgesAsString);
     }
 
     public void setBadgesAsString(String badgesAsString) {

@@ -36,6 +36,10 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
             case R.id.textPricePer100g:
                 bindPricePer100g((TextView) view, cursor, columnIndex);
                 return true;
+            case R.id.textBadges:
+                String string = cursor.getString(columnIndex);
+                textView.setText(string);
+                return true;
             default:
                 textView.setText(cursor.getString(columnIndex));
                 return true;
@@ -60,7 +64,7 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
         String string = cursor.getString(columnIndex);
         if (PriceType.WEIGHT.toString().equals(string)) {
             view.setText("/100g");
-        }else{
+        } else {
             view.setText("");
         }
     }
