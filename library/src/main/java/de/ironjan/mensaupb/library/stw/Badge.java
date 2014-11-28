@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.library.stw;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.*;
 
+import de.ironjan.mensaupb.library.*;
 import de.ironjan.mensaupb.library.stw.deserializer.*;
 
 /**
@@ -11,20 +12,23 @@ import de.ironjan.mensaupb.library.stw.deserializer.*;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 @JsonDeserialize(using = BadgeDeserializer.class)
 public enum Badge {
-    LOW_CALORIE(1, Constants.LOW_CALORIE),
-    FAT_FREE(2, Constants.FAT_FREE),
-    VEGETARIAN(3, Constants.VEGETARIAN),
-    VEGAN(4, Constants.VEGAN),
-    NO_LACTOSE(5, Constants.NO_LACTOSE),
-    NO_GLUTEN(6, Constants.NO_GLUTEN);
+    LOW_CALORIE(1, Constants.LOW_CALORIE, R.string.lowCalorie),
+    FAT_FREE(2, Constants.FAT_FREE, R.string.fatFree),
+    VEGETARIAN(3, Constants.VEGETARIAN, R.string.vegetarian),
+    VEGAN(4, Constants.VEGAN, R.string.vegan),
+    NO_LACTOSE(5, Constants.NO_LACTOSE, R.string.noLactose),
+    NO_GLUTEN(6, Constants.NO_GLUTEN, R.string.noGluten);
 
     private final int ordinal;
     private final String type;
+    private final int stringId;
 
-    Badge(int ordinal, String type) {
+    Badge(int ordinal, String type, int stringId) {
         this.ordinal = ordinal;
         this.type = type;
+        this.stringId = stringId;
     }
+
 
     public static Badge fromString(String s) {
         if (Constants.LOW_CALORIE.equals(s)) {
@@ -46,6 +50,10 @@ public enum Badge {
 
     public String getType() {
         return type;
+    }
+
+    public int getStringId() {
+        return stringId;
     }
 
     private static class Constants {
