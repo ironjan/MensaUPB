@@ -1,18 +1,24 @@
 package de.ironjan.mensaupb.adapters;
 
+import android.content.*;
 import android.database.*;
 import android.view.*;
 import android.widget.*;
 
+import org.w3c.dom.*;
+
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.library.*;
 import de.ironjan.mensaupb.library.stw.*;
 
 /**
- * Extension of MenuListItemViewBinder to show explained allergens too
+ * Binds raw menus to de.ironjan.mensaupb.R.layout.view_menu_list_item
  */
 public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCursorAdapter.ViewBinder {
+
     @Override
     public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
         if (view == null || cursor == null || columnIndex < 0) {
@@ -23,21 +29,20 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
             return false;
         }
 
-        TextView textView = (TextView) view;
 
-        switch (view.getId()) {
-            case R.id.textAllergens:
-                String allergenes = cursor.getString(columnIndex);
-//                textView.setText(Allergene.getExplanation(allergenes));
-                return true;
+        int id = view.getId();
+        switch (id) {
             case R.id.textPrice:
                 bindPrice((TextView) view, cursor, columnIndex);
                 return true;
             case R.id.textPricePer100g:
                 bindPricePer100g((TextView) view, cursor, columnIndex);
                 return true;
+            case R.id.textBadges:
+                bindBadges((TextView) view, cursor, columnIndex);
+                return true;
             default:
-                textView.setText(cursor.getString(columnIndex));
+                ((TextView) view).setText(cursor.getString(columnIndex));
                 return true;
         }
     }
@@ -60,8 +65,27 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
         String string = cursor.getString(columnIndex);
         if (PriceType.WEIGHT.toString().equals(string)) {
             view.setText("/100g");
-        }else{
+        } else {
             view.setText("");
         }
+    }
+
+    private void bindBadges(TextView textView, Cursor cursor, int columnIndex) {
+        String badgesAsString = cursor.getString(columnIndex);
+        Badge[] badges = BadgesStringConverter.convert(badgesAsString);
+        Context context = textView.getContext();
+
+        if (badges == null || badges.length < 1) {
+            textView.setText("");
+            return;
+        }
+
+        StringBuilder stringBuilder = new StringBuilder(context.getString(badges[0].getStringId()));
+        for (int i = 1; i < badges.length; i++) {
+            String badgeString = context.getString(badges[i].getStringId());
+            stringBuilder.append(", ")
+                    .append(badgeString);
+        }
+        textView.setText(stringBuilder.toString());
     }
 }

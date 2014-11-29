@@ -40,7 +40,22 @@
         android:layout_below="@+id/textName"
         android:layout_alignBaseline="@+id/textPrice"
         android:layout_toRightOf="@+id/textPrice"
+        android:layout_toLeftOf="@+id/linearLayoutBadges"
+        android:layout_marginRight="16dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/secondary_text_default_material_light"
         tools:text="/100g"/>
+
+    <TextView
+        android:orientation="horizontal"
+        android:id="@+id/textBadges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textName"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/secondary_text_default_material_light"
+        tools:text="badges"/>
+
 </RelativeLayout>

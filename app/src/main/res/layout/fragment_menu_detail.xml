@@ -94,10 +94,37 @@
             tools:text="1,20 €"/>
 
         <TextView
+            android:id="@+id/textBadges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textPrice"
+            android:layout_marginLeft="@dimen/elementMargin"
+            android:layout_marginRight="@dimen/elementMargin"
+            android:layout_marginTop="@dimen/elementMargin"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
+            tools:text="vegano-lacto-glutenfrei"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/allergensHeader"
+            android:layout_marginLeft="@dimen/elementMargin"
+            android:layout_marginRight="@dimen/elementMargin"
+            android:layout_marginTop="@dimen/elementMargin"
+            android:textColor="@color/black"
+            android:id="@+id/textAllergensHeader"
+            android:layout_below="@+id/textBadges"
+            />
+
+        <TextView
             android:id="@+id/textAllergens"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textCategory"
+            android:layout_below="@+id/textAllergensHeader"
             android:layout_marginBottom="@dimen/elementMargin"
             android:layout_marginLeft="@dimen/elementMargin"
             android:layout_marginRight="@dimen/elementMargin"
@@ -106,5 +133,6 @@
             android:textColor="@color/black"
             tools:text=" * Ganz viele Stoffe...\n * Mehrzeilig sogar\nAlle Angaben ohne Foo"
             />
+
     </RelativeLayout>
 </ScrollView>

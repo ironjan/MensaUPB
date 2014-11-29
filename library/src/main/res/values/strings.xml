@@ -30,4 +30,11 @@
     <string name="lupines">Lupinen und Lupinenerzeugnisse</string>
     <string name="gluten">glutenhaltig</string>
     <string name="peanuts">Erdnüsse und Erdnusserzeugnisse</string>
+
+    <string name="lowCalorie">kalorienarm</string>
+    <string name="fatFree">fettarm</string>
+    <string name="vegetarian">vegetarisch</string>
+    <string name="vegan">vegan</string>
+    <string name="noLactose">laktosefrei</string>
+    <string name="noGluten">glutenfrei</string>
 </resources>
