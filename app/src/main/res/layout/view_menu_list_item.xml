@@ -40,7 +40,7 @@
         android:layout_below="@+id/textName"
         android:layout_alignBaseline="@+id/textPrice"
         android:layout_toRightOf="@+id/textPrice"
-        android:layout_toLeftOf="@+id/linearLayoutBadges"
+        android:layout_toLeftOf="@+id/textBadges"
         android:layout_marginRight="16dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/secondary_text_default_material_light"
