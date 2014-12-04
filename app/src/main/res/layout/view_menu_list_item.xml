@@ -6,7 +6,7 @@
                 android:paddingLeft="@dimen/elementMargin"
                 android:paddingRight="@dimen/elementMargin"
                 android:minHeight="48dp"
-                android:background="@color/bright_foreground_material_dark"
+                android:background="@drawable/selectable_list_item"
                 android:paddingTop="@dimen/elementMargin">
 
 
