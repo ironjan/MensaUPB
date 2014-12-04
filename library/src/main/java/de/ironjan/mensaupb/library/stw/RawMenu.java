@@ -367,6 +367,6 @@ public class RawMenu {
     }
 
     private void updateSortOrder() {
-        sortOrder = SortOrder.getSortOrder(categoryIdentifier);
+        sortOrder = SortOrder.getSortOrder(name_de, categoryIdentifier);
     }
 }
