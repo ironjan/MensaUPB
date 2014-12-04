@@ -18,6 +18,7 @@ import org.springframework.web.client.*;
 import java.sql.*;
 import java.util.*;
 
+import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.library.stw.*;
 import de.ironjan.mensaupb.persistence.*;
@@ -125,8 +126,16 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
     @org.androidannotations.annotations.Trace
     void syncMenus(Dao<RawMenu, ?> dao, String restaurant, String date) throws java.sql.SQLException, RestClientException {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("syncMenus(dao,{},{})", restaurant, date);
+        }
+
         RawMenu[] menus = downloadMenus(restaurant, date);
         persistMenus(dao, menus);
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("syncMenus(dao,{},{}) done", restaurant, date);
+        }
     }
 
     @org.androidannotations.annotations.Trace
@@ -169,7 +178,10 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         String rawQuery = rawQueryBuilder.toString();
 
         int rows = dao.executeRawNoArgs(rawQuery);
-        rows = (rows++) - 1;
+
+        if (BuildConfig.DEBUG) {
+            LOGGER.info("Deleted {} rows of old menus.", rows);
+        }
     }
 
 
