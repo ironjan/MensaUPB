@@ -1,49 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:background="@color/background_material_light"
               android:layout_height="match_parent"
+              android:background="@color/background_material_light"
               android:orientation="vertical">
 
 
     <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@android:id/list"
         android:divider="#cccccc"
         tools:listitem="@layout/view_menu_list_item"/>
 
     <LinearLayout
-        android:orientation="vertical"
         android:id="@android:id/empty"
-        android:layout_gravity="center"
-        android:padding="@dimen/elementMargin"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/elementMargin"
+        android:visibility="gone">
 
         <TextView
-            android:text="@string/menusLoading1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/menusLoading1"/>
 
 
         <ProgressBar
+            android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
             android:layout_gravity="center_horizontal"
             android:indeterminateBehavior="cycle"
             android:indeterminateOnly="true"/>
 
         <TextView
-            android:text="@string/menusLoading2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/menusLoading2"/>
     </LinearLayout>
 
 
-</LinearLayout>
+</FrameLayout>

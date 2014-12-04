@@ -13,14 +13,14 @@
         <item>@string/campus_doener</item>
     </string-array>
 
-    <string name="mensa_academica_paderborn">mensa-academica-paderborn</string>
-    <string name="mensa_forum_paderborn">mensa-forum-paderborn</string>
-    <string name="cafete">cafete</string>
-    <string name="mensula">mensula</string>
-    <string name="one_way_snack">one-way-snack</string>
-    <string name="bistro_hotspot">bistro-hotspot</string>
-    <string name="mensa_hamm">mensa-hamm</string>
-    <string name="mensa_lippstadt">mensa-lippstadt</string>
+    <string name="mensa_academica_paderborn" translatable="false">mensa-academica-paderborn</string>
+    <string name="mensa_forum_paderborn" translatable="false">mensa-forum-paderborn</string>
+    <string name="cafete" translatable="false">cafete</string>
+    <string name="mensula" translatable="false">mensula</string>
+    <string name="one_way_snack" translatable="false">one-way-snack</string>
+    <string name="bistro_hotspot" translatable="false">bistro-hotspot</string>
+    <string name="mensa_hamm" translatable="false">mensa-hamm</string>
+    <string name="mensa_lippstadt" translatable="false">mensa-lippstadt</string>
     <string name="grill_cafe">grill-cafe</string>
-    <string name="campus_doener">campus-doener</string>
+    <string name="campus_doener" translatable="false">campus-doener</string>
 </resources>

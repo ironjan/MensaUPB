@@ -2,8 +2,8 @@ package de.ironjan.mensaupb.fragments;
 
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.widget.*;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.activities.*;
+import de.ironjan.mensaupb.activities.MenuDetails_;
 import de.ironjan.mensaupb.adapters.MenuDetailViewBinder;
 import de.ironjan.mensaupb.adapters.MenuListingAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -45,6 +45,8 @@ public class MenuListingFragment extends Fragment {
 
     @AfterViews
     void loadContent() {
+        list.setEmptyView(mLoadingView);
+        list.setAreHeadersSticky(false);
         adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
         adapter.setViewBinder(new MenuDetailViewBinder());
         getLoaderManager().initLoader(0, null, adapter);
