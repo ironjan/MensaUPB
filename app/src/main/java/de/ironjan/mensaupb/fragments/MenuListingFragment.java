@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.fragments;
 
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.*;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
