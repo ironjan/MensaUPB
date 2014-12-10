@@ -34,8 +34,6 @@ android {
 
         minSdkVersion 9
         targetSdkVersion 21
-
-        applicationId "de.ironjan.mensaupb.library"
     }
 
 
