@@ -1,7 +1,6 @@
 package de.ironjan.mensaupb.library.stw;
 
 import android.provider.*;
-import android.text.*;
 
 import com.fasterxml.jackson.annotation.*;
 import com.j256.ormlite.field.*;
@@ -227,14 +226,14 @@ public class RawMenu implements Cloneable {
         badgesAsString = BadgesStringConverter.convert(badges.clone());
     }
 
-    public void setBadgesAsString(String badgesAsString) {
-        this.badgesAsString = badgesAsString;
-        badges = BadgesStringConverter.convert(this.badgesAsString);
-    }
-
     public String getBadgesAsString() {
         buildBadgesAsString();
         return badgesAsString;
+    }
+
+    public void setBadgesAsString(String badgesAsString) {
+        this.badgesAsString = badgesAsString;
+        badges = BadgesStringConverter.convert(this.badgesAsString);
     }
 
     public String getRestaurant() {

@@ -2,8 +2,6 @@ package de.ironjan.mensaupb.library.stw.filters;
 
 import android.text.*;
 
-import com.j256.ormlite.stmt.query.*;
-
 import org.slf4j.*;
 
 import java.util.*;

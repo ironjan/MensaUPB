@@ -1,10 +1,7 @@
 package de.ironjan.mensaupb.library.stw.filters;
 
-import android.os.*;
 import android.text.*;
 
-
-import org.androidannotations.annotations.*;
 import org.slf4j.*;
 
 import java.util.*;
