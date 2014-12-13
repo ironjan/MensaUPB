@@ -42,6 +42,13 @@ public class MockRestWrapper implements StwRest {
     private MockRestWrapper() {
     }
 
+    public static MockRestWrapper getInstance() {
+        if (instance == null) {
+            instance = new MockRestWrapper();
+        }
+        return instance;
+    }
+
     @Override
     public RawMenu[] getMenus(String restaurant, String date) {
         return constructMockMenus(restaurant, date);
@@ -78,12 +85,5 @@ public class MockRestWrapper implements StwRest {
         menu.setAllergens(allergens);
 
         return menu;
-    }
-
-    public static MockRestWrapper getInstance() {
-        if (instance == null) {
-            instance = new MockRestWrapper();
-        }
-        return instance;
     }
 }

@@ -1,15 +1,13 @@
 package de.ironjan.mensaupb.library.stw;
 
-import android.content.Context;
+import android.content.*;
 
-import com.j256.ormlite.logger.Logger;
-import com.j256.ormlite.logger.LoggerFactory;
+import com.j256.ormlite.logger.*;
 
-import org.androidannotations.annotations.EBean;
-import org.androidannotations.annotations.RootContext;
-import org.androidannotations.annotations.rest.RestService;
+import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.rest.*;
 
-import de.ironjan.mensaupb.library.BuildConfig;
+import de.ironjan.mensaupb.library.*;
 
 /**
  * Wrapper for the StwRest
@@ -17,12 +15,11 @@ import de.ironjan.mensaupb.library.BuildConfig;
 @EBean
 public class StwRestWrapper implements StwRest {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(StwRestWrapper.class);
     @RestService
     StwRest stwRest;
     @RootContext
     Context mContext;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(StwRestWrapper.class);
 
     @Override
     public RawMenu[] getMenus(String restaurant, String date) {

@@ -21,6 +21,7 @@ import java.util.*;
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.library.stw.filters.*;
 import de.ironjan.mensaupb.persistence.*;
 
 /**
@@ -38,6 +39,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final WeekdayHelper_ mWeekdayHelper;
     private final ContentResolver contentResolver;
     private final StwRestWrapper stwRestWrapper;
+    private FilterChain filterChain = new FilterChain();
 
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -131,7 +133,9 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         }
 
         RawMenu[] menus = downloadMenus(restaurant, date);
-        persistMenus(dao, menus);
+        List<RawMenu> menuList = Arrays.asList(menus);
+        List<RawMenu> filteredList = filterChain.filter(menuList);
+        persistMenus(dao, filteredList);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("syncMenus(dao,{},{}) done", restaurant, date);
@@ -144,7 +148,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    void persistMenus(Dao<RawMenu, ?> dao, RawMenu[] menus) throws java.sql.SQLException {
+    void persistMenus(Dao<RawMenu, ?> dao, List<RawMenu> menus) throws java.sql.SQLException {
         for (RawMenu rawMenu : menus) {
             List<RawMenu> local = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, rawMenu.getName_de())
                     .and().eq(RawMenu.DATE, rawMenu.getDate())

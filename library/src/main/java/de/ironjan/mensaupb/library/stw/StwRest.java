@@ -1,12 +1,10 @@
 package de.ironjan.mensaupb.library.stw;
 
-import org.androidannotations.annotations.rest.Accept;
-import org.androidannotations.annotations.rest.Get;
-import org.androidannotations.annotations.rest.Rest;
-import org.androidannotations.api.rest.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.androidannotations.annotations.rest.*;
+import org.androidannotations.api.rest.*;
+import org.springframework.http.converter.json.*;
 
-import de.ironjan.mensaupb.library.BuildConfig;
+import de.ironjan.mensaupb.library.*;
 
 /**
  * Do not use this class directly, use StwRestWrapper instead!
