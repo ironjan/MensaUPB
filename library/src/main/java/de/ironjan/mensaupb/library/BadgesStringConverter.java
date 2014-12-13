@@ -7,7 +7,7 @@ import com.j256.ormlite.logger.*;
 import de.ironjan.mensaupb.library.stw.*;
 
 /**
- * Created by ljan on 28.11.14.
+ * Converter between an array of Badges and Strings.
  */
 public class BadgesStringConverter {
 
