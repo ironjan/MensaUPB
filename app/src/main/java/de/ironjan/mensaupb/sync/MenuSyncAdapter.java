@@ -39,7 +39,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final WeekdayHelper_ mWeekdayHelper;
     private final ContentResolver contentResolver;
     private final StwRestWrapper stwRestWrapper;
-    private final Filter nameFilter = new NameFilter();
+    private FilterChain filterChain = new FilterChain();
 
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -134,7 +134,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
         RawMenu[] menus = downloadMenus(restaurant, date);
         List<RawMenu> menuList = Arrays.asList(menus);
-        List<RawMenu> filteredList = nameFilter.filter(menuList);
+        List<RawMenu> filteredList = filterChain.filter(menuList);
         persistMenus(dao, filteredList);
 
         if (LOGGER.isDebugEnabled()) {

@@ -145,7 +145,6 @@ public class RawMenu implements Cloneable {
 
     public void setCategory_de(String category_de) {
         this.category_de = category_de;
-        updateCategories();
     }
 
     public String getCategory_en() {
@@ -154,7 +153,6 @@ public class RawMenu implements Cloneable {
 
     public void setCategory_en(String category_en) {
         this.category_en = category_en;
-        updateCategories();
     }
 
     public String getSubcategory_de() {
@@ -163,7 +161,6 @@ public class RawMenu implements Cloneable {
 
     public void setSubcategory_de(String subcategory_de) {
         this.subcategory_de = subcategory_de;
-        updateCategories();
     }
 
     public String getSubcategory_en() {
@@ -172,7 +169,6 @@ public class RawMenu implements Cloneable {
 
     public void setSubcategory_en(String subcategory_en) {
         this.subcategory_en = subcategory_en;
-        updateCategories();
     }
 
     public double getPriceStudents() {
@@ -284,26 +280,6 @@ public class RawMenu implements Cloneable {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-    }
-
-
-    public void updateCategories() {
-        updateDeCategory();
-        updateEnCategory();
-    }
-
-    private void updateDeCategory() {
-        if (subcategory_de != null && TextUtils.isEmpty(subcategory_de.trim())) {
-            return;
-        }
-        category_de = subcategory_de;
-    }
-
-    private void updateEnCategory() {
-        if (subcategory_en != null && TextUtils.isEmpty(subcategory_en.trim())) {
-            return;
-        }
-        category_en = subcategory_en;
     }
 
     @Override

@@ -7,7 +7,7 @@ import de.ironjan.mensaupb.library.stw.*;
 /**
  * Interface for filter classes
  */
-public interface Filter {
+interface Filter {
     /**
      * Filters the given menus
      *

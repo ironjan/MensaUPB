@@ -3,9 +3,9 @@ package de.ironjan.mensaupb.library.stw.filters;
 import android.os.*;
 import android.text.*;
 
-import com.j256.ormlite.logger.*;
 
 import org.androidannotations.annotations.*;
+import org.slf4j.*;
 
 import java.util.*;
 
@@ -14,7 +14,7 @@ import de.ironjan.mensaupb.library.stw.*;
 /**
  * Filters and corrects the names of the given menus
  */
-public class NameFilter implements Filter {
+class NameFilter implements Filter {
     Logger LOGGER = LoggerFactory.getLogger(NameFilter.class);
 
     @Override
@@ -34,7 +34,7 @@ public class NameFilter implements Filter {
         RawMenu copy = menu.copy();
         copy.setName_de(cleanName(copy.getName_de()));
         copy.setName_en(cleanName(copy.getName_en()));
-        LOGGER.debug("cleanNames({}) done {de: {}, en: {}}", copy, copy.getName_de(), copy.getName_en());
+        LOGGER.debug("cleanNames({}) done {de: {}, en: {}}", menu, copy.getName_de(), copy.getName_en());
         return copy;
     }
 
