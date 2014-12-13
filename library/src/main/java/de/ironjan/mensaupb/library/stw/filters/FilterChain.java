@@ -7,12 +7,13 @@ import java.util.*;
 import de.ironjan.mensaupb.library.stw.*;
 
 /**
- * Created by ljan on 13.12.14.
+ * A filter chain, invoking all filters.
  */
 public class FilterChain implements Filter {
     Filter[] filters = {
             new NameFilter(),
-            new CategoryFilter()
+            new CategoryFilter(),
+            new AllergenFilter()
     };
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterChain.class);

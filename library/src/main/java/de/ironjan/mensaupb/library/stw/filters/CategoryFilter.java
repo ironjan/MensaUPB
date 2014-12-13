@@ -11,7 +11,7 @@ import java.util.*;
 import de.ironjan.mensaupb.library.stw.*;
 
 /**
- * Created by ljan on 13.12.14.
+ * Filters the categories
  */
 class CategoryFilter implements Filter {
     Logger LOGGER = LoggerFactory.getLogger(CategoryFilter.class);

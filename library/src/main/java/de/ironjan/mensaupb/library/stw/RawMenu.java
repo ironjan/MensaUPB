@@ -201,19 +201,6 @@ public class RawMenu implements Cloneable {
 
     public void setAllergens(NewAllergen[] allergens) {
         this.allergens = allergens;
-        cleanAllergens();
-    }
-
-    private synchronized void cleanAllergens() {
-        Vector<NewAllergen> copy = new Vector<NewAllergen>(allergens.length);
-        for (NewAllergen allergen : allergens) {
-            if (allergen != NewAllergen.UNKNOWN) {
-                copy.add(allergen);
-            }
-        }
-        allergens = new NewAllergen[copy.size()];
-        copy.copyInto(allergens);
-        System.currentTimeMillis();
     }
 
     public int getOrder_info() {
