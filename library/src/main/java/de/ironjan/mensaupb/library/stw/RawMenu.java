@@ -18,7 +18,7 @@ import de.ironjan.mensaupb.library.*;
  * A class representing a raw menu with all possible information
  */
 @DatabaseTable(tableName = RawMenu.TABLE)
-public class RawMenu {
+public class RawMenu implements Cloneable {
     public static final String TABLE = "menus";
     public static final String NAME_GERMAN = "name_de";
     public static final String CATEGORY = "category_de";
@@ -113,7 +113,6 @@ public class RawMenu {
 
     public void setName_de(String name_de) {
         this.name_de = name_de;
-        cleanNames();
     }
 
     public String getName_en() {
@@ -122,25 +121,6 @@ public class RawMenu {
 
     public void setName_en(String name_en) {
         this.name_en = name_en;
-        cleanNames();
-    }
-
-    private void cleanNames() {
-        name_de = cleanName(name_de);
-        name_en = cleanName(name_en);
-    }
-
-    private String cleanName(String name) {
-        String potentialName = null;
-        if (!TextUtils.isEmpty(name) && name.contains("|")) {
-            String[] split = name.split("\\|");
-            potentialName = split[0].trim();
-        }
-
-        if (TextUtils.isEmpty(potentialName)) {
-            return name;
-        }
-        return potentialName;
     }
 
     public String getDescription_de() {
@@ -368,5 +348,13 @@ public class RawMenu {
 
     private void updateSortOrder() {
         sortOrder = SortOrder.getSortOrder(name_de, categoryIdentifier);
+    }
+
+    public RawMenu copy() {
+        try {
+            return (RawMenu) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 }
