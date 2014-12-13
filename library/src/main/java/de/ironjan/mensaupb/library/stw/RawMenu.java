@@ -1,7 +1,6 @@
 package de.ironjan.mensaupb.library.stw;
 
 import android.provider.*;
-import android.text.*;
 
 import com.fasterxml.jackson.annotation.*;
 import com.j256.ormlite.field.*;
@@ -18,7 +17,7 @@ import de.ironjan.mensaupb.library.*;
  * A class representing a raw menu with all possible information
  */
 @DatabaseTable(tableName = RawMenu.TABLE)
-public class RawMenu {
+public class RawMenu implements Cloneable {
     public static final String TABLE = "menus";
     public static final String NAME_GERMAN = "name_de";
     public static final String CATEGORY = "category_de";
@@ -113,7 +112,6 @@ public class RawMenu {
 
     public void setName_de(String name_de) {
         this.name_de = name_de;
-        cleanNames();
     }
 
     public String getName_en() {
@@ -122,25 +120,6 @@ public class RawMenu {
 
     public void setName_en(String name_en) {
         this.name_en = name_en;
-        cleanNames();
-    }
-
-    private void cleanNames() {
-        name_de = cleanName(name_de);
-        name_en = cleanName(name_en);
-    }
-
-    private String cleanName(String name) {
-        String potentialName = null;
-        if (!TextUtils.isEmpty(name) && name.contains("|")) {
-            String[] split = name.split("\\|");
-            potentialName = split[0].trim();
-        }
-
-        if (TextUtils.isEmpty(potentialName)) {
-            return name;
-        }
-        return potentialName;
     }
 
     public String getDescription_de() {
@@ -165,7 +144,6 @@ public class RawMenu {
 
     public void setCategory_de(String category_de) {
         this.category_de = category_de;
-        updateCategories();
     }
 
     public String getCategory_en() {
@@ -174,7 +152,6 @@ public class RawMenu {
 
     public void setCategory_en(String category_en) {
         this.category_en = category_en;
-        updateCategories();
     }
 
     public String getSubcategory_de() {
@@ -183,7 +160,6 @@ public class RawMenu {
 
     public void setSubcategory_de(String subcategory_de) {
         this.subcategory_de = subcategory_de;
-        updateCategories();
     }
 
     public String getSubcategory_en() {
@@ -192,7 +168,6 @@ public class RawMenu {
 
     public void setSubcategory_en(String subcategory_en) {
         this.subcategory_en = subcategory_en;
-        updateCategories();
     }
 
     public double getPriceStudents() {
@@ -225,19 +200,6 @@ public class RawMenu {
 
     public void setAllergens(NewAllergen[] allergens) {
         this.allergens = allergens;
-        cleanAllergens();
-    }
-
-    private synchronized void cleanAllergens() {
-        Vector<NewAllergen> copy = new Vector<NewAllergen>(allergens.length);
-        for (NewAllergen allergen : allergens) {
-            if (allergen != NewAllergen.UNKNOWN) {
-                copy.add(allergen);
-            }
-        }
-        allergens = new NewAllergen[copy.size()];
-        copy.copyInto(allergens);
-        System.currentTimeMillis();
     }
 
     public int getOrder_info() {
@@ -264,14 +226,14 @@ public class RawMenu {
         badgesAsString = BadgesStringConverter.convert(badges.clone());
     }
 
-    public void setBadgesAsString(String badgesAsString) {
-        this.badgesAsString = badgesAsString;
-        badges = BadgesStringConverter.convert(this.badgesAsString);
-    }
-
     public String getBadgesAsString() {
         buildBadgesAsString();
         return badgesAsString;
+    }
+
+    public void setBadgesAsString(String badgesAsString) {
+        this.badgesAsString = badgesAsString;
+        badges = BadgesStringConverter.convert(this.badgesAsString);
     }
 
     public String getRestaurant() {
@@ -304,26 +266,6 @@ public class RawMenu {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-    }
-
-
-    public void updateCategories() {
-        updateDeCategory();
-        updateEnCategory();
-    }
-
-    private void updateDeCategory() {
-        if (subcategory_de != null && TextUtils.isEmpty(subcategory_de.trim())) {
-            return;
-        }
-        category_de = subcategory_de;
-    }
-
-    private void updateEnCategory() {
-        if (subcategory_en != null && TextUtils.isEmpty(subcategory_en.trim())) {
-            return;
-        }
-        category_en = subcategory_en;
     }
 
     @Override
@@ -368,5 +310,13 @@ public class RawMenu {
 
     private void updateSortOrder() {
         sortOrder = SortOrder.getSortOrder(name_de, categoryIdentifier);
+    }
+
+    public RawMenu copy() {
+        try {
+            return (RawMenu) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
     }
 }
