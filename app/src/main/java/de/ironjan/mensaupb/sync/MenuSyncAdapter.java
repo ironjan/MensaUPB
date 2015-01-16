@@ -8,7 +8,6 @@ import android.os.*;
 import com.j256.ormlite.android.*;
 import com.j256.ormlite.dao.*;
 import com.j256.ormlite.stmt.*;
-import com.j256.ormlite.stmt.query.*;
 import com.j256.ormlite.support.*;
 
 import org.slf4j.*;
@@ -150,11 +149,19 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     @org.androidannotations.annotations.Trace
     void persistMenus(Dao<RawMenu, ?> dao, List<RawMenu> menus) throws java.sql.SQLException {
         for (RawMenu rawMenu : menus) {
-            List<RawMenu> local = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, rawMenu.getName_de())
-                    .and().eq(RawMenu.DATE, rawMenu.getDate())
-                    .and().eq(RawMenu.RESTAURANT, rawMenu.getRestaurant())
-                    .query();
+            SelectArg nameArg = new SelectArg(),
+                    dateArg = new SelectArg(),
+                    restaurantArg = new SelectArg();
+            PreparedQuery<RawMenu> preparedQuery = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, nameArg)
+                    .and().eq(RawMenu.DATE, dateArg)
+                    .and().eq(RawMenu.RESTAURANT, restaurantArg)
+                    .prepare();
 
+            nameArg.setValue(rawMenu.getName_de());
+            dateArg.setValue(rawMenu.getDate());
+            restaurantArg.setValue(rawMenu.getRestaurant());
+
+            List<RawMenu> local = dao.query(preparedQuery);
             if (local.size() > 0) {
                 rawMenu.set_id(local.get(0).get_id());
                 dao.update(rawMenu);
