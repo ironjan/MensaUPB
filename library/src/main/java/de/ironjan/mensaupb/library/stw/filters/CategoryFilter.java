@@ -48,6 +48,6 @@ class CategoryFilter implements Filter {
         if (subcategory_en != null && TextUtils.isEmpty(subcategory_en.trim())) {
             return;
         }
-        menu.setCategory_de(subcategory_en);
+        menu.setCategory_en(subcategory_en);
     }
 }

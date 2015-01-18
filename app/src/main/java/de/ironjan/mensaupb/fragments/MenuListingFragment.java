@@ -31,15 +31,14 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @ViewById(android.R.id.list)
     StickyListHeadersListView list;
 
-    @ViewById(R.id.swipeRefresh)
-    SwipeRefreshLayout swipeRefresh;
     @Bean
     AccountCreator mAccountCreator;
     private MenuListingAdapter adapter;
     private Object mChangeListenerHandle;
 
     private String getArgLocation() {
-        return getArguments().getString(ARG_LOCATION);
+        String location = getArguments().getString(ARG_LOCATION);
+        return location.replaceAll("\\*", "%");
     }
 
     private String getArgDate() {
@@ -51,10 +50,9 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         list.setEmptyView(mLoadingView);
         list.setAreHeadersSticky(false);
         adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
-        adapter.setViewBinder(new MenuDetailViewBinder());
+        adapter.setViewBinder(new MenuDetailViewBinder(getActivity()));
         getLoaderManager().initLoader(0, null, adapter);
         list.setAdapter(adapter);
-        swipeRefresh.setOnRefreshListener(this);
     }
 
     @AfterInject
@@ -85,7 +83,6 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         ContentResolver.requestSync(mAccountCreator.getAccount(), AccountCreator.AUTHORITY, settingsBundle);
         LOGGER.debug("Sync requested.");
-        swipeRefresh.setRefreshing(false);
     }
 
     @Override

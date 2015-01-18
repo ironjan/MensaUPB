@@ -5,11 +5,8 @@ import android.database.*;
 import android.view.*;
 import android.widget.*;
 
-import org.w3c.dom.*;
-
 import java.util.*;
 
-import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.library.*;
 import de.ironjan.mensaupb.library.stw.*;
@@ -18,6 +15,21 @@ import de.ironjan.mensaupb.library.stw.*;
  * Binds raw menus to de.ironjan.mensaupb.R.layout.view_menu_list_item
  */
 public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCursorAdapter.ViewBinder {
+
+    private final Context mContext;
+    private final String keyMensaAcademica, keyMensaForum, shortMensaAcademica, shortMensaForum;
+
+    public MenuDetailViewBinder(Context context) {
+        mContext = context;
+        keyMensaAcademica = getString(context, R.string.mensa_academica_paderborn);
+        keyMensaForum = getString(context, R.string.mensa_forum_paderborn);
+        shortMensaAcademica = getString(context, R.string.shortMensaAcademica);
+        shortMensaForum = getString(context, R.string.shortMensaForum);
+    }
+
+    private String getString(Context context, int id) {
+        return mContext.getResources().getString(id);
+    }
 
     @Override
     public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
@@ -41,9 +53,23 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
             case R.id.textBadges:
                 bindBadges((TextView) view, cursor, columnIndex);
                 return true;
+            case R.id.textRestaurant:
+                bindRestaurant((TextView) view, cursor, columnIndex);
+                return true;
             default:
                 ((TextView) view).setText(cursor.getString(columnIndex));
                 return true;
+        }
+    }
+
+    private void bindRestaurant(TextView view, Cursor cursor, int columnIndex) {
+        final String key = cursor.getString(columnIndex);
+        if (keyMensaAcademica.equals(key)) {
+            view.setText(shortMensaAcademica);
+        } else if (keyMensaForum.equals(key)) {
+            view.setText(shortMensaForum);
+        } else {
+            view.setText("");
         }
     }
 
