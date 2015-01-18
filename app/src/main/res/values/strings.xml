@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name" translateable="false" translatable="false">Mensa UPB</string>
+    <string name="app_name" translatable="false" translateable="false">Mensa UPB</string>
 
 
     <!-- main action bar -->
@@ -40,8 +40,17 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="about_open_source">Open Source</string>
 
     <string name="devHeader">Entwickler</string>
-    <string name="devNames" translateable="false" translatable="false">David Maicher\nTony Lemke\nJan Lippert\nChristian Brüggemann</string>
+    <string name="devNames" translatable="false" translateable="false">David Maicher\nTony Lemke\nJan Lippert\nChristian Brüggemann</string>
 
     <string name="localizedDatePattern">EE, dd.MM.yyyy</string>
     <string name="allergensHeader">Allergene und Zusatzstoffe</string>
+
+    <string name="campusMensae">Campus Mensae</string>
+    <string name="nameMensaAcademica" translatable="false">Mensa Academica</string>
+    <string name="nameMensaForum" translatable="false">Mensa Forum (neue)</string>
+    <string name="nameBistroHotspot" translatable="false">Bistro Hotspot</string>
+    <string name="nameGrillCafe" translatable="false">Grill | Café</string>
+    <string name="nameCafete" translatable="false">Caféte</string>
+    <string name="shortMensaAcademica">Academica</string>
+    <string name="shortMensaForum">M. Forum</string>
 </resources>
