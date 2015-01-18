@@ -13,6 +13,7 @@
         <item>@string/campus_doener</item>
     </string-array>
 
+    <string name="mensae" formatted="false" translatable="false">mensa-*</string>
     <string name="mensa_academica_paderborn" translatable="false">mensa-academica-paderborn</string>
     <string name="mensa_forum_paderborn" translatable="false">mensa-forum-paderborn</string>
     <string name="cafete" translatable="false">cafete</string>
