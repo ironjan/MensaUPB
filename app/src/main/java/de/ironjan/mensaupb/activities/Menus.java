@@ -42,7 +42,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     AccountCreator mAccountCreator;
     private FragmentStatePagerAdapter[] adapters;
     private FragmentStatePagerAdapter mWeekdayPagerAdapter;
-    private int mLocation = 0;
+    private int mDate = 0;
 
     @Trace
     @AfterViews
@@ -60,13 +60,14 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
+        String[] displayedDays = mwWeekdayHelper.getDisplayedDays();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(actionBar.getThemedContext(),
                 android.R.layout.simple_spinner_item, android.R.id.text1,
-                mDisplayedRestaurants);
+                displayedDays);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         actionBar.setListNavigationCallbacks(adapter, this);
-        actionBar.setSelectedNavigationItem(mLocation);
+        actionBar.setSelectedNavigationItem(mDate);
     }
 
     @Trace
@@ -74,7 +75,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         mPagerTabStrip.setTabIndicatorColorResource(R.color.iconBg);
         mPagerTabStrip.setDrawFullUnderline(true);
 
-        loadPagerAdapter(mLocation);
+        loadPagerAdapter(mDate);
     }
 
     @Background
@@ -99,7 +100,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     FragmentStatePagerAdapter getPagerAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("getPagerAdapter({})", i);
         if (adapters == null) {
-            adapters = new RestaurantPagerAdapter[1]; // fixme replace with displayed date count
+            adapters = new RestaurantPagerAdapter[WeekdayHelper.DISPLAYED_DAYS_COUNT]; // fixme replace with displayed date count
         }
         if (adapters[i] == null) {
             createNewAdapter(i);
@@ -112,7 +113,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void createNewAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("createNewAdapter({})", i);
         adapters[i] =
-                new RestaurantPagerAdapter(this, getSupportFragmentManager());
+                new RestaurantPagerAdapter(this, getSupportFragmentManager(), mwWeekdayHelper.getNextWeekDayAsKey(i));
         loadPagerAdapter(i);
     }
 
@@ -120,11 +121,11 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Override
     @Trace
     public boolean onNavigationItemSelected(int i, long l) {
-        mLocation = i;
+        mDate = i;
         if (BuildConfig.DEBUG)
-            LOGGER.debug("onNavigationItemSelected({},{}), location := {}", new Object[]{i, l, mLocation});
+            LOGGER.debug("onNavigationItemSelected({},{}), location := {}", new Object[]{i, l, mDate});
 
-        loadPagerAdapter(mLocation);
+        loadPagerAdapter(mDate);
 
         return true;
     }
@@ -145,7 +146,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void stwClicked() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(mRestaurantUrls[mLocation]));
+        intent.setData(Uri.parse(mRestaurantUrls[mDate]));
         startActivity(intent);
     }
 

@@ -12,14 +12,12 @@ import de.ironjan.mensaupb.fragments.*;
  */
 public class RestaurantPagerAdapter extends FragmentStatePagerAdapter {
     private final String[] restaurantKeys, displayedRestaurants;
-    private final WeekdayHelper mWeekdayHelper;
     private final String mTodayKey;
     private Fragment[] fragments;
 
-    public RestaurantPagerAdapter(Context context, FragmentManager fm) {
+    public RestaurantPagerAdapter(Context context, FragmentManager fm, String dayKey) {
         super(fm);
-        mWeekdayHelper = WeekdayHelper_.getInstance_(context);
-        mTodayKey = mWeekdayHelper.getNextWeekDayAsKey(0);
+        this.mTodayKey = dayKey;
         restaurantKeys = context.getResources().getStringArray(R.array.restaurants);
         displayedRestaurants = context.getResources().getStringArray(R.array.displayedRestaurants);
         fragments = new Fragment[restaurantKeys.length];
