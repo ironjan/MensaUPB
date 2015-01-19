@@ -10,14 +10,14 @@
     </string-array>
 
     <string-array name="displayedRestaurants">
-        <item>Mensa Academica</item>
-        <item>Mensa Forum (neu)</item>
-        <item>Bistro Hotspot</item>
-        <item>Grill | Café</item>
-        <item>Caféte</item>
+        <item>@string/nameMensaAcademica</item>
+        <item>@string/nameMensaForum</item>
+        <item>@string/nameBistroHotspot</item>
+        <item>@string/nameGrillCafe</item>
+        <item>@string/nameCafete</item>
     </string-array>
 
-    <string-array translateable="false" name="restaurantUrls">
+    <string-array name="restaurantUrls" translateable="false">
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/mensa/</item>
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/</item>
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/bistro-hotspot/</item>
@@ -25,30 +25,4 @@
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/cafete/</item>
     </string-array>
 
-
-    <string-array name="opening_times">
-        <item>Mo - Do:	11:15 - 14:00\n
-Fr:	11:15 - 13:30
-        </item>
-        <item>Bis zum 19.07.2014:\n
-Mo - Do: 17:00 - 19:30\n
-\n
-Ab 20.07.2014:\n
-Mo-Fr: 17:00-19:30
-        </item>
-        <item>Mittagessen:\n
-Mo - Fr: 11:30 - 14:00\n
-\n
-Öffnungszeiten:\n
-Mo - Do: 08:00 - 23:00\n
-Fr: 08:00 - 18:00
-        </item>
-        <item>Essensausgabe\n
-Mo - Fr: 11:30 - 14:00\n
-\n
-Mo: 09:00 - 15:30\n
-Di - Fr: 09:00 - 17:00\n
-Sa,So,Feiertage: 11:00 - 17:00
-        </item>
-    </string-array>
 </resources>

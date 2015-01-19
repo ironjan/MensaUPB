@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.adapters;
 
 import android.content.*;
 import android.database.*;
+import android.net.*;
 import android.os.*;
 import android.provider.*;
 import android.support.v4.content.CursorLoader;
@@ -21,17 +22,18 @@ import se.emilsjolander.stickylistheaders.*;
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, StickyListHeadersAdapter {
     public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.CATEGORY, BaseColumns._ID};
-    private static final String SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " = ?";
     public static final int NAME_GERMAN_INDEX = 0,
             STUDENTS_PRICE_INDEX = 1,
             PRICE_TYPE_INDEX = 2,
             BADGES_INDEX = 3,
             CATEGORY_INDEX = 4,
             ID_INDEX = 5;
+    private static final String MENU_SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " LIKE ?";
     static int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
 
     private final String mDate;
     private final String mLocation;
+    private final String mensae;
 
     public MenuListingAdapter(Context context, String argDate, String argLocation) {
         super(context, R.layout.view_menu_list_item,
@@ -39,6 +41,8 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
         this.mContext = context;
         this.mDate = argDate;
         this.mLocation = argLocation;
+
+        mensae = context.getResources().getString(R.string.mensae);
     }
 
 
@@ -48,8 +52,10 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
 
         final String[] selectionArgs = {mDate, mLocation};
 
+        final Uri menuUri;
+        menuUri = MenuContentProvider.MENU_URI;
         return new CursorLoader(mContext,
-                MenuContentProvider.MENU_URI, projection, SELECTION, selectionArgs, null);
+                menuUri, projection, MENU_SELECTION, selectionArgs, null);
     }
 
     @Override

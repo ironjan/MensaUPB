@@ -19,16 +19,49 @@ public class WeekdayHelper {
     public static final int DISPLAYED_DAYS_COUNT = 3;
     private static final int CACHED_DAYS_COUNT = DISPLAYED_DAYS_COUNT + 2;
     private String[] weekDaysAsString = new String[CACHED_DAYS_COUNT];
-    private String[] weekDaysforUi = new String[CACHED_DAYS_COUNT];
+    private String[] weekDaysforUi = new String[DISPLAYED_DAYS_COUNT];
     private static final SimpleDateFormat SDF = new SimpleDateFormat(RawMenu.DATE_FORMAT);
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
+    @StringRes(R.string.today)
+    String mToday;
+    @StringRes(R.string.tomorrow)
+    String mTomorrow;
+    @StringRes(R.string.localizedDatePattern)
+    String localizedDatePattern;
     private volatile boolean mDaysNotInitializedYet = true;
 
-    @StringRes
-    String localizedDatePattern;
+    /**
+     * <p>Checks if a date is today. <a href="http://www.java2s.com/Code/Java/Data-Type/Checksifacalendardateistoday.htm">Source</a></p>
+     * @param date the date, not altered, not null.
+     * @return true if the date is today.
+     * @throws IllegalArgumentException if the date is <code>null</code>
+     */
+    public static boolean isToday(Date date) {
+        Calendar todayInstance = Calendar.getInstance();
+        Calendar dateInstance = Calendar.getInstance();
+        dateInstance.setTime(date);
+        return isSameDay(dateInstance, todayInstance);
+    }
+
+    /**
+     * <p>Checks if two calendars represent the same day ignoring time. <a href="http://www.java2s.com/Code/Java/Data-Type/Checksifacalendardateistoday.htm">Source</a></p>
+     *
+     * @param cal1 the first calendar, not altered, not null
+     * @param cal2 the second calendar, not altered, not null
+     * @return true if they represent the same day
+     * @throws IllegalArgumentException if either calendar is <code>null</code>
+     */
+    public static boolean isSameDay(Calendar cal1, Calendar cal2) {
+        if (cal1 == null || cal2 == null) {
+            throw new IllegalArgumentException("The dates must not be null");
+        }
+        return (cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
+                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
+    }
 
     @Trace
-    synchronized String getNextWeekDayAsKey(int i) {
+    public synchronized String getNextWeekDayAsKey(int i) {
         if (weekDaysAsString[i] == null) {
             weekDaysAsString[i] = SDF.format(getNextWeekDay(i));
         }
@@ -36,6 +69,13 @@ public class WeekdayHelper {
         if (BuildConfig.DEBUG)
             LOGGER.debug("getNextWeekDayAsKey({}) -> {}", i, weekDaysAsString[i]);
         return weekDaysAsString[i];
+    }
+
+    public String[] getDisplayedDays() {
+        if (mDaysNotInitializedYet) {
+            initDays();
+        }
+        return weekDaysforUi.clone();
     }
 
     @Trace
@@ -51,6 +91,9 @@ public class WeekdayHelper {
     void initDays() {
         for (int i = 0; i < CACHED_DAYS_COUNT; i++) {
             getNextWeekDayAsKey(i);
+        }
+        for (int i = 0; i < DISPLAYED_DAYS_COUNT; i++) {
+            getNextWeekDayForUI(i);
         }
         mDaysNotInitializedYet = false;
     }
@@ -95,15 +138,34 @@ public class WeekdayHelper {
                 || (dayOfWeek == Calendar.SATURDAY);
     }
 
-
     public String getNextWeekDayForUI(int i) {
         if (weekDaysforUi[i] == null) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(localizedDatePattern);
-            weekDaysforUi[i] = simpleDateFormat.format(getNextWeekDay(i));
+            Date nextWeekDay = getNextWeekDay(i);
+            weekDaysforUi[i] = formatForUi(nextWeekDay);
         }
 
         if (BuildConfig.DEBUG)
             LOGGER.debug("getNextWeekDayAsKey({}) -> {}", i, weekDaysforUi[i]);
         return weekDaysforUi[i];
     }
+
+    private String formatForUi(Date nextWeekDay) {
+        if (isToday(nextWeekDay)) {
+            return mToday;
+        } else if (isTomorrow(nextWeekDay)) {
+            return mTomorrow;
+        } else {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(localizedDatePattern);
+            return simpleDateFormat.format(nextWeekDay);
+        }
+    }
+
+    private boolean isTomorrow(Date date) {
+        Calendar tomorrowInstance = Calendar.getInstance();
+        tomorrowInstance.roll(Calendar.DAY_OF_MONTH, true);
+        Calendar dateInstace = Calendar.getInstance();
+        dateInstace.setTime(date);
+        return isSameDay(dateInstace, tomorrowInstance);
+    }
+
 }

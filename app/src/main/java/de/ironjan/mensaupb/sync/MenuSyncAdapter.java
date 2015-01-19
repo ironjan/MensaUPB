@@ -8,7 +8,6 @@ import android.os.*;
 import com.j256.ormlite.android.*;
 import com.j256.ormlite.dao.*;
 import com.j256.ormlite.stmt.*;
-import com.j256.ormlite.stmt.query.*;
 import com.j256.ormlite.support.*;
 
 import org.slf4j.*;
@@ -21,6 +20,7 @@ import java.util.*;
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.library.stw.filters.*;
 import de.ironjan.mensaupb.persistence.*;
 
 /**
@@ -38,6 +38,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final WeekdayHelper_ mWeekdayHelper;
     private final ContentResolver contentResolver;
     private final StwRestWrapper stwRestWrapper;
+    private FilterChain filterChain = new FilterChain();
 
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -131,7 +132,9 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         }
 
         RawMenu[] menus = downloadMenus(restaurant, date);
-        persistMenus(dao, menus);
+        List<RawMenu> menuList = Arrays.asList(menus);
+        List<RawMenu> filteredList = filterChain.filter(menuList);
+        persistMenus(dao, filteredList);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("syncMenus(dao,{},{}) done", restaurant, date);
@@ -144,13 +147,21 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    void persistMenus(Dao<RawMenu, ?> dao, RawMenu[] menus) throws java.sql.SQLException {
+    void persistMenus(Dao<RawMenu, ?> dao, List<RawMenu> menus) throws java.sql.SQLException {
         for (RawMenu rawMenu : menus) {
-            List<RawMenu> local = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, rawMenu.getName_de())
-                    .and().eq(RawMenu.DATE, rawMenu.getDate())
-                    .and().eq(RawMenu.RESTAURANT, rawMenu.getRestaurant())
-                    .query();
+            SelectArg nameArg = new SelectArg(),
+                    dateArg = new SelectArg(),
+                    restaurantArg = new SelectArg();
+            PreparedQuery<RawMenu> preparedQuery = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, nameArg)
+                    .and().eq(RawMenu.DATE, dateArg)
+                    .and().eq(RawMenu.RESTAURANT, restaurantArg)
+                    .prepare();
 
+            nameArg.setValue(rawMenu.getName_de());
+            dateArg.setValue(rawMenu.getDate());
+            restaurantArg.setValue(rawMenu.getRestaurant());
+
+            List<RawMenu> local = dao.query(preparedQuery);
             if (local.size() > 0) {
                 rawMenu.set_id(local.get(0).get_id());
                 dao.update(rawMenu);

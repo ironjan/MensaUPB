@@ -3,10 +3,10 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selectable_list_item"
+                android:minHeight="48dp"
                 android:paddingLeft="@dimen/elementMargin"
                 android:paddingRight="@dimen/elementMargin"
-                android:minHeight="48dp"
-                android:background="@drawable/selectable_list_item"
                 android:paddingTop="@dimen/elementMargin">
 
 
@@ -14,12 +14,14 @@
         android:id="@+id/textName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/black"
         android:textStyle="bold"
-        tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"/>
+        tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"
+        />
 
 
     <TextView
@@ -37,23 +39,23 @@
         android:id="@+id/textPricePer100g"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textName"
         android:layout_alignBaseline="@+id/textPrice"
-        android:layout_toRightOf="@+id/textPrice"
-        android:layout_toLeftOf="@+id/textBadges"
+        android:layout_below="@+id/textName"
         android:layout_marginRight="16dp"
+        android:layout_toLeftOf="@+id/textBadges"
+        android:layout_toRightOf="@+id/textPrice"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/secondary_text_default_material_light"
         tools:text="/100g"/>
 
     <TextView
-        android:orientation="horizontal"
         android:id="@+id/textBadges"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textName"
         android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/secondary_text_default_material_light"
         tools:text="badges"/>

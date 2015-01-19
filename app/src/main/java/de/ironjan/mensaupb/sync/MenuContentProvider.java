@@ -9,6 +9,7 @@ import android.provider.*;
 import android.text.*;
 
 import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.res.*;
 import org.slf4j.*;
 
 import java.util.*;
@@ -25,21 +26,26 @@ import de.ironjan.mensaupb.persistence.*;
 public class MenuContentProvider extends ContentProvider {
 
     private static final String MENUS_PATH = "menus";
+    private static final String MENSAE_PATH = MENUS_PATH + "/mensae";
     private static final String SINGLE_MENUS_PATH = MENUS_PATH + "/#";
 
     private static final Uri ROOT = Uri.parse("content://" + ProviderContract.AUTHORITY + "/");
     public static final Uri MENU_URI = Uri.withAppendedPath(ROOT, MENUS_PATH);
+    public static final Uri MENSAE_URI = Uri.withAppendedPath(ROOT, MENSAE_PATH);
     private static final int MENUS_MATCH = 1;
     private static final int SINGLE_MENUS_MATCH = 2;
-
+    private static final int MENSAE_PATH_MATCH = 3;
+    private static final String trueMensaeString = "mensa-%";
     private static UriMatcher sUriMatcher = new UriMatcher(0);
-
     private final Logger LOGGER = LoggerFactory.getLogger(MenuContentProvider.class.getSimpleName());
 
     static {
         sUriMatcher.addURI(ProviderContract.AUTHORITY, MENUS_PATH, MENUS_MATCH);
         sUriMatcher.addURI(ProviderContract.AUTHORITY, SINGLE_MENUS_PATH, SINGLE_MENUS_MATCH);
     }
+
+    @StringRes(R.string.mensae)
+    String mensaeString;
 
     private DatabaseHelper getHelper() {
         DatabaseManager dbManager = new DatabaseManager();
@@ -57,15 +63,17 @@ public class MenuContentProvider extends ContentProvider {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 //        TODO checkProjection(uri, projection);
 
+
         queryBuilder.setTables(RawMenu.TABLE);
 
         SQLiteDatabase db = getHelper().getReadableDatabase();
 
+        if (TextUtils.isEmpty(sortOrder)) {
+            sortOrder = RawMenu.SORT_ORDER + " ASC";
+        }
+
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
-                if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = RawMenu.SORT_ORDER + " ASC";
-                }
                 break;
             case SINGLE_MENUS_MATCH:
                 selection = BaseColumns._ID + " = ?";

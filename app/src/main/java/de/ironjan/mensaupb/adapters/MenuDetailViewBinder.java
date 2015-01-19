@@ -5,11 +5,8 @@ import android.database.*;
 import android.view.*;
 import android.widget.*;
 
-import org.w3c.dom.*;
-
 import java.util.*;
 
-import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.library.*;
 import de.ironjan.mensaupb.library.stw.*;
