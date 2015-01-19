@@ -19,24 +19,27 @@ class NameFilter implements Filter {
         LOGGER.debug("filter(list)");
         List<RawMenu> cleanedMenus = new ArrayList<>(menus.size());
         for (RawMenu menu : menus) {
-            RawMenu cleanedMenu = cleanNames(menu);
+            RawMenu cleanedMenu = filter(menu);
             cleanedMenus.add(cleanedMenu);
         }
         LOGGER.debug("filter(list) done");
         return cleanedMenus;
     }
 
-    private RawMenu cleanNames(RawMenu menu) {
-        LOGGER.debug("cleanNames({}) {de: {}, en: {}}", menu, menu.getName_de(), menu.getName_en());
+    public RawMenu filter(RawMenu menu) {
+        LOGGER.debug("filter({}) {de: {}, en: {}}", menu, menu.getName_de(), menu.getName_en());
         RawMenu copy = menu.copy();
         copy.setName_de(cleanName(copy.getName_de()));
         copy.setName_en(cleanName(copy.getName_en()));
-        LOGGER.debug("cleanNames({}) done {de: {}, en: {}}", menu, copy.getName_de(), copy.getName_en());
+        LOGGER.debug("filter({}) done {de: {}, en: {}}", menu, copy.getName_de(), copy.getName_en());
         return copy;
     }
 
 
     private String cleanName(String name) {
+        if (name == null) {
+            return ""; // no cleaning necessary, but we replace null with empty string..
+        }
         String potentialName = null;
         if (!TextUtils.isEmpty(name) && name.contains("|")) {
             String[] split = name.split("\\|");
