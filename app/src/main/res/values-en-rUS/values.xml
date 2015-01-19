@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="localizedDatePattern">EE, MM/dd/yyyy</string>
+    <string name="localizedDatePattern">EE, MM/dd</string>
 </resources>
