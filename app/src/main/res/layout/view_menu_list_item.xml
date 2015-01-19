@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        android:layout_toLeftOf="@+id/textRestaurant"
         android:ellipsize="end"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -60,16 +59,5 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/secondary_text_default_material_light"
         tools:text="badges"/>
-
-    <TextView
-        android:id="@+id/textRestaurant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        />
 
 </RelativeLayout>

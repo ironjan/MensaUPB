@@ -50,7 +50,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         list.setEmptyView(mLoadingView);
         list.setAreHeadersSticky(false);
         adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
-        adapter.setViewBinder(new MenuDetailViewBinder(getActivity()));
+        adapter.setViewBinder(new MenuDetailViewBinder());
         getLoaderManager().initLoader(0, null, adapter);
         list.setAdapter(adapter);
     }

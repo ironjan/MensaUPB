@@ -21,16 +21,15 @@ import se.emilsjolander.stickylistheaders.*;
  * An adapter to load the list of menus for a MenuListingFragment.
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, StickyListHeadersAdapter {
-    public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.RESTAURANT, RawMenu.CATEGORY, BaseColumns._ID};
+    public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.CATEGORY, BaseColumns._ID};
     public static final int NAME_GERMAN_INDEX = 0,
             STUDENTS_PRICE_INDEX = 1,
             PRICE_TYPE_INDEX = 2,
             BADGES_INDEX = 3,
-            RESTAURANT_INDEX = 4,
-            CATEGORY_INDEX = 5,
-            ID_INDEX = 6;
+            CATEGORY_INDEX = 4,
+            ID_INDEX = 5;
     private static final String MENU_SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " LIKE ?";
-    static int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges, R.id.textRestaurant};
+    static int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
 
     private final String mDate;
     private final String mLocation;
