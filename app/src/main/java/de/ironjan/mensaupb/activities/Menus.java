@@ -5,6 +5,7 @@ import android.annotation.*;
 import android.content.*;
 import android.net.*;
 import android.os.*;
+import android.support.v4.app.*;
 import android.support.v4.view.*;
 import android.support.v7.app.*;
 import android.widget.*;
@@ -24,7 +25,6 @@ import de.ironjan.mensaupb.sync.*;
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener {
 
 
-    private WeekdayPagerAdapter[] adapters;
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
     @ViewById(R.id.pager)
     ViewPager mViewPager;
@@ -40,8 +40,9 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     WeekdayHelper mwWeekdayHelper;
     @Bean
     AccountCreator mAccountCreator;
-    private WeekdayPagerAdapter mWeekdayPagerAdapter;
-    private int mLocation = 0;
+    private FragmentStatePagerAdapter[] adapters;
+    private FragmentStatePagerAdapter mWeekdayPagerAdapter;
+    private int mDate = 0;
 
     @Trace
     @AfterViews
@@ -59,13 +60,14 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
+        String[] displayedDays = mwWeekdayHelper.getDisplayedDays();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(actionBar.getThemedContext(),
                 android.R.layout.simple_spinner_item, android.R.id.text1,
-                mDisplayedRestaurants);
+                displayedDays);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         actionBar.setListNavigationCallbacks(adapter, this);
-        actionBar.setSelectedNavigationItem(mLocation);
+        actionBar.setSelectedNavigationItem(mDate);
     }
 
     @Trace
@@ -73,7 +75,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         mPagerTabStrip.setTabIndicatorColorResource(R.color.iconBg);
         mPagerTabStrip.setDrawFullUnderline(true);
 
-        loadPagerAdapter(mLocation);
+        loadPagerAdapter(mDate);
     }
 
     @Background
@@ -95,10 +97,10 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     }
 
     @Trace
-    WeekdayPagerAdapter getPagerAdapter(int i) {
+    FragmentStatePagerAdapter getPagerAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("getPagerAdapter({})", i);
         if (adapters == null) {
-            adapters = new WeekdayPagerAdapter[mRestaurants.length];
+            adapters = new RestaurantPagerAdapter[WeekdayHelper.DISPLAYED_DAYS_COUNT]; // fixme replace with displayed date count
         }
         if (adapters[i] == null) {
             createNewAdapter(i);
@@ -111,7 +113,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void createNewAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("createNewAdapter({})", i);
         adapters[i] =
-                new WeekdayPagerAdapter(this, getSupportFragmentManager(), mRestaurants[i]);
+                new RestaurantPagerAdapter(this, getSupportFragmentManager(), mwWeekdayHelper.getNextWeekDayAsKey(i));
         loadPagerAdapter(i);
     }
 
@@ -119,11 +121,11 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Override
     @Trace
     public boolean onNavigationItemSelected(int i, long l) {
-        mLocation = i;
+        mDate = i;
         if (BuildConfig.DEBUG)
-            LOGGER.debug("onNavigationItemSelected({},{}), location := {}", new Object[]{i, l, mLocation});
+            LOGGER.debug("onNavigationItemSelected({},{}), location := {}", new Object[]{i, l, mDate});
 
-        loadPagerAdapter(mLocation);
+        loadPagerAdapter(mDate);
 
         return true;
     }
@@ -144,7 +146,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void stwClicked() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(mRestaurantUrls[mLocation]));
+        intent.setData(Uri.parse(mRestaurantUrls[mDate]));
         startActivity(intent);
     }
 

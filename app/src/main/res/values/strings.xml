@@ -42,10 +42,9 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="devHeader">Entwickler</string>
     <string name="devNames" translatable="false" translateable="false">David Maicher\nTony Lemke\nJan Lippert\nChristian Brüggemann</string>
 
-    <string name="localizedDatePattern">EE, dd.MM.yyyy</string>
+    <string name="localizedDatePattern">EE, dd.MM</string>
     <string name="allergensHeader">Allergene und Zusatzstoffe</string>
 
-    <string name="campusMensae">Campus Mensae</string>
     <string name="nameMensaAcademica" translatable="false">Mensa Academica</string>
     <string name="nameMensaForum" translatable="false">Mensa Forum (neue)</string>
     <string name="nameBistroHotspot" translatable="false">Bistro Hotspot</string>
@@ -53,4 +52,6 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="nameCafete" translatable="false">Caféte</string>
     <string name="shortMensaAcademica">Academica</string>
     <string name="shortMensaForum">M. Forum</string>
+    <string name="today">Heute</string>
+    <string name="tomorrow">Morgen</string>
 </resources>

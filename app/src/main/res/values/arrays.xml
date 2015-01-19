@@ -2,7 +2,6 @@
 <resources>
 
     <string-array name="restaurants">
-        <item>@string/mensae</item>
         <item>@string/mensa_academica_paderborn</item>
         <item>@string/mensa_forum_paderborn</item>
         <item>@string/bistro_hotspot</item>
@@ -11,7 +10,6 @@
     </string-array>
 
     <string-array name="displayedRestaurants">
-        <item>@string/campusMensae</item>
         <item>@string/nameMensaAcademica</item>
         <item>@string/nameMensaForum</item>
         <item>@string/nameBistroHotspot</item>
@@ -20,7 +18,6 @@
     </string-array>
 
     <string-array name="restaurantUrls" translateable="false">
-        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/</item>
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/mensa/</item>
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/</item>
         <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/bistro-hotspot/</item>
