@@ -5,6 +5,7 @@ import android.annotation.*;
 import android.content.*;
 import android.net.*;
 import android.os.*;
+import android.support.v4.app.*;
 import android.support.v4.view.*;
 import android.support.v7.app.*;
 import android.widget.*;
@@ -24,7 +25,6 @@ import de.ironjan.mensaupb.sync.*;
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener {
 
 
-    private WeekdayPagerAdapter[] adapters;
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
     @ViewById(R.id.pager)
     ViewPager mViewPager;
@@ -40,7 +40,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     WeekdayHelper mwWeekdayHelper;
     @Bean
     AccountCreator mAccountCreator;
-    private WeekdayPagerAdapter mWeekdayPagerAdapter;
+    private FragmentStatePagerAdapter[] adapters;
+    private FragmentStatePagerAdapter mWeekdayPagerAdapter;
     private int mLocation = 0;
 
     @Trace
@@ -95,10 +96,10 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     }
 
     @Trace
-    WeekdayPagerAdapter getPagerAdapter(int i) {
+    FragmentStatePagerAdapter getPagerAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("getPagerAdapter({})", i);
         if (adapters == null) {
-            adapters = new WeekdayPagerAdapter[mRestaurants.length];
+            adapters = new RestaurantPagerAdapter[1]; // fixme replace with displayed date count
         }
         if (adapters[i] == null) {
             createNewAdapter(i);
@@ -111,7 +112,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void createNewAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("createNewAdapter({})", i);
         adapters[i] =
-                new WeekdayPagerAdapter(this, getSupportFragmentManager(), mRestaurants[i]);
+                new RestaurantPagerAdapter(this, getSupportFragmentManager());
         loadPagerAdapter(i);
     }
 
