@@ -24,7 +24,6 @@ import de.ironjan.mensaupb.sync.*;
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener {
 
 
-    private WeekdayPagerAdapter[] adapters;
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
     @ViewById(R.id.pager)
     ViewPager mViewPager;
@@ -40,6 +39,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     WeekdayHelper mwWeekdayHelper;
     @Bean
     AccountCreator mAccountCreator;
+    private WeekdayPagerAdapter[] adapters;
     private WeekdayPagerAdapter mWeekdayPagerAdapter;
     private int mLocation = 0;
 
@@ -91,7 +91,9 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @UiThread
     @Trace
     void switchAdapter() {
+        int currentItem = mViewPager.getCurrentItem();
         mViewPager.setAdapter(mWeekdayPagerAdapter);
+        mViewPager.setCurrentItem(currentItem);
     }
 
     @Trace
