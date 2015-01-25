@@ -3,7 +3,6 @@ package de.ironjan.mensaupb.activities;
 
 import android.annotation.*;
 import android.content.*;
-import android.net.*;
 import android.os.*;
 import android.support.v4.view.*;
 import android.support.v7.app.*;
@@ -33,8 +32,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     String[] mRestaurants;
     @StringArrayRes(R.array.displayedRestaurants)
     String[] mDisplayedRestaurants;
-    @StringArrayRes(R.array.restaurantUrls)
-    String[] mRestaurantUrls;
     @Bean
     WeekdayHelper mwWeekdayHelper;
     @Bean
@@ -140,14 +137,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 
         ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
-    }
-
-    @OptionsItem(R.id.ab_STW)
-    void stwClicked() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(mRestaurantUrls[mLocation]));
-        startActivity(intent);
     }
 
     @OptionsItem(R.id.ab_about)

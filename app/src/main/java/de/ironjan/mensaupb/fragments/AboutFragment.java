@@ -29,12 +29,17 @@ public class AboutFragment extends Fragment {
     @ViewById(R.id.txtAppVersion)
     TextView txtAppVersion;
 
+    @ViewById(R.id.textSourceLink)
+    @FromHtml(R.string.srcLink)
+    TextView mTextSourceLink;
+
     @AfterViews
     void linkify() {
         final MovementMethod movementMethod = LinkMovementMethod.getInstance();
         mTxtDependencies.setMovementMethod(movementMethod);
         mTxtAbout.setMovementMethod(movementMethod);
         mTxtDependencyNames.setMovementMethod(movementMethod);
+        mTextSourceLink.setMovementMethod(movementMethod);
         if (BuildConfig.DEBUG) LOGGER.debug("linkify() done");
     }
 

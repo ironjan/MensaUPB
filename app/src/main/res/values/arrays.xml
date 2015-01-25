@@ -17,12 +17,5 @@
         <item>@string/nameCafete</item>
     </string-array>
 
-    <string-array name="restaurantUrls" translateable="false">
-        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/mensa/</item>
-        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/</item>
-        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/bistro-hotspot/</item>
-        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/grill-cafe/</item>
-        <item>http://www.studentenwerk-pb.de/gastronomie/speiseplaene/cafete/</item>
-    </string-array>
 
 </resources>
