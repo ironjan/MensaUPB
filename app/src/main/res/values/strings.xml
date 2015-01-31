@@ -92,5 +92,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="vegan">vegan</string>
     <string name="noLactose">laktosefrei</string>
     <string name="noGluten">glutenfrei</string>
+    <string name="versionLabel">Version:</string>
+    <string name="nothingToEatText">Heute gibt es hier nichts zu essen.\nIst die Einrichtung vielleicht geschlossen?</string>
 
 </resources>
