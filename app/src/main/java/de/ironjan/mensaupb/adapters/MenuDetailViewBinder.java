@@ -7,9 +7,8 @@ import android.widget.*;
 
 import java.util.*;
 
-import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.library.*;
-import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.stw.*;
 
 /**
  * Binds raw menus to de.ironjan.mensaupb.R.layout.view_menu_list_item

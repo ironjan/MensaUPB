@@ -19,9 +19,10 @@ import java.util.*;
 
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.library.stw.*;
-import de.ironjan.mensaupb.library.stw.filters.*;
 import de.ironjan.mensaupb.persistence.*;
+import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.filters.*;
+
 
 /**
  * SyncAdapter to download and persist menus.
