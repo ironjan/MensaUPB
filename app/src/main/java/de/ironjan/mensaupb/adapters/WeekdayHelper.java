@@ -8,7 +8,7 @@ import java.text.*;
 import java.util.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.stw.*;
 
 /**
  * Created by ljan on 4/28/14.
@@ -22,10 +22,9 @@ public class WeekdayHelper {
     private String[] weekDaysforUi = new String[CACHED_DAYS_COUNT];
     private static final SimpleDateFormat SDF = new SimpleDateFormat(RawMenu.DATE_FORMAT);
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
-    private volatile boolean mDaysNotInitializedYet = true;
-
     @StringRes
     String localizedDatePattern;
+    private volatile boolean mDaysNotInitializedYet = true;
 
     @Trace
     synchronized String getNextWeekDayAsKey(int i) {
