@@ -12,7 +12,7 @@ import org.slf4j.*;
 
 import java.sql.*;
 
-import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.sync.*;
 
 /**

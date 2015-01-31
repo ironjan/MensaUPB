@@ -12,7 +12,7 @@ import android.support.v4.widget.*;
 import android.view.*;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.library.stw.*;
+import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.sync.*;
 import de.ironjan.mensaupb.views.*;
 import se.emilsjolander.stickylistheaders.*;
