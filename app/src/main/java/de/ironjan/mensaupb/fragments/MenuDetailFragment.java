@@ -157,7 +157,7 @@ public class MenuDetailFragment extends Fragment {
     /**
      * Asynchronously load the image of the supplied menu
      *
-     * @param rawMenu
+     * @param rawMenu The menu to load a image for
      */
     private void loadImage(RawMenu rawMenu) {
         if (!TextUtils.isEmpty(rawMenu.getImage())) {
