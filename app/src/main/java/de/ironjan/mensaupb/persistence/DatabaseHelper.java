@@ -24,13 +24,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 13;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
-    private final Context mContext;
 
     AccountCreator mAccountCreator;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.mContext = context;
         mAccountCreator = AccountCreator_.getInstance_(context);
     }
 

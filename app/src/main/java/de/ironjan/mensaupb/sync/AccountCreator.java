@@ -26,7 +26,6 @@ public class AccountCreator {
     @SystemService
     AccountManager mAccountManager;
 
-    private boolean mAccountCreated = false;
     private Account mAccount;
 
     /**
@@ -41,7 +40,7 @@ public class AccountCreator {
                 LOGGER.warn("AccountManager was null.");
                 return mAccount;
             }
-            mAccountCreated = mAccountManager.addAccountExplicitly(mAccount, null, null);
+            boolean mAccountCreated = mAccountManager.addAccountExplicitly(mAccount, null, null);
             if (mAccountCreated) {
                 LOGGER.info("Synchronization account added.");
             } else {

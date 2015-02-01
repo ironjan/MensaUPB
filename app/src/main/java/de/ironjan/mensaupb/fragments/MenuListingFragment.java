@@ -34,7 +34,6 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @Bean
     AccountCreator mAccountCreator;
     private MenuListingAdapter adapter;
-    private Object mChangeListenerHandle;
 
     private String getArgLocation() {
         String location = getArguments().getString(ARG_LOCATION);
@@ -55,14 +54,6 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         list.setAdapter(adapter);
     }
 
-    @AfterInject
-    void addStatusListener() {
-        int mask = ContentResolver.SYNC_OBSERVER_TYPE_ACTIVE | ContentResolver.SYNC_OBSERVER_TYPE_PENDING;
-        mChangeListenerHandle = ContentResolver.addStatusChangeListener(mask, this);
-        LOGGER.debug("Added status listener");
-    }
-
-
     @ItemClick
     void listItemClicked(int pos) {
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);
@@ -75,7 +66,6 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
-        addStatusListener();
         Bundle settingsBundle = new Bundle();
         settingsBundle.putBoolean(
                 ContentResolver.SYNC_EXTRAS_MANUAL, true);
