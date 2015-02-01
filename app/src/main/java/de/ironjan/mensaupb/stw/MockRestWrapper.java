@@ -66,6 +66,7 @@ public class MockRestWrapper implements StwRest {
         return new RawMenu[]{wok, pasta, defaultDish, soup, sidedish, dessert, counterdessert, grill};
     }
 
+    @SuppressWarnings("MagicNumber")
     private RawMenu buildRawMenu(String restaurant, String date, String name, String description, String categoryIdentifier, String category, NewAllergen[] allergens, PriceType pricetype) {
         RawMenu menu = new RawMenu();
 

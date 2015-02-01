@@ -50,6 +50,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int old, int newVersion) {
         if (LOGGER.isInfoEnabled()) LOGGER.info("onUpgrade()");
         try {
+            //noinspection MagicNumber
             if (old <= 12) {
                 TableUtils.dropTable(connectionSource, RawMenu.class, true);
                 onCreate(sqLiteDatabase, connectionSource);

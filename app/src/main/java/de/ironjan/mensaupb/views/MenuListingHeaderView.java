@@ -20,7 +20,7 @@ public class MenuListingHeaderView extends FrameLayout {
         super(context);
     }
 
-    public void setText(String text) {
+    public void setText(CharSequence text) {
         mContent.setText(text);
     }
 }

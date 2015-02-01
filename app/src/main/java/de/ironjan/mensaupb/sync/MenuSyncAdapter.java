@@ -141,7 +141,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    void persistMenus(Dao<RawMenu, ?> dao, List<RawMenu> menus) throws java.sql.SQLException {
+    void persistMenus(Dao<RawMenu, ?> dao, Iterable<RawMenu> menus) throws java.sql.SQLException {
         for (RawMenu rawMenu : menus) {
             SelectArg nameArg = new SelectArg(),
                     dateArg = new SelectArg(),
