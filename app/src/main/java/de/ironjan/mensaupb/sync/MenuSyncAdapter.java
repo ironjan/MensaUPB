@@ -39,7 +39,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final WeekdayHelper_ mWeekdayHelper;
     private final ContentResolver contentResolver;
     private final StwRestWrapper stwRestWrapper;
-    private FilterChain filterChain = new FilterChain();
+    private final FilterChain filterChain = new FilterChain();
 
     @SuppressWarnings("SameParameterValue")
     private MenuSyncAdapter(Context context, boolean autoInitialize) {

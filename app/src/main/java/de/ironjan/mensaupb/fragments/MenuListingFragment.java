@@ -20,8 +20,8 @@ import se.emilsjolander.stickylistheaders.*;
 @EFragment(R.layout.fragment_menu_listing)
 public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, SyncStatusObserver {
 
-    public static String ARG_DATE = "date";
-    public static String ARG_LOCATION = "restaurant";
+    public static final String ARG_DATE = "date";
+    public static final String ARG_LOCATION = "restaurant";
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
     @SuppressWarnings("WeakerAccess")

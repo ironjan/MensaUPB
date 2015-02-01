@@ -15,8 +15,8 @@ public class NameFilterTest extends TestCase {
     private final String CLEANED_3_VERT = "CLEAN3";
     private final String CLEANED_BREAK_FAST_BURGER = "Breakfast Burger";
 
-    private NameFilter nameFilter = new NameFilter();
-    private RawMenu menu = new RawMenu();
+    private final NameFilter nameFilter = new NameFilter();
+    private final RawMenu menu = new RawMenu();
 
 
     public void testSetName_deNoClean() throws Exception {

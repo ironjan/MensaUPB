@@ -7,7 +7,7 @@ public class MockRestWrapper implements StwRest {
     private static final NewAllergen[] NO_ALLERGENS = new NewAllergen[0];
     private static MockRestWrapper instance;
 
-    private NewAllergen[] ALL_ALLERGENS = {
+    private final NewAllergen[] ALL_ALLERGENS = {
             NewAllergen.COLORED,
             NewAllergen.CONSERVED,
             NewAllergen.ANTIOXIDANTS,

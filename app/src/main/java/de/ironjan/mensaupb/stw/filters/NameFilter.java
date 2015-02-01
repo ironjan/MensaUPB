@@ -12,7 +12,7 @@ import de.ironjan.mensaupb.stw.*;
  * Filters and corrects the names of the given menus
  */
 class NameFilter implements Filter {
-    private static Logger LOGGER = LoggerFactory.getLogger(NameFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NameFilter.class);
 
     @Override
     public List<RawMenu> filter(List<RawMenu> menus) {

@@ -8,10 +8,10 @@ import de.ironjan.mensaupb.fragments.*;
 
 public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
 
-    private Fragment[] fragments = new Fragment[WeekdayHelper.DISPLAYED_DAYS_COUNT];
-    private String mRestaurant;
+    private final Fragment[] fragments = new Fragment[WeekdayHelper.DISPLAYED_DAYS_COUNT];
+    private final String mRestaurant;
 
-    private WeekdayHelper mWeekdayHelper;
+    private final WeekdayHelper mWeekdayHelper;
 
     public WeekdayPagerAdapter(Context context, FragmentManager fm, String restaurant) {
         super(fm);

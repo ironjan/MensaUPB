@@ -44,9 +44,9 @@ public enum NewAllergen {
     GLUTEN(28, Constants.GLUTEN, R.string.gluten),
     PEANUTS(29, Constants.PEANUTS, R.string.peanuts);
 
-    private int ordinal;
-    private String type;
-    private int string;
+    private final int ordinal;
+    private final String type;
+    private final int string;
 
     NewAllergen(int ordinal, String type, int string) {
         this.ordinal = ordinal;
