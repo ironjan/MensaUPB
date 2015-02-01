@@ -48,7 +48,7 @@ class NameFilter implements Filter {
 
         if (name.contains("'")) {
             // replace single quotes with escaped single quotes -> sqlite fix
-            name.replaceAll("'", "''");
+            name = name.replaceAll("'", "''");
         }
 
         if (TextUtils.isEmpty(potentialName)) {

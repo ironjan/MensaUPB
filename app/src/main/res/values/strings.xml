@@ -51,18 +51,16 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="nameBistroHotspot" translatable="false">Bistro Hotspot</string>
     <string name="nameGrillCafe" translatable="false">Grill | Café</string>
     <string name="nameCafete" translatable="false">Caféte</string>
-    <string name="shortMensaAcademica">Academica</string>
-    <string name="shortMensaForum">M. Forum</string>
-    <string name="srcLink">&lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/>www.studentenwerk-pb.de&lt;/a></string>
+    <string name="srcLink" translatable="false">&lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/>www.studentenwerk-pb.de&lt;/a></string>
 
-    <string name="empty"/>
+    <string name="empty" translatable="false"/>
     <string name="colored">Farbstoff</string>
     <string name="conserved">konserviert</string>
     <string name="antioxidants">Antioxidationsmittel</string>
     <string name="tasteEnhancer">Geschmacksverstärker</string>
     <string name="phosphate">Phosphat</string>
     <string name="sulfured">geschwefelt</string>
-    <string name="waxed">gewachst</string>
+    <string name="waxed">Gewachst</string>
     <string name="blackened">geschwärzt</string>
     <string name="sweetener">Süßungsmittel</string>
     <string name="phenylalanine">enthält eine Phenylalaninquelle</string>
@@ -88,9 +86,11 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
 
     <string name="lowCalorie">kalorienarm</string>
     <string name="fatFree">fettarm</string>
-    <string name="vegetarian">vegetarisch</string>
-    <string name="vegan">vegan</string>
+    <string name="vegetarian">Vegetarisch</string>
+    <string name="vegan">Vegan</string>
     <string name="noLactose">laktosefrei</string>
     <string name="noGluten">glutenfrei</string>
+    <string name="versionLabel">Version:</string>
+    <string name="nothingToEatText">Heute gibt es hier nichts zu essen.\nIst die Einrichtung vielleicht geschlossen?</string>
 
 </resources>

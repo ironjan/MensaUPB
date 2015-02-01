@@ -39,6 +39,6 @@
     <string name="bistro_hotspot" translatable="false">bistro-hotspot</string>
     <string name="mensa_hamm" translatable="false">mensa-hamm</string>
     <string name="mensa_lippstadt" translatable="false">mensa-lippstadt</string>
-    <string name="grill_cafe">grill-cafe</string>
+    <string name="grill_cafe" translatable="false">grill-cafe</string>
     <string name="campus_doener" translatable="false">campus-doener</string>
 </resources>
