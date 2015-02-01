@@ -11,7 +11,7 @@ import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.stw.*;
 
 /**
- * Created by ljan on 4/28/14.
+ * Helper class to find the next weekdays etc.
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class WeekdayHelper {

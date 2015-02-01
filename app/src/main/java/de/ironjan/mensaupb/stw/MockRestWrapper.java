@@ -1,7 +1,7 @@
 package de.ironjan.mensaupb.stw;
 
 /**
- * Created by ljan on 21.11.14.
+ * Mock implementation of StwRest to test without a secret STW url
  */
 public class MockRestWrapper implements StwRest {
     private static final NewAllergen[] NO_ALLERGENS = new NewAllergen[0];

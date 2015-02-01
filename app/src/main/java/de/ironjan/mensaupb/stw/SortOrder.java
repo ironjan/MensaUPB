@@ -1,7 +1,9 @@
 package de.ironjan.mensaupb.stw;
 
 /**
- * Created by ljan on 21.11.14.
+ * Class to get the sort order of a Menu.
+ * <p/>
+ * TODO extract into filter
  */
 public class SortOrder {
 
