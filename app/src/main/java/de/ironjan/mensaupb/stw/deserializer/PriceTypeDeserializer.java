@@ -13,7 +13,7 @@ import de.ironjan.mensaupb.stw.*;
 public class PriceTypeDeserializer extends JsonDeserializer<PriceType> {
 
     @Override
-    public PriceType deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public PriceType deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
             jp.nextToken();
         }

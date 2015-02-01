@@ -16,7 +16,7 @@ public class AllergenDeserializer extends JsonDeserializer<NewAllergen> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AllergenDeserializer.class);
 
     @Override
-    public NewAllergen deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public NewAllergen deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
         }
         try {

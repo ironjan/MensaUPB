@@ -28,7 +28,7 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
     private static final String[] GERMAN_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.CATEGORY_DE, BaseColumns._ID};
     private String[] listProjection = GERMAN_PROJECTION;
     private static final String MENU_SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " LIKE ?";
-    private static int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
+    private static final int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
     private final String mDate;
     private final String mLocation;
 
