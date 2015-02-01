@@ -11,6 +11,8 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.*;
 import android.view.*;
 
+import java.util.*;
+
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.sync.*;
@@ -21,19 +23,15 @@ import se.emilsjolander.stickylistheaders.*;
  * An adapter to load the list of menus for a MenuListingFragment.
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, StickyListHeadersAdapter {
-    public static final String[] LIST_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.CATEGORY, BaseColumns._ID};
-    public static final int NAME_GERMAN_INDEX = 0,
-            STUDENTS_PRICE_INDEX = 1,
-            PRICE_TYPE_INDEX = 2,
-            BADGES_INDEX = 3,
-            CATEGORY_INDEX = 4,
-            ID_INDEX = 5;
+    public static final String[] GERMAN_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.CATEGORY_DE, BaseColumns._ID};
+    public static String[] LIST_PROJECTION = GERMAN_PROJECTION;
+    public static final String[] ENGLISH_PROJECTION = {RawMenu.NAME_EN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.CATEGORY_EN, BaseColumns._ID};
+    public static final int CATEGORY_INDEX = 4;
     private static final String MENU_SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " LIKE ?";
     static int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
 
     private final String mDate;
     private final String mLocation;
-    private final String mensae;
 
     public MenuListingAdapter(Context context, String argDate, String argLocation) {
         super(context, R.layout.view_menu_list_item,
@@ -41,8 +39,10 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
         this.mContext = context;
         this.mDate = argDate;
         this.mLocation = argLocation;
-
-        mensae = context.getResources().getString(R.string.mensae);
+        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
+        if (isEnglish) {
+            LIST_PROJECTION = ENGLISH_PROJECTION;
+        }
     }
 
 

@@ -18,7 +18,7 @@ import java.util.*;
 public class RawMenu implements Cloneable {
     public static final String TABLE = "menus";
     public static final String NAME_GERMAN = "name_de";
-    public static final String CATEGORY = "category_de";
+    public static final String CATEGORY_DE = "category_de";
     public static final String STUDENTS_PRICE = "priceStudents";
     public static final String PRICE_TYPE = "pricetype";
     public static final String DATE = "date";
@@ -28,15 +28,18 @@ public class RawMenu implements Cloneable {
     public static final Logger LOGGER = LoggerFactory.getLogger(RawMenu.class);
     public static final String SORT_ORDER = "sortOrder";
     public static final String BADGES = "badges";
+    public static final String NAME_EN = "name_en";
+    public static final String CATEGORY_EN = "category_en";
+
     @DatabaseField(generatedId = true, columnName = BaseColumns._ID)
     long _id;
     @DatabaseField
     int order_info;
     @DatabaseField(canBeNull = false, columnName = DATE, dataType = DataType.DATE_STRING, format = DATE_FORMAT)
     private Date date;
-    @DatabaseField(canBeNull = false, columnName = "name_de")
+    @DatabaseField(canBeNull = false, columnName = NAME_GERMAN)
     private String name_de;
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = false, columnName = NAME_EN)
     private String name_en;
     @DatabaseField
     private String description_de;
@@ -45,9 +48,9 @@ public class RawMenu implements Cloneable {
     @DatabaseField
     @JsonProperty("category")
     private String categoryIdentifier;
-    @DatabaseField
+    @DatabaseField(columnName = CATEGORY_DE)
     private String category_de;
-    @DatabaseField
+    @DatabaseField(columnName = CATEGORY_EN)
     private String category_en;
     @DatabaseField
     private String subcategory_de = "";
