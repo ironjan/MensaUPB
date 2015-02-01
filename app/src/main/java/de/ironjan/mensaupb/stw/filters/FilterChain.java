@@ -14,7 +14,8 @@ public class FilterChain implements Filter {
     Filter[] filters = {
             new NameFilter(),
             new CategoryFilter(),
-            new AllergenFilter()
+            new AllergenFilter(),
+            new AwkwardTranslationFilter()
     };
 
     @Override
