@@ -89,16 +89,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
         try {
             tryMenuSync();
-        } catch (java.sql.SQLException e) {
-            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
-            LOGGER.error(e.getMessage(), e);
-        } catch (ResourceAccessException e) {
-            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
-            LOGGER.error(e.getMessage(), e);
-        } catch (RestClientException e) {
-            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
-            LOGGER.error(e.getMessage(), e);
-        } catch (NestedRuntimeException e) {
+        } catch (SQLException | NestedRuntimeException e) {
             LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
             LOGGER.error(e.getMessage(), e);
         }

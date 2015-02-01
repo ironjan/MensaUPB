@@ -10,6 +10,7 @@ import de.ironjan.mensaupb.stw.deserializer.*;
 /**
  * Rewrite of the Allergen class
  */
+@SuppressWarnings("MagicNumber")
 @JsonDeserialize(using = AllergenDeserializer.class)
 public enum NewAllergen {
     UNKNOWN(0, "", R.string.empty),
@@ -54,66 +55,65 @@ public enum NewAllergen {
     }
 
     public static NewAllergen fromType(String s) {
-        if (Constants.COLORED.equals(s)) {
-            return COLORED;
-        } else if (Constants.CONSERVED.equals(s)) {
-            return CONSERVED;
-        } else if (Constants.ANTIOXIDANTS.equals(s)) {
-            return ANTIOXIDANTS;
-        } else if (Constants.FLAVOR_ENHANCERS.equals(s)) {
-            return FLAVOR_ENHANCERS;
-        } else if (Constants.PHOSPHAT.equals(s)) {
-            return PHOSPHAT;
-        } else if (Constants.SULFURATED.equals(s)) {
-            return SULFURATED;
-        } else if (Constants.WAXED.equals(s)) {
-            return WAXED;
-        } else if (Constants.BLACKENED.equals(s)) {
-            return BLACKENED;
-        } else if (Constants.SWEETENER.equals(s)) {
-            return SWEETENER;
-        } else if (Constants.BLACKENED.equals(s)) {
-            return BLACKENED;
-        } else if (Constants.PHENYLALANINE.equals(s)) {
-            return PHENYLALANINE;
-        } else if (Constants.TAURINE.equals(s)) {
-            return TAURINE;
-        } else if (Constants.NITRATE_SALT.equals(s)) {
-            return NITRATE_SALT;
-        } else if (Constants.COFFEINE.equals(s)) {
-            return COFFEINE;
-        } else if (Constants.QUININE.equals(s)) {
-            return QUININE;
-        } else if (Constants.LACTOPROTEIN.equals(s)) {
-            return LACTOPROTEIN;
-        } else if (Constants.CRUSTACEAN.equals(s)) {
-            return CRUSTACEAN;
-        } else if (Constants.EGGS.equals(s)) {
-            return EGGS;
-        } else if (Constants.FISH.equals(s)) {
-            return FISH;
-        } else if (Constants.SOYA.equals(s)) {
-            return SOYA;
-        } else if (Constants.LACTOSE.equals(s)) {
-            return LACTOSE;
-        } else if (Constants.NUTS.equals(s)) {
-            return NUTS;
-        } else if (Constants.CELERIAC.equals(s)) {
-            return CELERIAC;
-        } else if (Constants.MUSTARD.equals(s)) {
-            return MUSTARD;
-        } else if (Constants.SESAME.equals(s)) {
-            return SESAME;
-        } else if (Constants.SULFITES.equals(s)) {
-            return SULFITES;
-        } else if (Constants.MOLLUSKS.equals(s)) {
-            return MOLLUSKS;
-        } else if (Constants.LUPINE.equals(s)) {
-            return LUPINE;
-        } else if (Constants.GLUTEN.equals(s)) {
-            return GLUTEN;
-        } else if (Constants.PEANUTS.equals(s)) {
-            return PEANUTS;
+        switch (s) {
+            case Constants.COLORED:
+                return COLORED;
+            case Constants.CONSERVED:
+                return CONSERVED;
+            case Constants.ANTIOXIDANTS:
+                return ANTIOXIDANTS;
+            case Constants.FLAVOR_ENHANCERS:
+                return FLAVOR_ENHANCERS;
+            case Constants.PHOSPHAT:
+                return PHOSPHAT;
+            case Constants.SULFURATED:
+                return SULFURATED;
+            case Constants.WAXED:
+                return WAXED;
+            case Constants.BLACKENED:
+                return BLACKENED;
+            case Constants.SWEETENER:
+                return SWEETENER;
+            case Constants.PHENYLALANINE:
+                return PHENYLALANINE;
+            case Constants.TAURINE:
+                return TAURINE;
+            case Constants.NITRATE_SALT:
+                return NITRATE_SALT;
+            case Constants.COFFEINE:
+                return COFFEINE;
+            case Constants.QUININE:
+                return QUININE;
+            case Constants.LACTOPROTEIN:
+                return LACTOPROTEIN;
+            case Constants.CRUSTACEAN:
+                return CRUSTACEAN;
+            case Constants.EGGS:
+                return EGGS;
+            case Constants.FISH:
+                return FISH;
+            case Constants.SOYA:
+                return SOYA;
+            case Constants.LACTOSE:
+                return LACTOSE;
+            case Constants.NUTS:
+                return NUTS;
+            case Constants.CELERIAC:
+                return CELERIAC;
+            case Constants.MUSTARD:
+                return MUSTARD;
+            case Constants.SESAME:
+                return SESAME;
+            case Constants.SULFITES:
+                return SULFITES;
+            case Constants.MOLLUSKS:
+                return MOLLUSKS;
+            case Constants.LUPINE:
+                return LUPINE;
+            case Constants.GLUTEN:
+                return GLUTEN;
+            case Constants.PEANUTS:
+                return PEANUTS;
         }
 
         LoggerFactory.getLogger(NewAllergen.class).debug("Requested unknown value: " + s);

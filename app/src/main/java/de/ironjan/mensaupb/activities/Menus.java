@@ -56,7 +56,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(actionBar.getThemedContext(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(actionBar.getThemedContext(),
                 android.R.layout.simple_spinner_item, android.R.id.text1,
                 mDisplayedRestaurants);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

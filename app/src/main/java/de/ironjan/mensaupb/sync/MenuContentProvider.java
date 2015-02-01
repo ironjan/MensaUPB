@@ -96,7 +96,7 @@ public class MenuContentProvider extends ContentProvider {
     }
 
     private void checkAllowedColumns(String[] projection, String[] allowedColumns) {
-        HashSet<String> allowedColumnsSet = new HashSet<String>(allowedColumns.length);
+        HashSet<String> allowedColumnsSet = new HashSet<>(allowedColumns.length);
         for (String column : allowedColumns) {
             allowedColumnsSet.add(column);
         }

@@ -34,30 +34,31 @@ public class SortOrder {
 
 
     static int getSortOrder(String name_de, String categoryIdentifier) {
-        if (categoryIdentifier.equals(DISH_DEFAULT)) {
-            return SORT_MAIN_DISH;
-        } else if (categoryIdentifier.equals(SOUPS)) {
-            return SORT_SOUP;
-        } else if (categoryIdentifier.equals(DISH_GRILL)) {
-            return SORT_GRILL;
-        } else if (categoryIdentifier.equals(DISH_PASTA)) {
-            return SORT_PASTA;
-        } else if (categoryIdentifier.equals(DISH_WOK)) {
-            return SORT_WOK;
-        } else if (categoryIdentifier.equals(SIDEDISH)) {
-            return SORT_SIDE_DISH;
-        } else if (categoryIdentifier.equals(DESSERT)) {
-            return SORT_DESSERT;
-        } else if (categoryIdentifier.equals(DESSERT_COUNTER)) {
-            return SORT_EXPENSIVE_DESSERT;
-        } else if (categoryIdentifier.equals(GC_ABENDMENSA)) {
-            return SORT_GC_ABENDMENSA;
-        } else if (categoryIdentifier.equals(GC_CLASSICS_EVENING)) {
-            return SORT_GC_CLASSICS_EVENING;
-        } else if (categoryIdentifier.equals(GC_SNACKS)) {
-            return SORT_GC_SNACKS;
-        } else {
-            return returnPastaOrArbitrary(name_de);
+        switch (categoryIdentifier) {
+            case DISH_DEFAULT:
+                return SORT_MAIN_DISH;
+            case SOUPS:
+                return SORT_SOUP;
+            case DISH_GRILL:
+                return SORT_GRILL;
+            case DISH_PASTA:
+                return SORT_PASTA;
+            case DISH_WOK:
+                return SORT_WOK;
+            case SIDEDISH:
+                return SORT_SIDE_DISH;
+            case DESSERT:
+                return SORT_DESSERT;
+            case DESSERT_COUNTER:
+                return SORT_EXPENSIVE_DESSERT;
+            case GC_ABENDMENSA:
+                return SORT_GC_ABENDMENSA;
+            case GC_CLASSICS_EVENING:
+                return SORT_GC_CLASSICS_EVENING;
+            case GC_SNACKS:
+                return SORT_GC_SNACKS;
+            default:
+                return returnPastaOrArbitrary(name_de);
         }
     }
 
