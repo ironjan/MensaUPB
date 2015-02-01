@@ -21,8 +21,7 @@ public class AllergenDeserializer extends JsonDeserializer<NewAllergen> {
         }
         try {
             String valueAsString = jp.getValueAsString();
-            NewAllergen newAllergen = NewAllergen.fromType(valueAsString);
-            return newAllergen;
+            return NewAllergen.fromType(valueAsString);
         } catch (IllegalArgumentException e) {
             LOGGER.warn("Could not deserialize Allergen");
             return null;
