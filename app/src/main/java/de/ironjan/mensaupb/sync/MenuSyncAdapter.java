@@ -41,6 +41,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final StwRestWrapper stwRestWrapper;
     private FilterChain filterChain = new FilterChain();
 
+    @SuppressWarnings("SameParameterValue")
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
@@ -50,6 +51,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
     }
 
+    @SuppressWarnings("SameParameterValue")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private MenuSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);

@@ -13,7 +13,7 @@ import de.ironjan.mensaupb.stw.*;
  * A class to deserialize NewAllergens
  */
 public class AllergenDeserializer extends JsonDeserializer<NewAllergen> {
-    Logger LOGGER = LoggerFactory.getLogger(AllergenDeserializer.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(AllergenDeserializer.class);
 
     @Override
     public NewAllergen deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {

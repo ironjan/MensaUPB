@@ -12,6 +12,7 @@ import de.ironjan.mensaupb.*;
  */
 @EViewGroup(R.layout.view_menu_list_header)
 public class MenuListingHeaderView extends FrameLayout {
+    @SuppressWarnings("WeakerAccess")
     @ViewById(android.R.id.content)
     TextView mContent;
 

@@ -12,6 +12,7 @@ import de.ironjan.mensaupb.sync.*;
 /**
  * Used to set up synchronization on first start.
  */
+@SuppressWarnings("WeakerAccess")
 @EApplication
 public class MensaUpbApplication extends Application {
     private final Logger LOGGER = LoggerFactory.getLogger(MensaUpbApplication.class.getSimpleName()

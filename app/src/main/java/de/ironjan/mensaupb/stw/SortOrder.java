@@ -5,7 +5,7 @@ package de.ironjan.mensaupb.stw;
  * <p/>
  * TODO extract into filter
  */
-public class SortOrder {
+class SortOrder {
 
     public static final String DISH_DEFAULT = "dish-default";
     public static final String SOUPS = "soups";
@@ -16,23 +16,23 @@ public class SortOrder {
     public static final String DISH_PASTA = "dish-pasta";
     public static final String DISH_WOK = "dish-wok";
 
-    public static final String GC_ABENDMENSA = "happydinner";
-    public static final String GC_CLASSICS_EVENING = "classics-evening";
-    public static final String GC_SNACKS = "snacks";
+    private static final String GC_ABENDMENSA = "happydinner";
+    private static final String GC_CLASSICS_EVENING = "classics-evening";
+    private static final String GC_SNACKS = "snacks";
 
 
-    public static final int SORT_MAIN_DISH = 0;
-    public static final int SORT_SOUP = 10;
-    public static final int SORT_PASTA = 20;
-    public static final int SORT_GRILL = 25;
-    public static final int SORT_WOK = 30;
-    public static final int SORT_SIDE_DISH = 35;
-    public static final int SORT_DESSERT = 70;
-    public static final int SORT_EXPENSIVE_DESSERT = 75;
-    public static final int SORT_REST = 100;
-    public static final int SORT_GC_ABENDMENSA = 5;
-    public static final int SORT_GC_CLASSICS_EVENING = 35;
-    public static final int SORT_GC_SNACKS = 50;
+    private static final int SORT_MAIN_DISH = 0;
+    private static final int SORT_SOUP = 10;
+    private static final int SORT_PASTA = 20;
+    private static final int SORT_GRILL = 25;
+    private static final int SORT_WOK = 30;
+    private static final int SORT_SIDE_DISH = 35;
+    private static final int SORT_DESSERT = 70;
+    private static final int SORT_EXPENSIVE_DESSERT = 75;
+    private static final int SORT_REST = 100;
+    private static final int SORT_GC_ABENDMENSA = 5;
+    private static final int SORT_GC_CLASSICS_EVENING = 35;
+    private static final int SORT_GC_SNACKS = 50;
 
 
     static int getSortOrder(String name_de, String categoryIdentifier) {

@@ -30,15 +30,20 @@ public class MenuDetailFragment extends Fragment {
 
     public static final String ARG_ID = "ARG_ID";
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
+    @SuppressWarnings("WeakerAccess")
     @ViewById
     TextView textName, textCategory, textAllergens, textPrice, textRestaurant, textDate, textBadges;
+    @SuppressWarnings("WeakerAccess")
     @ViewById
     ImageView image;
+    @SuppressWarnings("WeakerAccess")
     @ViewById
     ProgressBar progressBar;
+    @SuppressWarnings("WeakerAccess")
     @StringRes
     String localizedDatePattern;
 
+    @SuppressWarnings("WeakerAccess")
     @Bean
     RestaurantHelper mRestaurantHelper;
 

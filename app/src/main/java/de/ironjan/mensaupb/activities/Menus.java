@@ -17,6 +17,7 @@ import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.sync.*;
 
+@SuppressWarnings("WeakerAccess")
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_menu_listing)
 @OptionsMenu(R.menu.main)
@@ -24,6 +25,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
 
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
+
     @ViewById(R.id.pager)
     ViewPager mViewPager;
     @ViewById(R.id.pager_title_strip)

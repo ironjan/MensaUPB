@@ -10,6 +10,7 @@ import java.util.*;
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class RestaurantHelper {
+    @SuppressWarnings("WeakerAccess")
     @StringArrayRes
     String[] restaurants, displayedRestaurants;
 

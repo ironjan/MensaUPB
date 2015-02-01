@@ -10,7 +10,7 @@ import de.ironjan.mensaupb.stw.*;
  * Filters allergens
  */
 public class AllergenFilter implements Filter {
-    Logger LOGGER = LoggerFactory.getLogger(AllergenFilter.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(AllergenFilter.class);
 
     @Override
     public List<RawMenu> filter(List<RawMenu> menus) {

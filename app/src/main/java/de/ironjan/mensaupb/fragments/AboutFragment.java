@@ -12,6 +12,7 @@ import de.ironjan.mensaupb.*;
 /**
  * Actual content of {@link de.ironjan.mensaupb.activities.About}.
  */
+@SuppressWarnings("WeakerAccess")
 @EFragment(R.layout.fragment_about)
 public class AboutFragment extends Fragment {
 

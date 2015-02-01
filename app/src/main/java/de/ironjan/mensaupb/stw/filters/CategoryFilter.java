@@ -12,7 +12,7 @@ import de.ironjan.mensaupb.stw.*;
  * Filters the categories
  */
 class CategoryFilter implements Filter {
-    Logger LOGGER = LoggerFactory.getLogger(CategoryFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryFilter.class);
 
     @Override
     public List<RawMenu> filter(List<RawMenu> menus) {

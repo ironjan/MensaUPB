@@ -24,10 +24,13 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     public static String ARG_LOCATION = "restaurant";
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
+    @SuppressWarnings("WeakerAccess")
     @ViewById(android.R.id.empty)
     View mLoadingView;
+    @SuppressWarnings("WeakerAccess")
     @ViewById(android.R.id.content)
     View mNoMenus;
+    @SuppressWarnings("WeakerAccess")
     @ViewById(android.R.id.list)
     StickyListHeadersListView list;
 

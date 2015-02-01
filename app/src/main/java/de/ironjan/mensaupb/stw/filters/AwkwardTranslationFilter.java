@@ -9,8 +9,8 @@ import de.ironjan.mensaupb.stw.*;
  */
 public class AwkwardTranslationFilter implements Filter {
 
-    public static final String BAD_TRANSLATION = "Default Menu";
-    public static final String BETTER_TRANSLATION = "Recommendations";
+    private static final String BAD_TRANSLATION = "Default Menu";
+    private static final String BETTER_TRANSLATION = "Recommendations";
 
     @Override
     public List<RawMenu> filter(List<RawMenu> menus) {
