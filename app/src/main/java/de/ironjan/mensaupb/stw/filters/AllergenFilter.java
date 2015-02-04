@@ -22,7 +22,7 @@ public class AllergenFilter extends FilterBase {
     }
 
     private NewAllergen[] filter(NewAllergen[] allergens) {
-        Vector<NewAllergen> filteredAllergensAsVector = new Vector<NewAllergen>(allergens.length);
+        Vector<NewAllergen> filteredAllergensAsVector = new Vector<>(allergens.length);
         for (NewAllergen allergen : allergens) {
             if (allergen != NewAllergen.UNKNOWN) {
                 filteredAllergensAsVector.add(allergen);

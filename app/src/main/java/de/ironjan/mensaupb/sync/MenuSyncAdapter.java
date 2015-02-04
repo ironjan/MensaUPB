@@ -39,8 +39,9 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final WeekdayHelper_ mWeekdayHelper;
     private final ContentResolver contentResolver;
     private final StwRestWrapper stwRestWrapper;
-    private FilterChain filterChain = new FilterChain();
+    private final FilterChain filterChain = new FilterChain();
 
+    @SuppressWarnings("SameParameterValue")
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
@@ -50,6 +51,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
     }
 
+    @SuppressWarnings("SameParameterValue")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private MenuSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
@@ -89,16 +91,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
         try {
             tryMenuSync();
-        } catch (java.sql.SQLException e) {
-            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
-            LOGGER.error(e.getMessage(), e);
-        } catch (ResourceAccessException e) {
-            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
-            LOGGER.error(e.getMessage(), e);
-        } catch (RestClientException e) {
-            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
-            LOGGER.error(e.getMessage(), e);
-        } catch (NestedRuntimeException e) {
+        } catch (SQLException | NestedRuntimeException e) {
             LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
             LOGGER.error(e.getMessage(), e);
         }
@@ -148,7 +141,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    void persistMenus(Dao<RawMenu, ?> dao, List<RawMenu> menus) throws java.sql.SQLException {
+    void persistMenus(Dao<RawMenu, ?> dao, Iterable<RawMenu> menus) throws java.sql.SQLException {
         for (RawMenu rawMenu : menus) {
             SelectArg nameArg = new SelectArg(),
                     dateArg = new SelectArg(),

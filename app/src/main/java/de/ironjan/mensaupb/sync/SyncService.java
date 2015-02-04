@@ -9,7 +9,7 @@ import org.slf4j.*;
 import de.ironjan.mensaupb.*;
 
 public class SyncService extends Service {
-    public static final Logger LOGGER = LoggerFactory.getLogger("SyncService");
+    private static final Logger LOGGER = LoggerFactory.getLogger("SyncService");
     private static final Object sSyncAdapterLock = new Object();
     private static MenuSyncAdapter sMenuSyncAdapter = null;
 

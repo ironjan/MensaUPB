@@ -12,6 +12,7 @@ import de.ironjan.mensaupb.*;
 /**
  * Wrapper for the StwRest
  */
+@SuppressWarnings("WeakerAccess")
 @EBean
 public class StwRestWrapper implements StwRest {
 

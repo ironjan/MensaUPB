@@ -12,7 +12,7 @@ import de.ironjan.mensaupb.stw.*;
  */
 public class BadgeDeserializer extends JsonDeserializer<Badge> {
     @Override
-    public Badge deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Badge deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
             jp.nextToken();
         }

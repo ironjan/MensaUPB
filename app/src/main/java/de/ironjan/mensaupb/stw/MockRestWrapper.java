@@ -1,13 +1,13 @@
 package de.ironjan.mensaupb.stw;
 
 /**
- * Created by ljan on 21.11.14.
+ * Mock implementation of StwRest to test without a secret STW url
  */
 public class MockRestWrapper implements StwRest {
     private static final NewAllergen[] NO_ALLERGENS = new NewAllergen[0];
     private static MockRestWrapper instance;
 
-    NewAllergen[] ALL_ALLERGENS = {
+    private final NewAllergen[] ALL_ALLERGENS = {
             NewAllergen.COLORED,
             NewAllergen.CONSERVED,
             NewAllergen.ANTIOXIDANTS,
@@ -66,6 +66,7 @@ public class MockRestWrapper implements StwRest {
         return new RawMenu[]{wok, pasta, defaultDish, soup, sidedish, dessert, counterdessert, grill};
     }
 
+    @SuppressWarnings("MagicNumber")
     private RawMenu buildRawMenu(String restaurant, String date, String name, String description, String categoryIdentifier, String category, NewAllergen[] allergens, PriceType pricetype) {
         RawMenu menu = new RawMenu();
 

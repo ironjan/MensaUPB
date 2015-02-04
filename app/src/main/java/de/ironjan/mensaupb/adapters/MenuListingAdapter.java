@@ -23,32 +23,31 @@ import se.emilsjolander.stickylistheaders.*;
  * An adapter to load the list of menus for a MenuListingFragment.
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, StickyListHeadersAdapter {
-    public static final String[] GERMAN_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.CATEGORY_DE, BaseColumns._ID};
-    public static String[] LIST_PROJECTION = GERMAN_PROJECTION;
     public static final String[] ENGLISH_PROJECTION = {RawMenu.NAME_EN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.CATEGORY_EN, BaseColumns._ID};
     public static final int CATEGORY_INDEX = 4;
+    private static final String[] GERMAN_PROJECTION = {RawMenu.NAME_GERMAN, RawMenu.STUDENTS_PRICE, RawMenu.PRICE_TYPE, RawMenu.BADGES, RawMenu.CATEGORY_DE, BaseColumns._ID};
+    private String[] listProjection = GERMAN_PROJECTION;
     private static final String MENU_SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " LIKE ?";
-    static int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
-
+    private static final int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
     private final String mDate;
     private final String mLocation;
 
     public MenuListingAdapter(Context context, String argDate, String argLocation) {
         super(context, R.layout.view_menu_list_item,
-                null, LIST_PROJECTION, BIND_TO, 0);
+                null, GERMAN_PROJECTION, BIND_TO, 0);
         this.mContext = context;
         this.mDate = argDate;
         this.mLocation = argLocation;
         boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
         if (isEnglish) {
-            LIST_PROJECTION = ENGLISH_PROJECTION;
+            listProjection = ENGLISH_PROJECTION;
         }
     }
 
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        String[] projection = LIST_PROJECTION;
+        String[] projection = listProjection;
 
         final String[] selectionArgs = {mDate, mLocation};
 

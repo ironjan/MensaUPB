@@ -9,7 +9,7 @@ import com.j256.ormlite.logger.*;
  */
 public class BadgesStringConverter {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(BadgesStringConverter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BadgesStringConverter.class);
 
     public static Badge[] convert(String badgesAsString) {
         if (badgesAsString == null || TextUtils.isEmpty(badgesAsString)) {

@@ -36,7 +36,7 @@ public class MenuContentProvider extends ContentProvider {
     private static final int SINGLE_MENUS_MATCH = 2;
     private static final int MENSAE_PATH_MATCH = 3;
     private static final String trueMensaeString = "mensa-%";
-    private static UriMatcher sUriMatcher = new UriMatcher(0);
+    private static final UriMatcher sUriMatcher = new UriMatcher(0);
     private final Logger LOGGER = LoggerFactory.getLogger(MenuContentProvider.class.getSimpleName());
 
     static {
@@ -96,10 +96,8 @@ public class MenuContentProvider extends ContentProvider {
     }
 
     private void checkAllowedColumns(String[] projection, String[] allowedColumns) {
-        HashSet<String> allowedColumnsSet = new HashSet<String>(allowedColumns.length);
-        for (String column : allowedColumns) {
-            allowedColumnsSet.add(column);
-        }
+        Set<String> allowedColumnsSet = new HashSet<>(allowedColumns.length);
+        Collections.addAll(allowedColumnsSet, allowedColumns);
 
         for (String requestedColumn : projection) {
             boolean columnIsNotAllowed = !allowedColumnsSet.contains(requestedColumn);

@@ -11,17 +11,18 @@ import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.stw.*;
 
 /**
- * Created by ljan on 4/28/14.
+ * Helper class to find the next weekdays etc.
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class WeekdayHelper {
-    public static final int WEEKEND_OFFSET = 2;
     public static final int DISPLAYED_DAYS_COUNT = 3;
     private static final int CACHED_DAYS_COUNT = DISPLAYED_DAYS_COUNT + 2;
-    private String[] weekDaysAsString = new String[CACHED_DAYS_COUNT];
-    private String[] weekDaysforUi = new String[CACHED_DAYS_COUNT];
+    private final String[] weekDaysAsString = new String[CACHED_DAYS_COUNT];
+    private final String[] weekDaysforUi = new String[CACHED_DAYS_COUNT];
+    private static final int WEEKEND_OFFSET = 2;
     private static final SimpleDateFormat SDF = new SimpleDateFormat(RawMenu.DATE_FORMAT);
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
+    @SuppressWarnings("WeakerAccess")
     @StringRes
     String localizedDatePattern;
     private volatile boolean mDaysNotInitializedYet = true;

@@ -11,7 +11,7 @@ import de.ironjan.mensaupb.stw.*;
  */
 public class FilterChain implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterChain.class);
-    Filter[] filters = {
+    private static final Filter[] filters = {
             new NameFilter(),
             new CategoryFilter(),
             new AllergenFilter(),
