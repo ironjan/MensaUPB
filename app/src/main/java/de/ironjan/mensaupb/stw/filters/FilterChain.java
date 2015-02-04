@@ -27,4 +27,14 @@ public class FilterChain implements Filter {
         }
         return filteredMenus;
     }
+
+    @Override
+    public RawMenu filter(RawMenu menu) {
+        RawMenu filteredMenu = menu;
+        for (Filter filter : filters) {
+            LOGGER.debug("Filtering with {}", filter.getClass());
+            filteredMenu = filter.filter(filteredMenu);
+        }
+        return filteredMenu;
+    }
 }

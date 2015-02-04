@@ -4,28 +4,15 @@ import android.text.*;
 
 import org.slf4j.*;
 
-import java.util.*;
-
 import de.ironjan.mensaupb.stw.*;
 
 /**
  * Filters and corrects the names of the given menus
  */
-class NameFilter implements Filter {
+class NameFilter extends FilterBase {
     Logger LOGGER = LoggerFactory.getLogger(NameFilter.class);
 
     @Override
-    public List<RawMenu> filter(List<RawMenu> menus) {
-        LOGGER.debug("filter(list)");
-        List<RawMenu> cleanedMenus = new ArrayList<>(menus.size());
-        for (RawMenu menu : menus) {
-            RawMenu cleanedMenu = filter(menu);
-            cleanedMenus.add(cleanedMenu);
-        }
-        LOGGER.debug("filter(list) done");
-        return cleanedMenus;
-    }
-
     public RawMenu filter(RawMenu menu) {
         LOGGER.debug("filter({}) {de: {}, en: {}}", menu, menu.getName_de(), menu.getName_en());
         RawMenu copy = menu.copy();
