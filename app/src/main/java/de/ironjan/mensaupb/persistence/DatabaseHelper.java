@@ -34,33 +34,34 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
-        if (LOGGER.isTraceEnabled()) LOGGER.trace("onCreate()");
+        LOGGER.debug("onCreate()");
         try {
             TableUtils.createTableIfNotExists(connectionSource, RawMenu.class);
-            if (LOGGER.isInfoEnabled()) LOGGER.info("Created database.");
+            LOGGER.info("Created database.");
         } catch (SQLException e) {
             LOGGER.error("Can't create database", e);
             throw new RuntimeException(e);
         }
         requestSync();
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("onCreate() done");
+        LOGGER.info("onCreate() done");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int old, int newVersion) {
-        if (LOGGER.isInfoEnabled()) LOGGER.info("onUpgrade()");
+        LOGGER.info("onUpgrade()");
         try {
             //noinspection MagicNumber
             if (old <= 12) {
                 TableUtils.dropTable(connectionSource, RawMenu.class, true);
                 onCreate(sqLiteDatabase, connectionSource);
+                LOGGER.info("Database updated from {} to {}", old, newVersion);
             }
         } catch (SQLException e) {
             LOGGER.error("Can't update database", e);
             throw new RuntimeException(e);
         }
         requestSync();
-        if (LOGGER.isDebugEnabled()) LOGGER.debug("onUpgrade() done");
+        LOGGER.info("onUpgrade() done");
     }
 
 
