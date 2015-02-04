@@ -96,9 +96,14 @@ public class MenuDetailFragment extends Fragment {
     }
 
     private void bindMenuDataToViews(RawMenu rawMenu) {
-        textName.setText(rawMenu.getName_de());
-        textCategory.setText(rawMenu.getCategory_de());
-
+        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
+        if (isEnglish) {
+            textName.setText(rawMenu.getName_en());
+            textCategory.setText(rawMenu.getCategory_en());
+        } else {
+            textName.setText(rawMenu.getName_de());
+            textCategory.setText(rawMenu.getCategory_de());
+        }
         bindRestaurant(rawMenu);
         bindDate(rawMenu);
         bindPrice(rawMenu);
