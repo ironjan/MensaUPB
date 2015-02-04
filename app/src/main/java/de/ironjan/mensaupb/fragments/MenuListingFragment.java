@@ -17,6 +17,7 @@ import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.sync.*;
 import se.emilsjolander.stickylistheaders.*;
 
+@SuppressWarnings("WeakerAccess")
 @EFragment(R.layout.fragment_menu_listing)
 public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, SyncStatusObserver {
 
@@ -24,13 +25,11 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     public static final String ARG_LOCATION = "restaurant";
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
-    @SuppressWarnings("WeakerAccess")
+
     @ViewById(android.R.id.empty)
     View mLoadingView;
-    @SuppressWarnings("WeakerAccess")
     @ViewById(android.R.id.content)
     View mNoMenus;
-    @SuppressWarnings("WeakerAccess")
     @ViewById(android.R.id.list)
     StickyListHeadersListView list;
 
