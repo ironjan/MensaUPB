@@ -8,12 +8,14 @@ import android.support.v4.widget.*;
 import android.view.*;
 
 import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.sharedpreferences.*;
 import org.slf4j.*;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.activities.*;
 import de.ironjan.mensaupb.adapters.*;
+import de.ironjan.mensaupb.prefs.*;
 import de.ironjan.mensaupb.sync.*;
 import se.emilsjolander.stickylistheaders.*;
 
@@ -28,10 +30,12 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @ViewById(android.R.id.empty)
     View mLoadingView;
-    @ViewById(android.R.id.content)
+    @ViewById(R.id.noMenusToday)
     View mNoMenus;
     @ViewById(android.R.id.list)
     StickyListHeadersListView list;
+    @Pref
+    InternalKeyValueStore_ mInternalKeyValueStore;
 
     @Bean
     AccountCreator mAccountCreator;
@@ -48,7 +52,12 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @AfterViews
     void loadContent() {
-        list.setEmptyView(mLoadingView);
+        long lastSyncTimeStamp = mInternalKeyValueStore.lastSyncTimeStamp().get();
+        if (0L == lastSyncTimeStamp) {
+            list.setEmptyView(mLoadingView);
+        } else {
+            list.setEmptyView(mNoMenus);
+        }
         list.setAreHeadersSticky(false);
         adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
         adapter.setViewBinder(new MenuDetailViewBinder());

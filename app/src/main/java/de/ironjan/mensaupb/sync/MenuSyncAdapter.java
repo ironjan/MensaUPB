@@ -20,6 +20,7 @@ import java.util.*;
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.persistence.*;
+import de.ironjan.mensaupb.prefs.*;
 import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.stw.filters.*;
 
@@ -40,6 +41,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final ContentResolver contentResolver;
     private final StwRestWrapper stwRestWrapper;
     private final FilterChain filterChain = new FilterChain();
+    private final InternalKeyValueStore_ mInternalKeyValueStore;
 
     @SuppressWarnings("SameParameterValue")
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
@@ -49,6 +51,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
+        mInternalKeyValueStore = new InternalKeyValueStore_(context);
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -60,6 +63,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
+        mInternalKeyValueStore = new InternalKeyValueStore_(context);
     }
 
     public static MenuSyncAdapter getInstance(Context context) {
@@ -91,6 +95,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
         try {
             tryMenuSync();
+            updateLastSyncTime();
         } catch (SQLException | NestedRuntimeException e) {
             LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
             LOGGER.error(e.getMessage(), e);
@@ -99,6 +104,10 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("onPerformeSync({},{},{},{},{}) done", new Object[]{account, bundle, s, contentProviderClient, syncResult});
         }
+    }
+
+    private void updateLastSyncTime() {
+        mInternalKeyValueStore.edit().lastSyncTimeStamp().put(System.currentTimeMillis()).apply();
     }
 
     private void tryMenuSync() throws java.sql.SQLException {
