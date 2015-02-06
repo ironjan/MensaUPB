@@ -56,4 +56,5 @@ The following Open Source libraries are used:</string>
     <string name="taurine">Taurine</string>
     <string name="versionLabel">Version:</string>
     <string name="waxed">Waxed</string>
+    <string name="noMenusToday">Today, there\'s nothing to eat in this restaurant. </string>
 </resources>

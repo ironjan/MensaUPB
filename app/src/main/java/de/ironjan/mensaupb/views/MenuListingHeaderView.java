@@ -8,10 +8,11 @@ import org.androidannotations.annotations.*;
 import de.ironjan.mensaupb.*;
 
 /**
- * Created by ljan on 24.11.14.
+ * Custom View for headers in menu listing.
  */
 @EViewGroup(R.layout.view_menu_list_header)
 public class MenuListingHeaderView extends FrameLayout {
+    @SuppressWarnings("WeakerAccess")
     @ViewById(android.R.id.content)
     TextView mContent;
 
@@ -19,7 +20,7 @@ public class MenuListingHeaderView extends FrameLayout {
         super(context);
     }
 
-    public void setText(String text) {
+    public void setText(CharSequence text) {
         mContent.setText(text);
     }
 }

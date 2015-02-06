@@ -28,6 +28,12 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
 
         int id = view.getId();
         switch (id) {
+            case R.id.textName:
+                bindName((TextView) view, cursor, columnIndex);
+                return true;
+            case R.id.textCategory:
+                bindCategory((TextView) view, cursor, columnIndex);
+                return true;
             case R.id.textPrice:
                 bindPrice((TextView) view, cursor, columnIndex);
                 return true;
@@ -41,6 +47,29 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
                 ((TextView) view).setText(cursor.getString(columnIndex));
                 return true;
         }
+    }
+
+    private void bindName(TextView view, Cursor cursor, int columnIndex) {
+        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
+        final String name;
+        if (isEnglish) {
+            name = cursor.getString(MenuListingAdapter.NAME_EN_INDEX);
+        } else {
+            name = cursor.getString(MenuListingAdapter.NAME_DE_INDEX);
+        }
+        view.setText(name);
+    }
+
+    private void bindCategory(TextView view, Cursor cursor, int columnIndex) {
+        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
+        final String category;
+        if (isEnglish) {
+            category = cursor.getString(MenuListingAdapter.CATEGORY_EN_INDEX);
+        } else {
+            category = cursor.getString(MenuListingAdapter.CATEGORY_DE_INDEX);
+        }
+        view.setText(category);
+
     }
 
     private void bindPrice(TextView view, Cursor cursor, int columnIndex) {

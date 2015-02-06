@@ -8,33 +8,38 @@ import android.support.v4.widget.*;
 import android.view.*;
 
 import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.sharedpreferences.*;
 import org.slf4j.*;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.activities.*;
 import de.ironjan.mensaupb.adapters.*;
+import de.ironjan.mensaupb.prefs.*;
 import de.ironjan.mensaupb.sync.*;
 import se.emilsjolander.stickylistheaders.*;
 
+@SuppressWarnings("WeakerAccess")
 @EFragment(R.layout.fragment_menu_listing)
 public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, SyncStatusObserver {
 
-    public static String ARG_DATE = "date";
-    public static String ARG_LOCATION = "restaurant";
+    public static final String ARG_DATE = "date";
+    public static final String ARG_LOCATION = "restaurant";
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
+
     @ViewById(android.R.id.empty)
     View mLoadingView;
-    @ViewById(android.R.id.content)
+    @ViewById(R.id.noMenusToday)
     View mNoMenus;
     @ViewById(android.R.id.list)
     StickyListHeadersListView list;
+    @Pref
+    InternalKeyValueStore_ mInternalKeyValueStore;
 
     @Bean
     AccountCreator mAccountCreator;
     private MenuListingAdapter adapter;
-    private Object mChangeListenerHandle;
 
     private String getArgLocation() {
         String location = getArguments().getString(ARG_LOCATION);
@@ -47,21 +52,18 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @AfterViews
     void loadContent() {
-        list.setEmptyView(mLoadingView);
+        long lastSyncTimeStamp = mInternalKeyValueStore.lastSyncTimeStamp().get();
+        if (0L == lastSyncTimeStamp) {
+            list.setEmptyView(mLoadingView);
+        } else {
+            list.setEmptyView(mNoMenus);
+        }
         list.setAreHeadersSticky(false);
         adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
         adapter.setViewBinder(new MenuDetailViewBinder());
         getLoaderManager().initLoader(0, null, adapter);
         list.setAdapter(adapter);
     }
-
-    @AfterInject
-    void addStatusListener() {
-        int mask = ContentResolver.SYNC_OBSERVER_TYPE_ACTIVE | ContentResolver.SYNC_OBSERVER_TYPE_PENDING;
-        mChangeListenerHandle = ContentResolver.addStatusChangeListener(mask, this);
-        LOGGER.debug("Added status listener");
-    }
-
 
     @ItemClick
     void listItemClicked(int pos) {
@@ -75,7 +77,6 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
-        addStatusListener();
         Bundle settingsBundle = new Bundle();
         settingsBundle.putBoolean(
                 ContentResolver.SYNC_EXTRAS_MANUAL, true);

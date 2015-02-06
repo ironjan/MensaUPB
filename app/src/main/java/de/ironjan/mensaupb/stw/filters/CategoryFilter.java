@@ -4,34 +4,21 @@ import android.text.*;
 
 import org.slf4j.*;
 
-import java.util.*;
-
 import de.ironjan.mensaupb.stw.*;
 
 /**
  * Filters the categories
  */
-class CategoryFilter implements Filter {
+class CategoryFilter extends FilterBase {
     Logger LOGGER = LoggerFactory.getLogger(CategoryFilter.class);
 
     @Override
-    public List<RawMenu> filter(List<RawMenu> menus) {
-        LOGGER.debug("filter(list)");
-        List<RawMenu> filteredMenus = new ArrayList<>(menus.size());
-        for (RawMenu menu : menus) {
-            RawMenu cleanedMenu = cleanCategories(menu);
-            filteredMenus.add(cleanedMenu);
-        }
-        LOGGER.debug("filter(list) done");
-        return filteredMenus;
-    }
-
-    private RawMenu cleanCategories(RawMenu menu) {
-        LOGGER.debug("cleanCategories({})", menu);
+    public RawMenu filter(RawMenu menu) {
+        LOGGER.debug("filter({})", menu);
         RawMenu copy = menu.copy();
         updateDeCategory(copy);
         updateEnCategory(copy);
-        LOGGER.debug("{} <- cleanCategories({}) done", copy, menu);
+        LOGGER.debug("{} <- filter({}) done", copy, menu);
         return copy;
     }
 

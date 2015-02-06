@@ -27,6 +27,7 @@ public class DatabaseManager {
 
     /**
      * Releases the helper once usages has ended
+     * FIXME is this method declared correctly?
      *
      * @param helper the helper to be released
      */

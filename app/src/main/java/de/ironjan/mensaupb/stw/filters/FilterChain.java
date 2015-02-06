@@ -11,7 +11,7 @@ import de.ironjan.mensaupb.stw.*;
  */
 public class FilterChain implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(FilterChain.class);
-    Filter[] filters = {
+    private static final Filter[] filters = {
             new NameFilter(),
             new CategoryFilter(),
             new AllergenFilter(),
@@ -26,5 +26,15 @@ public class FilterChain implements Filter {
             filteredMenus = filter.filter(filteredMenus);
         }
         return filteredMenus;
+    }
+
+    @Override
+    public RawMenu filter(RawMenu menu) {
+        RawMenu filteredMenu = menu;
+        for (Filter filter : filters) {
+            LOGGER.debug("Filtering with {}", filter.getClass());
+            filteredMenu = filter.filter(filteredMenu);
+        }
+        return filteredMenu;
     }
 }

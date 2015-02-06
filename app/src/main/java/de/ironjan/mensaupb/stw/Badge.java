@@ -32,20 +32,22 @@ public enum Badge {
 
 
     public static Badge fromString(String s) {
-        if (Constants.LOW_CALORIE.equals(s)) {
-            return LOW_CALORIE;
-        } else if (Constants.FAT_FREE.equals(s)) {
-            return FAT_FREE;
-        } else if (Constants.VEGETARIAN.equals(s)) {
-            return VEGETARIAN;
-        } else if (Constants.VEGAN.equals(s)) {
-            return VEGAN;
-        } else if (Constants.NO_LACTOSE.equals(s)) {
-            return NO_LACTOSE;
-        } else if (Constants.NO_GLUTEN.equals(s)) {
-            return NO_GLUTEN;
-        } else
-            return EMPTY;
+        switch (s) {
+            case Constants.LOW_CALORIE:
+                return LOW_CALORIE;
+            case Constants.FAT_FREE:
+                return FAT_FREE;
+            case Constants.VEGETARIAN:
+                return VEGETARIAN;
+            case Constants.VEGAN:
+                return VEGAN;
+            case Constants.NO_LACTOSE:
+                return NO_LACTOSE;
+            case Constants.NO_GLUTEN:
+                return NO_GLUTEN;
+            default:
+                return EMPTY;
+        }
     }
 
     public String getType() {

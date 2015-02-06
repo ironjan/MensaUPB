@@ -175,6 +175,7 @@ public class RawMenu implements Cloneable {
         return priceStudents;
     }
 
+    @SuppressWarnings("SameParameterValue")
     public void setPriceStudents(double priceStudents) {
         this.priceStudents = priceStudents;
     }
@@ -183,6 +184,7 @@ public class RawMenu implements Cloneable {
         return priceWorkers;
     }
 
+    @SuppressWarnings("SameParameterValue")
     public void setPriceWorkers(double priceWorkers) {
         this.priceWorkers = priceWorkers;
     }
@@ -191,6 +193,7 @@ public class RawMenu implements Cloneable {
         return priceGuests;
     }
 
+    @SuppressWarnings("SameParameterValue")
     public void setPriceGuests(double priceGuests) {
         this.priceGuests = priceGuests;
     }
