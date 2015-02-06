@@ -1,11 +1,14 @@
 package de.ironjan.mensaupb.stw;
 
 import android.content.*;
+import android.text.*;
 
 import com.j256.ormlite.logger.*;
 
 import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.rest.*;
+
+import de.ironjan.mensaupb.*;
 
 /**
  * Wrapper for the StwRest
@@ -20,13 +23,13 @@ public class StwRestWrapper implements StwRest {
     @RootContext
     Context mContext;
 
-    @Bean
-    NoMenuRestWrapper mNoMenuRestWrapper;
-
     @Override
     public RawMenu[] getMenus(String restaurant, String date) {
         LOGGER.warn("Returning no menus because we're using NoMenuRestWrapper!");
-        return mNoMenuRestWrapper.getMenus(restaurant, date);
+        if (TextUtils.isEmpty(BuildConfig.STW_URL)) {
+            return MockRestWrapper.getInstance().getMenus(restaurant, date);
+        }
+        return stwRest.getMenus(restaurant, date);
     }
 
 }
