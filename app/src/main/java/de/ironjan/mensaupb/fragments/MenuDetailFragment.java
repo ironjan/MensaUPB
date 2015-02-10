@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.fragments;
 
 import android.os.*;
 import android.support.v4.app.*;
+import android.support.v7.app.*;
 import android.text.*;
 import android.view.*;
 import android.widget.*;
@@ -96,20 +97,27 @@ public class MenuDetailFragment extends Fragment {
     }
 
     private void bindMenuDataToViews(RawMenu rawMenu) {
-        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
-        if (isEnglish) {
-            textName.setText(rawMenu.getName_en());
-            textCategory.setText(rawMenu.getCategory_en());
-        } else {
-            textName.setText(rawMenu.getName_de());
-            textCategory.setText(rawMenu.getCategory_de());
-        }
+        bindNameAndCategory(rawMenu);
         bindRestaurant(rawMenu);
         bindDate(rawMenu);
         bindPrice(rawMenu);
         bindAllergens(rawMenu);
         bindBadges(rawMenu);
         loadImage(rawMenu);
+    }
+
+    private void bindNameAndCategory(RawMenu rawMenu) {
+        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
+        final String name = (isEnglish) ? rawMenu.getName_en() : rawMenu.getName_de();
+        final String category = (isEnglish) ? rawMenu.getCategory_en() : rawMenu.getCategory_de();
+
+        textName.setText(name);
+        textCategory.setText(category);
+        ActionBarActivity activity = (ActionBarActivity) getActivity();
+        if (activity == null) return;
+        ActionBar supportActionBar = activity.getSupportActionBar();
+        if (supportActionBar == null) return;
+        supportActionBar.setTitle(name);
     }
 
     private void bindBadges(RawMenu rawMenu) {
