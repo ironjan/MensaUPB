@@ -23,14 +23,19 @@ import se.emilsjolander.stickylistheaders.*;
  * An adapter to load the list of menus for a MenuListingFragment.
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, StickyListHeadersAdapter {
-    public static final String[] PROJECTION = {RawMenu.NAME_EN, RawMenu.NAME_GERMAN,
-            RawMenu.STUDENTS_PRICE,
-            RawMenu.PRICE_TYPE,
-            RawMenu.BADGES,
-            RawMenu.CATEGORY_EN, RawMenu.CATEGORY_DE,
-            BaseColumns._ID};
+    public static final String[] PROJECTION = {
+            RawMenu.NAME_GERMAN, // 0
+            RawMenu.STUDENTS_PRICE, // 1
+            RawMenu.PRICE_TYPE, // 2
+            RawMenu.BADGES, // 3
+            RawMenu.CATEGORY_DE, // 4
+
+            RawMenu.NAME_EN, // 5
+            RawMenu.CATEGORY_EN, // 6
+            BaseColumns._ID}; // 7
     private String[] listProjection = PROJECTION;
-    public static final int CATEGORY_EN_INDEX = 5, CATEGORY_DE_INDEX = 6, NAME_EN_INDEX = 0, NAME_DE_INDEX = 1;
+    public static final int CATEGORY_EN_INDEX = 6, CATEGORY_DE_INDEX = 4, NAME_EN_INDEX = 5, NAME_DE_INDEX = 0;
+
     private static final String MENU_SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " LIKE ?";
     private static final int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
     private final String mDate;

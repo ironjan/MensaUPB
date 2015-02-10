@@ -19,12 +19,12 @@ The following Open Source libraries are used:</string>
     <string name="campusMensae">Campus Mensae</string>
 
 
-    <string name="noGluten">gluten free</string>
-    <string name="noLactose">lactose  free</string>
+    <string name="noGluten">Without gluten</string>
+    <string name="noLactose">Without lactose</string>
     <string name="vegan">Vegan</string>
     <string name="vegetarian">Vegetarian</string>
-    <string name="lowCalorie">low calorie</string>
-    <string name="fatFree">reduced fat</string>
+    <string name="lowCalorie">Low calorie</string>
+    <string name="fatFree">Reduced fat</string>
     <string name="antioxidants">Antioxidants</string>
     <string name="blackened">Blackened</string>
     <string name="caffeine">Caffeine</string>
