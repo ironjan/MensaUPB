@@ -3,8 +3,8 @@
 
     <style name="GreenTheme" parent="MaterialTheme"/>
 
-    <style name="MaterialTheme" parent="android:Theme.Material">
-        <item name="android:colorPrimary">@color/material_primary</item>
+    <style name="MaterialTheme" parent="Theme.AppCompat.Light">
+    <item name="android:colorPrimary">@color/material_primary</item>
         <item name="colorPrimary">@color/material_primary</item>
 
         <item name="android:colorPrimaryDark">@color/material_primary_dark</item>
