@@ -20,6 +20,7 @@ import java.util.*;
 import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.persistence.*;
+import de.ironjan.mensaupb.prefs.*;
 import de.ironjan.mensaupb.stw.*;
 import de.ironjan.mensaupb.stw.filters.*;
 
@@ -39,8 +40,10 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final WeekdayHelper_ mWeekdayHelper;
     private final ContentResolver contentResolver;
     private final StwRestWrapper stwRestWrapper;
-    private FilterChain filterChain = new FilterChain();
+    private final FilterChain filterChain = new FilterChain();
+    private final InternalKeyValueStore_ mInternalKeyValueStore;
 
+    @SuppressWarnings("SameParameterValue")
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
@@ -48,8 +51,10 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
+        mInternalKeyValueStore = new InternalKeyValueStore_(context);
     }
 
+    @SuppressWarnings("SameParameterValue")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private MenuSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
@@ -58,6 +63,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
+        mInternalKeyValueStore = new InternalKeyValueStore_(context);
     }
 
     public static MenuSyncAdapter getInstance(Context context) {
@@ -89,16 +95,8 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
         try {
             tryMenuSync();
-        } catch (java.sql.SQLException e) {
-            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
-            LOGGER.error(e.getMessage(), e);
-        } catch (ResourceAccessException e) {
-            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
-            LOGGER.error(e.getMessage(), e);
-        } catch (RestClientException e) {
-            LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
-            LOGGER.error(e.getMessage(), e);
-        } catch (NestedRuntimeException e) {
+            updateLastSyncTime();
+        } catch (SQLException | NestedRuntimeException e) {
             LOGGER.warn("onPerformeSync({},{},{},{},{}) failed because of exception", new Object[]{account, bundle, s, contentProviderClient, syncResult});
             LOGGER.error(e.getMessage(), e);
         }
@@ -106,6 +104,10 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("onPerformeSync({},{},{},{},{}) done", new Object[]{account, bundle, s, contentProviderClient, syncResult});
         }
+    }
+
+    private void updateLastSyncTime() {
+        mInternalKeyValueStore.edit().lastSyncTimeStamp().put(System.currentTimeMillis()).apply();
     }
 
     private void tryMenuSync() throws java.sql.SQLException {
@@ -148,7 +150,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    void persistMenus(Dao<RawMenu, ?> dao, List<RawMenu> menus) throws java.sql.SQLException {
+    void persistMenus(Dao<RawMenu, ?> dao, Iterable<RawMenu> menus) throws java.sql.SQLException {
         for (RawMenu rawMenu : menus) {
             SelectArg nameArg = new SelectArg(),
                     dateArg = new SelectArg(),

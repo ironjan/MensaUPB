@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.fragments;
 
 import android.os.*;
 import android.support.v4.app.*;
+import android.support.v7.app.*;
 import android.text.*;
 import android.view.*;
 import android.widget.*;
@@ -30,15 +31,20 @@ public class MenuDetailFragment extends Fragment {
 
     public static final String ARG_ID = "ARG_ID";
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
+    @SuppressWarnings("WeakerAccess")
     @ViewById
     TextView textName, textCategory, textAllergens, textPrice, textRestaurant, textDate, textBadges;
+    @SuppressWarnings("WeakerAccess")
     @ViewById
     ImageView image;
+    @SuppressWarnings("WeakerAccess")
     @ViewById
     ProgressBar progressBar;
+    @SuppressWarnings("WeakerAccess")
     @StringRes
     String localizedDatePattern;
 
+    @SuppressWarnings("WeakerAccess")
     @Bean
     RestaurantHelper mRestaurantHelper;
 
@@ -91,15 +97,27 @@ public class MenuDetailFragment extends Fragment {
     }
 
     private void bindMenuDataToViews(RawMenu rawMenu) {
-        textName.setText(rawMenu.getName_de());
-        textCategory.setText(rawMenu.getCategory_de());
-
+        bindNameAndCategory(rawMenu);
         bindRestaurant(rawMenu);
         bindDate(rawMenu);
         bindPrice(rawMenu);
         bindAllergens(rawMenu);
         bindBadges(rawMenu);
         loadImage(rawMenu);
+    }
+
+    private void bindNameAndCategory(RawMenu rawMenu) {
+        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
+        final String name = (isEnglish) ? rawMenu.getName_en() : rawMenu.getName_de();
+        final String category = (isEnglish) ? rawMenu.getCategory_en() : rawMenu.getCategory_de();
+
+        textName.setText(name);
+        textCategory.setText(category);
+        ActionBarActivity activity = (ActionBarActivity) getActivity();
+        if (activity == null) return;
+        ActionBar supportActionBar = activity.getSupportActionBar();
+        if (supportActionBar == null) return;
+        supportActionBar.setTitle(name);
     }
 
     private void bindBadges(RawMenu rawMenu) {
@@ -157,7 +175,7 @@ public class MenuDetailFragment extends Fragment {
     /**
      * Asynchronously load the image of the supplied menu
      *
-     * @param rawMenu
+     * @param rawMenu The menu to load a image for
      */
     private void loadImage(RawMenu rawMenu) {
         if (!TextUtils.isEmpty(rawMenu.getImage())) {

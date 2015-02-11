@@ -21,27 +21,28 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/black"
             android:textStyle="bold"
+            android:visibility="gone"
             tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"/>
 
         <TextView
-            android:layout_margin="@dimen/elementMargin"
+            android:id="@+id/textRestaurant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:id="@+id/textRestaurant"
-            android:layout_below="@+id/textName"
             android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textName"
+            android:layout_margin="@dimen/elementMargin"
+            android:textColor="@color/black"
             tools:text="Mensa Academica"/>
 
         <TextView
             android:id="@+id/textDate"
-            android:layout_alignBaseline="@+id/textRestaurant"
-            android:textColor="@color/black"
-            android:layout_margin="@dimen/elementMargin"
-            android:layout_alignParentRight="true"
-            tools:text="21.11.2014"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textRestaurant"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/elementMargin"
+            android:textColor="@color/black"
+            tools:text="21.11.2014"/>
 
         <FrameLayout
             android:id="@+id/frameImage"
@@ -108,16 +109,16 @@
 
 
         <TextView
+            android:id="@+id/textAllergensHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/allergensHeader"
+            android:layout_below="@+id/textBadges"
             android:layout_marginLeft="@dimen/elementMargin"
             android:layout_marginRight="@dimen/elementMargin"
             android:layout_marginTop="@dimen/elementMargin"
+            android:text="@string/allergensHeader"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/black"
-            android:id="@+id/textAllergensHeader"
-            android:layout_below="@+id/textBadges"
             />
 
         <TextView

@@ -4,7 +4,6 @@ import android.annotation.*;
 import android.os.*;
 import android.support.v4.app.*;
 import android.support.v7.app.*;
-import android.widget.*;
 
 import org.androidannotations.annotations.*;
 
@@ -17,6 +16,7 @@ import de.ironjan.mensaupb.fragments.*;
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_menu_details)
 public class MenuDetails extends ActionBarActivity {
+    @SuppressWarnings("WeakerAccess")
     @Extra(value = MenuDetailFragment.ARG_ID)
     long menuId;
 

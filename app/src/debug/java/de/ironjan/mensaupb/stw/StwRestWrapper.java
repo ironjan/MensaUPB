@@ -1,6 +1,7 @@
 package de.ironjan.mensaupb.stw;
 
 import android.content.*;
+import android.text.*;
 
 import com.j256.ormlite.logger.*;
 
@@ -12,6 +13,7 @@ import de.ironjan.mensaupb.*;
 /**
  * Wrapper for the StwRest
  */
+@SuppressWarnings("WeakerAccess")
 @EBean
 public class StwRestWrapper implements StwRest {
 
@@ -23,8 +25,8 @@ public class StwRestWrapper implements StwRest {
 
     @Override
     public RawMenu[] getMenus(String restaurant, String date) {
-        if (BuildConfig.STW_URL.isEmpty()) {
-            LOGGER.warn("STW_URL is empty. Mocking response for ({},{})", restaurant, date);
+        LOGGER.warn("Returning no menus because we're using NoMenuRestWrapper!");
+        if (TextUtils.isEmpty(BuildConfig.STW_URL)) {
             return MockRestWrapper.getInstance().getMenus(restaurant, date);
         }
         return stwRest.getMenus(restaurant, date);

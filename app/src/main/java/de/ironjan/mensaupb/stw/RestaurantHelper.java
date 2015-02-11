@@ -10,10 +10,11 @@ import java.util.*;
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class RestaurantHelper {
+    @SuppressWarnings("WeakerAccess")
     @StringArrayRes
     String[] restaurants, displayedRestaurants;
 
-    HashMap<String, String> restaurantIdToName = new HashMap<>(0);
+    AbstractMap<String, String> restaurantIdToName = new HashMap<>(0);
 
     @AfterInject
     void buildHashMap() {

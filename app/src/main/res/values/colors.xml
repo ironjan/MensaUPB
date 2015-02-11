@@ -6,10 +6,18 @@
     <color name="cardShadow">#ccc</color>
     <color name="backgroundBehindCards">#eee</color>
     <color name="backgroundCards">#eee</color>
-    <color name="greenBase">#d2c4d31e</color>
-    <color name="textDarkGreen">#8BC34A</color>
-    <color name="iconBg">@color/greenBase</color>
-    <color name="pressedSelectable">#d2c4d31e</color>
-    <color name="focusedSelectable">#d2e4eb96</color>
-    <color name="linkTextColor">@color/greenBase</color>
+    <color name="greenBase">@color/lime_600</color>
+    <color name="textDarkGreen">@color/lime_700</color>
+    <color name="iconBg">@color/lime_600</color>
+    <color name="pressedSelectable">@color/lime_600</color>
+    <color name="focusedSelectable">@color/lime_600</color>
+    <color name="linkTextColor">@color/lime_700</color>
+
+    <color name="lime_600">#C0CA33</color>
+    <color name="lime_700">#AFB42B</color>
+    <color name="purple_A200">#E040FB</color>
+    <color name="material_primary">@color/lime_600</color>
+    <color name="material_primary_dark">@color/lime_700</color>
+    <color name="material_accent">@color/purple_A200</color>
+
 </resources>

@@ -7,6 +7,7 @@ import android.os.*;
 /**
  * Stubbed {@link android.accounts.AbstractAccountAuthenticator} - needed by sync framework.
  */
+@SuppressWarnings("WeakerAccess")
 public class StubAuthenticator extends AbstractAccountAuthenticator {
 
     /**

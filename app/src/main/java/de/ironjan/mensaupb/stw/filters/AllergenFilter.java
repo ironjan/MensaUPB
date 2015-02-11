@@ -9,22 +9,11 @@ import de.ironjan.mensaupb.stw.*;
 /**
  * Filters allergens
  */
-public class AllergenFilter implements Filter {
+public class AllergenFilter extends FilterBase {
     Logger LOGGER = LoggerFactory.getLogger(AllergenFilter.class);
 
     @Override
-    public List<RawMenu> filter(List<RawMenu> menus) {
-        List<RawMenu> filteredMenus = new ArrayList<>(menus.size());
-        for (RawMenu menu : menus) {
-            RawMenu cleanedMenu = cleanAllergensOf(menu);
-            filteredMenus.add(cleanedMenu);
-        }
-
-        return filteredMenus;
-    }
-
-
-    private synchronized RawMenu cleanAllergensOf(RawMenu menu) {
+    public RawMenu filter(RawMenu menu) {
         NewAllergen[] allergens = menu.getAllergens();
         NewAllergen[] filteredAllergens = filter(allergens);
         RawMenu filteredMenu = menu.copy();
@@ -33,7 +22,7 @@ public class AllergenFilter implements Filter {
     }
 
     private NewAllergen[] filter(NewAllergen[] allergens) {
-        Vector<NewAllergen> filteredAllergensAsVector = new Vector<NewAllergen>(allergens.length);
+        Vector<NewAllergen> filteredAllergensAsVector = new Vector<>(allergens.length);
         for (NewAllergen allergen : allergens) {
             if (allergen != NewAllergen.UNKNOWN) {
                 filteredAllergensAsVector.add(allergen);

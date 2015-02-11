@@ -1,6 +1,7 @@
 package de.ironjan.mensaupb.adapters;
 
 import android.content.*;
+import android.content.res.*;
 import android.database.*;
 import android.view.*;
 import android.widget.*;
@@ -28,6 +29,12 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
 
         int id = view.getId();
         switch (id) {
+            case R.id.textName:
+                bindName((TextView) view, cursor);
+                return true;
+            case R.id.textCategory:
+                bindCategory((TextView) view, cursor);
+                return true;
             case R.id.textPrice:
                 bindPrice((TextView) view, cursor, columnIndex);
                 return true;
@@ -41,6 +48,29 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
                 ((TextView) view).setText(cursor.getString(columnIndex));
                 return true;
         }
+    }
+
+    private void bindName(TextView view, Cursor cursor) {
+        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
+        final String name;
+        if (isEnglish) {
+            name = cursor.getString(MenuListingAdapter.NAME_EN_INDEX);
+        } else {
+            name = cursor.getString(MenuListingAdapter.NAME_DE_INDEX);
+        }
+        view.setText(name);
+    }
+
+    private void bindCategory(TextView view, Cursor cursor) {
+        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
+        final String category;
+        if (isEnglish) {
+            category = cursor.getString(MenuListingAdapter.CATEGORY_EN_INDEX);
+        } else {
+            category = cursor.getString(MenuListingAdapter.CATEGORY_DE_INDEX);
+        }
+        view.setText(category);
+
     }
 
     private void bindPrice(TextView view, Cursor cursor, int columnIndex) {
@@ -70,6 +100,7 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
         String badgesAsString = cursor.getString(columnIndex);
         Badge[] badges = BadgesStringConverter.convert(badgesAsString);
         Context context = textView.getContext();
+        Resources resources = context.getResources();
 
         if (badges == null || badges.length < 1) {
             textView.setText("");
@@ -78,7 +109,7 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
 
         StringBuilder stringBuilder = new StringBuilder(context.getString(badges[0].getStringId()));
         for (int i = 1; i < badges.length; i++) {
-            String badgeString = context.getString(badges[i].getStringId());
+            String badgeString = resources.getString(badges[i].getStringId());
             stringBuilder.append(", ")
                     .append(badgeString);
         }
