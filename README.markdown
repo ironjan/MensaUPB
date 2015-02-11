@@ -41,10 +41,6 @@ android {
 }
 ```
 
-# Issue tracking, Plans for the future
-
-See https://www.pivotaltracker.com/s/projects/1007590 - free for open source/public projects.
-
 # Travis CI
 
 master: [![Build Status master](https://travis-ci.org/ironjan/MensaUPB.svg?branch=master)](https://travis-ci.org/ironjan/MensaUPB)
