@@ -1,11 +1,12 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.stw.filters;
+
+import de.ironjan.mensaupb.stw.RawMenu;
 
 /**
- * Class to get the sort order of a Menu.
- * <p/>
- * TODO extract into filter
+ * Applies sort order values for menus.
  */
-class SortOrder {
+public class SortingFilter extends FilterBase {
+
 
     public static final String DISH_DEFAULT = "dish-default";
     public static final String SOUPS = "soups";
@@ -34,6 +35,19 @@ class SortOrder {
     private static final int SORT_GC_CLASSICS_EVENING = 35;
     private static final int SORT_GC_SNACKS = 50;
 
+
+    @Override
+    public RawMenu filter(RawMenu menu) {
+        final String name_de = menu.getName_de();
+        final String categoryIdentifier = menu.getCategoryIdentifier();
+
+        int sortOrder = getSortOrder(name_de, categoryIdentifier);
+
+        RawMenu copy = menu.copy();
+        copy.setSortOrder(sortOrder);
+
+        return copy;
+    }
 
     static int getSortOrder(String name_de, String categoryIdentifier) {
         switch (categoryIdentifier) {
@@ -70,5 +84,4 @@ class SortOrder {
         }
         return SORT_REST;
     }
-
 }

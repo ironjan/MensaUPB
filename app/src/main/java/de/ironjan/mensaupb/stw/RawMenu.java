@@ -54,7 +54,7 @@ public class RawMenu implements Cloneable {
     private String description_en = "";
     @DatabaseField
     @JsonProperty("category")
-    private String categoryIdentifier;
+    private String categoryIdentifier = "";
     @DatabaseField(columnName = CATEGORY_DE)
     private String category_de;
     @DatabaseField(columnName = CATEGORY_EN)
@@ -88,6 +88,13 @@ public class RawMenu implements Cloneable {
     @DatabaseField(columnName = SORT_ORDER, defaultValue = "100")
     private int sortOrder = 100;
 
+    public int getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(int sortOrder) {
+        this.sortOrder = sortOrder;
+    }
 
     public RawMenu() {
     }
@@ -316,12 +323,8 @@ public class RawMenu implements Cloneable {
 
     public void setCategoryIdentifier(String categoryIdentifier) {
         this.categoryIdentifier = categoryIdentifier;
-        updateSortOrder();
     }
 
-    private void updateSortOrder() {
-        sortOrder = SortOrder.getSortOrder(name_de, categoryIdentifier);
-    }
 
     public RawMenu copy() {
         try {
