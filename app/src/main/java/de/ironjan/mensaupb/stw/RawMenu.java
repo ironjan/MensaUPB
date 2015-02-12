@@ -1,15 +1,20 @@
 package de.ironjan.mensaupb.stw;
 
-import android.provider.*;
+import android.provider.BaseColumns;
 
-import com.fasterxml.jackson.annotation.*;
-import com.j256.ormlite.field.*;
-import com.j256.ormlite.table.*;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.text.*;
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 
 /**
  * A class representing a raw menu with all possible information
@@ -30,6 +35,8 @@ public class RawMenu implements Cloneable {
     public static final String BADGES = "badges";
     public static final String NAME_EN = "name_en";
     public static final String CATEGORY_EN = "category_en";
+    public static final String DESCRIPTION_EN = "description_en";
+    public static final String DESCRIPTION_DE = "description_de";
 
     @DatabaseField(generatedId = true, columnName = BaseColumns._ID)
     long _id;
@@ -41,10 +48,10 @@ public class RawMenu implements Cloneable {
     private String name_de;
     @DatabaseField(canBeNull = false, columnName = NAME_EN)
     private String name_en;
-    @DatabaseField
-    private String description_de;
-    @DatabaseField
-    private String description_en;
+    @DatabaseField(columnName = DESCRIPTION_DE)
+    private String description_de = "";
+    @DatabaseField(columnName = DESCRIPTION_EN)
+    private String description_en = "";
     @DatabaseField
     @JsonProperty("category")
     private String categoryIdentifier;

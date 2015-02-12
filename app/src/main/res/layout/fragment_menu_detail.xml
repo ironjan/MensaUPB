@@ -109,10 +109,24 @@
 
 
         <TextView
+            android:id="@+id/textDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textBadges"
+            android:layout_marginLeft="@dimen/elementMargin"
+            android:layout_marginRight="@dimen/elementMargin"
+            android:layout_marginTop="@dimen/elementMargin"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black"
+            tools:text="Ultra fancy nom-nom" />
+
+
+        <TextView
             android:id="@+id/textAllergensHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textBadges"
+            android:layout_below="@+id/textDescription"
             android:layout_marginLeft="@dimen/elementMargin"
             android:layout_marginRight="@dimen/elementMargin"
             android:layout_marginTop="@dimen/elementMargin"
