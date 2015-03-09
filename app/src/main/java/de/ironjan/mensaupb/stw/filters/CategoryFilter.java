@@ -7,7 +7,7 @@ import org.slf4j.*;
 import de.ironjan.mensaupb.stw.*;
 
 /**
- * Filters the categories
+ * Filters the categories. Replaces "category" with "subcategory" if the latter is non-empty.
  */
 class CategoryFilter extends FilterBase {
     Logger LOGGER = LoggerFactory.getLogger(CategoryFilter.class);
@@ -24,7 +24,8 @@ class CategoryFilter extends FilterBase {
 
     private void updateDeCategory(RawMenu menu) {
         String subcategory_de = menu.getSubcategory_de();
-        if (subcategory_de != null && TextUtils.isEmpty(subcategory_de.trim())) {
+        subcategory_de = (subcategory_de != null) ? subcategory_de.trim() : subcategory_de;
+        if (TextUtils.isEmpty(subcategory_de)) {
             return;
         }
         menu.setCategory_de(subcategory_de);
@@ -32,7 +33,8 @@ class CategoryFilter extends FilterBase {
 
     private void updateEnCategory(RawMenu menu) {
         String subcategory_en = menu.getSubcategory_en();
-        if (subcategory_en != null && TextUtils.isEmpty(subcategory_en.trim())) {
+        subcategory_en = (subcategory_en != null) ? subcategory_en.trim() : subcategory_en;
+        if (TextUtils.isEmpty(subcategory_en)) {
             return;
         }
         menu.setCategory_en(subcategory_en);
