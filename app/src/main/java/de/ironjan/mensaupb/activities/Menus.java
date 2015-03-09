@@ -23,9 +23,11 @@ import de.ironjan.mensaupb.sync.*;
 @OptionsMenu(R.menu.main)
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener {
 
-
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
-
+    @Extra(value = "KEY_RESTAURANT_ID")
+    int extraLocation = 0;
+    @Extra(value = "KEY_DAY_OFFSET")
+    int extraDayOffset = 0;
     @ViewById(R.id.pager)
     ViewPager mViewPager;
     @ViewById(R.id.pager_title_strip)
@@ -46,6 +48,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @AfterViews
     @Background
     void init() {
+        mLocation = extraLocation;
+        LOGGER.warn("Extras: location={}, dayOffset={}", extraLocation, extraDayOffset);
         initPager();
         initActionBar();
     }
@@ -83,14 +87,13 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
                 getPagerAdapter(i);
         if (BuildConfig.DEBUG) LOGGER.info("Got adapter: {}", mWeekdayPagerAdapter);
         if (mWeekdayPagerAdapter != null) {
-            switchAdapter();
+            switchAdapterTo(extraDayOffset);
         }
     }
 
     @UiThread
-    @Trace
-    void switchAdapter() {
-        int currentItem = mViewPager.getCurrentItem();
+    void switchAdapterTo(int currentItem) {
+        LOGGER.warn("switch to {}", currentItem);
         mViewPager.setAdapter(mWeekdayPagerAdapter);
         mViewPager.setCurrentItem(currentItem);
     }
