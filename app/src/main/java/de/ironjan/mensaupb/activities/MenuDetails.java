@@ -1,6 +1,7 @@
 package de.ironjan.mensaupb.activities;
 
 import android.annotation.*;
+import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
 import android.support.v7.app.*;
@@ -19,13 +20,17 @@ public class MenuDetails extends ActionBarActivity {
     @SuppressWarnings("WeakerAccess")
     @Extra(value = MenuDetailFragment.ARG_ID)
     long menuId;
-
+    @Extra
+    int dayOffset;
+    @Extra
+    int restaurantId;
+    private MenuDetailFragment mFragment;
 
     @AfterViews
     void bindFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment fragmentMenuDetails = MenuDetailFragment.newInstance(menuId);
-        ft.replace(R.id.fragmentMenuDetails, fragmentMenuDetails, "fragmentMenuDetails");
+        mFragment = MenuDetailFragment.newInstance(menuId);
+        ft.replace(R.id.fragmentMenuDetails, mFragment, "mFragment");
         ft.commit();
     }
 
@@ -37,6 +42,8 @@ public class MenuDetails extends ActionBarActivity {
 
     @OptionsItem(android.R.id.home)
     void navUp() {
-        NavUtils.navigateUpFromSameTask(this);
+        Intent intent = NavUtils.getParentActivityIntent(this);
+        mFragment.addExtrasTo(intent);
+        NavUtils.navigateUpTo(this, intent);
     }
 }

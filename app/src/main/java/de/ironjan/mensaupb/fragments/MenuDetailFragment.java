@@ -1,6 +1,7 @@
 package de.ironjan.mensaupb.fragments;
 
 
+import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
 import android.support.v7.app.*;
@@ -23,6 +24,8 @@ import java.util.*;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.activities.*;
+import de.ironjan.mensaupb.helpers.*;
 import de.ironjan.mensaupb.persistence.*;
 import de.ironjan.mensaupb.stw.*;
 
@@ -47,6 +50,7 @@ public class MenuDetailFragment extends Fragment {
     @SuppressWarnings("WeakerAccess")
     @Bean
     RestaurantHelper mRestaurantHelper;
+    private RawMenu mMenu;
 
     public static MenuDetailFragment newInstance(long _id) {
         if (BuildConfig.DEBUG)
@@ -74,9 +78,9 @@ public class MenuDetailFragment extends Fragment {
         final long _id = getArguments().getLong(ARG_ID);
 
         try {
-            RawMenu rawMenu = loadMenu(_id);
-            if (rawMenu != null) {
-                bindMenuDataToViews(rawMenu);
+            mMenu = loadMenu(_id);
+            if (mMenu != null) {
+                bindMenuDataToViews(mMenu);
             } else {
                 // FIXME notify fail load
             }
@@ -196,4 +200,10 @@ public class MenuDetailFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
         }
     }
+
+    public void addExtrasTo(Intent intent) {
+        intent.putExtra(Menus.KEY_DATE, DateHelper.toString(mMenu.getDate()));
+        intent.putExtra(Menus.KEY_RESTAURANT, mMenu.getRestaurant());
+    }
+
 }
