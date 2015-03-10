@@ -39,7 +39,7 @@
     </style>
 
     <style name="SpinnerDropDownItemAppTheme" parent="android:Widget.DropDownItem.Spinner">
-        <item name="android:checkMark">@drawable/apptheme_btn_radio_holo_light</item>
+        <item name="android:checkMark">@drawable/apptheme_btn_radio_invisible</item>
     </style>
 
     <style name="SeekBarAppTheme" parent="android:Widget.SeekBar">
