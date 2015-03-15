@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:paddingLeft="@dimen/elementMargin"
-    android:paddingRight="@dimen/elementMargin"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-
-    android:layout_height="match_parent">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -44,6 +38,20 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/colored"
+        android:minHeight="@dimen/elementMinHeight"
+        android:id="@+id/checkBoxColored" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tasteEnhancer"
+        android:minHeight="@dimen/elementMinHeight"
+        android:id="@+id/checkBoxTasteEnhancer" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/blackened"
         android:minHeight="@dimen/elementMinHeight"
         android:id="@+id/checkBoxBlackened" />
@@ -51,16 +59,23 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/caffeine"
+        android:text="@string/sulfured"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxCaffeine" />
+        android:id="@+id/checkBoxSulfured" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/colored"
+        android:text="@string/waxed"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxColored" />
+        android:id="@+id/checkBoxWaxed" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caffeine"
+        android:minHeight="@dimen/elementMinHeight"
+        android:id="@+id/checkBoxCaffeine" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -100,20 +115,6 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/quinine"
-        android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxQuinine" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sulfured"
-        android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxSulfured" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/sweetener"
         android:minHeight="@dimen/elementMinHeight"
         android:id="@+id/checkBoxSweetener" />
@@ -121,9 +122,9 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tasteEnhancer"
+        android:text="@string/quinine"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxTasteEnhancer" />
+        android:id="@+id/checkBoxQuinine" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -132,11 +133,4 @@
         android:minHeight="@dimen/elementMinHeight"
         android:id="@+id/checkBoxTaurine" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/waxed"
-        android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxWaxed" />
-
-</LinearLayout>
+</merge>
