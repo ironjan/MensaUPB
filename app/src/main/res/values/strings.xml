@@ -54,26 +54,26 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="srcLink" translatable="false">&lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/>www.studentenwerk-pb.de&lt;/a></string>
 
     <string name="empty" translatable="false"/>
-    <string name="colored">Farbstoff</string>
-    <string name="conserved">konserviert</string>
+    <string name="colored">Farbstoffe</string>
+    <string name="conserved">Konservierungsstoffe</string>
     <string name="antioxidants">Antioxidationsmittel</string>
     <string name="tasteEnhancer">Geschmacksverstärker</string>
     <string name="phosphate">Phosphat</string>
-    <string name="sulfured">geschwefelt</string>
+    <string name="sulfured">Geschwefelt</string>
     <string name="waxed">Gewachst</string>
-    <string name="blackened">geschwärzt</string>
+    <string name="blackened">Geschwärzt</string>
     <string name="sweetener">Süßungsmittel</string>
-    <string name="phenylalanine">enthält eine Phenylalaninquelle</string>
+    <string name="phenylalanine">Mit Phenylalaninquelle</string>
     <string name="taurine">Taurin</string>
     <string name="nitrate_salt">Nitratpökelsalz</string>
-    <string name="caffeine">koffeinhaltig</string>
-    <string name="quinine">chininhaltig</string>
+    <string name="caffeine">Koffein</string>
+    <string name="quinine">Chinin</string>
     <string name="lacto_protein">Milcheiweiß</string>
     <string name="crustacean">Krebstiere und Krebstiererzeugnisse</string>
     <string name="eggs">Eier und Eiererzeugnisse</string>
     <string name="fish">Fisch</string>
     <string name="soy">Soja und Sojaerzeugnisse</string>
-    <string name="milk">Milch und Milcherzeugnisse(einschließlich Lactose)</string>
+    <string name="milk">Milch und Milcherzeugnisse (einschließlich Lactose)</string>
     <string name="nuts">Schalenfrüchte sowie daraus hergest. Erzeugnisse</string>
     <string name="celeriac">Sellerie und Sellerieerzeugnisse</string>
     <string name="mustard">Senf und Senferzeugnisse</string>
@@ -81,7 +81,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="sulfates">Schwefeldioxid und Sulfite</string>
     <string name="mollusks">Weichtiere und Weichtiererzeugnisse</string>
     <string name="lupines">Lupinen und Lupinenerzeugnisse</string>
-    <string name="gluten">glutenhaltig</string>
+    <string name="gluten">Gluten</string>
     <string name="peanuts">Erdnüsse und Erdnusserzeugnisse</string>
 
     <string name="lowCalorie">kalorienarm</string>
@@ -93,5 +93,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="versionLabel">Version:</string>
     <string name="nothingToEatText">Heute gibt es hier nichts zu essen.\nIst die Einrichtung vielleicht geschlossen?</string>
     <string name="noMenusToday">Heute gibt es hier nichts zu essen. </string>
+    <string name="acceptableAllergens">Verträgliche Allergene</string>
+    <string name="acceptableAdditionals">Verträgliche Zusatzstoffe</string>
 
 </resources>
