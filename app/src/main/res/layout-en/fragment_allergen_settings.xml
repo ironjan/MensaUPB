@@ -37,16 +37,23 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/eggs"
+        android:text="@string/celeriac"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxEggs" />
+        android:id="@+id/checkBoxCeleriac" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/peanuts"
+        android:text="@string/crustacean"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxPeanuts" />
+        android:id="@+id/checkBoxCurstacean" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/eggs"
+        android:minHeight="@dimen/elementMinHeight"
+        android:id="@+id/checkBoxEggs" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -65,13 +72,6 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/crustacean"
-        android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxCurstacean" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/lupines"
         android:minHeight="@dimen/elementMinHeight"
         android:id="@+id/checkBoxLupines" />
@@ -86,23 +86,9 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nuts"
+        android:text="@string/mollusks"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxNuts" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sulfates"
-        android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxSulfates" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/celeriac"
-        android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxCeleriac" />
+        android:id="@+id/checkBoxMollusks" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -110,6 +96,20 @@
         android:text="@string/mustard"
         android:minHeight="@dimen/elementMinHeight"
         android:id="@+id/checkBoxMustard" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nuts"
+        android:minHeight="@dimen/elementMinHeight"
+        android:id="@+id/checkBoxNuts" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/peanuts"
+        android:minHeight="@dimen/elementMinHeight"
+        android:id="@+id/checkBoxPeanuts" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -128,9 +128,9 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mollusks"
+        android:text="@string/sulfates"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxMollusks" />
+        android:id="@+id/checkBoxSulfates" />
 
 
     <!--return LACTOSE;-->
