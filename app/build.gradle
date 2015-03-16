@@ -7,7 +7,7 @@ def versionBuild = 0 // bump for dogfood builds, public betas, etc.
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'idea'
-
+apply plugin: 'org.robolectric'
 
 configurations {
     apt
@@ -48,17 +48,20 @@ android {
         main {
             manifest.srcFile 'AndroidManifest.xml'
         }
+
     }
 
     buildTypes {
         debug {
             buildConfigField "int", "SYNC_INTERVAL", "60" // 1 minute
             buildConfigField "String", "STW_URL", "\"\""
+            testCoverageEnabled = true
         }
 
         release {
             buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 24 * 2" // 2 days
             buildConfigField "String", "STW_URL", "\"\""
+            testCoverageEnabled = true
         }
     }
 
@@ -86,8 +89,15 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
     compile 'com.fasterxml.jackson.core:jackson-core:2.4.2'
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+
+    testCompile 'junit:junit:4.10'
+    testCompile 'org.robolectric:robolectric:2.3'
 }
 
+robolectric {
+    include '**/*Test.class'
+    maxHeapSize = "2048m"
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.9'
