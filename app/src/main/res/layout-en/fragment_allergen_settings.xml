@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:paddingLeft="@dimen/elementMargin"
-        android:paddingRight="@dimen/elementMargin"
         android:layout_gravity="center_vertical"
-        android:minHeight="@dimen/elementMinHeight">
+        android:layout_marginTop="8dp"
+        android:minHeight="@dimen/elementMinHeight"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/elementMargin"
+        android:paddingRight="@dimen/elementMargin">
 
 
         <TextView
@@ -20,114 +23,114 @@
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
             android:singleLine="true"
+            android:text="@string/acceptableAllergens"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/textDarkGreen"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:text="@string/acceptableAllergens" />
+            android:textStyle="bold" />
 
     </FrameLayout>
 
     <CheckBox
+        android:id="@+id/checkBoxCeleriac"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/celeriac"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxCeleriac" />
+        android:text="@string/celeriac" />
 
     <CheckBox
+        android:id="@+id/checkBoxCurstacean"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/crustacean"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxCurstacean" />
+        android:text="@string/crustacean" />
 
     <CheckBox
+        android:id="@+id/checkBoxEggs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/eggs"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxEggs" />
+        android:text="@string/eggs" />
 
     <CheckBox
+        android:id="@+id/checkBoxFish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fish"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxFish" />
+        android:text="@string/fish" />
 
     <CheckBox
+        android:id="@+id/checkBoxGluten"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/gluten"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxGluten" />
+        android:text="@string/gluten" />
 
     <CheckBox
+        android:id="@+id/checkBoxLupines"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/lupines"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxLupines" />
+        android:text="@string/lupines" />
 
     <CheckBox
+        android:id="@+id/checkBoxMilk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/milk"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxMilk" />
+        android:text="@string/milk" />
 
     <CheckBox
+        android:id="@+id/checkBoxMollusks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mollusks"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxMollusks" />
+        android:text="@string/mollusks" />
 
     <CheckBox
+        android:id="@+id/checkBoxMustard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mustard"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxMustard" />
+        android:text="@string/mustard" />
 
     <CheckBox
+        android:id="@+id/checkBoxNuts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nuts"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxNuts" />
+        android:text="@string/nuts" />
 
     <CheckBox
+        android:id="@+id/checkBoxPeanuts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/peanuts"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxPeanuts" />
+        android:text="@string/peanuts" />
 
     <CheckBox
+        android:id="@+id/checkBoxSesame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sesame"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxSesame" />
+        android:text="@string/sesame" />
 
     <CheckBox
+        android:id="@+id/checkBoxSoy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/soy"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxSoy" />
+        android:text="@string/soy" />
 
     <CheckBox
+        android:id="@+id/checkBoxSulfates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sulfates"
         android:minHeight="@dimen/elementMinHeight"
-        android:id="@+id/checkBoxSulfates" />
+        android:text="@string/sulfates" />
 
 
     <!--return LACTOSE;-->
 
 
-</merge>
+</LinearLayout>
