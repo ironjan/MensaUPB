@@ -19,7 +19,7 @@ public class AwkwardTranslationFilterTest {
     AwkwardTranslationFilter awkwardTranslationFilter = new AwkwardTranslationFilter();
     RawMenu menu = new RawMenu();
 
-    @org.junit.Test
+    @Test
     public void test_IsAlreadyBetterTranslation() throws Exception {
         menu.setCategory_en(BETTER_TRANSLATION);
         Assert.assertEquals(BETTER_TRANSLATION, awkwardTranslationFilter.filter(menu).getCategory_en());

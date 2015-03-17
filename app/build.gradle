@@ -49,6 +49,7 @@ android {
             manifest.srcFile 'AndroidManifest.xml'
         }
 
+        androidTest.setRoot('src/test')
     }
 
     buildTypes {
@@ -91,7 +92,10 @@ dependencies {
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
 
     testCompile 'junit:junit:4.10'
-    testCompile 'org.robolectric:robolectric:2.3'
+    testCompile 'org.robolectric:robolectric:3.0-SNAPSHOT'
+    // Repetition for autocompletion in android studio
+    androidTestCompile 'junit:junit:4.10'
+    androidTestCompile 'org.robolectric:robolectric:3.0-SNAPSHOT'
 }
 
 robolectric {
