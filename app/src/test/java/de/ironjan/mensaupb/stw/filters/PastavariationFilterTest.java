@@ -1,13 +1,20 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import junit.framework.*;
+import junit.framework.Assert;
 
-import de.ironjan.mensaupb.stw.*;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+
+import de.ironjan.mensaupb.stw.RawMenu;
 
 /**
  * TestCase to test the PastavariationFilter.
  */
-public class PastavariationFilterTest extends TestCase {
+@Config(emulateSdk = 18)
+@RunWith(RobolectricTestRunner.class)
+public class PastavariationFilterTest {
     private static final String CATEGORY_DESSERT = "dessert";
     private static final String CATEGORY_DEFAULT = "dish-default";
     private static final String CATEGORY_DEFAULT_DE_NAME = "Vorschlagsmenü";
@@ -18,12 +25,14 @@ public class PastavariationFilterTest extends TestCase {
     final String NON_PASTA_NAME = "NON_PASTA_NAME";
     PastavariationFilter filter = new PastavariationFilter();
 
+    @org.junit.Test
     public void test_filterNullMenu() throws Exception {
         RawMenu NULL_MENU = null;
         RawMenu filtered = this.filter.filter(NULL_MENU);
-        assertEquals(null, filtered);
+        Assert.assertEquals(null, filtered);
     }
 
+    @Test
     public void test_filterNonPastaMenu() throws Exception {
         RawMenu nonPastaMenu = new RawMenu();
         nonPastaMenu.setName_de(NON_PASTA_NAME);
@@ -32,11 +41,12 @@ public class PastavariationFilterTest extends TestCase {
         nonPastaMenu.setCategory_en(CATEGORY_DESSERT_EN_NAME);
 
         RawMenu filtered = this.filter.filter(nonPastaMenu);
-        assertEquals(CATEGORY_DESSERT, filtered.getCategoryIdentifier());
-        assertEquals(CATEGORY_DESSERT_DE_NAME, filtered.getCategory_de());
-        assertEquals(CATEGORY_DESSERT_EN_NAME, filtered.getCategory_en());
+        Assert.assertEquals(CATEGORY_DESSERT, filtered.getCategoryIdentifier());
+        Assert.assertEquals(CATEGORY_DESSERT_DE_NAME, filtered.getCategory_de());
+        Assert.assertEquals(CATEGORY_DESSERT_EN_NAME, filtered.getCategory_en());
     }
 
+    @Test
     public void test_filterPastaMenu() throws Exception {
         RawMenu pastaMenu = new RawMenu();
         pastaMenu.setName_de(PASTA_VARIATION_NAME);
@@ -45,8 +55,8 @@ public class PastavariationFilterTest extends TestCase {
         pastaMenu.setCategory_en(CATEGORY_DESSERT_EN_NAME);
 
         RawMenu filtered = this.filter.filter(pastaMenu);
-        assertEquals(CATEGORY_DEFAULT, filtered.getCategoryIdentifier());
-        assertEquals(CATEGORY_DEFAULT_DE_NAME, filtered.getCategory_de());
-        assertEquals(CATEGORY_DEFAULT_EN_NAME, filtered.getCategory_en());
+        Assert.assertEquals(CATEGORY_DEFAULT, filtered.getCategoryIdentifier());
+        Assert.assertEquals(CATEGORY_DEFAULT_DE_NAME, filtered.getCategory_de());
+        Assert.assertEquals(CATEGORY_DEFAULT_EN_NAME, filtered.getCategory_en());
     }
 }

@@ -165,14 +165,16 @@ public class MenuDetailFragment extends Fragment {
     private void bindAllergens(RawMenu rawMenu) {
         boolean notFirst = false;
         for (NewAllergen allergen : rawMenu.getAllergens()) {
-            if (notFirst) {
-                textAllergens.append("\n");
-            } else {
-                notFirst = true;
+            if (allergen != null) {
+                if (notFirst) {
+                    textAllergens.append("\n");
+                } else {
+                    notFirst = true;
+                }
+                int stringId = allergen.getStringId();
+                String string = getResources().getString(stringId);
+                textAllergens.append(string);
             }
-            int stringId = allergen.getStringId();
-            String string = getResources().getString(stringId);
-            textAllergens.append(string);
         }
     }
 

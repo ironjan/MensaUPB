@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:minHeight="@dimen/elementMinHeight"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/elementMargin"
+        android:paddingRight="@dimen/elementMargin">
+
+
+        <TextView
+            android:id="@android:id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/acceptableAllergens"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/textDarkGreen"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <CheckBox
+        android:id="@+id/checkBoxEggs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/eggs" />
+
+    <CheckBox
+        android:id="@+id/checkBoxPeanuts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/peanuts" />
+
+    <CheckBox
+        android:id="@+id/checkBoxFish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/fish" />
+
+    <CheckBox
+        android:id="@+id/checkBoxGluten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/gluten" />
+
+    <CheckBox
+        android:id="@+id/checkBoxCurstacean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/crustacean" />
+
+    <CheckBox
+        android:id="@+id/checkBoxLupines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/lupines" />
+
+    <CheckBox
+        android:id="@+id/checkBoxMilk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/milk" />
+
+    <CheckBox
+        android:id="@+id/checkBoxNuts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/nuts" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSulfates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/sulfates" />
+
+    <CheckBox
+        android:id="@+id/checkBoxCeleriac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/celeriac" />
+
+    <CheckBox
+        android:id="@+id/checkBoxMustard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/mustard" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSesame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/sesame" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSoy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/soy" />
+
+    <CheckBox
+        android:id="@+id/checkBoxMollusks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:text="@string/mollusks" />
+
+</LinearLayout>

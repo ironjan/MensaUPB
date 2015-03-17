@@ -31,7 +31,7 @@ The following Open Source libraries are used:</string>
     <string name="celeriac">Celeriac</string>
     <string name="colored">Colored</string>
     <string name="conserved">Conserved</string>
-    <string name="crustacean">Curstacean</string>
+    <string name="crustacean">Crustacean</string>
     <string name="eggs">Eggs</string>
     <string name="fish">Fish</string>
     <string name="gluten">Gluten</string>
@@ -57,4 +57,6 @@ The following Open Source libraries are used:</string>
     <string name="versionLabel">Version:</string>
     <string name="waxed">Waxed</string>
     <string name="noMenusToday">Today, there\'s nothing to eat in this restaurant. </string>
+    <string name="acceptableAllergens">Acceptable Allergens</string>
+    <string name="acceptableAdditionals">Acceptable Additionals</string>
 </resources>
