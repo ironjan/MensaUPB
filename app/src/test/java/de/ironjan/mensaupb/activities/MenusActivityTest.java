@@ -30,11 +30,6 @@ public class MenusActivityTest {
     }
 
     @Test
-    public void test_ShowsEitherLoadingListOrNoFood() {
-        Assert.fail("Not implemented yet.");
-    }
-
-    @Test
     public void test_ClickOnAbSettingsOpensSettings() {
 // fixme implement test when TestMenuItem could be found
 //        MenuItem item = new TestMenuItem(R.id.ab_settings);
