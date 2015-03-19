@@ -1,6 +1,8 @@
 package de.ironjan.mensaupb.activities;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.view.MenuItem;
 
 import junit.framework.Assert;
 
@@ -10,7 +12,12 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.fakes.RoboMenuItem;
 import org.robolectric.util.ActivityController;
+
+import de.ironjan.mensaupb.R;
+
+import static org.robolectric.Shadows.shadowOf;
 
 /**
  * Test for Menus class.
@@ -31,22 +38,20 @@ public class MenusActivityTest {
 
     @Test
     public void test_ClickOnAbSettingsOpensSettings() {
-// fixme implement test when TestMenuItem could be found
-//        MenuItem item = new TestMenuItem(R.id.ab_settings);
-//        mActivity.onOptionsItemSelected(item);
-//        Intent expectedIntent = new Intent(mActivity, Settings_.class);
-//        Intent startedActivity = shadowOf(mActivity).getNextStartedActivity();
-//        Assert.assertEquals(expectedIntent, startedActivity);
+        MenuItem item = new RoboMenuItem(R.id.ab_settings);
+        mActivity.onOptionsItemSelected(item);
+        Intent expectedIntent = new Intent(mActivity, Settings_.class);
+        Intent startedActivity = shadowOf(mActivity).getNextStartedActivity();
+        Assert.assertEquals(expectedIntent, startedActivity);
     }
 
     @Test
     public void test_ClickOnAbAboutOpensAbout() {
-        // fixme implement test when TestMenuItem could be found
-//        MenuItem item = new TestMenuItem(R.id.ab_about).performClick();
-//        mActivity.onOptionsItemSelected(item);
-//        Intent expectedIntent = new Intent(mActivity, About_.class);
-//        Intent startedActivity = shadowOf(mActivity).getNextStartedActivity();
-//        Assert.assertEquals(expectedIntent, startedActivity);
+        MenuItem item = new RoboMenuItem(R.id.ab_about);
+        mActivity.onOptionsItemSelected(item);
+        Intent expectedIntent = new Intent(mActivity, About_.class);
+        Intent startedActivity = shadowOf(mActivity).getNextStartedActivity();
+        Assert.assertEquals(expectedIntent, startedActivity);
     }
 
 }
