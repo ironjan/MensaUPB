@@ -186,7 +186,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         About_.intent(this).start();
     }
 
-    // @OptionsItem(R.id.ab_settings)
+    @OptionsItem(R.id.ab_settings)
     void settingsClicked() {
         Settings_.intent(this).start();
     }
