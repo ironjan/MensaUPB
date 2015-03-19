@@ -4,32 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
+        android:id="@android:id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/elementMargin"
+        android:layout_marginRight="@dimen/elementMargin"
         android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
         android:minHeight="@dimen/elementMinHeight"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/elementMargin"
-        android:paddingRight="@dimen/elementMargin">
-
-
-        <TextView
-            android:id="@android:id/content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:text="@string/acceptableAdditionals"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/textDarkGreen"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-    </FrameLayout>
+        android:singleLine="true"
+        android:text="@string/acceptableAdditionals"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/textDarkGreen"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <CheckBox
         android:id="@+id/checkBoxAntioxidants"
