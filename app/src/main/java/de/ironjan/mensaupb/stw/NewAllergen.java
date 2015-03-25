@@ -46,16 +46,27 @@ public enum NewAllergen {
 
     private final int ordinal;
     private final String type;
-    private final int string;
+    private final int stringResourceID;
 
-    NewAllergen(int ordinal, String type, int string) {
+    NewAllergen(int ordinal, String type, int stringResourceID) {
         this.ordinal = ordinal;
         this.type = type;
-        this.string = string;
+        this.stringResourceID = stringResourceID;
     }
 
-    public static NewAllergen fromType(String s) {
-        switch (s) {
+    @Override
+    public String toString() {
+        return type;
+    }
+
+    /**
+     * Converts a string to a NewAllergen
+     *
+     * @param string the string
+     * @return the NewAllergen which is textually represented as String, if known. Else "Unknown".
+     */
+    public static NewAllergen fromString(String string) {
+        switch (string) {
             case Constants.COLORED:
                 return COLORED;
             case Constants.CONSERVED:
@@ -116,7 +127,7 @@ public enum NewAllergen {
                 return PEANUTS;
         }
 
-        LoggerFactory.getLogger(NewAllergen.class).debug("Requested unknown value: " + s);
+        LoggerFactory.getLogger(NewAllergen.class).debug("Requested unknown value: " + string);
         return UNKNOWN;
     }
 
@@ -129,7 +140,7 @@ public enum NewAllergen {
     }
 
     public int getStringId() {
-        return string;
+        return stringResourceID;
     }
 
     private static class Constants {

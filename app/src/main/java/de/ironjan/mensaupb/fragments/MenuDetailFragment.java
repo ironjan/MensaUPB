@@ -1,43 +1,33 @@
 package de.ironjan.mensaupb.fragments;
 
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.content.*;
+import android.os.*;
+import android.support.v4.app.*;
+import android.support.v7.app.*;
+import android.text.*;
+import android.view.*;
+import android.widget.*;
 
-import com.j256.ormlite.android.AndroidConnectionSource;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.support.ConnectionSource;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
+import com.j256.ormlite.android.*;
+import com.j256.ormlite.dao.*;
+import com.j256.ormlite.support.*;
+import com.koushikdutta.async.future.*;
+import com.koushikdutta.ion.*;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringRes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.res.*;
+import org.slf4j.*;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import java.text.*;
+import java.util.*;
 
 import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.persistence.DatabaseHelper;
-import de.ironjan.mensaupb.persistence.DatabaseManager;
-import de.ironjan.mensaupb.stw.Badge;
-import de.ironjan.mensaupb.stw.NewAllergen;
-import de.ironjan.mensaupb.stw.PriceType;
-import de.ironjan.mensaupb.stw.RawMenu;
-import de.ironjan.mensaupb.stw.RestaurantHelper;
+import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.activities.*;
+import de.ironjan.mensaupb.helpers.*;
+import de.ironjan.mensaupb.persistence.*;
+import de.ironjan.mensaupb.stw.*;
 
 @EFragment(R.layout.fragment_menu_detail)
 public class MenuDetailFragment extends Fragment {
@@ -60,6 +50,7 @@ public class MenuDetailFragment extends Fragment {
     @SuppressWarnings("WeakerAccess")
     @Bean
     RestaurantHelper mRestaurantHelper;
+    private RawMenu mMenu;
 
     public static MenuDetailFragment newInstance(long _id) {
         if (BuildConfig.DEBUG)
@@ -87,9 +78,9 @@ public class MenuDetailFragment extends Fragment {
         final long _id = getArguments().getLong(ARG_ID);
 
         try {
-            RawMenu rawMenu = loadMenu(_id);
-            if (rawMenu != null) {
-                bindMenuDataToViews(rawMenu);
+            mMenu = loadMenu(_id);
+            if (mMenu != null) {
+                bindMenuDataToViews(mMenu);
             } else {
                 // FIXME notify fail load
             }
@@ -186,14 +177,16 @@ public class MenuDetailFragment extends Fragment {
     private void bindAllergens(RawMenu rawMenu) {
         boolean notFirst = false;
         for (NewAllergen allergen : rawMenu.getAllergens()) {
-            if (notFirst) {
-                textAllergens.append("\n");
-            } else {
-                notFirst = true;
+            if (allergen != null) {
+                if (notFirst) {
+                    textAllergens.append("\n");
+                } else {
+                    notFirst = true;
+                }
+                int stringId = allergen.getStringId();
+                String string = getResources().getString(stringId);
+                textAllergens.append(string);
             }
-            int stringId = allergen.getStringId();
-            String string = getResources().getString(stringId);
-            textAllergens.append(string);
         }
     }
 
@@ -221,4 +214,10 @@ public class MenuDetailFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
         }
     }
+
+    public void addExtrasTo(Intent intent) {
+        intent.putExtra(Menus.KEY_DATE, DateHelper.toString(mMenu.getDate()));
+        intent.putExtra(Menus.KEY_RESTAURANT, mMenu.getRestaurant());
+    }
+
 }

@@ -16,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
+import de.ironjan.mensaupb.persistence.AllergensArrayPersister;
+
 /**
  * A class representing a raw menu with all possible information
  */
@@ -69,7 +71,7 @@ public class RawMenu implements Cloneable {
     private double priceWorkers;
     @DatabaseField(canBeNull = false)
     private double priceGuests;
-    @DatabaseField(columnName = ALLERGENS, dataType = DataType.SERIALIZABLE)
+    @DatabaseField(columnName = ALLERGENS, persisterClass = AllergensArrayPersister.class)
     private NewAllergen[] allergens;
 
     private Badge[] badges;

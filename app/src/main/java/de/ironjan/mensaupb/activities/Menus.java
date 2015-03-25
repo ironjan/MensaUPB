@@ -1,21 +1,37 @@
 package de.ironjan.mensaupb.activities;
 
 
-import android.annotation.*;
-import android.content.*;
-import android.os.*;
-import android.support.v4.view.*;
-import android.support.v7.app.*;
-import android.widget.*;
+import android.annotation.SuppressLint;
+import android.content.ContentResolver;
+import android.os.Bundle;
+import android.support.v4.view.PagerTabStrip;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.widget.ArrayAdapter;
 
-import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OptionsItem;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.Trace;
-import org.androidannotations.annotations.res.*;
-import org.slf4j.*;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringArrayRes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.sync.*;
+import java.util.Date;
+
+import de.ironjan.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.adapters.WeekdayHelper;
+import de.ironjan.mensaupb.adapters.WeekdayPagerAdapter;
+import de.ironjan.mensaupb.helpers.DateHelper;
+import de.ironjan.mensaupb.sync.AccountCreator;
 
 @SuppressWarnings("WeakerAccess")
 @SuppressLint("Registered")
@@ -23,8 +39,12 @@ import de.ironjan.mensaupb.sync.*;
 @OptionsMenu(R.menu.main)
 public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener {
 
-
+    public static final String KEY_DAY_OFFSET = "KEY_DAY_OFFSET";
+    public static final String KEY_DATE = "KEY_DATE";
+    public static final String KEY_RESTAURANT = "KEY_RESTAURANT";
     private final Logger LOGGER = LoggerFactory.getLogger(Menus.class.getSimpleName());
+    @Extra(value = KEY_DATE)
+    String dateAsString = null;
 
     @ViewById(R.id.pager)
     ViewPager mViewPager;
@@ -38,16 +58,36 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     WeekdayHelper mwWeekdayHelper;
     @Bean
     AccountCreator mAccountCreator;
+    @Extra(value = KEY_RESTAURANT)
+    String restaurant = null;
     private WeekdayPagerAdapter[] adapters;
     private WeekdayPagerAdapter mWeekdayPagerAdapter;
     private int mLocation = 0;
+    private int mDayOffset = 0;
 
     @Trace
     @AfterViews
     @Background
     void init() {
+        if (dateAsString != null) {
+            Date date = DateHelper.toDate(dateAsString);
+            mDayOffset = DateHelper.computeDayOffset(date);
+        }
+        if (restaurant != null) {
+            mLocation = findLocationId(restaurant);
+        }
+        LOGGER.warn("Extras: location={}, dayOffset={}", mLocation, mDayOffset);
         initPager();
         initActionBar();
+    }
+
+    private int findLocationId(String restaurant) {
+        for (int i = 0; i < mRestaurants.length; i++) {
+            if (restaurant.equals(mRestaurants[i])) {
+                return i;
+            }
+        }
+        return 0;
     }
 
 
@@ -68,6 +108,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     }
 
     @Trace
+    @UiThread
     void initPager() {
         mPagerTabStrip.setTabIndicatorColorResource(R.color.iconBg);
         mPagerTabStrip.setDrawFullUnderline(true);
@@ -83,14 +124,13 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
                 getPagerAdapter(i);
         if (BuildConfig.DEBUG) LOGGER.info("Got adapter: {}", mWeekdayPagerAdapter);
         if (mWeekdayPagerAdapter != null) {
-            switchAdapter();
+            switchAdapterTo(mDayOffset);
         }
     }
 
     @UiThread
-    @Trace
-    void switchAdapter() {
-        int currentItem = mViewPager.getCurrentItem();
+    void switchAdapterTo(int currentItem) {
+        LOGGER.warn("switch to {}", currentItem);
         mViewPager.setAdapter(mWeekdayPagerAdapter);
         mViewPager.setCurrentItem(currentItem);
     }
@@ -123,8 +163,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         mLocation = i;
         if (BuildConfig.DEBUG)
             LOGGER.debug("onNavigationItemSelected({},{}), location := {}", new Object[]{i, l, mLocation});
-
-        loadPagerAdapter(mLocation);
+        mDayOffset = mViewPager.getCurrentItem();
+        loadPagerAdapter(i);
 
         return true;
     }
@@ -146,5 +186,9 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         About_.intent(this).start();
     }
 
+    @OptionsItem(R.id.ab_settings)
+    void settingsClicked() {
+        Settings_.intent(this).start();
+    }
 
 }
