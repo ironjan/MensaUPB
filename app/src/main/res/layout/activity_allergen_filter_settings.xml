@@ -10,6 +10,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/elementMargin"
+            android:text="@string/allergensHintAtSTW" />
+
         <fragment
             android:name="de.ironjan.mensaupb.fragments.AllergenSettingsFragment_"
             android:layout_width="wrap_content"
