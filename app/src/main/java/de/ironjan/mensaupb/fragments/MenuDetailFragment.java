@@ -153,10 +153,10 @@ public class MenuDetailFragment extends Fragment {
         Badge[] badges = rawMenu.getBadges();
 
         if (badges == null || badges.length < 1) {
-            textBadges.setText("");
+            textBadges.setVisibility(View.GONE);
             return;
         }
-
+        textBadges.setVisibility(View.VISIBLE);
         StringBuilder stringBuilder = new StringBuilder(getActivity().getString(badges[0].getStringId()));
         for (int i = 1; i < badges.length; i++) {
             String badgeString = getActivity().getString(badges[i].getStringId());
