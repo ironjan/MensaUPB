@@ -132,7 +132,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textAllergensHeader"
-            android:layout_marginBottom="@dimen/elementMargin"
             android:layout_marginLeft="@dimen/elementMargin"
             android:layout_marginRight="@dimen/elementMargin"
             android:layout_marginTop="@dimen/elementMargin"
@@ -140,5 +139,15 @@
             tools:text=" * Ganz viele Stoffe...\n * Mehrzeilig sogar\nAlle Angaben ohne Foo"
             />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textAllergens"
+            android:layout_marginBottom="@dimen/elementMargin"
+            android:layout_marginLeft="@dimen/elementMargin"
+            android:layout_marginRight="@dimen/elementMargin"
+            android:layout_marginTop="@dimen/elementMargin"
+            android:text="@string/allergensHintAtSTW"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
     </RelativeLayout>
 </ScrollView>

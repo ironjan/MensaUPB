@@ -95,5 +95,6 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="noMenusToday">Heute gibt es hier nichts zu essen. </string>
     <string name="acceptableAllergens">Verträgliche Allergene</string>
     <string name="acceptableAdditionals">Verträgliche Zusatzstoffe</string>
+    <string name="allergensHintAtSTW">Bitte informiere dich ebenfalls auf den Seiten des Studentenwerks und am Ausgabeschalter vor Ort bezüglich enthaltener Allergene und Zusatzstoffe!</string>
 
 </resources>

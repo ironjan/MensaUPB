@@ -1,33 +1,46 @@
 package de.ironjan.mensaupb.fragments;
 
 
-import android.content.*;
-import android.os.*;
-import android.support.v4.app.*;
-import android.support.v7.app.*;
-import android.text.*;
-import android.view.*;
-import android.widget.*;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.j256.ormlite.android.*;
-import com.j256.ormlite.dao.*;
-import com.j256.ormlite.support.*;
-import com.koushikdutta.async.future.*;
-import com.koushikdutta.ion.*;
+import com.j256.ormlite.android.AndroidConnectionSource;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.support.ConnectionSource;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.res.*;
-import org.slf4j.*;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.text.*;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.activities.*;
-import de.ironjan.mensaupb.helpers.*;
-import de.ironjan.mensaupb.persistence.*;
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.activities.Menus;
+import de.ironjan.mensaupb.helpers.DateHelper;
+import de.ironjan.mensaupb.persistence.DatabaseHelper;
+import de.ironjan.mensaupb.persistence.DatabaseManager;
+import de.ironjan.mensaupb.stw.Badge;
+import de.ironjan.mensaupb.stw.NewAllergen;
+import de.ironjan.mensaupb.stw.PriceType;
+import de.ironjan.mensaupb.stw.RawMenu;
+import de.ironjan.mensaupb.stw.RestaurantHelper;
 
 @EFragment(R.layout.fragment_menu_detail)
 public class MenuDetailFragment extends Fragment {
@@ -36,7 +49,7 @@ public class MenuDetailFragment extends Fragment {
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
     @SuppressWarnings("WeakerAccess")
     @ViewById
-    TextView textName, textCategory, textAllergens, textPrice, textRestaurant, textDate, textBadges, textDescription;
+    TextView textName, textCategory, textAllergensHeader, textAllergens, textPrice, textRestaurant, textDate, textBadges, textDescription;
     @SuppressWarnings("WeakerAccess")
     @ViewById
     ImageView image;
@@ -175,19 +188,39 @@ public class MenuDetailFragment extends Fragment {
     }
 
     private void bindAllergens(RawMenu rawMenu) {
+        NewAllergen[] allergens = rawMenu.getAllergens();
+
+        if (allergens == null || allergens.length == 0) {
+            hideAllergenList();
+        } else {
+            showAllergensList(allergens);
+        }
+
+    }
+
+    private void showAllergensList(NewAllergen[] allergens) {
         boolean notFirst = false;
-        for (NewAllergen allergen : rawMenu.getAllergens()) {
+        StringBuffer allergensListAsStringBuffer = new StringBuffer();
+        for (NewAllergen allergen : allergens) {
             if (allergen != null) {
                 if (notFirst) {
-                    textAllergens.append("\n");
+                    allergensListAsStringBuffer.append("\n");
                 } else {
                     notFirst = true;
                 }
                 int stringId = allergen.getStringId();
                 String string = getResources().getString(stringId);
-                textAllergens.append(string);
+                allergensListAsStringBuffer.append(string);
             }
         }
+        textAllergens.setText(allergensListAsStringBuffer.toString());
+        textAllergens.setVisibility(View.VISIBLE);
+        textAllergensHeader.setVisibility(View.VISIBLE);
+    }
+
+    private void hideAllergenList() {
+        textAllergens.setVisibility(View.GONE);
+        textAllergensHeader.setVisibility(View.GONE);
     }
 
     /**

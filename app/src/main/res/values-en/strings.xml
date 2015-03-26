@@ -59,4 +59,5 @@ The following Open Source libraries are used:</string>
     <string name="noMenusToday">Today, there\'s nothing to eat in this restaurant. </string>
     <string name="acceptableAllergens">Acceptable Allergens</string>
     <string name="acceptableAdditionals">Acceptable Additionals</string>
+    <string name="allergensHintAtSTW">Please inform yourself about allergens and additionals on the Studentenwerk\' internet page and at the counter!</string>
 </resources>

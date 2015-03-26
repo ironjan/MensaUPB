@@ -1,18 +1,18 @@
 package de.ironjan.mensaupb.stw;
 
-import com.fasterxml.jackson.databind.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import org.slf4j.*;
+import org.slf4j.LoggerFactory;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.stw.deserializer.*;
+import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.stw.deserializer.AllergenDeserializer;
 
 /**
  * Rewrite of the Allergen class
  */
 @SuppressWarnings("MagicNumber")
 @JsonDeserialize(using = AllergenDeserializer.class)
-public enum NewAllergen {
+public enum NewAllergen implements Comparable<NewAllergen> {
     UNKNOWN(0, "", R.string.empty),
     COLORED(1, Constants.COLORED, R.string.colored),
     CONSERVED(2, Constants.CONSERVED, R.string.conserved),
@@ -52,11 +52,6 @@ public enum NewAllergen {
         this.ordinal = ordinal;
         this.type = type;
         this.stringResourceID = stringResourceID;
-    }
-
-    @Override
-    public String toString() {
-        return type;
     }
 
     /**
@@ -131,6 +126,11 @@ public enum NewAllergen {
         return UNKNOWN;
     }
 
+    @Override
+    public String toString() {
+        return type;
+    }
+
     public String getType() {
         return type;
     }
@@ -142,6 +142,7 @@ public enum NewAllergen {
     public int getStringId() {
         return stringResourceID;
     }
+
 
     private static class Constants {
         public static final String COLORED = "1";
@@ -174,4 +175,6 @@ public enum NewAllergen {
         public static final String GLUTEN = "A1";
         public static final String PEANUTS = "A5";
     }
+
+
 }
