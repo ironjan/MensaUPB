@@ -12,9 +12,12 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.prefs.AllergenFilterPrefs_;
 import de.ironjan.mensaupb.stw.RawMenu;
 import de.ironjan.mensaupb.sync.MenuContentProvider;
 import de.ironjan.mensaupb.views.MenuListingHeaderView;
@@ -40,6 +43,7 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
     private static final int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
     private final String mDate;
     private final String mLocation;
+    private final AllergenFilterPrefs_ mAllergenFilterPrefs;
     private String[] listProjection = PROJECTION;
 
     public MenuListingAdapter(Context context, String argDate, String argLocation) {
@@ -48,6 +52,7 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
         this.mContext = context;
         this.mDate = argDate;
         this.mLocation = argLocation;
+        mAllergenFilterPrefs = new AllergenFilterPrefs_(context);
     }
 
 
@@ -59,13 +64,39 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
 
         final Uri menuUri;
         menuUri = MenuContentProvider.MENU_URI;
-        // todo fetch filtered allergens and combine them to query
-        String selection = MENU_SELECTION;
-//        + " AND NOT (" + RawMenu.ALLERGENS + " LIKE '%;A3;%'" +
-//                "OR "  + RawMenu.ALLERGENS +  " LIKE '%;13;%')";
-        // example: eggs, caffeine
+
+
+        String selection = buildFilteredSelection();
         return new CursorLoader(mContext,
                 menuUri, projection, selection, selectionArgs, null);
+    }
+
+    private String buildFilteredSelection() {
+        Set<String> filtered = new HashSet<>();
+        filtered.addAll(mAllergenFilterPrefs.filteredAllergens().getOr(new HashSet<String>()));
+        filtered.addAll(mAllergenFilterPrefs.filteredAdditionals().getOr(new HashSet<String>()));
+
+        final String returnValue;
+        if (filtered.size() == 0) {
+            returnValue = MENU_SELECTION;
+        } else {
+
+            StringBuffer filteredSelection = new StringBuffer(" AND NOT (");
+            boolean isFirst = true;
+            for (String type : filtered) {
+                if (isFirst) {
+                    isFirst = !isFirst;
+                } else {
+                    filteredSelection.append(" OR ");
+                }
+                filteredSelection.append(RawMenu.ALLERGENS + " LIKE '%;" + type + ";%'");
+            }
+            filteredSelection.append(")");
+
+            returnValue = MENU_SELECTION + filteredSelection.toString();
+        }
+        System.out.println();
+        return returnValue;
     }
 
     @Override
