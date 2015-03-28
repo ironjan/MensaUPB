@@ -1,5 +1,4 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,44 +12,34 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textSourceLabel"
+            android:id="@+id/txtAbout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/elementMargin"
-            android:text="@string/source"/>
-
-        <TextView
-            android:id="@+id/textSourceLink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textSourceLabel"
-            android:layout_marginLeft="@dimen/elementMargin"
-            android:layout_marginStart="@dimen/elementMargin"
-            android:layout_toEndOf="@+id/textSourceLabel"
-            android:layout_toRightOf="@+id/textSourceLabel"
-            android:singleLine="true"
-            android:text="@string/srcLink"/>
-
-        <TextView
-            android:id="@+id/txtAbout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textSourceLabel"
             android:layout_marginTop="@dimen/elementMarginBig"
-            android:text="@string/aboutText"/>
+            android:text="@string/aboutText" />
 
+
+        <TextView
+            android:id="@+id/textSource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtAbout"
+            android:layout_marginTop="@dimen/elementMargin"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/source" />
 
         <TextView
             android:id="@+id/txtOpenSourceHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtAbout"
+            android:layout_below="@+id/textSource"
             android:layout_marginTop="@dimen/elementMargin"
             android:text="@string/about_open_source"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
         <TextView
@@ -67,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtDependencies"
             android:layout_margin="@dimen/elementMargin"
-            android:text="@string/dependencyNames"/>
+            android:text="@string/dependencyNames" />
 
         <TextView
             android:id="@+id/txtDevHeader"
@@ -76,13 +65,15 @@
             android:layout_below="@+id/txtDependencyNames"
             android:layout_marginTop="@dimen/elementMargin"
             android:text="@string/devHeader"
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/txtDevNames"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtDevHeader"
-            android:text="@string/devNames"/>
+            android:layout_marginBottom="@dimen/elementMargin"
+            android:layout_marginTop="@dimen/elementMargin"
+            android:text="@string/devNames" />
     </RelativeLayout>
 </ScrollView>

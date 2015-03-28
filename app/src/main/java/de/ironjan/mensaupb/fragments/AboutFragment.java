@@ -36,8 +36,8 @@ public class AboutFragment extends Fragment {
     @FromHtml(R.string.dependencyNames)
     TextView mTxtDependencyNames;
 
-    @ViewById(R.id.textSourceLink)
-    @FromHtml(R.string.srcLink)
+    @ViewById(R.id.textSource)
+    @FromHtml(R.string.source)
     TextView mTextSourceLink;
 
 
