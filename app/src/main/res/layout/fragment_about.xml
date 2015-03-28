@@ -3,35 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/elementMargin"
     tools:context="de.ironjan.mensaupb.AboutFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/elementMargin"
+        android:layout_marginRight="@dimen/elementMargin"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/txtAppVersionHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/elementMargin"
-            android:text="@string/versionLabel"/>
-
-        <TextView
-            android:id="@+id/txtAppVersion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/txtAppVersionHeader"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@+id/txtAppVersionHeader"/>
 
         <TextView
             android:id="@+id/textSourceLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txtAppVersionHeader"
-            android:layout_marginTop="8dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/elementMargin"
             android:text="@string/source"/>
 
         <TextView
@@ -39,39 +27,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/textSourceLabel"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="@dimen/elementMargin"
+            android:layout_marginStart="@dimen/elementMargin"
+            android:layout_toEndOf="@+id/textSourceLabel"
             android:layout_toRightOf="@+id/textSourceLabel"
+            android:singleLine="true"
             android:text="@string/srcLink"/>
 
         <TextView
             android:id="@+id/txtAbout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textSourceLabel"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/elementMarginBig"
             android:text="@string/aboutText"/>
 
 
         <TextView
             android:id="@+id/txtOpenSourceHeader"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtAbout"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/elementMargin"
             android:text="@string/about_open_source"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 
         <TextView
             android:id="@+id/txtDependencies"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtOpenSourceHeader"
-            android:layout_marginTop="@dimen/elementMargin"/>
+            android:layout_marginTop="@dimen/elementMargin"
+            android:text="@string/dependencies" />
 
         <TextView
             android:id="@+id/txtDependencyNames"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtDependencies"
             android:layout_margin="@dimen/elementMargin"
@@ -79,16 +71,16 @@
 
         <TextView
             android:id="@+id/txtDevHeader"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtDependencyNames"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/elementMargin"
             android:text="@string/devHeader"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/txtDevNames"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtDevHeader"
             android:text="@string/devNames"/>

@@ -17,6 +17,8 @@
         <item name="android:textColor">@color/material_text_primary</item>
 
         <item name="android:textColorLink">@color/material_primary_dark</item>
+
+        <item name="android:maxEms">60</item>
     </style>
 
 </resources>

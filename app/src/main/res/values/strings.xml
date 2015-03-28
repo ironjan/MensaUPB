@@ -53,6 +53,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="nameCafete" translatable="false">Caféte</string>
     <string name="srcLink" translatable="false">&lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/>www.studentenwerk-pb.de&lt;/a></string>
 
+
     <string name="empty" translatable="false"/>
     <string name="colored">Farbstoffe</string>
     <string name="conserved">Konservierungsstoffe</string>

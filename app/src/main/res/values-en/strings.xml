@@ -14,7 +14,7 @@
 The Studentenwerk Paderborn provides an API to access the menu data. More information on &lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/">hier&lt;/a>&lt;br>
 &lt;br>
 The following Open Source libraries are used:</string>
-    <string name="aboutText"><![CDATA[MensaUPB is a rewrite of <a href="https://plus.google.com/112214633916360855280">David Maicher\'s</a> and <a href="https://plus.google.com/104836562609964067147">Tony Lemke\'s</a> app "MensaUPB".<br> This app shows the menus for the Stuendenwerk\'s restaurants. In the original version, a "secret" XML was downloaded and cached. The Studentenwerk did not allow to distribute the original app. Luckily, the Studentenwerk\'s postition changed and now there\'s an API to access the menu data. Therefore the app had to be rewritten from the scratch — and finally is available in the PlayStore again.]]></string>
+    <string name="aboutText"><![CDATA[MensaUPB is a rewrite of <a href="https://plus.google.com/112214633916360855280">David Maicher\'s</a> and <a href="https://plus.google.com/104836562609964067147">Tony Lemke\'s</a> app "MensaUPB".<br> This app shows the menus for the Studendenwerk\'s restaurants. In the original version, a "secret" XML was downloaded and cached. The Studentenwerk did not allow to distribute the original app. Luckily, the Studentenwerk\'s postition changed and now there\'s an API to access the menu data. Therefore the app had to be rewritten from the scratch — and finally is available in the PlayStore again.]]></string>
     <string name="allergensHeader">Allergens and additives</string>
     <string name="campusMensae">Campus Mensae</string>
 
