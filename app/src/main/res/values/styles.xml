@@ -16,6 +16,24 @@
 
         <item name="android:textColorLink">@color/material_primary_dark</item>
 
-        <item name="android:maxEms">60</item>
     </style>
+
+    <style name="TextBody" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:maxEms">60</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+
+    <style name="TextHeadline" parent="Base.TextAppearance.AppCompat.Headline">
+        <item name="android:height">72dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextTitle" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextSubhead" parent="Base.TextAppearance.AppCompat.Subhead" />
+
+    <style name="TextCaption" parent="Base.TextAppearance.AppCompat.Caption" />
 </resources>

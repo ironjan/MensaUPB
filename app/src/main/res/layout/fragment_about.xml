@@ -13,12 +13,13 @@
 
         <TextView
             android:id="@+id/txtAbout"
+            style="@style/TextBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/elementMarginBig"
+            android:layout_marginTop="@dimen/elementMarginSmall"
             android:text="@string/aboutText" />
 
 
@@ -34,16 +35,17 @@
 
         <TextView
             android:id="@+id/txtOpenSourceHeader"
+            style="@style/TextSubhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textSource"
             android:layout_marginTop="@dimen/elementMargin"
-            android:text="@string/about_open_source"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:text="@string/about_open_source" />
 
 
         <TextView
             android:id="@+id/txtDependencies"
+            style="@style/TextBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtOpenSourceHeader"
@@ -52,6 +54,7 @@
 
         <TextView
             android:id="@+id/txtDependencyNames"
+            style="@style/TextBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtDependencies"
@@ -60,6 +63,7 @@
 
         <TextView
             android:id="@+id/txtDevHeader"
+            style="@style/TextSubhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtDependencyNames"
@@ -69,6 +73,7 @@
 
         <TextView
             android:id="@+id/txtDevNames"
+            style="@style/TextBody"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txtDevHeader"
