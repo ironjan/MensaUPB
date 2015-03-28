@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="GreenTheme" parent="MaterialTheme" />
-
-    <style name="MaterialTheme" parent="Theme.AppCompat.Light">
+    <style name="GreenTheme" parent="Theme.AppCompat.Light">
         <item name="android:colorPrimary" tools:ignore="NewApi">@color/material_primary</item>
         <item name="colorPrimary">@color/material_primary</item>
 
@@ -20,5 +18,4 @@
 
         <item name="android:maxEms">60</item>
     </style>
-
 </resources>
