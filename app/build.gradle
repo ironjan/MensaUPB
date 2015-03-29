@@ -1,7 +1,11 @@
-def versionMajor = 2 // incompatible API changes
-def versionMinor = 14 // added functionality in a backwards-compatible manner
-def versionPatch = 0 // backwards-compatible bug fixes
-def versionBuild = 0 // bump for dogfood builds, public betas, etc.
+// incompatible API changes
+def versionMajor = 2
+// added functionality in a backwards-compatible manner, must be <=99
+def versionMinor = 15
+// backwards-compatible bug fixes, must be <=99
+def versionPatch = 0
+// bump for dogfood builds, public betas, etc., must be <=99
+def versionBuild = 0
 
 
 apply plugin: 'com.android.application'
