@@ -46,6 +46,7 @@ import de.ironjan.mensaupb.stw.RestaurantHelper;
 public class MenuDetailFragment extends Fragment {
 
     public static final String ARG_ID = "ARG_ID";
+    public static final String URI_NO_IMAGE_FILE = "file:///android_asset/menu_has_no_image.png";
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
     @SuppressWarnings("WeakerAccess")
     @ViewById
@@ -229,23 +230,26 @@ public class MenuDetailFragment extends Fragment {
      * @param rawMenu The menu to load a image for
      */
     private void loadImage(RawMenu rawMenu) {
+
+        final String uri;
         if (!TextUtils.isEmpty(rawMenu.getImage())) {
-            Ion.with(image)
-                    .load(rawMenu.getImage())
-                    .setCallback(new FutureCallback<ImageView>() {
-                        @Override
-                        public void onCompleted(Exception e, ImageView result) {
-                            if (e != null) {
-                                e.printStackTrace();
-                                image.setVisibility(View.GONE);
-                            }
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
+            uri = rawMenu.getImage();
         } else {
-            image.setVisibility(ImageView.GONE);
-            progressBar.setVisibility(View.GONE);
+            uri = URI_NO_IMAGE_FILE;
         }
+
+        Ion.with(image)
+                .load(uri)
+                .setCallback(new FutureCallback<ImageView>() {
+                    @Override
+                    public void onCompleted(Exception e, ImageView result) {
+                        if (e != null) {
+                            LOGGER.error(e.getMessage(), e);
+                            Ion.with(image).load(URI_NO_IMAGE_FILE);
+                        }
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
     }
 
     public void addExtrasTo(Intent intent) {
