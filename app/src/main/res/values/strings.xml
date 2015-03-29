@@ -31,7 +31,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
  * &lt;a href="http://android-holo-colors.com/">android-holo-colors&lt;/a>
     </string>
     <!--menu-->
-    <string name="source">Quelle:</string>
+    <string name="source">&lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/>Quelle der Speisepläne: Studentenwerk Paderborn&lt;/a></string>
     <string name="about">Über die App</string>
     <string name="menusLoading1">Speisepläne werden geladen. Dies könnte beim ersten Start einige Minuten dauern.</string>
     <string name="menusLoading2">Die Pläne werden jedoch auf dem Gerät gespeichert - beim nächsten Mal sind sie sofort verfügbar ;)\n
@@ -51,7 +51,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="nameBistroHotspot" translatable="false">Bistro Hotspot</string>
     <string name="nameGrillCafe" translatable="false">Grill | Café</string>
     <string name="nameCafete" translatable="false">Caféte</string>
-    <string name="srcLink" translatable="false">&lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/>www.studentenwerk-pb.de&lt;/a></string>
+
 
     <string name="empty" translatable="false"/>
     <string name="colored">Farbstoffe</string>
@@ -93,7 +93,8 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="versionLabel">Version:</string>
     <string name="nothingToEatText">Heute gibt es hier nichts zu essen.\nIst die Einrichtung vielleicht geschlossen?</string>
     <string name="noMenusToday">Heute gibt es hier nichts zu essen. </string>
-    <string name="acceptableAllergens">Verträgliche Allergene</string>
-    <string name="acceptableAdditionals">Verträgliche Zusatzstoffe</string>
+    <string name="unacceptableAllergens">Allergene ausschließen</string>
+    <string name="unacceptableAdditionals">Zusatzstoffe ausschließen</string>
+    <string name="allergensHintAtSTW">Bitte informiere dich ebenfalls auf den Seiten des Studentenwerks und am Ausgabeschalter vor Ort bezüglich enthaltener Allergene und Zusatzstoffe!</string>
 
 </resources>

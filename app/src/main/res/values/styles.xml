@@ -1,34 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="GreenTheme" parent="AndroidHoloColorsTheme">
-        <item name="selectableItemBackground">@drawable/selectable_bg</item>
-        <item name="android:selectableItemBackground" tools:ignore="NewApi">
-            @drawable/selectable_bg
+    <style name="GreenTheme" parent="Theme.AppCompat.Light">
+        <item name="android:colorPrimary" tools:ignore="NewApi">@color/material_primary</item>
+        <item name="colorPrimary">@color/material_primary</item>
+
+        <item name="android:colorPrimaryDark" tools:ignore="NewApi">@color/material_primary_dark
         </item>
+        <item name="colorPrimaryDark">@color/material_primary_dark</item>
 
+        <item name="android:colorAccent" tools:ignore="NewApi">@color/material_accent</item>
+        <item name="colorAccent">@color/material_accent</item>
 
-        <item name="dropDownListViewStyle">@style/MyDropDownListView</item>
-        <item name="android:dropDownListViewStyle">@style/MyDropDownListView</item>
+        <item name="android:textColor">@color/material_text_primary</item>
 
-        <item name="actionDropDownStyle">@style/MyDropDownNav</item>
-        <item name="android:actionDropDownStyle" tools:ignore="NewApi">@style/MyDropDownNav</item>
+        <item name="android:textColorLink">@color/material_primary_dark</item>
 
-        <item name="android:textColorLink">@color/linkTextColor</item>
     </style>
 
-    <!--based on http://android-developers.blogspot.de/2011/04/customizing-action-bar.html-->
-    <!-- style the list navigation -->
-    <style name="MyDropDownNav" parent="Widget.AppCompat.Spinner.DropDown.ActionBar">
-        <item name="android:background">@drawable/apptheme_spinner_background_holo_light</item>
-        <item name="android:dropDownSelector">@drawable/selectable_bg</item>
+    <style name="TextBody" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:maxEms">60</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
     </style>
 
-
-    <!-- style the items within the overflow menu -->
-    <style name="MyDropDownListView" parent="Widget.AppCompat.ListView.DropDown">
-        <item name="android:listSelector">@drawable/selectable_bg</item>
+    <style name="TextHeadline" parent="Base.TextAppearance.AppCompat.Headline">
+        <item name="android:height">72dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
     </style>
 
+    <style name="TextTitle" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
 
+    <style name="TextSubtitle" parent="TextSubhead">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="TextSubhead" parent="Base.TextAppearance.AppCompat.Subhead">
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TextCaption" parent="Base.TextAppearance.AppCompat.Caption">
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
 </resources>

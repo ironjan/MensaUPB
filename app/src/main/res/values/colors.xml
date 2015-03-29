@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#000</color>
-    <color name="white">#fff</color>
-    <color name="transparent">#00ffffff</color>
-    <color name="cardShadow">#ccc</color>
-    <color name="backgroundBehindCards">#eee</color>
-    <color name="backgroundCards">#eee</color>
-    <color name="greenBase">@color/lime_600</color>
-    <color name="textDarkGreen">@color/lime_700</color>
-    <color name="iconBg">@color/lime_600</color>
-    <color name="pressedSelectable">@color/lime_600</color>
-    <color name="focusedSelectable">@color/lime_600</color>
-    <color name="linkTextColor">@color/lime_700</color>
-
-    <color name="lime_600">#C0CA33</color>
+    <color name="lime_500">#CDDC39</color>
     <color name="lime_700">#AFB42B</color>
-    <color name="purple_A200">#E040FB</color>
-    <color name="material_primary">@color/lime_600</color>
-    <color name="material_primary_dark">@color/lime_700</color>
-    <color name="material_accent">@color/purple_A200</color>
+    <color name="orange_a400">#FF9100</color>
 
+    <color name="material_primary">@color/lime_500</color>
+    <color name="material_primary_dark">@color/lime_700</color>
+    <color name="material_accent">@color/orange_a400</color>
+
+    <color name="material_background_light_primary">#F0F4C3</color>
+    <color name="material_background_light_secondary">#bfc29b</color>
+    <color name="material_text_primary">#212121</color>
+    <color name="material_text_secondary">#727272</color>
+    <color name="material_divider">#b6b6b6</color>
+
+    <color name="textDarkGreen">@color/material_primary_dark</color>
+    <color name="iconBg">@color/material_primary</color>
+    <color name="pressedSelectable">@color/material_primary_dark</color>
+    <color name="focusedSelectable">@color/material_primary_dark</color>
+    <color name="linkTextColor">@color/material_primary_dark</color>
 </resources>

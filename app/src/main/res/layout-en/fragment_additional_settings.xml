@@ -22,7 +22,7 @@
             android:layout_gravity="center_vertical"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@string/acceptableAdditionals"
+            android:text="@string/unacceptableAdditionals"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/textDarkGreen"
             android:textSize="14sp"

@@ -15,6 +15,7 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.Trace;
@@ -24,13 +25,10 @@ import org.androidannotations.annotations.res.StringArrayRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
-
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.adapters.WeekdayHelper;
 import de.ironjan.mensaupb.adapters.WeekdayPagerAdapter;
-import de.ironjan.mensaupb.helpers.DateHelper;
 import de.ironjan.mensaupb.sync.AccountCreator;
 
 @SuppressWarnings("WeakerAccess")
@@ -60,36 +58,20 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     AccountCreator mAccountCreator;
     @Extra(value = KEY_RESTAURANT)
     String restaurant = null;
+    @InstanceState
+    int mLocation = 0;
+    @InstanceState
+    int mDayOffset = 0;
     private WeekdayPagerAdapter[] adapters;
     private WeekdayPagerAdapter mWeekdayPagerAdapter;
-    private int mLocation = 0;
-    private int mDayOffset = 0;
 
     @Trace
     @AfterViews
     @Background
     void init() {
-        if (dateAsString != null) {
-            Date date = DateHelper.toDate(dateAsString);
-            mDayOffset = DateHelper.computeDayOffset(date);
-        }
-        if (restaurant != null) {
-            mLocation = findLocationId(restaurant);
-        }
-        LOGGER.warn("Extras: location={}, dayOffset={}", mLocation, mDayOffset);
         initPager();
         initActionBar();
     }
-
-    private int findLocationId(String restaurant) {
-        for (int i = 0; i < mRestaurants.length; i++) {
-            if (restaurant.equals(mRestaurants[i])) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
 
     @Trace
     @UiThread
@@ -184,11 +166,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @OptionsItem(R.id.ab_about)
     void aboutClicked() {
         About_.intent(this).start();
-    }
-
-    // @OptionsItem(R.id.ab_settings)
-    void settingsClicked() {
-        Settings_.intent(this).start();
     }
 
 }

@@ -1,63 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selectable_list_item"
-                android:minHeight="48dp"
-                android:paddingLeft="@dimen/elementMargin"
-                android:paddingRight="@dimen/elementMargin"
-                android:paddingTop="@dimen/elementMargin">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selectable_list_item"
+    android:minHeight="@dimen/elementMinHeight"
+    android:paddingLeft="@dimen/elementMargin"
+    android:paddingRight="@dimen/elementMargin"
+    android:paddingTop="@dimen/elementMargin">
 
 
     <TextView
         android:id="@+id/textName"
+        style="@style/TextSubhead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros"
-        />
+        tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros" />
 
 
     <TextView
         android:id="@+id/textPrice"
+        style="@style/TextCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/textName"
-        android:layout_marginBottom="8dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/secondary_text_default_material_light"
-        tools:text="1,20€"/>
+        android:layout_marginBottom="@dimen/elementMargin"
+        tools:text="1,20€" />
 
     <TextView
         android:id="@+id/textPricePer100g"
+        style="@style/TextCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textPrice"
         android:layout_below="@+id/textName"
-        android:layout_marginRight="16dp"
+        android:layout_toEndOf="@id/textPrice"
         android:layout_toLeftOf="@+id/textBadges"
         android:layout_toRightOf="@+id/textPrice"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/secondary_text_default_material_light"
-        tools:text="/100g"/>
+        android:layout_toStartOf="@+id/textBadges"
+        tools:text="/100g" />
 
     <TextView
         android:id="@+id/textBadges"
+        style="@style/TextCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textName"
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/secondary_text_default_material_light"
-        tools:text="badges"/>
+        android:layout_marginBottom="@dimen/elementMargin"
+        tools:text="badges" />
 
 </RelativeLayout>

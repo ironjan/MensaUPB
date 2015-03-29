@@ -1,23 +1,26 @@
 package de.ironjan.mensaupb.adapters;
 
 
-import android.content.*;
-import android.database.*;
-import android.net.*;
-import android.os.*;
-import android.provider.*;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.*;
-import android.view.*;
+import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.View;
+import android.view.ViewGroup;
 
-import java.util.*;
+import java.util.Locale;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.stw.*;
-import de.ironjan.mensaupb.sync.*;
-import de.ironjan.mensaupb.views.*;
-import se.emilsjolander.stickylistheaders.*;
+import de.ironjan.mensaupb.prefs.AllergenFilterPrefs_;
+import de.ironjan.mensaupb.stw.RawMenu;
+import de.ironjan.mensaupb.sync.MenuContentProvider;
+import de.ironjan.mensaupb.views.MenuListingHeaderView;
+import de.ironjan.mensaupb.views.MenuListingHeaderView_;
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
  * An adapter to load the list of menus for a MenuListingFragment.
@@ -33,13 +36,13 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
             RawMenu.NAME_EN, // 5
             RawMenu.CATEGORY_EN, // 6
             BaseColumns._ID}; // 7
-    private String[] listProjection = PROJECTION;
     public static final int CATEGORY_EN_INDEX = 6, CATEGORY_DE_INDEX = 4, NAME_EN_INDEX = 5, NAME_DE_INDEX = 0;
-
     private static final String MENU_SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " LIKE ?";
     private static final int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
     private final String mDate;
     private final String mLocation;
+    private final AllergenFilterPrefs_ mAllergenFilterPrefs;
+    private String[] listProjection = PROJECTION;
 
     public MenuListingAdapter(Context context, String argDate, String argLocation) {
         super(context, R.layout.view_menu_list_item,
@@ -47,6 +50,7 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
         this.mContext = context;
         this.mDate = argDate;
         this.mLocation = argLocation;
+        mAllergenFilterPrefs = new AllergenFilterPrefs_(context);
     }
 
 
@@ -58,6 +62,8 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
 
         final Uri menuUri;
         menuUri = MenuContentProvider.MENU_URI;
+
+
         return new CursorLoader(mContext,
                 menuUri, projection, MENU_SELECTION, selectionArgs, null);
     }

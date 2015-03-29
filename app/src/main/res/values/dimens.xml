@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="elementMargin">8dp</dimen>
-    <dimen name="elementMinHeight">48dp</dimen>
+    <dimen name="elementMarginSmall">8dp</dimen>
+    <dimen name="elementMargin">16dp</dimen>
+    <dimen name="elementMarginBig">72dp</dimen>
+    <dimen name="elementMinHeight">72dp</dimen>
+    <dimen name="elementMinHeightSmall">48dp</dimen>
 </resources>

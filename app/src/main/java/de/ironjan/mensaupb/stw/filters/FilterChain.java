@@ -1,10 +1,12 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.RawMenu;
 
 /**
  * A filter chain, invoking all filters.
@@ -15,7 +17,8 @@ public class FilterChain implements Filter {
             new NameFilter(),
             new CategoryFilter(),
             new AllergenFilter(),
-            new AwkwardTranslationFilter()
+            new AwkwardTranslationFilter(),
+            new SortingFilter()
     };
 
     @Override

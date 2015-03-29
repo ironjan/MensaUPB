@@ -1,7 +1,11 @@
-def versionMajor = 2 // incompatible API changes
-def versionMinor = 13 // added functionality in a backwards-compatible manner
-def versionPatch = 3 // backwards-compatible bug fixes
-def versionBuild = 0 // bump for dogfood builds, public betas, etc.
+// incompatible API changes
+def versionMajor = 2
+// added functionality in a backwards-compatible manner, must be <=99
+def versionMinor = 15
+// backwards-compatible bug fixes, must be <=99
+def versionPatch = 0
+// bump for dogfood builds, public betas, etc., must be <=99
+def versionBuild = 0
 
 
 apply plugin: 'com.android.application'
@@ -83,7 +87,7 @@ dependencies {
     compile 'org.androidannotations:androidannotations-api:3.2'
     compile 'com.noveogroup.android:android-logger:1.3.4'
     compile 'se.emilsjolander:stickylistheaders:2.5.2'
-    compile 'com.koushikdutta.ion:ion:2.0.0'
+    compile 'com.koushikdutta.ion:ion:2.1.3'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.2'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
     compile 'com.fasterxml.jackson.core:jackson-core:2.4.2'
