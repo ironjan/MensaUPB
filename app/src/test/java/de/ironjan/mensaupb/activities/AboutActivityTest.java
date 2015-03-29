@@ -70,18 +70,18 @@ public class AboutActivityTest {
     }
 
     @Test
-    public void test_LinkifyTextSourceLink() {
+    public void test_LinkifyTextSource() {
         ActivityController controller = Robolectric.buildActivity(About_.class).create().start();
         Activity activity = (Activity) controller.get();
         Assert.assertNotNull(activity);
 
-        TextView textSourceLink = (TextView) activity.findViewById(R.id.textSourceLink);
-        Assert.assertNotNull(textSourceLink);
+        TextView textSource = (TextView) activity.findViewById(R.id.textSource);
+        Assert.assertNotNull(textSource);
 
-        MovementMethod movementMethod = textSourceLink.getMovementMethod();
+        MovementMethod movementMethod = textSource.getMovementMethod();
         boolean isLinkMovementMethod = (movementMethod instanceof LinkMovementMethod);
 
-        String message = "TextView textSourceLink is not LinkMovementMethod.";
+        String message = "TextView textSource is not LinkMovementMethod.";
         Assert.assertTrue(message, isLinkMovementMethod);
     }
 }
