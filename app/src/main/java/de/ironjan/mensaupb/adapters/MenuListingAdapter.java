@@ -12,9 +12,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.prefs.AllergenFilterPrefs_;
@@ -66,37 +64,8 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
         menuUri = MenuContentProvider.MENU_URI;
 
 
-        String selection = buildFilteredSelection();
         return new CursorLoader(mContext,
-                menuUri, projection, selection, selectionArgs, null);
-    }
-
-    private String buildFilteredSelection() {
-        Set<String> filtered = new HashSet<>();
-        filtered.addAll(mAllergenFilterPrefs.filteredAllergens().getOr(new HashSet<String>()));
-        filtered.addAll(mAllergenFilterPrefs.filteredAdditionals().getOr(new HashSet<String>()));
-
-        final String returnValue;
-        if (filtered.size() == 0) {
-            returnValue = MENU_SELECTION;
-        } else {
-
-            StringBuffer filteredSelection = new StringBuffer(" AND NOT (");
-            boolean isFirst = true;
-            for (String type : filtered) {
-                if (isFirst) {
-                    isFirst = !isFirst;
-                } else {
-                    filteredSelection.append(" OR ");
-                }
-                filteredSelection.append(RawMenu.ALLERGENS + " LIKE '%;" + type + ";%'");
-            }
-            filteredSelection.append(")");
-
-            returnValue = MENU_SELECTION + filteredSelection.toString();
-        }
-        System.out.println();
-        return returnValue;
+                menuUri, projection, MENU_SELECTION, selectionArgs, null);
     }
 
     @Override

@@ -37,15 +37,6 @@ public class MenusActivityTest {
     }
 
     @Test
-    public void test_ClickOnAbSettingsOpensSettings() {
-        MenuItem item = new RoboMenuItem(R.id.ab_settings);
-        mActivity.onOptionsItemSelected(item);
-        Intent expectedIntent = new Intent(mActivity, Settings_.class);
-        Intent startedActivity = shadowOf(mActivity).getNextStartedActivity();
-        Assert.assertEquals(expectedIntent, startedActivity);
-    }
-
-    @Test
     public void test_ClickOnAbAboutOpensAbout() {
         MenuItem item = new RoboMenuItem(R.id.ab_about);
         mActivity.onOptionsItemSelected(item);

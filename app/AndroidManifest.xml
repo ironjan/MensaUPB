@@ -54,15 +54,6 @@
 
         </activity>
 
-        <activity
-            android:name=".activities.Settings_"
-            android:label="Einstellungen"
-            android:parentActivityName="de.ironjan.mensaupb.activities.Menus_">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ironjan.mensaupb.activities.Menus_" />
-        </activity>
-
         <!--sync-->
         <service android:name=".sync.AuthenticatorService">
             <intent-filter>
