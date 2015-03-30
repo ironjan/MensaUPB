@@ -1,8 +1,8 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import java.util.*;
+import java.util.List;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 
 /**
  * Interface for filter classes

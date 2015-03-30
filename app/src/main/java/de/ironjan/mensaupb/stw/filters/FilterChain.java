@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.ironjan.mensaupb.stw.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 
 /**
  * A filter chain, invoking all filters.

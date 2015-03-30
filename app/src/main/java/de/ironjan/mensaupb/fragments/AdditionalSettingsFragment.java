@@ -15,7 +15,7 @@ import java.util.Set;
 
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.prefs.AllergenFilterPrefs_;
-import de.ironjan.mensaupb.stw.NewAllergen;
+import de.ironjan.mensaupb.stw.rest_api.NewAllergen;
 
 /**
  * Fragment to change filter settings w.r.t allergens and additionals.

@@ -1,6 +1,6 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 
 /**
  * Filter to recategorize Pastavariation in Mensa Academice to receommendation.

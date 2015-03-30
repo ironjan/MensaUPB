@@ -1,11 +1,11 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.stw.rest_api;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.stw.deserializer.AllergenDeserializer;
+import de.ironjan.mensaupb.stw.rest_api.deserializer.AllergenDeserializer;
 
 /**
  * Rewrite of the Allergen class

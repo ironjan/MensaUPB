@@ -1,28 +1,40 @@
 package de.ironjan.mensaupb.sync;
 
-import android.accounts.*;
-import android.annotation.*;
-import android.content.*;
-import android.os.*;
+import android.accounts.Account;
+import android.annotation.TargetApi;
+import android.content.AbstractThreadedSyncAdapter;
+import android.content.ContentProviderClient;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SyncResult;
+import android.os.Build;
+import android.os.Bundle;
 
-import com.j256.ormlite.android.*;
-import com.j256.ormlite.dao.*;
-import com.j256.ormlite.stmt.*;
-import com.j256.ormlite.support.*;
+import com.j256.ormlite.android.AndroidConnectionSource;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.SelectArg;
+import com.j256.ormlite.support.ConnectionSource;
 
-import org.slf4j.*;
-import org.springframework.core.*;
-import org.springframework.web.client.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.NestedRuntimeException;
+import org.springframework.web.client.RestClientException;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.persistence.*;
-import de.ironjan.mensaupb.prefs.*;
-import de.ironjan.mensaupb.stw.*;
-import de.ironjan.mensaupb.stw.filters.*;
+import de.ironjan.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.adapters.WeekdayHelper_;
+import de.ironjan.mensaupb.persistence.DatabaseHelper;
+import de.ironjan.mensaupb.persistence.DatabaseManager;
+import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
+import de.ironjan.mensaupb.stw.filters.FilterChain;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper;
+import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper_;
 
 
 /**

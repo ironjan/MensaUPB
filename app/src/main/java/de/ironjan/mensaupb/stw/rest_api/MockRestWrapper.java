@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.stw.rest_api;
 
 /**
  * Mock implementation of StwRest to test without a secret STW url

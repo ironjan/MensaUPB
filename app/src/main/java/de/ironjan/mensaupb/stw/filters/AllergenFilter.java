@@ -1,10 +1,12 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Vector;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.rest_api.NewAllergen;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 
 /**
  * Filters allergens

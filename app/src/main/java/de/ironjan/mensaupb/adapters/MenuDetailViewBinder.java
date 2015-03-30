@@ -1,15 +1,17 @@
 package de.ironjan.mensaupb.adapters;
 
-import android.content.*;
-import android.content.res.*;
-import android.database.*;
-import android.view.*;
-import android.widget.*;
+import android.content.Context;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.view.View;
+import android.widget.TextView;
 
-import java.util.*;
+import java.util.Locale;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.stw.BadgesStringConverter;
+import de.ironjan.mensaupb.stw.rest_api.Badge;
+import de.ironjan.mensaupb.stw.rest_api.PriceType;
 
 /**
  * Binds raw menus to de.ironjan.mensaupb.R.layout.view_menu_list_item

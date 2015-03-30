@@ -36,11 +36,11 @@ import de.ironjan.mensaupb.activities.Menus;
 import de.ironjan.mensaupb.helpers.DateHelper;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
-import de.ironjan.mensaupb.stw.Badge;
-import de.ironjan.mensaupb.stw.NewAllergen;
-import de.ironjan.mensaupb.stw.PriceType;
-import de.ironjan.mensaupb.stw.RawMenu;
 import de.ironjan.mensaupb.stw.RestaurantHelper;
+import de.ironjan.mensaupb.stw.rest_api.Badge;
+import de.ironjan.mensaupb.stw.rest_api.NewAllergen;
+import de.ironjan.mensaupb.stw.rest_api.PriceType;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 
 @EFragment(R.layout.fragment_menu_detail)
 public class MenuDetailFragment extends Fragment {

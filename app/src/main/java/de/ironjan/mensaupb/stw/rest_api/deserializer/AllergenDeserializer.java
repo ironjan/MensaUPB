@@ -1,13 +1,16 @@
-package de.ironjan.mensaupb.stw.deserializer;
+package de.ironjan.mensaupb.stw.rest_api.deserializer;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.IOException;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.rest_api.NewAllergen;
 
 /**
  * A class to deserialize NewAllergens

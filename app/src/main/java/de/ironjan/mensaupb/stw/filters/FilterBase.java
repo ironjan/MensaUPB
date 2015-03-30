@@ -1,11 +1,12 @@
 package de.ironjan.mensaupb.stw.filters;
 
 
-import org.slf4j.*;
+import org.slf4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 
 /**
  * Base class that implements the list based filter method

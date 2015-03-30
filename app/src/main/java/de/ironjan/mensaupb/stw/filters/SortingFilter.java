@@ -1,6 +1,6 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import de.ironjan.mensaupb.stw.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 
 /**
  * Applies sort order values for menus.
@@ -34,20 +34,6 @@ public class SortingFilter extends FilterBase {
     private static final int SORT_GC_ABENDMENSA = 5;
     private static final int SORT_GC_CLASSICS_EVENING = 35;
     private static final int SORT_GC_SNACKS = 50;
-
-
-    @Override
-    public RawMenu filter(RawMenu menu) {
-        final String name_de = menu.getName_de();
-        final String categoryIdentifier = menu.getCategoryIdentifier();
-
-        int sortOrder = getSortOrder(name_de, categoryIdentifier);
-
-        RawMenu copy = menu.copy();
-        copy.setSortOrder(sortOrder);
-
-        return copy;
-    }
 
     static int getSortOrder(String name_de, String categoryIdentifier) {
         switch (categoryIdentifier) {
@@ -83,5 +69,18 @@ public class SortingFilter extends FilterBase {
             return SORT_PASTA;
         }
         return SORT_REST;
+    }
+
+    @Override
+    public RawMenu filter(RawMenu menu) {
+        final String name_de = menu.getName_de();
+        final String categoryIdentifier = menu.getCategoryIdentifier();
+
+        int sortOrder = getSortOrder(name_de, categoryIdentifier);
+
+        RawMenu copy = menu.copy();
+        copy.setSortOrder(sortOrder);
+
+        return copy;
     }
 }

@@ -1,22 +1,30 @@
 package de.ironjan.mensaupb.sync;
 
-import android.annotation.*;
-import android.content.*;
-import android.database.*;
-import android.database.sqlite.*;
-import android.net.*;
-import android.provider.*;
-import android.text.*;
+import android.annotation.SuppressLint;
+import android.content.ContentProvider;
+import android.content.ContentValues;
+import android.content.UriMatcher;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.net.Uri;
+import android.provider.BaseColumns;
+import android.text.TextUtils;
 
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.res.*;
-import org.slf4j.*;
+import org.androidannotations.annotations.EProvider;
+import org.androidannotations.annotations.res.StringRes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.persistence.*;
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.persistence.DatabaseHelper;
+import de.ironjan.mensaupb.persistence.DatabaseManager;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 
 /**
  * A content provider for the downloaded menu data.
@@ -33,13 +41,13 @@ public class MenuContentProvider extends ContentProvider {
     private static final int MENUS_MATCH = 1;
     private static final int SINGLE_MENUS_MATCH = 2;
     private static final UriMatcher sUriMatcher = new UriMatcher(0);
-    private final Logger LOGGER = LoggerFactory.getLogger(MenuContentProvider.class.getSimpleName());
 
     static {
         sUriMatcher.addURI(ProviderContract.AUTHORITY, MENUS_PATH, MENUS_MATCH);
         sUriMatcher.addURI(ProviderContract.AUTHORITY, SINGLE_MENUS_PATH, SINGLE_MENUS_MATCH);
     }
 
+    private final Logger LOGGER = LoggerFactory.getLogger(MenuContentProvider.class.getSimpleName());
     @StringRes(R.string.mensae)
     String mensaeString;
 

@@ -1,8 +1,8 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import android.text.*;
+import android.text.TextUtils;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 
 /**
  * A filter to replace an awkward translation

@@ -1,10 +1,11 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import android.text.*;
+import android.text.TextUtils;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 
 /**
  * Filters and corrects the names of the given menus

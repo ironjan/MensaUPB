@@ -1,19 +1,22 @@
 package de.ironjan.mensaupb.persistence;
 
-import android.content.*;
-import android.database.sqlite.*;
-import android.os.*;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 
-import com.j256.ormlite.android.apptools.*;
-import com.j256.ormlite.support.*;
-import com.j256.ormlite.table.*;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import java.sql.SQLException;
 
-import de.ironjan.mensaupb.stw.*;
-import de.ironjan.mensaupb.sync.*;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.sync.AccountCreator;
+import de.ironjan.mensaupb.sync.AccountCreator_;
 
 /**
  * Class to manage the underlying database scheme.

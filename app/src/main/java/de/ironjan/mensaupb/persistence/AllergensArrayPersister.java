@@ -10,7 +10,7 @@ import com.j256.ormlite.support.DatabaseResults;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-import de.ironjan.mensaupb.stw.NewAllergen;
+import de.ironjan.mensaupb.stw.rest_api.NewAllergen;
 
 /**
  * Created by ljan on 12.03.15.

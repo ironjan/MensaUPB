@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.stw.rest_api;
 
 import android.provider.BaseColumns;
 
@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import de.ironjan.mensaupb.persistence.AllergensArrayPersister;
+import de.ironjan.mensaupb.stw.BadgesStringConverter;
 
 /**
  * A class representing a raw menu with all possible information
@@ -90,15 +91,15 @@ public class RawMenu implements Cloneable {
     @DatabaseField(columnName = SORT_ORDER, defaultValue = "100")
     private int sortOrder = 100;
 
+    public RawMenu() {
+    }
+
     public int getSortOrder() {
         return sortOrder;
     }
 
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
-    }
-
-    public RawMenu() {
     }
 
     public long get_id() {

@@ -16,7 +16,7 @@ import java.util.Locale;
 
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.prefs.AllergenFilterPrefs_;
-import de.ironjan.mensaupb.stw.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.RawMenu;
 import de.ironjan.mensaupb.sync.MenuContentProvider;
 import de.ironjan.mensaupb.views.MenuListingHeaderView;
 import de.ironjan.mensaupb.views.MenuListingHeaderView_;
