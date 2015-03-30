@@ -1,6 +1,6 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
  * Applies sort order values for menus.
@@ -72,13 +72,13 @@ public class SortingFilter extends FilterBase {
     }
 
     @Override
-    public RawMenu filter(RawMenu menu) {
+    public StwMenu filter(StwMenu menu) {
         final String name_de = menu.getName_de();
         final String categoryIdentifier = menu.getCategoryIdentifier();
 
         int sortOrder = getSortOrder(name_de, categoryIdentifier);
 
-        RawMenu copy = menu.copy();
+        StwMenu copy = menu.copy();
         copy.setSortOrder(sortOrder);
 
         return copy;

@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
  * TestCase to test the PastavariationFilter.
@@ -27,20 +27,20 @@ public class PastavariationFilterTest {
 
     @org.junit.Test
     public void test_filterNullMenu() throws Exception {
-        RawMenu NULL_MENU = null;
-        RawMenu filtered = this.filter.filter(NULL_MENU);
+        StwMenu NULL_MENU = null;
+        StwMenu filtered = this.filter.filter(NULL_MENU);
         Assert.assertEquals(null, filtered);
     }
 
     @Test
     public void test_filterNonPastaMenu() throws Exception {
-        RawMenu nonPastaMenu = new RawMenu();
+        StwMenu nonPastaMenu = new StwMenu();
         nonPastaMenu.setName_de(NON_PASTA_NAME);
         nonPastaMenu.setCategoryIdentifier(CATEGORY_DESSERT);
         nonPastaMenu.setCategory_de(CATEGORY_DESSERT_DE_NAME);
         nonPastaMenu.setCategory_en(CATEGORY_DESSERT_EN_NAME);
 
-        RawMenu filtered = this.filter.filter(nonPastaMenu);
+        StwMenu filtered = this.filter.filter(nonPastaMenu);
         Assert.assertEquals(CATEGORY_DESSERT, filtered.getCategoryIdentifier());
         Assert.assertEquals(CATEGORY_DESSERT_DE_NAME, filtered.getCategory_de());
         Assert.assertEquals(CATEGORY_DESSERT_EN_NAME, filtered.getCategory_en());
@@ -48,13 +48,13 @@ public class PastavariationFilterTest {
 
     @Test
     public void test_filterPastaMenu() throws Exception {
-        RawMenu pastaMenu = new RawMenu();
+        StwMenu pastaMenu = new StwMenu();
         pastaMenu.setName_de(PASTA_VARIATION_NAME);
         pastaMenu.setCategoryIdentifier(CATEGORY_DESSERT);
         pastaMenu.setCategory_de(CATEGORY_DESSERT_DE_NAME);
         pastaMenu.setCategory_en(CATEGORY_DESSERT_EN_NAME);
 
-        RawMenu filtered = this.filter.filter(pastaMenu);
+        StwMenu filtered = this.filter.filter(pastaMenu);
         Assert.assertEquals(CATEGORY_DEFAULT, filtered.getCategoryIdentifier());
         Assert.assertEquals(CATEGORY_DEFAULT_DE_NAME, filtered.getCategory_de());
         Assert.assertEquals(CATEGORY_DEFAULT_EN_NAME, filtered.getCategory_en());

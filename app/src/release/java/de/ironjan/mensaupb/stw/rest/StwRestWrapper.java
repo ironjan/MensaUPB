@@ -24,7 +24,7 @@ public class StwRestWrapper implements StwRest {
     Context mContext;
 
     @Override
-    public RawMenu[] getMenus(String restaurant, String date) {
+    public StwMenu[] getMenus(String restaurant, String date) {
         if (BuildConfig.STW_URL.isEmpty()) {
             LOGGER.warn("STW_URL is empty. Mocking response for ({},{})", restaurant, date);
             return MockRestWrapper.getInstance().getMenus(restaurant, date);

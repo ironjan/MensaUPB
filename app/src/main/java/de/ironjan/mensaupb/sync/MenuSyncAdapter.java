@@ -32,7 +32,7 @@ import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.filters.FilterChain;
-import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper;
 import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper_;
 
@@ -127,7 +127,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         DatabaseHelper helper = (databaseManager.getHelper(getContext()));
         ConnectionSource connectionSource =
                 new AndroidConnectionSource(helper);
-        Dao<RawMenu, ?> dao = DaoManager.createDao(connectionSource, RawMenu.class);
+        Dao<StwMenu, ?> dao = DaoManager.createDao(connectionSource, StwMenu.class);
 
         String[] cachedDaysAsStrings = mWeekdayHelper.getCachedDaysAsStrings();
 
@@ -141,14 +141,14 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    void syncMenus(Dao<RawMenu, ?> dao, String restaurant, String date) throws java.sql.SQLException, RestClientException {
+    void syncMenus(Dao<StwMenu, ?> dao, String restaurant, String date) throws java.sql.SQLException, RestClientException {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("syncMenus(dao,{},{})", restaurant, date);
         }
 
-        RawMenu[] menus = downloadMenus(restaurant, date);
-        List<RawMenu> menuList = Arrays.asList(menus);
-        List<RawMenu> filteredList = filterChain.filter(menuList);
+        StwMenu[] menus = downloadMenus(restaurant, date);
+        List<StwMenu> menuList = Arrays.asList(menus);
+        List<StwMenu> filteredList = filterChain.filter(menuList);
         persistMenus(dao, filteredList);
 
         if (LOGGER.isDebugEnabled()) {
@@ -157,44 +157,44 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    RawMenu[] downloadMenus(String restaurant, String date) {
+    StwMenu[] downloadMenus(String restaurant, String date) {
         return stwRestWrapper.getMenus(restaurant, date);
     }
 
     @org.androidannotations.annotations.Trace
-    void persistMenus(Dao<RawMenu, ?> dao, Iterable<RawMenu> menus) throws java.sql.SQLException {
-        for (RawMenu rawMenu : menus) {
+    void persistMenus(Dao<StwMenu, ?> dao, Iterable<StwMenu> menus) throws java.sql.SQLException {
+        for (StwMenu stwMenu : menus) {
             SelectArg nameArg = new SelectArg(),
                     dateArg = new SelectArg(),
                     restaurantArg = new SelectArg();
-            PreparedQuery<RawMenu> preparedQuery = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, nameArg)
-                    .and().eq(RawMenu.DATE, dateArg)
-                    .and().eq(RawMenu.RESTAURANT, restaurantArg)
+            PreparedQuery<StwMenu> preparedQuery = dao.queryBuilder().where().eq(StwMenu.NAME_GERMAN, nameArg)
+                    .and().eq(StwMenu.DATE, dateArg)
+                    .and().eq(StwMenu.RESTAURANT, restaurantArg)
                     .prepare();
 
-            nameArg.setValue(rawMenu.getName_de());
-            dateArg.setValue(rawMenu.getDate());
-            restaurantArg.setValue(rawMenu.getRestaurant());
+            nameArg.setValue(stwMenu.getName_de());
+            dateArg.setValue(stwMenu.getDate());
+            restaurantArg.setValue(stwMenu.getRestaurant());
 
-            List<RawMenu> local = dao.query(preparedQuery);
+            List<StwMenu> local = dao.query(preparedQuery);
             if (local.size() > 0) {
-                rawMenu.set_id(local.get(0).get_id());
-                dao.update(rawMenu);
+                stwMenu.set_id(local.get(0).get_id());
+                dao.update(stwMenu);
             } else {
-                dao.create(rawMenu);
+                dao.create(stwMenu);
             }
             contentResolver.notifyChange(MenuContentProvider.MENU_URI, null, false);
         }
     }
 
-    private void cleanOldMenus(Dao<RawMenu, ?> dao, String[] cachedDaysAsStrings) throws SQLException {
+    private void cleanOldMenus(Dao<StwMenu, ?> dao, String[] cachedDaysAsStrings) throws SQLException {
         if (cachedDaysAsStrings == null || cachedDaysAsStrings.length < 1) {
             return;
         }
 
         StringBuilder rawQueryBuilder = new StringBuilder("DELETE FROM ")
-                .append(RawMenu.TABLE)
-                .append(" WHERE ").append(RawMenu.DATE).append(" not in ('")
+                .append(StwMenu.TABLE)
+                .append(" WHERE ").append(StwMenu.DATE).append(" not in ('")
                 .append(cachedDaysAsStrings[0]);
         for (int i = 1; i < cachedDaysAsStrings.length; i++) {
             rawQueryBuilder.append("', '")

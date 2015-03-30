@@ -10,21 +10,21 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import de.ironjan.mensaupb.stw.rest_api.NewAllergen;
+import de.ironjan.mensaupb.stw.rest_api.Allergen;
 
 /**
  * A class to deserialize NewAllergens
  */
-public class AllergenDeserializer extends JsonDeserializer<NewAllergen> {
+public class AllergenDeserializer extends JsonDeserializer<Allergen> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AllergenDeserializer.class);
 
     @Override
-    public NewAllergen deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+    public Allergen deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
         }
         try {
             String valueAsString = jp.getValueAsString();
-            return NewAllergen.fromString(valueAsString);
+            return Allergen.fromString(valueAsString);
         } catch (IllegalArgumentException e) {
             LOGGER.warn("Could not deserialize Allergen");
             return null;

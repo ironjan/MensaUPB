@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
 
-import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 import de.ironjan.mensaupb.sync.AccountCreator;
 import de.ironjan.mensaupb.sync.AccountCreator_;
 
@@ -39,7 +39,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         LOGGER.debug("onCreate()");
         try {
-            TableUtils.createTableIfNotExists(connectionSource, RawMenu.class);
+            TableUtils.createTableIfNotExists(connectionSource, StwMenu.class);
             LOGGER.info("Created database.");
         } catch (SQLException e) {
             LOGGER.error("Can't create database", e);
@@ -55,7 +55,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             //noinspection MagicNumber
             if (old <= 13) {
-                TableUtils.dropTable(connectionSource, RawMenu.class, true);
+                TableUtils.dropTable(connectionSource, StwMenu.class, true);
                 onCreate(sqLiteDatabase, connectionSource);
                 LOGGER.info("Database updated from {} to {}", old, newVersion);
             }

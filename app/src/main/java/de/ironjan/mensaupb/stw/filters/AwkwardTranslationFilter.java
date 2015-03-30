@@ -2,7 +2,7 @@ package de.ironjan.mensaupb.stw.filters;
 
 import android.text.TextUtils;
 
-import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
  * A filter to replace an awkward translation
@@ -13,8 +13,8 @@ public class AwkwardTranslationFilter extends FilterBase {
     public static final String BETTER_TRANSLATION = "Recommendation";
 
     @Override
-    public RawMenu filter(RawMenu menu) {
-        RawMenu filteredMenu = menu.copy();
+    public StwMenu filter(StwMenu menu) {
+        StwMenu filteredMenu = menu.copy();
         String category_en = menu.getCategory_en();
         if (TextUtils.isEmpty(category_en)) {
             filteredMenu.setCategory_en("");

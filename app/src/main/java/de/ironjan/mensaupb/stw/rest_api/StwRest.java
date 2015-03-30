@@ -17,5 +17,5 @@ import de.ironjan.mensaupb.BuildConfig;
 interface StwRest {
     @Get("&restaurant={restaurant}&date={date}")
     @Accept(MediaType.APPLICATION_JSON)
-    RawMenu[] getMenus(String restaurant, String date);
+    StwMenu[] getMenus(String restaurant, String date);
 }

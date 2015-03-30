@@ -2,7 +2,7 @@ package de.ironjan.mensaupb.stw.filters;
 
 import java.util.List;
 
-import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
  * Interface for filter classes
@@ -14,7 +14,7 @@ interface Filter {
      * @param menus the menus to be filtered
      * @return filtered clone
      */
-    public List<RawMenu> filter(List<RawMenu> menus);
+    public List<StwMenu> filter(List<StwMenu> menus);
 
     /**
      * Filters the given menus
@@ -22,5 +22,5 @@ interface Filter {
      * @param menu the menu to be filtered
      * @return filtered clone
      */
-    public RawMenu filter(RawMenu menu);
+    public StwMenu filter(StwMenu menu);
 }

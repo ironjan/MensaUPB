@@ -16,7 +16,7 @@ import java.util.Locale;
 
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.prefs.AllergenFilterPrefs_;
-import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 import de.ironjan.mensaupb.sync.MenuContentProvider;
 import de.ironjan.mensaupb.views.MenuListingHeaderView;
 import de.ironjan.mensaupb.views.MenuListingHeaderView_;
@@ -27,17 +27,17 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  */
 public class MenuListingAdapter extends SimpleCursorAdapter implements android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, StickyListHeadersAdapter {
     public static final String[] PROJECTION = {
-            RawMenu.NAME_GERMAN, // 0
-            RawMenu.STUDENTS_PRICE, // 1
-            RawMenu.PRICE_TYPE, // 2
-            RawMenu.BADGES, // 3
-            RawMenu.CATEGORY_DE, // 4
+            StwMenu.NAME_GERMAN, // 0
+            StwMenu.STUDENTS_PRICE, // 1
+            StwMenu.PRICE_TYPE, // 2
+            StwMenu.BADGES, // 3
+            StwMenu.CATEGORY_DE, // 4
 
-            RawMenu.NAME_EN, // 5
-            RawMenu.CATEGORY_EN, // 6
+            StwMenu.NAME_EN, // 5
+            StwMenu.CATEGORY_EN, // 6
             BaseColumns._ID}; // 7
     public static final int CATEGORY_EN_INDEX = 6, CATEGORY_DE_INDEX = 4, NAME_EN_INDEX = 5, NAME_DE_INDEX = 0;
-    private static final String MENU_SELECTION = RawMenu.DATE + " = ? AND " + RawMenu.RESTAURANT + " LIKE ?";
+    private static final String MENU_SELECTION = StwMenu.DATE + " = ? AND " + StwMenu.RESTAURANT + " LIKE ?";
     private static final int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
     private final String mDate;
     private final String mLocation;

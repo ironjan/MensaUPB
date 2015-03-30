@@ -24,7 +24,7 @@ import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
-import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
  * A content provider for the downloaded menu data.
@@ -68,12 +68,12 @@ public class MenuContentProvider extends ContentProvider {
 //        TODO checkProjection(uri, projection);
 
 
-        queryBuilder.setTables(RawMenu.TABLE);
+        queryBuilder.setTables(StwMenu.TABLE);
 
         SQLiteDatabase db = getHelper().getReadableDatabase();
 
         if (TextUtils.isEmpty(sortOrder)) {
-            sortOrder = RawMenu.SORT_ORDER + " ASC";
+            sortOrder = StwMenu.SORT_ORDER + " ASC";
         }
 
         switch (sUriMatcher.match(uri)) {
@@ -137,11 +137,11 @@ public class MenuContentProvider extends ContentProvider {
                 SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
                 // TODO check projection
 
-                queryBuilder.setTables(RawMenu.TABLE);
+                queryBuilder.setTables(StwMenu.TABLE);
 
                 SQLiteDatabase db = getHelper().getWritableDatabase();
 
-                long _id = db.insert(RawMenu.TABLE, null, contentValues);
+                long _id = db.insert(StwMenu.TABLE, null, contentValues);
                 return Uri.withAppendedPath(MENU_URI, "/" + _id);
             default:
                 throw new IllegalArgumentException("Unknown Uri");
@@ -153,7 +153,7 @@ public class MenuContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
                 final SQLiteDatabase db = getHelper().getWritableDatabase();
-                final int delete = db.delete(RawMenu.TABLE, where, whereArgs);
+                final int delete = db.delete(StwMenu.TABLE, where, whereArgs);
                 if (BuildConfig.DEBUG)
                     LOGGER.info("Deleted {} menus via delete({},{},{})", new Object[]{delete, uri, where, whereArgs});
                 return delete;
@@ -168,7 +168,7 @@ public class MenuContentProvider extends ContentProvider {
             case MENUS_MATCH:
                 SQLiteDatabase db = getHelper().getWritableDatabase();
                 // TODO check projection
-                return db.update(RawMenu.TABLE, contentValues, s, strings);
+                return db.update(StwMenu.TABLE, contentValues, s, strings);
             default:
                 throw new IllegalArgumentException("Unknown Uri");
         }

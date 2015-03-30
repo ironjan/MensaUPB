@@ -1,6 +1,6 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
  * Filter to recategorize Pastavariation in Mensa Academice to receommendation.
@@ -12,11 +12,11 @@ public class PastavariationFilter extends FilterBase {
     private static final String CATEGORY_DEFAULT_EN_NAME = "Recommendation";
 
     @Override
-    public RawMenu filter(RawMenu menu) {
+    public StwMenu filter(StwMenu menu) {
         if (menu == null) {
             return null;
         }
-        final RawMenu copy = menu.copy();
+        final StwMenu copy = menu.copy();
         final String name_de = copy.getName_de();
         if (PASTA_VARIATION_STRING.equals(name_de)) {
             copy.setCategoryIdentifier(CATEGORY_DEFAULT);

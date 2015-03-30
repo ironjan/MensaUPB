@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import de.ironjan.mensaupb.stw.rest_api.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
@@ -17,7 +17,7 @@ public class AwkwardTranslationFilterTest {
     public static final String BETTER_TRANSLATION = "Recommendation";
 
     AwkwardTranslationFilter awkwardTranslationFilter = new AwkwardTranslationFilter();
-    RawMenu menu = new RawMenu();
+    StwMenu menu = new StwMenu();
 
     @Test
     public void test_IsAlreadyBetterTranslation() throws Exception {
