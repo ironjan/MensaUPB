@@ -94,10 +94,10 @@ dependencies {
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
 
     testCompile 'junit:junit:4.10'
-    testCompile 'org.robolectric:robolectric:3.0-SNAPSHOT'
+    testCompile 'org.robolectric:robolectric:3.0-rc2'
     // Repetition for autocompletion in android studio
     androidTestCompile 'junit:junit:4.10'
-    androidTestCompile 'org.robolectric:robolectric:3.0-SNAPSHOT'
+    androidTestCompile 'org.robolectric:robolectric:3.0-rc2'
 }
 
 robolectric {
