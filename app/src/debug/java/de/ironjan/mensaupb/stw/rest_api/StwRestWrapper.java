@@ -25,7 +25,7 @@ public class StwRestWrapper implements StwRest {
     Context mContext;
 
     @Override
-    public RawMenu[] getMenus(String restaurant, String date) {
+    public StwMenu[] getMenus(String restaurant, String date) {
         LOGGER.warn("Returning no menus because we're using NoMenuRestWrapper!");
         if (TextUtils.isEmpty(BuildConfig.STW_URL)) {
             return MockRestWrapper.getInstance().getMenus(restaurant, date);
