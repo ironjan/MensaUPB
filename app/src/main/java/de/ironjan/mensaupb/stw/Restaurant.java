@@ -3,7 +3,8 @@ package de.ironjan.mensaupb.stw;
 import de.ironjan.mensaupb.R;
 
 /**
- * Created by ljan on 31.03.15.
+ * Enum to represent restaurants. Each restaurant has a key and a string id - the latter
+ * is used to retrieve a potentially localized name.
  */
 public enum Restaurant {
     MENSA_ACADEMICA(0, Constants.MENSA_ACADEMICA_PADERBORN, R.string.nameMensaAcademica),
@@ -28,6 +29,12 @@ public enum Restaurant {
         this.nameStringId = nameStringId;
     }
 
+    /**
+     * Retrieves a Restaurant by key
+     * @param key the restaurant's key
+     * @return the corresponding restaurant
+     * @throws  IllegalArgumentException if the key is unknown
+     */
     public static Restaurant fromKey(String key) {
         switch (key) {
             case Constants.MENSA_ACADEMICA_PADERBORN:
@@ -49,6 +56,7 @@ public enum Restaurant {
     }
 
     public static Integer[] getNameStringIds() {
+        // construction it once at runtime to make sure order is correct
         if (nameStringIds == null) {
             nameStringIds = new Integer[keys.length];
             for (int i = 0; i < keys.length; i++) {
@@ -60,10 +68,6 @@ public enum Restaurant {
 
     private static int getNameFromKey(String key) {
         return fromKey(key).getNameStringId();
-    }
-
-    public String getKey() {
-        return key;
     }
 
     public int getNameStringId() {
