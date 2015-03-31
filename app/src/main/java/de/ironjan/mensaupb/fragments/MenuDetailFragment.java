@@ -36,7 +36,7 @@ import de.ironjan.mensaupb.activities.Menus;
 import de.ironjan.mensaupb.helpers.DateHelper;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
-import de.ironjan.mensaupb.stw.RestaurantHelper;
+import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.stw.rest_api.Allergen;
 import de.ironjan.mensaupb.stw.rest_api.Badge;
 import de.ironjan.mensaupb.stw.rest_api.PriceType;
@@ -61,9 +61,6 @@ public class MenuDetailFragment extends Fragment {
     @StringRes
     String localizedDatePattern;
 
-    @SuppressWarnings("WeakerAccess")
-    @Bean
-    RestaurantHelper mRestaurantHelper;
     private StwMenu mMenu;
 
     public static MenuDetailFragment newInstance(long _id) {
@@ -169,8 +166,8 @@ public class MenuDetailFragment extends Fragment {
 
     private void bindRestaurant(StwMenu stwMenu) {
         String restaurantId = stwMenu.getRestaurant();
-        String restaurantName = mRestaurantHelper.getNameFor(restaurantId);
-        textRestaurant.setText(restaurantName);
+        int restaurantNameId = Restaurant.fromKey(restaurantId).getNameStringId();
+        textRestaurant.setText(restaurantNameId);
     }
 
     private void bindDate(StwMenu stwMenu) {

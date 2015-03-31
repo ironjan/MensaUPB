@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.activities;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
@@ -21,7 +22,6 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.Trace;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringArrayRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +29,7 @@ import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.adapters.WeekdayHelper;
 import de.ironjan.mensaupb.adapters.WeekdayPagerAdapter;
+import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.sync.AccountCreator;
 
 @SuppressWarnings("WeakerAccess")
@@ -48,10 +49,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     ViewPager mViewPager;
     @ViewById(R.id.pager_title_strip)
     PagerTabStrip mPagerTabStrip;
-    @StringArrayRes(R.array.restaurants)
-    String[] mRestaurants;
-    @StringArrayRes(R.array.displayedRestaurants)
-    String[] mDisplayedRestaurants;
+    String[] mRestaurantKeys = Restaurant.getKeys();
+    Integer[] mRestaurantNameIds = Restaurant.getNameStringIds();
     @Bean
     WeekdayHelper mwWeekdayHelper;
     @Bean
@@ -80,9 +79,16 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
+        int restaurantCount = mRestaurantNameIds.length;
+        String[] mDisplayedRestaurantNames = new String[restaurantCount];
+        final Resources resources = getResources();
+        for (int i = 0; i < restaurantCount; i++) {
+            mDisplayedRestaurantNames[i] = resources.getString(mRestaurantNameIds[i]);
+        }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(actionBar.getThemedContext(),
                 android.R.layout.simple_spinner_item, android.R.id.text1,
-                mDisplayedRestaurants);
+                mDisplayedRestaurantNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         actionBar.setListNavigationCallbacks(adapter, this);
@@ -121,7 +127,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     WeekdayPagerAdapter getPagerAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("getPagerAdapter({})", i);
         if (adapters == null) {
-            adapters = new WeekdayPagerAdapter[mRestaurants.length];
+            adapters = new WeekdayPagerAdapter[mRestaurantKeys.length];
         }
         if (adapters[i] == null) {
             createNewAdapter(i);
@@ -134,7 +140,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     void createNewAdapter(int i) {
         if (BuildConfig.DEBUG) LOGGER.debug("createNewAdapter({})", i);
         adapters[i] =
-                new WeekdayPagerAdapter(this, getSupportFragmentManager(), mRestaurants[i]);
+                new WeekdayPagerAdapter(this, getSupportFragmentManager(), mRestaurantKeys[i]);
         loadPagerAdapter(i);
     }
 

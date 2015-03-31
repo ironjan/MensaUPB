@@ -17,6 +17,7 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.support.ConnectionSource;
 
+import org.androidannotations.annotations.rest.Rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.NestedRuntimeException;
@@ -31,6 +32,7 @@ import de.ironjan.mensaupb.adapters.WeekdayHelper_;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
+import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.stw.filters.FilterChain;
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper;
@@ -48,7 +50,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
     private final ContentResolver mContentResolver;
-    private final String[] restaurants;
+    private final String[] restaurants = Restaurant.getKeys();
     private final WeekdayHelper_ mWeekdayHelper;
     private final ContentResolver contentResolver;
     private final StwRestWrapper stwRestWrapper;
@@ -60,7 +62,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
         stwRestWrapper = StwRestWrapper_.getInstance_(context);
-        restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
         mInternalKeyValueStore = new InternalKeyValueStore_(context);
@@ -72,7 +73,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         super(context, autoInitialize, allowParallelSyncs);
         mContentResolver = context.getContentResolver();
         stwRestWrapper = StwRestWrapper_.getInstance_(context);
-        restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
         mInternalKeyValueStore = new InternalKeyValueStore_(context);
