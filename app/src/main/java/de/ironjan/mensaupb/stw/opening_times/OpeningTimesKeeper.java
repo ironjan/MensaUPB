@@ -20,6 +20,8 @@ public class OpeningTimesKeeper {
                 return (new BistroHotspotOpeningTimeKeeper()).isOpenOn(date);
             case GRILL_CAFE:
                 return (new GrillCafeOpeningtimeKeeper()).isOpenOn(date);
+            case CAFETE:
+                return (new CafeteOpeningtimeKeeper()).isOpenOn(date);
             default:
                 return true;
         }
