@@ -32,12 +32,15 @@ class IntervalChecker {
 
         Calendar intervalStartCalendar = Calendar.getInstance();
         intervalStartCalendar.clear();
-        intervalStartCalendar.set(intervalStart[YEAR_INDEX], intervalStart[MONTH_INDEX], intervalStart[DAY_INDEX]);
+        intervalStartCalendar.setLenient(true);
+        intervalStartCalendar.set(intervalStart[YEAR_INDEX], intervalStart[MONTH_INDEX], intervalStart[DAY_INDEX] - 1);
 
 
         Calendar intervalEndCalendar = Calendar.getInstance();
         intervalEndCalendar.clear();
-        intervalEndCalendar.set(intervalEnd[YEAR_INDEX], intervalEnd[MONTH_INDEX], intervalEnd[DAY_INDEX]);
+        intervalEndCalendar.setLenient(true);
+        intervalEndCalendar.set(intervalEnd[YEAR_INDEX], intervalEnd[MONTH_INDEX], intervalEnd[DAY_INDEX] + 1);
+
 
         if (intervalStartCalendar.before(dateInstance)
                 && dateInstance.before(intervalEndCalendar)) {

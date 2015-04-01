@@ -12,10 +12,6 @@ class MensaAcademicaOpeningTimesKeeper implements RestaurantOpeningTimesKeeper {
         Calendar dateInstance = Calendar.getInstance();
         dateInstance.setTime(date);
 
-        final int year = dateInstance.get(Calendar.YEAR);
-        final int month = dateInstance.get(Calendar.MONTH);
-        final int day = dateInstance.get(Calendar.DAY_OF_MONTH);
-
         int[] closedDayOne = {2015, Calendar.MAY, 15};
         int[] closedDayTwo = {2015, Calendar.JUNE, 5};
 

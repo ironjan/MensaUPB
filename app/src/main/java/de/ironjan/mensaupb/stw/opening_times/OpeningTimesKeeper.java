@@ -14,6 +14,8 @@ public class OpeningTimesKeeper {
         switch (restaurant) {
             case MENSA_ACADEMICA:
                 return (new MensaAcademicaOpeningTimesKeeper()).isOpenOn(date);
+            case MENSA_FORUM:
+                return (new MensaForumOpeningTimeKeeper()).isOpenOn(date);
             default:
                 return true;
         }
