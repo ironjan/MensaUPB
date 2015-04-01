@@ -16,49 +16,23 @@ class MensaAcademicaOpeningTimesKeeper implements RestaurantOpeningTimesKeeper {
         final int month = dateInstance.get(Calendar.MONTH);
         final int day = dateInstance.get(Calendar.DAY_OF_MONTH);
 
-        if (year == MensaAcademicaClosedDays.CLOSED_DAY_ONE_YEAR
-                && month == MensaAcademicaClosedDays.CLOSED_DAY_ONE_MONTH
-                && day == MensaAcademicaClosedDays.CLOSED_DAY_ONE_DAY) {
-            return false;
-        }
+        int[] closedDayOne = {2015, Calendar.MAY, 15};
+        int[] closedDayTwo = {2015, Calendar.JUNE, 5};
 
-        if (year == MensaAcademicaClosedDays.CLOSED_DAY_TWO_YEAR
-                && month == MensaAcademicaClosedDays.CLOSED_DAY_TWO_MONTH
-                && day == MensaAcademicaClosedDays.CLOSED_DAY_TWO_DAY) {
-            return false;
-        }
+        boolean isClosedDayOne = IntervalChecker.isOn(dateInstance, closedDayOne);
 
-        if (isInChristmasBreak(dateInstance)) {
+        boolean isClosedDayTwo = IntervalChecker.isOn(dateInstance, closedDayTwo);
+
+        int[] winterBreakStart = {2015, Calendar.DECEMBER, 18};
+        int[] winterBreakEnd = {2016, Calendar.JANUARY, 5};
+        boolean isInWinterBreak = IntervalChecker.isInInterval(dateInstance, winterBreakStart, winterBreakEnd);
+
+        if (isClosedDayOne
+                || isClosedDayTwo
+                || isInWinterBreak) {
             return false;
         }
 
         return true;
-    }
-
-    private static boolean isInChristmasBreak(Calendar dateInstance) {
-        Calendar intervalStart = Calendar.getInstance();
-        intervalStart.clear();
-        intervalStart.set(2015, Calendar.DECEMBER, 18);
-
-
-        Calendar intervalEnd = Calendar.getInstance();
-        intervalEnd.clear();
-        intervalEnd.set(2016, Calendar.JANUARY, 5);
-
-        if (intervalStart.before(dateInstance)
-                && dateInstance.before(intervalEnd)) {
-            return true;
-        }
-        return false;
-    }
-
-    private static final class MensaAcademicaClosedDays {
-        static final int CLOSED_DAY_ONE_YEAR = 2015;
-        static final int CLOSED_DAY_ONE_MONTH = Calendar.MAY;
-        static final int CLOSED_DAY_ONE_DAY = 15;
-
-        static final int CLOSED_DAY_TWO_YEAR = 2015;
-        static final int CLOSED_DAY_TWO_MONTH = Calendar.JUNE;
-        static final int CLOSED_DAY_TWO_DAY = 5;
     }
 }
