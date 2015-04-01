@@ -12,8 +12,9 @@ import de.ironjan.mensaupb.stw.Restaurant;
 public class OpeningTimesKeeper {
     public static boolean isOpenOn(Restaurant restaurant, Date date) {
         if (Restaurant.MENSA_ACADEMICA == restaurant) {
-            return false;
+            return (new MensaAcademicaOpeningTimesKeeper()).isOpenOn(date);
         }
         return true;
     }
+
 }
