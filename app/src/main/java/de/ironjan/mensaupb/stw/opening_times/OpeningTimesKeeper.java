@@ -5,7 +5,7 @@ import java.util.Date;
 import de.ironjan.mensaupb.stw.Restaurant;
 
 /**
- * A class to fetch the opening times of the restaurants from.
+ * A class to fetch the opening times of the restaurants from. Only considers Mo - Fr
  *
  * @see <a href="http://www.studentenwerk-pb.de/gastronomie/oeffnungszeiten/">Official source of opening times</a>
  */
@@ -16,6 +16,10 @@ public class OpeningTimesKeeper {
                 return (new MensaAcademicaOpeningTimesKeeper()).isOpenOn(date);
             case MENSA_FORUM:
                 return (new MensaForumOpeningTimeKeeper()).isOpenOn(date);
+            case BISTRO_HOTSPOT:
+                return (new BistroHotspotOpeningTimeKeeper()).isOpenOn(date);
+            case GRILL_CAFE:
+                return (new GrillCafeOpeningtimeKeeper()).isOpenOn(date);
             default:
                 return true;
         }

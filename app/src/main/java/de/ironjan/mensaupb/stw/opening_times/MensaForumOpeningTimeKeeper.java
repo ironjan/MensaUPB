@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @see <a href="http://www.studentenwerk-pb.de/gastronomie/oeffnungszeiten/">Official source of opening times</a>
  */
-class MensaForumOpeningTimeKeeper extends OpeningTimesKeeper implements RestaurantOpeningTimesKeeper {
+class MensaForumOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
     @Override
     public boolean isOpenOn(Date date) {
         int[] closedIntervalStart = {2015, Calendar.JULY, 18};
