@@ -15,7 +15,7 @@ import java.util.Set;
 
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.prefs.AllergenFilterPrefs_;
-import de.ironjan.mensaupb.stw.NewAllergen;
+import de.ironjan.mensaupb.stw.rest_api.Allergen;
 
 /**
  * Fragment to change filter settings w.r.t allergens and additionals.
@@ -55,20 +55,20 @@ public class AllergenSettingsFragment extends Fragment {
 
     @Trace
     void buildHashMaps() {
-        addToTables(R.id.checkBoxEggs, NewAllergen.EGGS.getType());
-        addToTables(R.id.checkBoxPeanuts, NewAllergen.PEANUTS.getType());
-        addToTables(R.id.checkBoxFish, NewAllergen.FISH.getType());
-        addToTables(R.id.checkBoxGluten, NewAllergen.GLUTEN.getType());
-        addToTables(R.id.checkBoxCurstacean, NewAllergen.CRUSTACEAN.getType());
-        addToTables(R.id.checkBoxLupines, NewAllergen.LUPINE.getType());
-        addToTables(R.id.checkBoxMilk, NewAllergen.LACTOSE.getType());
-        addToTables(R.id.checkBoxNuts, NewAllergen.NUTS.getType());
-        addToTables(R.id.checkBoxSulfates, NewAllergen.SULFITES.getType());
-        addToTables(R.id.checkBoxCeleriac, NewAllergen.CELERIAC.getType());
-        addToTables(R.id.checkBoxMustard, NewAllergen.MUSTARD.getType());
-        addToTables(R.id.checkBoxSesame, NewAllergen.SESAME.getType());
-        addToTables(R.id.checkBoxSoy, NewAllergen.SOYA.getType());
-        addToTables(R.id.checkBoxMollusks, NewAllergen.MOLLUSKS.getType());
+        addToTables(R.id.checkBoxEggs, Allergen.EGGS.getType());
+        addToTables(R.id.checkBoxPeanuts, Allergen.PEANUTS.getType());
+        addToTables(R.id.checkBoxFish, Allergen.FISH.getType());
+        addToTables(R.id.checkBoxGluten, Allergen.GLUTEN.getType());
+        addToTables(R.id.checkBoxCurstacean, Allergen.CRUSTACEAN.getType());
+        addToTables(R.id.checkBoxLupines, Allergen.LUPINE.getType());
+        addToTables(R.id.checkBoxMilk, Allergen.LACTOSE.getType());
+        addToTables(R.id.checkBoxNuts, Allergen.NUTS.getType());
+        addToTables(R.id.checkBoxSulfates, Allergen.SULFITES.getType());
+        addToTables(R.id.checkBoxCeleriac, Allergen.CELERIAC.getType());
+        addToTables(R.id.checkBoxMustard, Allergen.MUSTARD.getType());
+        addToTables(R.id.checkBoxSesame, Allergen.SESAME.getType());
+        addToTables(R.id.checkBoxSoy, Allergen.SOYA.getType());
+        addToTables(R.id.checkBoxMollusks, Allergen.MOLLUSKS.getType());
     }
 
     @Trace

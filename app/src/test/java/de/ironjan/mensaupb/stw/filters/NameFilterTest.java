@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
-import de.ironjan.mensaupb.stw.RawMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
@@ -23,7 +23,7 @@ public class NameFilterTest {
     private final String CLEANED_BREAK_FAST_BURGER = "Breakfast Burger";
 
     private final NameFilter nameFilter = new NameFilter();
-    private final RawMenu menu = new RawMenu();
+    private final StwMenu menu = new StwMenu();
 
     @org.junit.Test
     public void test_deNoClean() throws Exception {

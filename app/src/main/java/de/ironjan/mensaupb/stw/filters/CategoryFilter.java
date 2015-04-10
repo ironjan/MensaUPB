@@ -1,10 +1,11 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import android.text.*;
+import android.text.TextUtils;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
  * Filters the categories. Replaces "category" with "subcategory" if the latter is non-empty.
@@ -13,16 +14,16 @@ class CategoryFilter extends FilterBase {
     Logger LOGGER = LoggerFactory.getLogger(CategoryFilter.class);
 
     @Override
-    public RawMenu filter(RawMenu menu) {
+    public StwMenu filter(StwMenu menu) {
         LOGGER.debug("filter({})", menu);
-        RawMenu copy = menu.copy();
+        StwMenu copy = menu.copy();
         updateDeCategory(copy);
         updateEnCategory(copy);
         LOGGER.debug("{} <- filter({}) done", copy, menu);
         return copy;
     }
 
-    private void updateDeCategory(RawMenu menu) {
+    private void updateDeCategory(StwMenu menu) {
         String subcategory_de = menu.getSubcategory_de();
         subcategory_de = (subcategory_de != null) ? subcategory_de.trim() : subcategory_de;
         if (TextUtils.isEmpty(subcategory_de)) {
@@ -31,7 +32,7 @@ class CategoryFilter extends FilterBase {
         menu.setCategory_de(subcategory_de);
     }
 
-    private void updateEnCategory(RawMenu menu) {
+    private void updateEnCategory(StwMenu menu) {
         String subcategory_en = menu.getSubcategory_en();
         subcategory_en = (subcategory_en != null) ? subcategory_en.trim() : subcategory_en;
         if (TextUtils.isEmpty(subcategory_en)) {

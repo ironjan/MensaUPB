@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.stw.rest_api;
 
 import android.provider.BaseColumns;
 
@@ -17,12 +17,13 @@ import java.util.Arrays;
 import java.util.Date;
 
 import de.ironjan.mensaupb.persistence.AllergensArrayPersister;
+import de.ironjan.mensaupb.stw.BadgesStringConverter;
 
 /**
  * A class representing a raw menu with all possible information
  */
-@DatabaseTable(tableName = RawMenu.TABLE)
-public class RawMenu implements Cloneable {
+@DatabaseTable(tableName = StwMenu.TABLE)
+public class StwMenu implements Cloneable {
     public static final String TABLE = "menus";
     public static final String NAME_GERMAN = "name_de";
     public static final String CATEGORY_DE = "category_de";
@@ -32,7 +33,7 @@ public class RawMenu implements Cloneable {
     public static final String RESTAURANT = "restaurant";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String ALLERGENS = "allergens";
-    public static final Logger LOGGER = LoggerFactory.getLogger(RawMenu.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(StwMenu.class);
     public static final String SORT_ORDER = "sortOrder";
     public static final String BADGES = "badges";
     public static final String NAME_EN = "name_en";
@@ -72,7 +73,7 @@ public class RawMenu implements Cloneable {
     @DatabaseField(canBeNull = false)
     private double priceGuests;
     @DatabaseField(columnName = ALLERGENS, persisterClass = AllergensArrayPersister.class)
-    private NewAllergen[] allergens;
+    private Allergen[] allergens;
 
     private Badge[] badges;
 
@@ -90,15 +91,15 @@ public class RawMenu implements Cloneable {
     @DatabaseField(columnName = SORT_ORDER, defaultValue = "100")
     private int sortOrder = 100;
 
+    public StwMenu() {
+    }
+
     public int getSortOrder() {
         return sortOrder;
     }
 
     public void setSortOrder(int sortOrder) {
         this.sortOrder = sortOrder;
-    }
-
-    public RawMenu() {
     }
 
     public long get_id() {
@@ -214,11 +215,11 @@ public class RawMenu implements Cloneable {
         this.priceGuests = priceGuests;
     }
 
-    public NewAllergen[] getAllergens() {
+    public Allergen[] getAllergens() {
         return allergens;
     }
 
-    public void setAllergens(NewAllergen[] allergens) {
+    public void setAllergens(Allergen[] allergens) {
         this.allergens = allergens;
     }
 
@@ -291,7 +292,7 @@ public class RawMenu implements Cloneable {
     @Override
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "RawMenu{" +
+        return "StwMenu{" +
                 "date=" + sdf.format(date) + " -- " + date +
                 ", name_de='" + name_de + '\'' +
                 ", restaurant='" + restaurant + '\'' +
@@ -328,9 +329,9 @@ public class RawMenu implements Cloneable {
     }
 
 
-    public RawMenu copy() {
+    public StwMenu copy() {
         try {
-            return (RawMenu) super.clone();
+            return (StwMenu) super.clone();
         } catch (CloneNotSupportedException e) {
             return null;
         }

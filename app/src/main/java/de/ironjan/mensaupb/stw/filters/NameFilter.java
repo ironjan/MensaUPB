@@ -1,10 +1,11 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import android.text.*;
+import android.text.TextUtils;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
  * Filters and corrects the names of the given menus
@@ -13,9 +14,9 @@ class NameFilter extends FilterBase {
     Logger LOGGER = LoggerFactory.getLogger(NameFilter.class);
 
     @Override
-    public RawMenu filter(RawMenu menu) {
+    public StwMenu filter(StwMenu menu) {
         LOGGER.debug("filter({}) {de: {}, en: {}}", menu, menu.getName_de(), menu.getName_en());
-        RawMenu copy = menu.copy();
+        StwMenu copy = menu.copy();
         copy.setName_de(cleanName(copy.getName_de()));
         copy.setName_en(cleanName(copy.getName_en()));
         LOGGER.debug("filter({}) done {de: {}, en: {}}", menu, copy.getName_de(), copy.getName_en());

@@ -1,8 +1,11 @@
 package de.ironjan.mensaupb.stw;
 
-import android.text.*;
+import android.text.TextUtils;
 
-import com.j256.ormlite.logger.*;
+import com.j256.ormlite.logger.Logger;
+import com.j256.ormlite.logger.LoggerFactory;
+
+import de.ironjan.mensaupb.stw.rest_api.Badge;
 
 /**
  * Converter between an array of Badges and Strings.

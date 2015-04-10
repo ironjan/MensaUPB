@@ -1,11 +1,13 @@
-package de.ironjan.mensaupb.stw.deserializer;
+package de.ironjan.mensaupb.stw.rest_api.deserializer;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 
-import java.io.*;
+import java.io.IOException;
 
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.stw.rest_api.PriceType;
 
 /**
  * A class to deserialize NewPriceTypes

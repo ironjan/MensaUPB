@@ -1,10 +1,10 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.stw.rest_api;
 
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.stw.deserializer.*;
+import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.stw.rest_api.deserializer.BadgeDeserializer;
 
 /**
  * Enum for the badges used

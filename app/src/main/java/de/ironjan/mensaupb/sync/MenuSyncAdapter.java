@@ -1,28 +1,42 @@
 package de.ironjan.mensaupb.sync;
 
-import android.accounts.*;
-import android.annotation.*;
-import android.content.*;
-import android.os.*;
+import android.accounts.Account;
+import android.annotation.TargetApi;
+import android.content.AbstractThreadedSyncAdapter;
+import android.content.ContentProviderClient;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SyncResult;
+import android.os.Build;
+import android.os.Bundle;
 
-import com.j256.ormlite.android.*;
-import com.j256.ormlite.dao.*;
-import com.j256.ormlite.stmt.*;
-import com.j256.ormlite.support.*;
+import com.j256.ormlite.android.AndroidConnectionSource;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.SelectArg;
+import com.j256.ormlite.support.ConnectionSource;
 
-import org.slf4j.*;
-import org.springframework.core.*;
-import org.springframework.web.client.*;
+import org.androidannotations.annotations.rest.Rest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.NestedRuntimeException;
+import org.springframework.web.client.RestClientException;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.persistence.*;
-import de.ironjan.mensaupb.prefs.*;
-import de.ironjan.mensaupb.stw.*;
-import de.ironjan.mensaupb.stw.filters.*;
+import de.ironjan.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.adapters.WeekdayHelper_;
+import de.ironjan.mensaupb.persistence.DatabaseHelper;
+import de.ironjan.mensaupb.persistence.DatabaseManager;
+import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
+import de.ironjan.mensaupb.stw.Restaurant;
+import de.ironjan.mensaupb.stw.filters.FilterChain;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
+import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper;
+import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper_;
 
 
 /**
@@ -36,7 +50,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private static MenuSyncAdapter instance;
     private final Logger LOGGER = LoggerFactory.getLogger(MenuSyncAdapter.class.getSimpleName());
     private final ContentResolver mContentResolver;
-    private final String[] restaurants;
+    private final String[] restaurants = Restaurant.getKeys();
     private final WeekdayHelper_ mWeekdayHelper;
     private final ContentResolver contentResolver;
     private final StwRestWrapper stwRestWrapper;
@@ -48,7 +62,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
         stwRestWrapper = StwRestWrapper_.getInstance_(context);
-        restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
         mInternalKeyValueStore = new InternalKeyValueStore_(context);
@@ -60,7 +73,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         super(context, autoInitialize, allowParallelSyncs);
         mContentResolver = context.getContentResolver();
         stwRestWrapper = StwRestWrapper_.getInstance_(context);
-        restaurants = context.getResources().getStringArray(de.ironjan.mensaupb.R.array.restaurants);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
         mInternalKeyValueStore = new InternalKeyValueStore_(context);
@@ -115,7 +127,7 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         DatabaseHelper helper = (databaseManager.getHelper(getContext()));
         ConnectionSource connectionSource =
                 new AndroidConnectionSource(helper);
-        Dao<RawMenu, ?> dao = DaoManager.createDao(connectionSource, RawMenu.class);
+        Dao<StwMenu, ?> dao = DaoManager.createDao(connectionSource, StwMenu.class);
 
         String[] cachedDaysAsStrings = mWeekdayHelper.getCachedDaysAsStrings();
 
@@ -129,14 +141,14 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    void syncMenus(Dao<RawMenu, ?> dao, String restaurant, String date) throws java.sql.SQLException, RestClientException {
+    void syncMenus(Dao<StwMenu, ?> dao, String restaurant, String date) throws java.sql.SQLException, RestClientException {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("syncMenus(dao,{},{})", restaurant, date);
         }
 
-        RawMenu[] menus = downloadMenus(restaurant, date);
-        List<RawMenu> menuList = Arrays.asList(menus);
-        List<RawMenu> filteredList = filterChain.filter(menuList);
+        StwMenu[] menus = downloadMenus(restaurant, date);
+        List<StwMenu> menuList = Arrays.asList(menus);
+        List<StwMenu> filteredList = filterChain.filter(menuList);
         persistMenus(dao, filteredList);
 
         if (LOGGER.isDebugEnabled()) {
@@ -145,44 +157,44 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    RawMenu[] downloadMenus(String restaurant, String date) {
+    StwMenu[] downloadMenus(String restaurant, String date) {
         return stwRestWrapper.getMenus(restaurant, date);
     }
 
     @org.androidannotations.annotations.Trace
-    void persistMenus(Dao<RawMenu, ?> dao, Iterable<RawMenu> menus) throws java.sql.SQLException {
-        for (RawMenu rawMenu : menus) {
+    void persistMenus(Dao<StwMenu, ?> dao, Iterable<StwMenu> menus) throws java.sql.SQLException {
+        for (StwMenu stwMenu : menus) {
             SelectArg nameArg = new SelectArg(),
                     dateArg = new SelectArg(),
                     restaurantArg = new SelectArg();
-            PreparedQuery<RawMenu> preparedQuery = dao.queryBuilder().where().eq(RawMenu.NAME_GERMAN, nameArg)
-                    .and().eq(RawMenu.DATE, dateArg)
-                    .and().eq(RawMenu.RESTAURANT, restaurantArg)
+            PreparedQuery<StwMenu> preparedQuery = dao.queryBuilder().where().eq(StwMenu.NAME_GERMAN, nameArg)
+                    .and().eq(StwMenu.DATE, dateArg)
+                    .and().eq(StwMenu.RESTAURANT, restaurantArg)
                     .prepare();
 
-            nameArg.setValue(rawMenu.getName_de());
-            dateArg.setValue(rawMenu.getDate());
-            restaurantArg.setValue(rawMenu.getRestaurant());
+            nameArg.setValue(stwMenu.getName_de());
+            dateArg.setValue(stwMenu.getDate());
+            restaurantArg.setValue(stwMenu.getRestaurant());
 
-            List<RawMenu> local = dao.query(preparedQuery);
+            List<StwMenu> local = dao.query(preparedQuery);
             if (local.size() > 0) {
-                rawMenu.set_id(local.get(0).get_id());
-                dao.update(rawMenu);
+                stwMenu.set_id(local.get(0).get_id());
+                dao.update(stwMenu);
             } else {
-                dao.create(rawMenu);
+                dao.create(stwMenu);
             }
             contentResolver.notifyChange(MenuContentProvider.MENU_URI, null, false);
         }
     }
 
-    private void cleanOldMenus(Dao<RawMenu, ?> dao, String[] cachedDaysAsStrings) throws SQLException {
+    private void cleanOldMenus(Dao<StwMenu, ?> dao, String[] cachedDaysAsStrings) throws SQLException {
         if (cachedDaysAsStrings == null || cachedDaysAsStrings.length < 1) {
             return;
         }
 
         StringBuilder rawQueryBuilder = new StringBuilder("DELETE FROM ")
-                .append(RawMenu.TABLE)
-                .append(" WHERE ").append(RawMenu.DATE).append(" not in ('")
+                .append(StwMenu.TABLE)
+                .append(" WHERE ").append(StwMenu.DATE).append(" not in ('")
                 .append(cachedDaysAsStrings[0]);
         for (int i = 1; i < cachedDaysAsStrings.length; i++) {
             rawQueryBuilder.append("', '")

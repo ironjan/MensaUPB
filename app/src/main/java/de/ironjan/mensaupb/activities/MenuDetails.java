@@ -12,7 +12,7 @@ import de.ironjan.mensaupb.*;
 import de.ironjan.mensaupb.fragments.*;
 
 /**
- * Wrapping activity for {@link de.ironjan.mensaupb.fragments.AboutFragment}.
+ * Wrapping activity for {@link de.ironjan.mensaupb.fragments.MenuDetailFragment}.
  */
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_menu_details)

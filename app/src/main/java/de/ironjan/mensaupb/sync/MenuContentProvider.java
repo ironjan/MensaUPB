@@ -1,22 +1,30 @@
 package de.ironjan.mensaupb.sync;
 
-import android.annotation.*;
-import android.content.*;
-import android.database.*;
-import android.database.sqlite.*;
-import android.net.*;
-import android.provider.*;
-import android.text.*;
+import android.annotation.SuppressLint;
+import android.content.ContentProvider;
+import android.content.ContentValues;
+import android.content.UriMatcher;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.net.Uri;
+import android.provider.BaseColumns;
+import android.text.TextUtils;
 
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.res.*;
-import org.slf4j.*;
+import org.androidannotations.annotations.EProvider;
+import org.androidannotations.annotations.res.StringRes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.persistence.*;
-import de.ironjan.mensaupb.stw.*;
+import de.ironjan.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.persistence.DatabaseHelper;
+import de.ironjan.mensaupb.persistence.DatabaseManager;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
  * A content provider for the downloaded menu data.
@@ -33,13 +41,13 @@ public class MenuContentProvider extends ContentProvider {
     private static final int MENUS_MATCH = 1;
     private static final int SINGLE_MENUS_MATCH = 2;
     private static final UriMatcher sUriMatcher = new UriMatcher(0);
-    private final Logger LOGGER = LoggerFactory.getLogger(MenuContentProvider.class.getSimpleName());
 
     static {
         sUriMatcher.addURI(ProviderContract.AUTHORITY, MENUS_PATH, MENUS_MATCH);
         sUriMatcher.addURI(ProviderContract.AUTHORITY, SINGLE_MENUS_PATH, SINGLE_MENUS_MATCH);
     }
 
+    private final Logger LOGGER = LoggerFactory.getLogger(MenuContentProvider.class.getSimpleName());
     @StringRes(R.string.mensae)
     String mensaeString;
 
@@ -60,12 +68,12 @@ public class MenuContentProvider extends ContentProvider {
 //        TODO checkProjection(uri, projection);
 
 
-        queryBuilder.setTables(RawMenu.TABLE);
+        queryBuilder.setTables(StwMenu.TABLE);
 
         SQLiteDatabase db = getHelper().getReadableDatabase();
 
         if (TextUtils.isEmpty(sortOrder)) {
-            sortOrder = RawMenu.SORT_ORDER + " ASC";
+            sortOrder = StwMenu.SORT_ORDER + " ASC";
         }
 
         switch (sUriMatcher.match(uri)) {
@@ -129,11 +137,11 @@ public class MenuContentProvider extends ContentProvider {
                 SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
                 // TODO check projection
 
-                queryBuilder.setTables(RawMenu.TABLE);
+                queryBuilder.setTables(StwMenu.TABLE);
 
                 SQLiteDatabase db = getHelper().getWritableDatabase();
 
-                long _id = db.insert(RawMenu.TABLE, null, contentValues);
+                long _id = db.insert(StwMenu.TABLE, null, contentValues);
                 return Uri.withAppendedPath(MENU_URI, "/" + _id);
             default:
                 throw new IllegalArgumentException("Unknown Uri");
@@ -145,7 +153,7 @@ public class MenuContentProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
                 final SQLiteDatabase db = getHelper().getWritableDatabase();
-                final int delete = db.delete(RawMenu.TABLE, where, whereArgs);
+                final int delete = db.delete(StwMenu.TABLE, where, whereArgs);
                 if (BuildConfig.DEBUG)
                     LOGGER.info("Deleted {} menus via delete({},{},{})", new Object[]{delete, uri, where, whereArgs});
                 return delete;
@@ -160,7 +168,7 @@ public class MenuContentProvider extends ContentProvider {
             case MENUS_MATCH:
                 SQLiteDatabase db = getHelper().getWritableDatabase();
                 // TODO check projection
-                return db.update(RawMenu.TABLE, contentValues, s, strings);
+                return db.update(StwMenu.TABLE, contentValues, s, strings);
             default:
                 throw new IllegalArgumentException("Unknown Uri");
         }

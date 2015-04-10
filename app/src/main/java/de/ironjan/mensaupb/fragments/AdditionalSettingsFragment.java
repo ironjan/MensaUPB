@@ -15,7 +15,7 @@ import java.util.Set;
 
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.prefs.AllergenFilterPrefs_;
-import de.ironjan.mensaupb.stw.NewAllergen;
+import de.ironjan.mensaupb.stw.rest_api.Allergen;
 
 /**
  * Fragment to change filter settings w.r.t allergens and additionals.
@@ -58,21 +58,21 @@ public class AdditionalSettingsFragment extends Fragment {
 
     @Trace
     void buildHashMaps() {
-        addToTables(R.id.checkBoxAntioxidants, NewAllergen.ANTIOXIDANTS.getType());
-        addToTables(R.id.checkBoxColored, NewAllergen.COLORED.getType());
-        addToTables(R.id.checkBoxTasteEnhancer, NewAllergen.FLAVOR_ENHANCERS.getType());
-        addToTables(R.id.checkBoxBlackened, NewAllergen.BLACKENED.getType());
-        addToTables(R.id.checkBoxSulfured, NewAllergen.SULFURATED.getType());
-        addToTables(R.id.checkBoxWaxed, NewAllergen.WAXED.getType());
-        addToTables(R.id.checkBoxCaffeine, NewAllergen.COFFEINE.getType());
-        addToTables(R.id.checkBoxConserved, NewAllergen.CONSERVED.getType());
-        addToTables(R.id.checkBoxLactoProtein, NewAllergen.LACTOPROTEIN.getType());
-        addToTables(R.id.checkBoxNitrateSalt, NewAllergen.NITRATE_SALT.getType());
-        addToTables(R.id.checkBoxPhenylalanine, NewAllergen.PHENYLALANINE.getType());
-        addToTables(R.id.checkBoxPhosphate, NewAllergen.PHOSPHAT.getType());
-        addToTables(R.id.checkBoxSweetener, NewAllergen.SWEETENER.getType());
-        addToTables(R.id.checkBoxQuinine, NewAllergen.QUININE.getType());
-        addToTables(R.id.checkBoxTaurine, NewAllergen.TAURINE.getType());
+        addToTables(R.id.checkBoxAntioxidants, Allergen.ANTIOXIDANTS.getType());
+        addToTables(R.id.checkBoxColored, Allergen.COLORED.getType());
+        addToTables(R.id.checkBoxTasteEnhancer, Allergen.FLAVOR_ENHANCERS.getType());
+        addToTables(R.id.checkBoxBlackened, Allergen.BLACKENED.getType());
+        addToTables(R.id.checkBoxSulfured, Allergen.SULFURATED.getType());
+        addToTables(R.id.checkBoxWaxed, Allergen.WAXED.getType());
+        addToTables(R.id.checkBoxCaffeine, Allergen.COFFEINE.getType());
+        addToTables(R.id.checkBoxConserved, Allergen.CONSERVED.getType());
+        addToTables(R.id.checkBoxLactoProtein, Allergen.LACTOPROTEIN.getType());
+        addToTables(R.id.checkBoxNitrateSalt, Allergen.NITRATE_SALT.getType());
+        addToTables(R.id.checkBoxPhenylalanine, Allergen.PHENYLALANINE.getType());
+        addToTables(R.id.checkBoxPhosphate, Allergen.PHOSPHAT.getType());
+        addToTables(R.id.checkBoxSweetener, Allergen.SWEETENER.getType());
+        addToTables(R.id.checkBoxQuinine, Allergen.QUININE.getType());
+        addToTables(R.id.checkBoxTaurine, Allergen.TAURINE.getType());
     }
 
     @Trace

@@ -1,18 +1,18 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.stw.rest_api;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.stw.deserializer.AllergenDeserializer;
+import de.ironjan.mensaupb.stw.rest_api.deserializer.AllergenDeserializer;
 
 /**
- * Rewrite of the Allergen class
+ * Class that represents Allergens and Additionals.
  */
 @SuppressWarnings("MagicNumber")
 @JsonDeserialize(using = AllergenDeserializer.class)
-public enum NewAllergen implements Comparable<NewAllergen> {
+public enum Allergen implements Comparable<Allergen> {
     UNKNOWN(0, "", R.string.empty),
     COLORED(1, Constants.COLORED, R.string.colored),
     CONSERVED(2, Constants.CONSERVED, R.string.conserved),
@@ -48,19 +48,19 @@ public enum NewAllergen implements Comparable<NewAllergen> {
     private final String type;
     private final int stringResourceID;
 
-    NewAllergen(int ordinal, String type, int stringResourceID) {
+    Allergen(int ordinal, String type, int stringResourceID) {
         this.ordinal = ordinal;
         this.type = type;
         this.stringResourceID = stringResourceID;
     }
 
     /**
-     * Converts a string to a NewAllergen
+     * Converts a string to a Allergen
      *
      * @param string the string
-     * @return the NewAllergen which is textually represented as String, if known. Else "Unknown".
+     * @return the Allergen which is textually represented as String, if known. Else "Unknown".
      */
-    public static NewAllergen fromString(String string) {
+    public static Allergen fromString(String string) {
         switch (string) {
             case Constants.COLORED:
                 return COLORED;
@@ -122,7 +122,7 @@ public enum NewAllergen implements Comparable<NewAllergen> {
                 return PEANUTS;
         }
 
-        LoggerFactory.getLogger(NewAllergen.class).debug("Requested unknown value: " + string);
+        LoggerFactory.getLogger(Allergen.class).debug("Requested unknown value: " + string);
         return UNKNOWN;
     }
 

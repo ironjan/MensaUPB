@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.LeadingMarginSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -36,11 +38,11 @@ import de.ironjan.mensaupb.activities.Menus;
 import de.ironjan.mensaupb.helpers.DateHelper;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
-import de.ironjan.mensaupb.stw.Badge;
-import de.ironjan.mensaupb.stw.NewAllergen;
-import de.ironjan.mensaupb.stw.PriceType;
-import de.ironjan.mensaupb.stw.RawMenu;
-import de.ironjan.mensaupb.stw.RestaurantHelper;
+import de.ironjan.mensaupb.stw.Restaurant;
+import de.ironjan.mensaupb.stw.rest_api.Allergen;
+import de.ironjan.mensaupb.stw.rest_api.Badge;
+import de.ironjan.mensaupb.stw.rest_api.PriceType;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 @EFragment(R.layout.fragment_menu_detail)
 public class MenuDetailFragment extends Fragment {
@@ -61,10 +63,7 @@ public class MenuDetailFragment extends Fragment {
     @StringRes
     String localizedDatePattern;
 
-    @SuppressWarnings("WeakerAccess")
-    @Bean
-    RestaurantHelper mRestaurantHelper;
-    private RawMenu mMenu;
+    private StwMenu mMenu;
 
     public static MenuDetailFragment newInstance(long _id) {
         if (BuildConfig.DEBUG)
@@ -82,6 +81,12 @@ public class MenuDetailFragment extends Fragment {
         if (BuildConfig.DEBUG)
             LOGGER.debug("newInstance({}) done", _id);
         return menuDetailFragment;
+    }
+
+    static SpannableString createIndentedText(String text, int marginFirstLine) {
+        SpannableString result = new SpannableString(text);
+        result.setSpan(new LeadingMarginSpan.Standard(marginFirstLine, 0), 0, text.length(), 0);
+        return result;
     }
 
     @AfterViews
@@ -106,31 +111,31 @@ public class MenuDetailFragment extends Fragment {
             LOGGER.debug("bindData()");
     }
 
-    private RawMenu loadMenu(long _id) throws java.sql.SQLException {
+    private StwMenu loadMenu(long _id) throws java.sql.SQLException {
         DatabaseManager databaseManager = new DatabaseManager();
         DatabaseHelper helper = (databaseManager.getHelper(getActivity()));
         ConnectionSource connectionSource = new AndroidConnectionSource(helper);
-        Dao<RawMenu, Long> dao = DaoManager.createDao(connectionSource, RawMenu.class);
+        Dao<StwMenu, Long> dao = DaoManager.createDao(connectionSource, StwMenu.class);
         return dao.queryForId(_id);
     }
 
-    private void bindMenuDataToViews(RawMenu rawMenu) {
-        bindManuallyLocalizedData(rawMenu);
-        bindRestaurant(rawMenu);
-        bindDate(rawMenu);
-        bindPrice(rawMenu);
-        bindAllergens(rawMenu);
-        bindBadges(rawMenu);
-        loadImage(rawMenu);
+    private void bindMenuDataToViews(StwMenu stwMenu) {
+        bindManuallyLocalizedData(stwMenu);
+        bindRestaurant(stwMenu);
+        bindDate(stwMenu);
+        bindPrice(stwMenu);
+        bindAllergens(stwMenu);
+        bindBadges(stwMenu);
+        loadImage(stwMenu);
     }
 
-    private void bindManuallyLocalizedData(RawMenu rawMenu) {
+    private void bindManuallyLocalizedData(StwMenu stwMenu) {
         boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
-        final String name = (isEnglish) ? rawMenu.getName_en() : rawMenu.getName_de();
-        final String category = (isEnglish) ? rawMenu.getCategory_en() : rawMenu.getCategory_de();
-        final String description = (isEnglish) ? rawMenu.getDescription_en() : rawMenu.getDescription_de();
+        final String name = (isEnglish) ? stwMenu.getName_en() : stwMenu.getName_de();
+        final String category = (isEnglish) ? stwMenu.getCategory_en() : stwMenu.getCategory_de();
+        final String description = (isEnglish) ? stwMenu.getDescription_en() : stwMenu.getDescription_de();
 
-        textName.setText(name);
+        textName.setText(createIndentedText(name, 3));
         textCategory.setText(category);
 
         bindDescription(description);
@@ -139,7 +144,7 @@ public class MenuDetailFragment extends Fragment {
         if (activity == null) return;
         ActionBar supportActionBar = activity.getSupportActionBar();
         if (supportActionBar == null) return;
-        supportActionBar.setTitle(name);
+        supportActionBar.setTitle("");
     }
 
     private void bindDescription(String description) {
@@ -150,8 +155,8 @@ public class MenuDetailFragment extends Fragment {
         }
     }
 
-    private void bindBadges(RawMenu rawMenu) {
-        Badge[] badges = rawMenu.getBadges();
+    private void bindBadges(StwMenu stwMenu) {
+        Badge[] badges = stwMenu.getBadges();
 
         if (badges == null || badges.length < 1) {
             textBadges.setVisibility(View.GONE);
@@ -167,29 +172,29 @@ public class MenuDetailFragment extends Fragment {
         textBadges.setText(stringBuilder.toString());
     }
 
-    private void bindRestaurant(RawMenu rawMenu) {
-        String restaurantId = rawMenu.getRestaurant();
-        String restaurantName = mRestaurantHelper.getNameFor(restaurantId);
-        textRestaurant.setText(restaurantName);
+    private void bindRestaurant(StwMenu stwMenu) {
+        String restaurantId = stwMenu.getRestaurant();
+        int restaurantNameId = Restaurant.fromKey(restaurantId).getNameStringId();
+        textRestaurant.setText(restaurantNameId);
     }
 
-    private void bindDate(RawMenu rawMenu) {
+    private void bindDate(StwMenu stwMenu) {
         SimpleDateFormat sdf = new SimpleDateFormat(localizedDatePattern);
-        textDate.setText(sdf.format(rawMenu.getDate()));
+        textDate.setText(sdf.format(stwMenu.getDate()));
     }
 
-    private void bindPrice(RawMenu rawMenu) {
-        double price = rawMenu.getPriceStudents();
+    private void bindPrice(StwMenu stwMenu) {
+        double price = stwMenu.getPriceStudents();
         String priceAsString = String.format(Locale.GERMAN, "%.2f €", price);
 
         textPrice.setText(priceAsString);
-        if (rawMenu.getPricetype() == PriceType.WEIGHT) {
+        if (stwMenu.getPricetype() == PriceType.WEIGHT) {
             textPrice.append("/100g");
         }
     }
 
-    private void bindAllergens(RawMenu rawMenu) {
-        NewAllergen[] allergens = rawMenu.getAllergens();
+    private void bindAllergens(StwMenu stwMenu) {
+        Allergen[] allergens = stwMenu.getAllergens();
 
         if (allergens == null || allergens.length == 0) {
             hideAllergenList();
@@ -199,10 +204,10 @@ public class MenuDetailFragment extends Fragment {
 
     }
 
-    private void showAllergensList(NewAllergen[] allergens) {
+    private void showAllergensList(Allergen[] allergens) {
         boolean notFirst = false;
         StringBuffer allergensListAsStringBuffer = new StringBuffer();
-        for (NewAllergen allergen : allergens) {
+        for (Allergen allergen : allergens) {
             if (allergen != null) {
                 if (notFirst) {
                     allergensListAsStringBuffer.append("\n");
@@ -227,13 +232,13 @@ public class MenuDetailFragment extends Fragment {
     /**
      * Asynchronously load the image of the supplied menu
      *
-     * @param rawMenu The menu to load a image for
+     * @param stwMenu The menu to load a image for
      */
-    private void loadImage(RawMenu rawMenu) {
+    private void loadImage(StwMenu stwMenu) {
 
         final String uri;
-        if (!TextUtils.isEmpty(rawMenu.getImage())) {
-            uri = rawMenu.getImage();
+        if (!TextUtils.isEmpty(stwMenu.getImage())) {
+            uri = stwMenu.getImage();
         } else {
             uri = URI_NO_IMAGE_FILE;
         }

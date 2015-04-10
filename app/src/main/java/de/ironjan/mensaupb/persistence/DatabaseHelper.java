@@ -1,19 +1,22 @@
 package de.ironjan.mensaupb.persistence;
 
-import android.content.*;
-import android.database.sqlite.*;
-import android.os.*;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 
-import com.j256.ormlite.android.apptools.*;
-import com.j256.ormlite.support.*;
-import com.j256.ormlite.table.*;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.support.ConnectionSource;
+import com.j256.ormlite.table.TableUtils;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.sql.*;
+import java.sql.SQLException;
 
-import de.ironjan.mensaupb.stw.*;
-import de.ironjan.mensaupb.sync.*;
+import de.ironjan.mensaupb.stw.rest_api.StwMenu;
+import de.ironjan.mensaupb.sync.AccountCreator;
+import de.ironjan.mensaupb.sync.AccountCreator_;
 
 /**
  * Class to manage the underlying database scheme.
@@ -36,7 +39,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         LOGGER.debug("onCreate()");
         try {
-            TableUtils.createTableIfNotExists(connectionSource, RawMenu.class);
+            TableUtils.createTableIfNotExists(connectionSource, StwMenu.class);
             LOGGER.info("Created database.");
         } catch (SQLException e) {
             LOGGER.error("Can't create database", e);
@@ -52,7 +55,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         try {
             //noinspection MagicNumber
             if (old <= 13) {
-                TableUtils.dropTable(connectionSource, RawMenu.class, true);
+                TableUtils.dropTable(connectionSource, StwMenu.class, true);
                 onCreate(sqLiteDatabase, connectionSource);
                 LOGGER.info("Database updated from {} to {}", old, newVersion);
             }
