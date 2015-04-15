@@ -37,7 +37,8 @@
         <activity
             android:name="de.ironjan.mensaupb.activities.MenuDetails_"
             android:label="@string/app_name"
-            android:parentActivityName="de.ironjan.mensaupb.activities.Menus_">
+            android:parentActivityName="de.ironjan.mensaupb.activities.Menus_"
+            android:theme="@style/TransparentActionBarActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.ironjan.mensaupb.activities.Menus_" />
