@@ -5,7 +5,7 @@ def versionMinor = 15
 // backwards-compatible bug fixes, must be <=99
 def versionPatch = 2
 // bump for dogfood builds, public betas, etc., must be <=99
-def versionBuild = 0
+def versionBuild = 3
 
 
 apply plugin: 'com.android.application'
@@ -39,7 +39,8 @@ android {
 
     defaultConfig {
         versionCode versionMajor * 1000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        versionName (versionBuild != 0) ? "${versionMajor}.${versionMinor}.${versionPatch}-${versionBuild}"
+                 : "${versionMajor}.${versionMinor}.${versionPatch}"
 
         minSdkVersion 9
         targetSdkVersion 21
