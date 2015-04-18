@@ -49,6 +49,7 @@ public class MenuDetailFragment extends Fragment {
 
     public static final String ARG_ID = "ARG_ID";
     public static final String URI_NO_IMAGE_FILE = "file:///android_asset/menu_has_no_image.png";
+    public static final int ACTION_BAR_UP_WIDTH_IN_DP = 54;
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
     @SuppressWarnings("WeakerAccess")
     @ViewById
@@ -83,9 +84,17 @@ public class MenuDetailFragment extends Fragment {
         return menuDetailFragment;
     }
 
-    static SpannableString createIndentedText(String text, int marginFirstLine) {
+    /**
+     * @param text                the text
+     * @param marginFirstLineInDp the margin
+     * @return a SpannableString with the given margin
+     */
+    private SpannableString createIndentedText(String text, int marginFirstLineInDp) {
+        int marginFirstLineinPx = (int) (marginFirstLineInDp * getActivity().getResources().getDisplayMetrics().density);
+        ;
         SpannableString result = new SpannableString(text);
-        result.setSpan(new LeadingMarginSpan.Standard(marginFirstLine, 0), 0, text.length(), 0);
+
+        result.setSpan(new LeadingMarginSpan.Standard(marginFirstLineinPx, 0), 0, text.length(), 0);
         return result;
     }
 
@@ -135,7 +144,7 @@ public class MenuDetailFragment extends Fragment {
         final String category = (isEnglish) ? stwMenu.getCategory_en() : stwMenu.getCategory_de();
         final String description = (isEnglish) ? stwMenu.getDescription_en() : stwMenu.getDescription_de();
 
-        textName.setText(createIndentedText(name, 3));
+        textName.setText(createIndentedText(name, ACTION_BAR_UP_WIDTH_IN_DP));
         textCategory.setText(category);
 
         bindDescription(description);

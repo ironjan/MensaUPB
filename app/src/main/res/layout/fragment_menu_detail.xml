@@ -37,11 +37,12 @@
 
             <TextView
                 android:id="@+id/textName"
-                style="@style/TextHeadline"
+                style="@style/Base.TextAppearance.AppCompat.Headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left|bottom"
+                android:layout_gravity="left|top"
                 android:background="#52eeeeee"
+                android:paddingTop="9dp"
                 android:singleLine="false"
                 tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros" />
         </FrameLayout>
