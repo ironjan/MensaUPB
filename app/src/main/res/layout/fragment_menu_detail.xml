@@ -35,25 +35,31 @@
                 android:indeterminate="true"
                 android:visibility="visible" />
 
-            <TextView
-                android:id="@+id/textName"
-                style="@style/Base.TextAppearance.AppCompat.Headline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left|top"
-                android:background="#52eeeeee"
-                android:paddingTop="9dp"
-                android:singleLine="false"
-                tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros" />
         </FrameLayout>
 
+
+        <TextView
+            android:id="@+id/textName"
+            style="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frameImage"
+            android:background="@color/material_primary"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/elementMinHeightSmall"
+            android:padding="@dimen/elementMargin"
+            android:singleLine="false"
+            tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros" />
 
         <RelativeLayout
             android:id="@+id/relativeLayoutInfoWrapper"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/elementMinHeight"
-            android:layout_below="@+id/frameImage"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textName"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/elementMinHeight"
+            android:paddingBottom="@dimen/elementMarginSmall"
+            android:paddingTop="@dimen/elementMarginSmall">
 
             <TextView
                 android:id="@+id/textCategory"

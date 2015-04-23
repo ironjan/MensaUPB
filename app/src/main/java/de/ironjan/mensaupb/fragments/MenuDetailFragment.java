@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.LeadingMarginSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -22,7 +21,6 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
@@ -49,7 +47,6 @@ public class MenuDetailFragment extends Fragment {
 
     public static final String ARG_ID = "ARG_ID";
     public static final String URI_NO_IMAGE_FILE = "file:///android_asset/menu_has_no_image.png";
-    public static final int ACTION_BAR_UP_WIDTH_IN_DP = 54;
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
     @SuppressWarnings("WeakerAccess")
     @ViewById
@@ -82,20 +79,6 @@ public class MenuDetailFragment extends Fragment {
         if (BuildConfig.DEBUG)
             LOGGER.debug("newInstance({}) done", _id);
         return menuDetailFragment;
-    }
-
-    /**
-     * @param text                the text
-     * @param marginFirstLineInDp the margin
-     * @return a SpannableString with the given margin
-     */
-    private SpannableString createIndentedText(String text, int marginFirstLineInDp) {
-        int marginFirstLineinPx = (int) (marginFirstLineInDp * getActivity().getResources().getDisplayMetrics().density);
-        ;
-        SpannableString result = new SpannableString(text);
-
-        result.setSpan(new LeadingMarginSpan.Standard(marginFirstLineinPx, 0), 0, text.length(), 0);
-        return result;
     }
 
     @AfterViews
@@ -144,7 +127,7 @@ public class MenuDetailFragment extends Fragment {
         final String category = (isEnglish) ? stwMenu.getCategory_en() : stwMenu.getCategory_de();
         final String description = (isEnglish) ? stwMenu.getDescription_en() : stwMenu.getDescription_de();
 
-        textName.setText(createIndentedText(name, ACTION_BAR_UP_WIDTH_IN_DP));
+        textName.setText(name);
         textCategory.setText(category);
 
         bindDescription(description);
