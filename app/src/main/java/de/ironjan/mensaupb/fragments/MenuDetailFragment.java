@@ -249,9 +249,4 @@ public class MenuDetailFragment extends Fragment {
                 });
     }
 
-    public void addExtrasTo(Intent intent) {
-        intent.putExtra(Menus.KEY_DATE, DateHelper.toString(mMenu.getDate()));
-        intent.putExtra(Menus.KEY_RESTAURANT, mMenu.getRestaurant());
-    }
-
 }
