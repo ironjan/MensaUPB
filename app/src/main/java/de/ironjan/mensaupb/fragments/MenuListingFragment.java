@@ -41,6 +41,17 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     AccountCreator mAccountCreator;
     private MenuListingAdapter adapter;
 
+    public static MenuListingFragment getInstance(String dateAsKey, String restaurant) {
+        MenuListingFragment fragment = new MenuListingFragment_();
+        Bundle arguments = new Bundle();
+
+        arguments.putString(MenuListingFragment.ARG_DATE, dateAsKey);
+        arguments.putString(MenuListingFragment.ARG_LOCATION, restaurant);
+
+        fragment.setArguments(arguments);
+        return fragment;
+    }
+
     private String getArgLocation() {
         String location = getArguments().getString(ARG_LOCATION);
         return location.replaceAll("\\*", "%");

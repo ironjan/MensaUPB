@@ -25,25 +25,17 @@ public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
         return getMenuListingFragment(i);
     }
 
-    Fragment getMenuListingFragment(int i) {
+    private Fragment getMenuListingFragment(int i) {
         if (fragments[i] == null) {
-            Fragment fragment = initMenuListingFragment(i);
+            String nextWeekDayAsKey = mWeekdayHelper.getNextWeekDayAsKey(i);
+            Fragment fragment = MenuListingFragment.getInstance(nextWeekDayAsKey, mRestaurant);
             fragments[i] = fragment;
         }
 
         return fragments[i];
     }
 
-    Fragment initMenuListingFragment(int i) {
-        Fragment fragment = new MenuListingFragment_();
-        Bundle arguments = new Bundle();
 
-        arguments.putString(MenuListingFragment.ARG_DATE, mWeekdayHelper.getNextWeekDayAsKey(i));
-        arguments.putString(MenuListingFragment.ARG_LOCATION, mRestaurant);
-
-        fragment.setArguments(arguments);
-        return fragment;
-    }
 
     @Override
     public int getCount() {
