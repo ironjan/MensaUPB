@@ -26,6 +26,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     public static final String ARG_DATE = "date";
     public static final String ARG_LOCATION = "restaurant";
+    public static final int TIMEOUT_30_SECONDS = 30000;
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
 
@@ -75,17 +76,32 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @AfterViews
     void loadContent() {
+        list.setAreHeadersSticky(false);
+        list.setEmptyView(mLoadingView);
+        adapter.setViewBinder(new MenuDetailViewBinder());
+        getLoaderManager().initLoader(0, null, adapter);
+        list.setAdapter(adapter);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(TIMEOUT_30_SECONDS);
+                    updateLoadingMessage();
+                } catch (InterruptedException e) {
+                    // ignored
+                }
+
+            }
+        });
+    }
+
+    private void updateLoadingMessage() {
         long lastSyncTimeStamp = mInternalKeyValueStore.lastSyncTimeStamp().get();
         if (0L == lastSyncTimeStamp) {
             list.setEmptyView(mLoadingView);
         } else {
             list.setEmptyView(mNoMenus);
         }
-        list.setAreHeadersSticky(false);
-        adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
-        adapter.setViewBinder(new MenuDetailViewBinder());
-        getLoaderManager().initLoader(0, null, adapter);
-        list.setAdapter(adapter);
     }
 
     @ItemClick
