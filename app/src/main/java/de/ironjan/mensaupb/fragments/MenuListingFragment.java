@@ -21,7 +21,7 @@ import se.emilsjolander.stickylistheaders.*;
 
 @SuppressWarnings("WeakerAccess")
 @EFragment(R.layout.fragment_menu_listing)
-public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, SyncStatusObserver {
+public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final String ARG_DATE = "date";
     public static final String ARG_LOCATION = "restaurant";
@@ -86,17 +86,4 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         LOGGER.debug("Sync requested.");
     }
 
-    @Override
-    public void onStatusChanged(int which) {
-//        LOGGER.debug("onStatusChanged({})",which);
-//        not working yet...
-
-//        boolean syncActive = ContentResolver.isSyncActive(mAccountCreator.getAccount(), mAccountCreator.getAuthority());
-//        boolean syncPending = ContentResolver.isSyncPending(mAccountCreator.getAccount(), mAccountCreator.getAuthority());
-//        boolean refreshing = syncActive || syncPending;
-//
-//        swipeRefresh.setRefreshing(refreshing);
-//
-//        LOGGER.debug("onStatusChanged({}) done",which);
-    }
 }
