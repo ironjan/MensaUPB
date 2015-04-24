@@ -1,6 +1,7 @@
 package de.ironjan.mensaupb.fragments;
 
 
+import android.app.Activity;
 import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
@@ -40,6 +41,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @Bean
     AccountCreator mAccountCreator;
     private MenuListingAdapter adapter;
+    private MenusNavigationCallback navigationCallback;
 
     public static MenuListingFragment getInstance(String dateAsKey, String restaurant) {
         MenuListingFragment fragment = new MenuListingFragment_();
@@ -50,6 +52,16 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
         fragment.setArguments(arguments);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        if (!(activity instanceof MenusNavigationCallback)) {
+            throw new IllegalArgumentException("MenuListingFragment can only be attached to an Activity implementing MenusNavigationCallback.");
+        }
+        super.onAttach(activity);
+        this.navigationCallback = (MenusNavigationCallback) activity;
+
     }
 
     private String getArgLocation() {
@@ -81,7 +93,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);
 
         final long _id = adapter.getItemId(pos);
-        MenuDetails_.intent(this).menuId(_id).start();
+        navigationCallback.showMenu(_id);
 
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({}) done", pos);
     }

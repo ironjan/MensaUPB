@@ -36,7 +36,7 @@ import de.ironjan.mensaupb.sync.AccountCreator;
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_menu_listing)
 @OptionsMenu(R.menu.main)
-public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener {
+public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener, MenusNavigationCallback {
 
     public static final String KEY_DAY_OFFSET = "KEY_DAY_OFFSET";
     public static final String KEY_DATE = "KEY_DATE";
@@ -174,4 +174,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         About_.intent(this).start();
     }
 
+    @Override
+    public void showMenu(long _id) {
+        MenuDetails_.intent(this).menuId(_id).start();
+    }
 }
