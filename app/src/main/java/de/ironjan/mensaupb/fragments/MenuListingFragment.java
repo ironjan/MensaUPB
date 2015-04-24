@@ -1,6 +1,7 @@
 package de.ironjan.mensaupb.fragments;
 
 
+import android.app.Activity;
 import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
@@ -21,7 +22,7 @@ import se.emilsjolander.stickylistheaders.*;
 
 @SuppressWarnings("WeakerAccess")
 @EFragment(R.layout.fragment_menu_listing)
-public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, SyncStatusObserver {
+public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final String ARG_DATE = "date";
     public static final String ARG_LOCATION = "restaurant";
@@ -40,6 +41,28 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @Bean
     AccountCreator mAccountCreator;
     private MenuListingAdapter adapter;
+    private MenusNavigationCallback navigationCallback;
+
+    public static MenuListingFragment getInstance(String dateAsKey, String restaurant) {
+        MenuListingFragment fragment = new MenuListingFragment_();
+        Bundle arguments = new Bundle();
+
+        arguments.putString(MenuListingFragment.ARG_DATE, dateAsKey);
+        arguments.putString(MenuListingFragment.ARG_LOCATION, restaurant);
+
+        fragment.setArguments(arguments);
+        return fragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        if (!(activity instanceof MenusNavigationCallback)) {
+            throw new IllegalArgumentException("MenuListingFragment can only be attached to an Activity implementing MenusNavigationCallback.");
+        }
+        super.onAttach(activity);
+        this.navigationCallback = (MenusNavigationCallback) activity;
+
+    }
 
     private String getArgLocation() {
         String location = getArguments().getString(ARG_LOCATION);
@@ -70,7 +93,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);
 
         final long _id = adapter.getItemId(pos);
-        MenuDetails_.intent(this).menuId(_id).start();
+        navigationCallback.showMenu(_id);
 
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({}) done", pos);
     }
@@ -86,17 +109,4 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         LOGGER.debug("Sync requested.");
     }
 
-    @Override
-    public void onStatusChanged(int which) {
-//        LOGGER.debug("onStatusChanged({})",which);
-//        not working yet...
-
-//        boolean syncActive = ContentResolver.isSyncActive(mAccountCreator.getAccount(), mAccountCreator.getAuthority());
-//        boolean syncPending = ContentResolver.isSyncPending(mAccountCreator.getAccount(), mAccountCreator.getAuthority());
-//        boolean refreshing = syncActive || syncPending;
-//
-//        swipeRefresh.setRefreshing(refreshing);
-//
-//        LOGGER.debug("onStatusChanged({}) done",which);
-    }
 }

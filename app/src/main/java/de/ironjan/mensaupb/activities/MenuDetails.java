@@ -20,10 +20,6 @@ public class MenuDetails extends ActionBarActivity {
     @SuppressWarnings("WeakerAccess")
     @Extra(value = MenuDetailFragment.ARG_ID)
     long menuId;
-    @Extra
-    int dayOffset;
-    @Extra
-    int restaurantId;
     private MenuDetailFragment mFragment;
 
     @AfterViews
@@ -43,7 +39,6 @@ public class MenuDetails extends ActionBarActivity {
     @OptionsItem(android.R.id.home)
     void navUp() {
         Intent intent = NavUtils.getParentActivityIntent(this);
-        mFragment.addExtrasTo(intent);
         NavUtils.navigateUpTo(this, intent);
     }
 }
