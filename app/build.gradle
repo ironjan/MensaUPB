@@ -3,7 +3,7 @@ def versionMajor = 2
 // added functionality in a backwards-compatible manner, must be <=99
 def versionMinor = 15
 // backwards-compatible bug fixes, must be <=99
-def versionPatch = 5
+def versionPatch = 6
 // bump for dogfood builds, public betas, etc., must be <=99
 def versionBuild = 0
 

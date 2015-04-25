@@ -76,11 +76,12 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @AfterViews
     void loadContent() {
-        list.setAreHeadersSticky(false);
-        list.setEmptyView(mLoadingView);
+        adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
         adapter.setViewBinder(new MenuDetailViewBinder());
         getLoaderManager().initLoader(0, null, adapter);
         list.setAdapter(adapter);
+        list.setAreHeadersSticky(false);
+        list.setEmptyView(mLoadingView);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -92,10 +93,11 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
                 }
 
             }
-        });
+        }).start();
     }
 
-    private void updateLoadingMessage() {
+    @UiThread
+    void updateLoadingMessage() {
         long lastSyncTimeStamp = mInternalKeyValueStore.lastSyncTimeStamp().get();
         if (0L == lastSyncTimeStamp) {
             list.setEmptyView(mLoadingView);
