@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--large screens are at least 640dp x 480dp-->
+    <dimen name="menuDetailsImageMaxHeight">300dp</dimen>
+
+</resources>
