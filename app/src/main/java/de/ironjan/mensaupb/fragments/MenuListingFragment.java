@@ -17,6 +17,7 @@ import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.activities.*;
 import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.prefs.*;
+import de.ironjan.mensaupb.stw.opening_times.OpeningTimesKeeper;
 import de.ironjan.mensaupb.sync.*;
 import se.emilsjolander.stickylistheaders.*;
 
@@ -32,8 +33,8 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @ViewById(android.R.id.empty)
     View mLoadingView;
-    @ViewById(R.id.noMenusToday)
-    View mNoMenus;
+    @ViewById(R.id.closed)
+    View mClosed;
     @ViewById(android.R.id.list)
     StickyListHeadersListView list;
     @Pref
@@ -81,7 +82,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         getLoaderManager().initLoader(0, null, adapter);
         list.setAdapter(adapter);
         list.setAreHeadersSticky(false);
-        list.setEmptyView(mLoadingView);
+        updateEmptyView();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -96,13 +97,21 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         }).start();
     }
 
+    private void updateEmptyView() {
+        if (OpeningTimesKeeper.isOpenOn(getArgLocation(), getArgDate())) {
+            list.setEmptyView(mLoadingView);
+        } else {
+            list.setEmptyView(mClosed);
+        }
+    }
+
     @UiThread
     void updateLoadingMessage() {
         long lastSyncTimeStamp = mInternalKeyValueStore.lastSyncTimeStamp().get();
         if (0L == lastSyncTimeStamp) {
-            list.setEmptyView(mLoadingView);
+            updateEmptyView();
         } else {
-            list.setEmptyView(mNoMenus);
+            list.setEmptyView(mClosed);
         }
     }
 
