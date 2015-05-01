@@ -5,4 +5,8 @@
     <dimen name="elementMarginBig">72dp</dimen>
     <dimen name="elementMinHeight">72dp</dimen>
     <dimen name="elementMinHeightSmall">48dp</dimen>
+
+
+    <!--small screens are at least 426dp x 320dp-->
+    <dimen name="menuDetailsImageMaxHeight">200dp</dimen>
 </resources>

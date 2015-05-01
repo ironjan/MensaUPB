@@ -16,7 +16,8 @@
         android:theme="@style/GreenTheme">
         <activity
             android:name="de.ironjan.mensaupb.activities.Menus_"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

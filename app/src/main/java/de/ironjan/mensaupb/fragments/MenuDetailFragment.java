@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.LeadingMarginSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -22,7 +21,6 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
@@ -83,12 +81,6 @@ public class MenuDetailFragment extends Fragment {
         return menuDetailFragment;
     }
 
-    static SpannableString createIndentedText(String text, int marginFirstLine) {
-        SpannableString result = new SpannableString(text);
-        result.setSpan(new LeadingMarginSpan.Standard(marginFirstLine, 0), 0, text.length(), 0);
-        return result;
-    }
-
     @AfterViews
     void bindData() {
         if (BuildConfig.DEBUG)
@@ -135,7 +127,7 @@ public class MenuDetailFragment extends Fragment {
         final String category = (isEnglish) ? stwMenu.getCategory_en() : stwMenu.getCategory_de();
         final String description = (isEnglish) ? stwMenu.getDescription_en() : stwMenu.getDescription_de();
 
-        textName.setText(createIndentedText(name, 3));
+        textName.setText(name);
         textCategory.setText(category);
 
         bindDescription(description);
@@ -255,11 +247,6 @@ public class MenuDetailFragment extends Fragment {
                         progressBar.setVisibility(View.GONE);
                     }
                 });
-    }
-
-    public void addExtrasTo(Intent intent) {
-        intent.putExtra(Menus.KEY_DATE, DateHelper.toString(mMenu.getDate()));
-        intent.putExtra(Menus.KEY_RESTAURANT, mMenu.getRestaurant());
     }
 
 }

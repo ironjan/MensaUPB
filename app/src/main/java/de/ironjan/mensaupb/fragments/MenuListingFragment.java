@@ -1,6 +1,7 @@
 package de.ironjan.mensaupb.fragments;
 
 
+import android.app.Activity;
 import android.content.*;
 import android.os.*;
 import android.support.v4.app.*;
@@ -16,22 +17,24 @@ import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.activities.*;
 import de.ironjan.mensaupb.adapters.*;
 import de.ironjan.mensaupb.prefs.*;
+import de.ironjan.mensaupb.stw.opening_times.OpeningTimesKeeper;
 import de.ironjan.mensaupb.sync.*;
 import se.emilsjolander.stickylistheaders.*;
 
 @SuppressWarnings("WeakerAccess")
 @EFragment(R.layout.fragment_menu_listing)
-public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, SyncStatusObserver {
+public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final String ARG_DATE = "date";
     public static final String ARG_LOCATION = "restaurant";
+    public static final int TIMEOUT_30_SECONDS = 30000;
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
 
     @ViewById(android.R.id.empty)
     View mLoadingView;
-    @ViewById(R.id.noMenusToday)
-    View mNoMenus;
+    @ViewById(R.id.closed)
+    View mClosed;
     @ViewById(android.R.id.list)
     StickyListHeadersListView list;
     @Pref
@@ -40,6 +43,28 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @Bean
     AccountCreator mAccountCreator;
     private MenuListingAdapter adapter;
+    private MenusNavigationCallback navigationCallback;
+
+    public static MenuListingFragment getInstance(String dateAsKey, String restaurant) {
+        MenuListingFragment fragment = new MenuListingFragment_();
+        Bundle arguments = new Bundle();
+
+        arguments.putString(MenuListingFragment.ARG_DATE, dateAsKey);
+        arguments.putString(MenuListingFragment.ARG_LOCATION, restaurant);
+
+        fragment.setArguments(arguments);
+        return fragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        if (!(activity instanceof MenusNavigationCallback)) {
+            throw new IllegalArgumentException("MenuListingFragment can only be attached to an Activity implementing MenusNavigationCallback.");
+        }
+        super.onAttach(activity);
+        this.navigationCallback = (MenusNavigationCallback) activity;
+
+    }
 
     private String getArgLocation() {
         String location = getArguments().getString(ARG_LOCATION);
@@ -52,17 +77,42 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @AfterViews
     void loadContent() {
-        long lastSyncTimeStamp = mInternalKeyValueStore.lastSyncTimeStamp().get();
-        if (0L == lastSyncTimeStamp) {
-            list.setEmptyView(mLoadingView);
-        } else {
-            list.setEmptyView(mNoMenus);
-        }
-        list.setAreHeadersSticky(false);
         adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
         adapter.setViewBinder(new MenuDetailViewBinder());
         getLoaderManager().initLoader(0, null, adapter);
         list.setAdapter(adapter);
+        list.setAreHeadersSticky(false);
+        updateEmptyView();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(TIMEOUT_30_SECONDS);
+                    updateLoadingMessage();
+                } catch (InterruptedException e) {
+                    // ignored
+                }
+
+            }
+        }).start();
+    }
+
+    private void updateEmptyView() {
+        if (OpeningTimesKeeper.isOpenOn(getArgLocation(), getArgDate())) {
+            list.setEmptyView(mLoadingView);
+        } else {
+            list.setEmptyView(mClosed);
+        }
+    }
+
+    @UiThread
+    void updateLoadingMessage() {
+        long lastSyncTimeStamp = mInternalKeyValueStore.lastSyncTimeStamp().get();
+        if (0L == lastSyncTimeStamp) {
+            updateEmptyView();
+        } else {
+            list.setEmptyView(mClosed);
+        }
     }
 
     @ItemClick
@@ -70,7 +120,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);
 
         final long _id = adapter.getItemId(pos);
-        MenuDetails_.intent(this).menuId(_id).start();
+        navigationCallback.showMenu(_id);
 
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({}) done", pos);
     }
@@ -86,17 +136,4 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         LOGGER.debug("Sync requested.");
     }
 
-    @Override
-    public void onStatusChanged(int which) {
-//        LOGGER.debug("onStatusChanged({})",which);
-//        not working yet...
-
-//        boolean syncActive = ContentResolver.isSyncActive(mAccountCreator.getAccount(), mAccountCreator.getAuthority());
-//        boolean syncPending = ContentResolver.isSyncPending(mAccountCreator.getAccount(), mAccountCreator.getAuthority());
-//        boolean refreshing = syncActive || syncPending;
-//
-//        swipeRefresh.setRefreshing(refreshing);
-//
-//        LOGGER.debug("onStatusChanged({}) done",which);
-    }
 }
