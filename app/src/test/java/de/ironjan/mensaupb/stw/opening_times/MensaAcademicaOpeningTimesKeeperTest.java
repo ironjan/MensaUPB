@@ -28,8 +28,8 @@ import de.ironjan.mensaupb.stw.Restaurant;
 @Config(emulateSdk = 18)
 @RunWith(BlockJUnit4ClassRunner.class)
 public class MensaAcademicaOpeningTimesKeeperTest extends TestCase {
-    private Calendar calendar;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private Calendar calendar;
 
     @Before
     public void setupCalendar() {
@@ -39,7 +39,7 @@ public class MensaAcademicaOpeningTimesKeeperTest extends TestCase {
 
     @Test
     public void mensaAcademicaShouldBeOpenBefore_2015_05_15() {
-        calendar.set(2015, Calendar.APRIL, 1);
+        calendar.set(2015, Calendar.MAY, 1);
         calendar.setLenient(true);
 
         Calendar fixedEnd = Calendar.getInstance();
