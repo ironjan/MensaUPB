@@ -22,6 +22,7 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.Trace;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +30,7 @@ import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.adapters.WeekdayHelper;
 import de.ironjan.mensaupb.adapters.WeekdayPagerAdapter;
+import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.sync.AccountCreator;
 
@@ -61,6 +63,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     int mLocation = 0;
     @InstanceState
     int mDayOffset = 0;
+    @Pref
+    InternalKeyValueStore_ mInternalKeyValueStore;
     private WeekdayPagerAdapter[] adapters;
     private WeekdayPagerAdapter mWeekdayPagerAdapter;
 
@@ -68,6 +72,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @AfterViews
     @Background
     void init() {
+        mLocation = mInternalKeyValueStore.lastLocation().get();
         initPager();
         initActionBar();
     }
@@ -177,5 +182,11 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @Override
     public void showMenu(long _id) {
         MenuDetails_.intent(this).menuId(_id).start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mInternalKeyValueStore.edit().lastLocation().put(mLocation).apply();
     }
 }
