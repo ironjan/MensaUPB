@@ -29,8 +29,29 @@ public class CafeteOpeningtimeKeeper implements RestaurantOpeningTimesKeeper {
         return true;
     }
 
+
     @Override
     public Date isOpenUntil(Date date) {
-        return null;
+        /*
+         * Vorlesungsfreie Zeit	vom 25.07.2015	bis 18.10.2015
+         */
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        Calendar breakStart = Calendar.getInstance();
+        breakStart.set(2015, Calendar.JULY, 25);
+
+        Calendar breakEnd = Calendar.getInstance();
+        breakEnd.set(2015, Calendar.JULY, 25);
+
+        if (breakStart.before(calendar) && calendar.before(breakEnd)) {
+            calendar.set(Calendar.HOUR_OF_DAY, 18);
+        } else {
+            calendar.set(Calendar.HOUR_OF_DAY, 22);
+        }
+        calendar.set(Calendar.MINUTE, 0);
+        return calendar.getTime();
     }
+
+
 }
