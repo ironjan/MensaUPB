@@ -28,4 +28,9 @@ public class CafeteOpeningtimeKeeper implements RestaurantOpeningTimesKeeper {
 
         return true;
     }
+
+    @Override
+    public Date isOpenUntil(Date date) {
+        return null;
+    }
 }

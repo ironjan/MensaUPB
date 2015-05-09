@@ -8,4 +8,10 @@ interface RestaurantOpeningTimesKeeper {
      * @return true, if the restaurant is open on that date
      */
     boolean isOpenOn(Date date);
+
+    /**
+     * @param date The date to check for
+     * @return The date with the closing time for this day
+     */
+    Date isOpenUntil(Date date);
 }

@@ -1,7 +1,5 @@
 package de.ironjan.mensaupb.stw.opening_times;
 
-import org.androidannotations.annotations.rest.Rest;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,7 +32,25 @@ public class OpeningTimesKeeper {
             default:
                 return true;
         }
+    }
 
+    public static Date isOpenUntil(String restaurantKey, String dateAsKey) {
+        Restaurant restaurant = Restaurant.fromKey(restaurantKey);
+        Date date = parseDate(dateAsKey);
+        switch (restaurant) {
+            case MENSA_ACADEMICA:
+                return (new MensaAcademicaOpeningTimesKeeper()).isOpenUntil(date);
+            case MENSA_FORUM:
+                return (new MensaForumOpeningTimeKeeper()).isOpenUntil(date);
+            case BISTRO_HOTSPOT:
+                return (new BistroHotspotOpeningTimeKeeper()).isOpenUntil(date);
+            case GRILL_CAFE:
+                return (new GrillCafeOpeningtimeKeeper()).isOpenUntil(date);
+            case CAFETE:
+                return (new CafeteOpeningtimeKeeper()).isOpenUntil(date);
+            default:
+                return null;
+        }
     }
 
     private static Date parseDate(String dateAsKey) {
