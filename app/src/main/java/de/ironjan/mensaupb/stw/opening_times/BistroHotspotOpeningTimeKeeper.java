@@ -1,5 +1,6 @@
 package de.ironjan.mensaupb.stw.opening_times;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -21,6 +22,19 @@ import java.util.Date;
 class BistroHotspotOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
     @Override
     public boolean isOpenOn(Date date) {
+        Calendar dateInstance = Calendar.getInstance();
+        dateInstance.setTime(date);
+
+        int[] specialTimeStart = {2015, Calendar.JUNE, 29};
+        int[] specialTimeEnd = {2016, Calendar.JULY, 19};
+        boolean isInSpecialTime = IntervalChecker.isInInterval(dateInstance, specialTimeStart, specialTimeEnd);
+        int dayOfWeek = dateInstance.get(Calendar.DAY_OF_WEEK);
+        boolean isSaturday = (dayOfWeek == Calendar.SATURDAY);
+        boolean isSunday = (dayOfWeek == Calendar.SUNDAY);
+
+        if (isInSpecialTime && (isSaturday || isSunday)) {
+            return false;
+        }
         return true;
     }
 }
