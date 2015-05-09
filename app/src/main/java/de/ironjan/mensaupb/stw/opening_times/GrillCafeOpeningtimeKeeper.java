@@ -48,10 +48,6 @@ public class GrillCafeOpeningtimeKeeper implements RestaurantOpeningTimesKeeper 
 
     @Override
     public Date hasCheapFoodUntil(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 19);
-        calendar.set(Calendar.MINUTE, 0);
-        return calendar.getTime();
+        return TimeChanger.updateTime(date, 19, 0);
     }
 }

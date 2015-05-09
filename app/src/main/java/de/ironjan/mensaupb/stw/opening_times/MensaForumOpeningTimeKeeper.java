@@ -42,13 +42,9 @@ class MensaForumOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
 
         boolean isFriday = Calendar.FRIDAY == calendar.get(Calendar.DAY_OF_WEEK);
         if (isFriday) {
-            calendar.set(Calendar.HOUR_OF_DAY, 13);
-            calendar.set(Calendar.MINUTE, 30);
+            return TimeChanger.updateTime(date, 13, 30);
         } else {
-            calendar.set(Calendar.HOUR_OF_DAY, 14);
-            calendar.set(Calendar.MINUTE, 0);
+            return TimeChanger.updateTime(date, 14, 0);
         }
-
-        return calendar.getTime();
     }
 }

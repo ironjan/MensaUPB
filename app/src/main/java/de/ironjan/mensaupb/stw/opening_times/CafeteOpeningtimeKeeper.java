@@ -45,12 +45,10 @@ public class CafeteOpeningtimeKeeper implements RestaurantOpeningTimesKeeper {
         breakEnd.set(2015, Calendar.JULY, 25);
 
         if (breakStart.before(calendar) && calendar.before(breakEnd)) {
-            calendar.set(Calendar.HOUR_OF_DAY, 18);
+            return TimeChanger.updateTime(date, 18, 0);
         } else {
-            calendar.set(Calendar.HOUR_OF_DAY, 22);
+            return TimeChanger.updateTime(date, 22, 0);
         }
-        calendar.set(Calendar.MINUTE, 0);
-        return calendar.getTime();
     }
 
 
