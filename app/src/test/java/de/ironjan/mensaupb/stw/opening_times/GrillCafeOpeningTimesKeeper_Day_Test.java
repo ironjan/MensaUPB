@@ -34,7 +34,7 @@ import de.ironjan.mensaupb.stw.Restaurant;
  */
 @Config(emulateSdk = 18)
 @RunWith(BlockJUnit4ClassRunner.class)
-public class GrillCafeOpeningTimesKeeperTest extends TestCase {
+public class GrillCafeOpeningTimesKeeper_Day_Test extends TestCase {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private Calendar calendar;
 
