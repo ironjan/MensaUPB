@@ -35,7 +35,7 @@ public class HotspotOpeningTimesKeeper_Time_Test extends TestCase {
     @Test
     public void hotspotShouldCloseAt_14() {
         String dateAsKey = sdf.format(new Date());
-        Date openUntil = OpeningTimesKeeper.isOpenUntil(Restaurant.BISTRO_HOTSPOT.key, dateAsKey);
+        Date openUntil = OpeningTimesKeeper.hasCheapFoodUntil(Restaurant.BISTRO_HOTSPOT.key, dateAsKey);
         Assert.assertEquals("14:00", time.format(openUntil));
     }
 }

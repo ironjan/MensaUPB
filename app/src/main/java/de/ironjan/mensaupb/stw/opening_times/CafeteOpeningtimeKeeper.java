@@ -31,7 +31,7 @@ public class CafeteOpeningtimeKeeper implements RestaurantOpeningTimesKeeper {
 
 
     @Override
-    public Date isOpenUntil(Date date) {
+    public Date hasCheapFoodUntil(Date date) {
         /*
          * Vorlesungsfreie Zeit	vom 25.07.2015	bis 18.10.2015
          */

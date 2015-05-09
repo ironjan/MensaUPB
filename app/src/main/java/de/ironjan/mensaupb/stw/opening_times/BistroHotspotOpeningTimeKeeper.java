@@ -39,7 +39,7 @@ class BistroHotspotOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
     }
 
     @Override
-    public Date isOpenUntil(Date date) {
+    public Date hasCheapFoodUntil(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 14);

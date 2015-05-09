@@ -47,7 +47,7 @@ public class GrillCafeOpeningtimeKeeper implements RestaurantOpeningTimesKeeper 
     }
 
     @Override
-    public Date isOpenUntil(Date date) {
+    public Date hasCheapFoodUntil(Date date) {
         return null;
     }
 }

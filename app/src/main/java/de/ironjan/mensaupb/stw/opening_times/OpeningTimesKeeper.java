@@ -15,6 +15,11 @@ import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 public class OpeningTimesKeeper {
     private static final SimpleDateFormat SDF = new SimpleDateFormat(StwMenu.DATE_FORMAT);
 
+    /**
+     * @param dateAsKey     a date to check for (yyyy-MM-dd)
+     * @param restaurantKey the restaurant to check for
+     * @return true, if the restaurant is open on that date
+     */
     public static boolean isOpenOn(String restaurantKey, String dateAsKey) {
         Restaurant restaurant = Restaurant.fromKey(restaurantKey);
         Date date = parseDate(dateAsKey);
@@ -34,20 +39,27 @@ public class OpeningTimesKeeper {
         }
     }
 
-    public static Date isOpenUntil(String restaurantKey, String dateAsKey) {
+
+    /**
+     * @param dateAsKey     a date to check for (yyyy-MM-dd)
+     * @param restaurantKey the restaurant to check for
+     * @return The date with the closing time for cheap food (Mensa, Happy Dinner) or the real
+     * closing time (Cafete) on this day
+     */
+    public static Date hasCheapFoodUntil(String restaurantKey, String dateAsKey) {
         Restaurant restaurant = Restaurant.fromKey(restaurantKey);
         Date date = parseDate(dateAsKey);
         switch (restaurant) {
             case MENSA_ACADEMICA:
-                return (new MensaAcademicaOpeningTimesKeeper()).isOpenUntil(date);
+                return (new MensaAcademicaOpeningTimesKeeper()).hasCheapFoodUntil(date);
             case MENSA_FORUM:
-                return (new MensaForumOpeningTimeKeeper()).isOpenUntil(date);
+                return (new MensaForumOpeningTimeKeeper()).hasCheapFoodUntil(date);
             case BISTRO_HOTSPOT:
-                return (new BistroHotspotOpeningTimeKeeper()).isOpenUntil(date);
+                return (new BistroHotspotOpeningTimeKeeper()).hasCheapFoodUntil(date);
             case GRILL_CAFE:
-                return (new GrillCafeOpeningtimeKeeper()).isOpenUntil(date);
+                return (new GrillCafeOpeningtimeKeeper()).hasCheapFoodUntil(date);
             case CAFETE:
-                return (new CafeteOpeningtimeKeeper()).isOpenUntil(date);
+                return (new CafeteOpeningtimeKeeper()).hasCheapFoodUntil(date);
             default:
                 return null;
         }

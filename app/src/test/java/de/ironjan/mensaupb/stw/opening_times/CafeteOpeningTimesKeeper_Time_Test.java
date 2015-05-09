@@ -53,7 +53,7 @@ public class CafeteOpeningTimesKeeper_Time_Test extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            Date openUntil = OpeningTimesKeeper.isOpenUntil(Restaurant.CAFETE.key, sdf.format(date));
+            Date openUntil = OpeningTimesKeeper.hasCheapFoodUntil(Restaurant.CAFETE.key, sdf.format(date));
 
             assertEquals("22:00", time.format(openUntil));
 
@@ -76,7 +76,7 @@ public class CafeteOpeningTimesKeeper_Time_Test extends TestCase {
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
             String dateAsKey = sdf.format(date);
-            Date openUntil = OpeningTimesKeeper.isOpenUntil(Restaurant.CAFETE.key, dateAsKey);
+            Date openUntil = OpeningTimesKeeper.hasCheapFoodUntil(Restaurant.CAFETE.key, dateAsKey);
 
             assertEquals("Fail for " + dateAsKey, "18:00", time.format(openUntil));
 
@@ -95,7 +95,7 @@ public class CafeteOpeningTimesKeeper_Time_Test extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            Date openUntil = OpeningTimesKeeper.isOpenUntil(Restaurant.CAFETE.key, sdf.format(date));
+            Date openUntil = OpeningTimesKeeper.hasCheapFoodUntil(Restaurant.CAFETE.key, sdf.format(date));
 
             assertEquals("Fail for " + sdf.format(date), "22:00", time.format(openUntil));
 
