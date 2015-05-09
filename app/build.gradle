@@ -18,7 +18,7 @@ configurations {
 }
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 22
     buildToolsVersion '21.1.2'
 
     packagingOptions {
