@@ -28,8 +28,8 @@ import de.ironjan.mensaupb.stw.Restaurant;
 @Config(emulateSdk = 18)
 @RunWith(BlockJUnit4ClassRunner.class)
 public class MensaForumOpeningTimesKeeperTest extends TestCase {
-    private Calendar calendar;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private Calendar calendar;
 
     @Before
     public void setupCalendar() {
@@ -48,7 +48,7 @@ public class MensaForumOpeningTimesKeeperTest extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            boolean mensaForumIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_FORUM, date);
+            boolean mensaForumIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_FORUM.key, sdf.format(date));
 
             String message = "Mensa Forum is closed on " + sdf.format(date);
             assertTrue(message, mensaForumIsOpenOn);
@@ -70,7 +70,7 @@ public class MensaForumOpeningTimesKeeperTest extends TestCase {
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
 
-            boolean mensaForumIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_FORUM, date);
+            boolean mensaForumIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_FORUM.key, sdf.format(date));
 
             String message = "Mensa Forum is opened on " + sdf.format(date);
             assertFalse(message, mensaForumIsOpenOn);
@@ -90,7 +90,7 @@ public class MensaForumOpeningTimesKeeperTest extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            boolean mensaForumIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_FORUM, date);
+            boolean mensaForumIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_FORUM.key, sdf.format(date));
 
             String message = "Mensa Forum is closed on " + sdf.format(date);
             assertTrue(message, mensaForumIsOpenOn);
@@ -112,7 +112,7 @@ public class MensaForumOpeningTimesKeeperTest extends TestCase {
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
 
-            boolean mensaForumIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_FORUM, date);
+            boolean mensaForumIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_FORUM.key, sdf.format(date));
 
             String message = "Mensa Forum is opened on " + sdf.format(date);
             assertFalse(message, mensaForumIsOpenOn);

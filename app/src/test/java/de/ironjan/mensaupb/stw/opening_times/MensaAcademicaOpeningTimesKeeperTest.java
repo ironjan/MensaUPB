@@ -48,7 +48,7 @@ public class MensaAcademicaOpeningTimesKeeperTest extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA, date);
+            boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA.key, sdf.format(date));
 
             String message = "Mensa Academica is closed on " + sdf.format(date);
             assertTrue(message, mensaAcademicaIsOpenOn);
@@ -63,7 +63,7 @@ public class MensaAcademicaOpeningTimesKeeperTest extends TestCase {
         calendar.set(2015, Calendar.MAY, 15);
         Date date = calendar.getTime();
 
-        boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA, date);
+        boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA.key, sdf.format(date));
 
         assertFalse("Mensa Academica is opened on 2015-05-15", mensaAcademicaIsOpenOn);
     }
@@ -79,7 +79,7 @@ public class MensaAcademicaOpeningTimesKeeperTest extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA, date);
+            boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA.key, sdf.format(date));
 
             String message = "Mensa Academica is closed on " + sdf.format(date);
             assertTrue(message, mensaAcademicaIsOpenOn);
@@ -93,7 +93,7 @@ public class MensaAcademicaOpeningTimesKeeperTest extends TestCase {
     public void mensaAcademicaShouldBeClosedOn_2015_06_05() {
         calendar.set(2015, Calendar.JUNE, 5);
         Date date = calendar.getTime();
-        boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA, date);
+        boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA.key, sdf.format(date));
 
         assertFalse("Mensa Academica is opened on 2015-06-05", mensaAcademicaIsOpenOn);
     }
@@ -109,7 +109,7 @@ public class MensaAcademicaOpeningTimesKeeperTest extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA, date);
+            boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA.key, sdf.format(date));
 
             String message = "Mensa Academica is closed on " + sdf.format(date);
             assertTrue(message, mensaAcademicaIsOpenOn);
@@ -131,7 +131,7 @@ public class MensaAcademicaOpeningTimesKeeperTest extends TestCase {
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
 
-            boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA, date);
+            boolean mensaAcademicaIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.MENSA_ACADEMICA.key, sdf.format(date));
 
             String message = "Mensa Academica is opened on " + sdf.format(date);
             assertFalse(message, mensaAcademicaIsOpenOn);

@@ -19,8 +19,8 @@ public enum Restaurant {
             Constants.GRILL_CAFE,
             Constants.CAFETE};
     private static Integer[] nameStringIds;
+    public final String key;
     private final int ordinal;
-    private final String key;
     private final int nameStringId;
 
     private Restaurant(int ordinal, String key, int nameStringId) {

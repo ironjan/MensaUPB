@@ -35,8 +35,8 @@ import de.ironjan.mensaupb.stw.Restaurant;
 @Config(emulateSdk = 18)
 @RunWith(BlockJUnit4ClassRunner.class)
 public class CafeteOpeningTimesKeeperTest extends TestCase {
-    private Calendar calendar;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private Calendar calendar;
 
     @Before
     public void setupCalendar() {
@@ -55,7 +55,7 @@ public class CafeteOpeningTimesKeeperTest extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            boolean cafeteIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.CAFETE, date);
+            boolean cafeteIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.CAFETE.key, sdf.format(date));
 
             String message = "Cafete is closed on " + sdf.format(date);
             assertTrue(message, cafeteIsOpenOn);
@@ -77,7 +77,7 @@ public class CafeteOpeningTimesKeeperTest extends TestCase {
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
 
-            boolean cafeteIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.CAFETE, date);
+            boolean cafeteIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.CAFETE.key, sdf.format(date));
 
             String message = "Cafete is opened on " + sdf.format(date);
             assertFalse(message, cafeteIsOpenOn);

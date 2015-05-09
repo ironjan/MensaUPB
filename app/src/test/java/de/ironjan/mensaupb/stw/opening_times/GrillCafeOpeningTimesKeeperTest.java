@@ -35,8 +35,8 @@ import de.ironjan.mensaupb.stw.Restaurant;
 @Config(emulateSdk = 18)
 @RunWith(BlockJUnit4ClassRunner.class)
 public class GrillCafeOpeningTimesKeeperTest extends TestCase {
-    private Calendar calendar;
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private Calendar calendar;
 
     @Before
     public void setupCalendar() {
@@ -55,7 +55,7 @@ public class GrillCafeOpeningTimesKeeperTest extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE, date);
+            boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE.key, sdf.format(date));
 
             String message = "Grill Cafe is closed on " + sdf.format(date);
             assertTrue(message, grillCafeIsOpenOn);
@@ -70,7 +70,7 @@ public class GrillCafeOpeningTimesKeeperTest extends TestCase {
         calendar.set(2015, Calendar.MAY, 15);
         Date date = calendar.getTime();
 
-        boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE, date);
+        boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE.key, sdf.format(date));
 
         assertFalse("Grill Cafe is opened on 2015-05-15", grillCafeIsOpenOn);
     }
@@ -86,7 +86,7 @@ public class GrillCafeOpeningTimesKeeperTest extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE, date);
+            boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE.key, sdf.format(date));
 
             String message = "Grill Cafe is closed on " + sdf.format(date);
             assertTrue(message, grillCafeIsOpenOn);
@@ -100,7 +100,7 @@ public class GrillCafeOpeningTimesKeeperTest extends TestCase {
     public void grillCafeShouldBeClosedOn_2015_06_05() {
         calendar.set(2015, Calendar.JUNE, 5);
         Date date = calendar.getTime();
-        boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE, date);
+        boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE.key, sdf.format(date));
 
         assertFalse("Grill Cafe is opened on 2015-06-05", grillCafeIsOpenOn);
     }
@@ -116,7 +116,7 @@ public class GrillCafeOpeningTimesKeeperTest extends TestCase {
 
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
-            boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE, date);
+            boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE.key, sdf.format(date));
 
             String message = "Grill Cafe is closed on " + sdf.format(date);
             assertTrue(message, grillCafeIsOpenOn);
@@ -138,7 +138,7 @@ public class GrillCafeOpeningTimesKeeperTest extends TestCase {
         while (calendar.before(fixedEnd)) {
             Date date = calendar.getTime();
 
-            boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE, date);
+            boolean grillCafeIsOpenOn = OpeningTimesKeeper.isOpenOn(Restaurant.GRILL_CAFE.key, sdf.format(date));
 
             String message = "Grill Cafe is opened on " + sdf.format(date);
             assertFalse(message, grillCafeIsOpenOn);
