@@ -34,6 +34,18 @@ class MensaAcademicaOpeningTimesKeeper implements RestaurantOpeningTimesKeeper {
 
     @Override
     public Date hasCheapFoodUntil(Date date) {
-        return null;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        boolean isFriday = Calendar.FRIDAY == calendar.get(Calendar.DAY_OF_WEEK);
+        if (isFriday) {
+            calendar.set(Calendar.HOUR_OF_DAY, 13);
+            calendar.set(Calendar.MINUTE, 30);
+        } else {
+            calendar.set(Calendar.HOUR_OF_DAY, 14);
+            calendar.set(Calendar.MINUTE, 0);
+        }
+
+        return calendar.getTime();
     }
 }

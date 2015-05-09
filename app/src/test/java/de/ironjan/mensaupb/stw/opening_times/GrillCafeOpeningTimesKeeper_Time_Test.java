@@ -1,5 +1,6 @@
 package de.ironjan.mensaupb.stw.opening_times;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.junit.Before;
@@ -10,6 +11,9 @@ import org.robolectric.annotation.Config;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
+import de.ironjan.mensaupb.stw.Restaurant;
 
 /**
  * Vorlesungszeit
@@ -40,8 +44,10 @@ public class GrillCafeOpeningTimesKeeper_Time_Test extends TestCase {
     }
 
     @Test
-    public void niy() {
-        fail("niy");
+    public void happyDinnerShouldEndAt_1900() {
+        String dateAsKey = sdf.format(new Date());
+        Date openUntil = OpeningTimesKeeper.hasCheapFoodUntil(Restaurant.GRILL_CAFE.key, dateAsKey);
+        Assert.assertEquals("19:00", time.format(openUntil));
     }
 
 }
