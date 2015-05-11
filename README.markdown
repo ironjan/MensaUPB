@@ -14,7 +14,22 @@ geschrieben und ist nun endlich wieder im PlayStore ;)
 
 # Wie man Tester wird
 
-Hierzu verweise ich auf [meinen Blogeintrag](http://ironjan.de/mensaupb-beta/) zu diesem Thema.
+Diese App gibt es auch als Beta. Ihr bekommt Updates dann vor allen anderen, müsst aber damit rechnen,
+dass es etwas öfter zu Fehlern kommt. Um an der Beta teilzunehmen müsst ihr folgendes tun:
+
+ 1. Tretet der [Google+ Community](https://plus.google.com/communities/100748776402713947129) oder
+    der [Beta-Mailingliste](https://groups.google.com/d/forum/mensa-upb-beta) bei.
+ 1. Anschließend besucht ihr [diese Seite](https://play.google.com/apps/testing/de.ironjan.mensaupb)
+    und werdet Tester.
+ 1. Sollte die App noch nicht installiert sein, könnt ihr diese aus dem [Play Store](https://play.google.com/store/apps/details?id=de.ironjan.mensaupb&ah=mtuRGeIHXZJvg6tT3jRCpoTO8fE)
+    herunterladen.
+
+Falls die App bereits installiert ist, entfällt der letzte Schritt: es gibt ein automatisches Update
+auf die Beta-Version.
+
+Ihr könnt jederzeit auf [dieser Seite](https://play.google.com/apps/testing/de.ironjan.mensaupb)
+entscheiden, ob ihr Tester bleiben wollt oder nicht. Die App “wechselt” nach jeder Änderung
+automatisch.
 
 # Wie man mitentwickelt
 
