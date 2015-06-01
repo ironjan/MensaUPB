@@ -1,13 +1,16 @@
 package de.ironjan.mensaupb.fragments;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FromHtml;
 import org.androidannotations.annotations.ViewById;
@@ -60,5 +63,23 @@ public class AboutFragment extends Fragment {
         String app_name = getResources().getString(R.string.app_name);
         String title = app_name + " " + BuildConfig.VERSION_NAME;
         actionBar.setTitle(title);
+    }
+
+    @Click(R.id.btnFeedback)
+    void sendFeedback() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SENDTO);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"lippertsjan+mensaupb@gmail.com"});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "[MensaUPB " + BuildConfig.VERSION_CODE + "] Feedback");
+        intent.putExtra(Intent.EXTRA_TEXT, "Hallo Jan,\n\nich möchte dir folgendes Feedback zu MensaUPB geben:\n\n");
+        boolean activityExists = intent.resolveActivityInfo(getActivity().getPackageManager(), 0) != null;
+
+        if (activityExists) {
+            getActivity().startActivity(intent);
+        } else {
+            Toast.makeText(getActivity(), "Bitte richte eine App zum Senden von Emails ein.", Toast.LENGTH_LONG).show();
+        }
+
     }
 }
