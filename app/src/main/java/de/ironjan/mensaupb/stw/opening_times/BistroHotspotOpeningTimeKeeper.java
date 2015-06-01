@@ -39,7 +39,7 @@ class BistroHotspotOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
     }
 
     @Override
-    public Date isOpenUntil(Date date) {
-        return null;
+    public Date hasCheapFoodUntil(Date date) {
+        return TimeChanger.updateTime(date, 14, 0);
     }
 }

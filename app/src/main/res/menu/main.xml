@@ -12,6 +12,13 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/ab_showtimes"
+        android:icon="@drawable/ic_action_about"
+        android:orderInCategory="1"
+        android:title="Öffnungszeiten"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/ab_about"
         android:orderInCategory="90"
         android:title="@string/about"

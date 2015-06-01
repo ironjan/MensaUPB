@@ -104,5 +104,9 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="cafete" translatable="false">cafete</string>
     <string name="bistro_hotspot" translatable="false">bistro-hotspot</string>
     <string name="grill_cafe" translatable="false">grill-cafe</string>
+
+    <string name="feedbackTemplateBody">Hallo Jan,\n\nich möchte dir folgendes Feedback zu MensaUPB geben:\n\n</string>
+    <string name="feedbackTemplateSubject">[MensaUPB %d] Feedback</string>
+    <string name="feedbackNoEmailNote">Bitte richte eine App zum Senden von Emails ein.</string>
 </resources>
 
