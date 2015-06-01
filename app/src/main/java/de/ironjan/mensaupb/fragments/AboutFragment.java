@@ -14,6 +14,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FromHtml;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +28,8 @@ import de.ironjan.mensaupb.R;
 @EFragment(R.layout.fragment_about)
 public class AboutFragment extends Fragment {
 
+    public static final String[] DEVELOPER_EMAILS = new String[]{"lippertsjan+mensaupb@gmail.com"};
+    public static final String MAIL_MIME_TYPE = "text/plain";
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
     @ViewById(R.id.txtDependencies)
     @FromHtml(R.string.dependencies)
@@ -43,6 +46,9 @@ public class AboutFragment extends Fragment {
     @FromHtml(R.string.source)
     TextView mTextSourceLink;
 
+
+    @StringRes
+    String feedbackTemplateBody, feedbackTemplateSubject, feedbackNoEmailNote;
 
     @AfterViews
     void linkify() {
@@ -69,16 +75,17 @@ public class AboutFragment extends Fragment {
     void sendFeedback() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SENDTO);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"lippertsjan+mensaupb@gmail.com"});
-        intent.putExtra(Intent.EXTRA_SUBJECT, "[MensaUPB " + BuildConfig.VERSION_CODE + "] Feedback");
-        intent.putExtra(Intent.EXTRA_TEXT, "Hallo Jan,\n\nich möchte dir folgendes Feedback zu MensaUPB geben:\n\n");
+        intent.setType(MAIL_MIME_TYPE);
+        intent.putExtra(Intent.EXTRA_EMAIL, DEVELOPER_EMAILS);
+        String subject = String.format(feedbackTemplateSubject, BuildConfig.VERSION_NAME);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, feedbackTemplateBody);
         boolean activityExists = intent.resolveActivityInfo(getActivity().getPackageManager(), 0) != null;
 
         if (activityExists) {
             getActivity().startActivity(intent);
         } else {
-            Toast.makeText(getActivity(), "Bitte richte eine App zum Senden von Emails ein.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), feedbackNoEmailNote, Toast.LENGTH_LONG).show();
         }
 
     }
