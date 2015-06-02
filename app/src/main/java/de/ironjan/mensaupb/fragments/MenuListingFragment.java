@@ -140,7 +140,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         LOGGER.debug("Sync requested.");
     }
 
-    @OptionsItem(R.id.ab_about)
+    @OptionsItem(R.id.ab_showtimes)
     void showTimes() {
         String msg = DateFormat.getTimeInstance().format(
                         OpeningTimesKeeper.hasCheapFoodUntil(getArgLocation(), getArgDate()));
