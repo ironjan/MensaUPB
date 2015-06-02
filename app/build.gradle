@@ -5,7 +5,7 @@ def versionMinor = 17
 // backwards-compatible bug fixes, must be <=99
 def versionPatch = 0
 // bump for dogfood builds, public betas, etc., must be <=99
-def versionBuild = 0
+def versionBuild = 1
 
 
 apply plugin: 'com.android.application'
