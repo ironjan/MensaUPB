@@ -32,6 +32,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.ironjan.mensaupb.BuildConfig;
+import de.ironjan.mensaupb.MensaUpbApplication;
+import de.ironjan.mensaupb.MonitoringConstants;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.adapters.WeekdayHelper;
 import de.ironjan.mensaupb.adapters.WeekdayPagerAdapter;
@@ -85,6 +87,22 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         mLocation = mInternalKeyValueStore.lastLocation().get();
         initPager();
         initActionBar();
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                int offsetInPercent = (int) (100 * positionOffset);
+                trackEvent(MonitoringConstants.CATEGORY_MENUS, MonitoringConstants.ACTION_SCROLLING, null, offsetInPercent);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                trackEvent(MonitoringConstants.CATEGORY_DAYS, MonitoringConstants.ACTION_CHANGE, "today+" + position, 1);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
     @Trace
@@ -170,7 +188,25 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         loadPagerAdapter(i);
 
         restaurant = mRestaurantKeys[i];
+
+        trackEvent(MonitoringConstants.CATEGORY_RESTAURANTS, MonitoringConstants.ACTION_CHANGE, restaurant, 1);
+
         return true;
+    }
+
+    /**
+     * Events are a useful way to collect data about a user's interaction with interactive components of your app, like button presses or the use of a particular item in a game.
+     * Parameters:
+     *
+     * @param category - (required) – this String defines the event category. You might define event categories based on the class of user actions, like clicks or gestures or voice commands, or you might define them based upon the features available in your application (play, pause, fast forward, etc.).
+     * @param action   - (required) this String defines the specific event action within the category specified. In the example, we are basically saying that the category of the event is user clicks, and the action is a button click.
+     * @param label    - defines a label associated with the event. For example, if you have multiple Button controls on a screen, you might use the label to specify the specific View control identifier that was clicked.
+     * @param value    - defines a numeric value associated with the event. For example, if you were tracking "Buy" button clicks, you might log the number of items being purchased, or their total cost.
+
+     */
+    private void trackEvent(String category, String action, String label, int value) {
+        ((MensaUpbApplication) getApplication()).getTracker()
+                .trackEvent(category, action, label, value);
     }
 
 
