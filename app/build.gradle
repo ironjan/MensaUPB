@@ -69,7 +69,7 @@ android {
         }
 
         release {
-            buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 24 * 2" // 2 days
+            buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 24 " // 1 day
             buildConfigField "String", "STW_URL", "\"\""
         }
     }
