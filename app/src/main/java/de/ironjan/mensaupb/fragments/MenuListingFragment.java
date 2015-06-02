@@ -7,10 +7,14 @@ import android.os.*;
 import android.support.v4.app.*;
 import android.support.v4.widget.*;
 import android.view.*;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.*;
 import org.androidannotations.annotations.sharedpreferences.*;
 import org.slf4j.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
@@ -136,4 +140,12 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         LOGGER.debug("Sync requested.");
     }
 
+    @OptionsItem(R.id.ab_about)
+    void showTimes() {
+        String msg = DateFormat.getTimeInstance().format(
+                        OpeningTimesKeeper.hasCheapFoodUntil(getArgLocation(), getArgDate()));
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+    }
+
 }
+
