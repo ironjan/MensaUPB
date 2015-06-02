@@ -13,5 +13,5 @@ interface RestaurantOpeningTimesKeeper {
      * @param date The date to check for
      * @return The date with the closing time for this day
      */
-    Date isOpenUntil(Date date);
+    Date hasCheapFoodUntil(Date date);
 }

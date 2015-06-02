@@ -60,4 +60,10 @@ The following Open Source libraries are used:</string>
     <string name="unacceptableAllergens">Filtered out allergens</string>
     <string name="unacceptableAdditionals">Filtered out additionals</string>
     <string name="allergensHintAtSTW">Please inform yourself about allergens and additionals on the Studentenwerk\' internet page and at the counter!</string>
+    <string name="feedbackNoEmailNote">Please configure your email app.  </string>
+    <string name="feedbackTemplateBody">Hi Jan,\n\nI want to send you the following feedback about MensaUPB:\n\n</string>
+    <string name="feedbackTemplateSubject">[MensaUPB %d] Feedback</string>
+
+    <string name="openUntil">Open until %s.</string>
+
 </resources>

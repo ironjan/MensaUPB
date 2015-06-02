@@ -36,7 +36,15 @@ class MensaForumOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
 
 
     @Override
-    public Date isOpenUntil(Date date) {
-        return null;
+    public Date hasCheapFoodUntil(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        boolean isFriday = Calendar.FRIDAY == calendar.get(Calendar.DAY_OF_WEEK);
+        if (isFriday) {
+            return TimeChanger.updateTime(date, 13, 30);
+        } else {
+            return TimeChanger.updateTime(date, 14, 0);
+        }
     }
 }
