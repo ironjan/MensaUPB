@@ -2,28 +2,31 @@ package de.ironjan.mensaupb.fragments;
 
 
 import android.app.Activity;
-import android.content.*;
-import android.os.*;
-import android.support.v4.app.*;
-import android.support.v4.widget.*;
-import android.view.*;
-import android.widget.Toast;
+import android.content.ContentResolver;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 
-import org.androidannotations.annotations.*;
-import org.androidannotations.annotations.sharedpreferences.*;
-import org.slf4j.*;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ItemClick;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.activities.*;
-import de.ironjan.mensaupb.adapters.*;
-import de.ironjan.mensaupb.prefs.*;
+import de.ironjan.mensaupb.activities.MenusNavigationCallback;
+import de.ironjan.mensaupb.adapters.MenuDetailViewBinder;
+import de.ironjan.mensaupb.adapters.MenuListingAdapter;
+import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.opening_times.OpeningTimesKeeper;
-import de.ironjan.mensaupb.sync.*;
-import se.emilsjolander.stickylistheaders.*;
+import de.ironjan.mensaupb.sync.AccountCreator;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 @SuppressWarnings("WeakerAccess")
 @EFragment(R.layout.fragment_menu_listing)
@@ -140,12 +143,6 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         LOGGER.debug("Sync requested.");
     }
 
-    @OptionsItem(R.id.ab_showtimes)
-    void showTimes() {
-        String msg = DateFormat.getTimeInstance().format(
-                        OpeningTimesKeeper.hasCheapFoodUntil(getArgLocation(), getArgDate()));
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
-    }
 
 }
 

@@ -32,7 +32,7 @@ public class WeekdayHelper {
     private volatile boolean mDaysNotInitializedYet = true;
 
     @Trace
-    synchronized String getNextWeekDayAsKey(int i) {
+    public synchronized String getNextWeekDayAsKey(int i) {
         if (weekDaysAsString[i] == null) {
             weekDaysAsString[i] = SDF.format(getNextWeekDay(i));
         }
