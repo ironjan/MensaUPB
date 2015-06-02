@@ -5,6 +5,7 @@ import android.content.*;
 import android.os.*;
 
 import org.androidannotations.annotations.*;
+import org.piwik.sdk.PiwikApplication;
 import org.slf4j.*;
 
 import de.ironjan.mensaupb.sync.*;
@@ -14,7 +15,7 @@ import de.ironjan.mensaupb.sync.*;
  */
 @SuppressWarnings("WeakerAccess")
 @EApplication
-public class MensaUpbApplication extends Application {
+public class MensaUpbApplication extends PiwikApplication {
     private final Logger LOGGER = LoggerFactory.getLogger(MensaUpbApplication.class.getSimpleName()
     );
     @Bean
@@ -44,5 +45,15 @@ public class MensaUpbApplication extends Application {
         settingsBundle.putBoolean(
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
+    }
+
+    @Override
+    public String getTrackerUrl() {
+        return "http://ironjan.de/piwik/piwik.php";
+    }
+
+    @Override
+    public Integer getSiteId() {
+        return 1;
     }
 }

@@ -98,6 +98,8 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
 
+    compile fileTree(dir: 'libs', include: '*.jar')
+
     testCompile 'junit:junit:4.12'
     testCompile 'org.robolectric:robolectric:3.0-rc2'
     // Repetition for autocompletion in android studio
