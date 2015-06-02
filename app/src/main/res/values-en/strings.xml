@@ -63,4 +63,7 @@ The following Open Source libraries are used:</string>
     <string name="feedbackNoEmailNote">Please configure your email app.  </string>
     <string name="feedbackTemplateBody">Hi Jan,\n\nI want to send you the following feedback about MensaUPB:\n\n</string>
     <string name="feedbackTemplateSubject">[MensaUPB %d] Feedback</string>
+
+    <string name="openUntil">Open until %s.</string>
+
 </resources>

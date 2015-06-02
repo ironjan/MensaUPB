@@ -23,11 +23,13 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.Trace;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
@@ -71,6 +73,8 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     InternalKeyValueStore_ mInternalKeyValueStore;
     @Bean
     WeekdayHelper mWeekdayHelper;
+    @StringRes(R.string.openUntil)
+    String openUntil;
     private WeekdayPagerAdapter[] adapters;
     private WeekdayPagerAdapter mWeekdayPagerAdapter;
 
@@ -184,8 +188,9 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
     @OptionsItem(R.id.ab_showtimes)
     void showTimes() {
-        String msg = DateFormat.getTimeInstance().format(
-                OpeningTimesKeeper.hasCheapFoodUntil(restaurant, mwWeekdayHelper.getNextWeekDayAsKey(mDayOffset)));
+        Date time = OpeningTimesKeeper.hasCheapFoodUntil(restaurant, mwWeekdayHelper.getNextWeekDayAsKey(mDayOffset));
+        String formattedTime = new SimpleDateFormat("HH:mm").format(time);
+        String msg = String.format(openUntil, formattedTime);
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
