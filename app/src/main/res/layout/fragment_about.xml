@@ -1,100 +1,95 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="de.ironjan.mensaupb.AboutFragment">
+    tools:context="de.ironjan.mensaupb.AboutFragment"
 
-    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/elementMargin"
+    android:layout_marginRight="@dimen/elementMargin"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/txtFeedback"
+        style="@style/TextBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Du hast einene Fehler gefunden oder eine Anregung? Schick mir einfach eine Email!" />
+
+    <Button
+        android:id="@+id/btnFeedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/elementMargin"
-        android:layout_marginRight="@dimen/elementMargin"
-        android:orientation="vertical">
+        android:layout_below="@+id/txtFeedback"
+        android:layout_marginTop="@dimen/elementMarginSmall"
+        android:text="Feedback geben" />
+
+    <TextView
+        android:id="@+id/txtAbout"
+        style="@style/TextBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnFeedback"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:text="@string/aboutText" />
 
 
-        <TextView
-            android:id="@+id/txtFeedback"
-            style="@style/TextBody"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/elementMarginSmall"
-            android:text="Du hast einene Fehler gefunden oder eine Anregung? Schick mir einfach eine Email!" />
+    <TextView
+        android:id="@+id/textSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtAbout"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/source" />
 
-        <Button
-            android:id="@+id/btnFeedback"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtFeedback"
-            android:layout_marginTop="@dimen/elementMarginSmall"
-            android:text="Feedback geben" />
-
-        <TextView
-            android:id="@+id/txtAbout"
-            style="@style/TextBody"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btnFeedback"
-            android:layout_marginTop="@dimen/elementMargin"
-            android:text="@string/aboutText" />
+    <TextView
+        android:id="@+id/txtOpenSourceHeader"
+        style="@style/TextSubhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textSource"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:text="@string/about_open_source" />
 
 
-        <TextView
-            android:id="@+id/textSource"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtAbout"
-            android:layout_marginTop="@dimen/elementMargin"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:text="@string/source" />
+    <TextView
+        android:id="@+id/txtDependencies"
+        style="@style/TextBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtOpenSourceHeader"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:text="@string/dependencies" />
 
-        <TextView
-            android:id="@+id/txtOpenSourceHeader"
-            style="@style/TextSubhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textSource"
-            android:layout_marginTop="@dimen/elementMargin"
-            android:text="@string/about_open_source" />
+    <TextView
+        android:id="@+id/txtDependencyNames"
+        style="@style/TextBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDependencies"
+        android:layout_margin="@dimen/elementMargin"
+        android:text="@string/dependencyNames" />
 
+    <TextView
+        android:id="@+id/txtDevHeader"
+        style="@style/TextSubhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDependencyNames"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:text="@string/devHeader"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TextView
-            android:id="@+id/txtDependencies"
-            style="@style/TextBody"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtOpenSourceHeader"
-            android:layout_marginTop="@dimen/elementMargin"
-            android:text="@string/dependencies" />
+    <TextView
+        android:id="@+id/txtDevNames"
+        style="@style/TextBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDevHeader"
+        android:layout_marginBottom="@dimen/elementMargin"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:text="@string/devNames" />
 
-        <TextView
-            android:id="@+id/txtDependencyNames"
-            style="@style/TextBody"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtDependencies"
-            android:layout_margin="@dimen/elementMargin"
-            android:text="@string/dependencyNames" />
-
-        <TextView
-            android:id="@+id/txtDevHeader"
-            style="@style/TextSubhead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtDependencyNames"
-            android:layout_marginTop="@dimen/elementMargin"
-            android:text="@string/devHeader"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/txtDevNames"
-            style="@style/TextBody"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtDevHeader"
-            android:layout_marginBottom="@dimen/elementMargin"
-            android:layout_marginTop="@dimen/elementMargin"
-            android:text="@string/devNames" />
-
-    </RelativeLayout>
-</ScrollView>
+</RelativeLayout>

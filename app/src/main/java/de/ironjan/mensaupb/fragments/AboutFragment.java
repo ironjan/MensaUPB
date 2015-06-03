@@ -22,7 +22,7 @@ import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 
 /**
- * Actual content of {@link de.ironjan.mensaupb.activities.About}.
+ * Fragment with some information about the app.
  */
 @SuppressWarnings("WeakerAccess")
 @EFragment(R.layout.fragment_about)

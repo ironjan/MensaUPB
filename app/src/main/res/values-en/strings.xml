@@ -66,4 +66,9 @@ The following Open Source libraries are used:</string>
 
     <string name="openUntil">Open until %s.</string>
 
+    <string name="anonymousUserStatistics">Anonymous statistics</string>
+    <string name="anonymousUserStatisticsExplanation">To improve MensaUPB, anonymous user statistics are collected. How often are specific features of MensaUPB user? Are these features necessary?
+        Do the users find new features easily? These are the questions that I - the developer - try to answer.</string>
+    <string name="anonymousUserStatisticsEnabled">Anonymous statistics activated</string>
+    <string name="anonymousUserStatisticsDisabled">Anonymous statistics deactivated</string>
 </resources>
