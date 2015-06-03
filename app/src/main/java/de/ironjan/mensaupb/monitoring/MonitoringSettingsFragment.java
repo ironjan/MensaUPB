@@ -7,6 +7,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 import org.piwik.sdk.Piwik;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,16 +27,15 @@ public class MonitoringSettingsFragment extends Fragment {
     @ViewById
     SwitchCompat switchMonitoringEnabled;
 
+    @StringRes
+    String anonymousUserStatisticsEnabled, anonymousUserStatisticsDisabled;
+
     @AfterViews
     void fetchSettings(){
         boolean optOut = getGlobalSettings().isOptOut();
         boolean monitoringEnabled = !optOut;
         switchMonitoringEnabled.setChecked(monitoringEnabled);
-    }
-
-    private Piwik getGlobalSettings() {
-        return ((MensaUpbApplication) getActivity().getApplication())
-                .getGlobalSettings();
+        updateSwitchText();
     }
 
     @CheckedChange(R.id.switchMonitoringEnabled)
@@ -43,5 +43,19 @@ public class MonitoringSettingsFragment extends Fragment {
         boolean monitoringEnabled = switchMonitoringEnabled.isChecked();
         boolean optOut = !monitoringEnabled;
         getGlobalSettings().setAppOptOut(optOut);
+    }
+
+    private Piwik getGlobalSettings() {
+        return ((MensaUpbApplication) getActivity().getApplication())
+                .getGlobalSettings();
+    }
+
+    private void updateSwitchText() {
+        boolean monitoringEnabled = switchMonitoringEnabled.isChecked();
+        if(monitoringEnabled){
+            switchMonitoringEnabled.setText(anonymousUserStatisticsEnabled);
+        }else{
+            switchMonitoringEnabled.setText(anonymousUserStatisticsDisabled);
+        }
     }
 }
