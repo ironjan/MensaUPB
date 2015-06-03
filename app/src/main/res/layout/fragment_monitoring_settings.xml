@@ -10,7 +10,7 @@
         android:layout_marginTop="@dimen/elementMargin"
         android:layout_height="wrap_content"
         style="@style/TextSubhead"
-        android:text="Anonyme Nutzungsstatistiken"
+        android:text="@string/anonymousUserStatistics"
         android:id="@+id/textHeadlineUserMonitoring" />
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_marginTop="@dimen/elementMargin"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Um MensaUPB weiter zu verbessern, werden anonyme Nutzungsstatistiken erfasst. Wie oft werden welche Funktionen von MensaUPB genutzt? Sind diese notwenidg? Werden neue Funktionen entdeckt oder nicht? Diese Fragen stelle ich mir als Entwickler und kann diese durch die Statistiken beantworten."
+        android:text="@string/anonymousUserStatisticsExplanation"
         android:id="@+id/textExplanationUserMonitoring" />
 
     <android.support.v7.widget.SwitchCompat
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:textOn="Ja"
         android:textOff="Nein"
-        android:text="Anonyme Nutzungsstatistik erfassen" />
+        android:text="@string/anonymousUserStatisticsEnabled" />
 
 
 </LinearLayout>
