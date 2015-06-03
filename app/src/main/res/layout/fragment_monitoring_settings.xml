@@ -5,21 +5,31 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:layout_height="wrap_content"
+        style="@style/TextSubhead"
+        android:text="Anonyme Nutzungsstatistiken"
+        android:id="@+id/textHeadlineUserMonitoring" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Um MensaUPB weiter zu verbessern, werden anonyme Nutzungsstatistiken erfasst. Wie oft werden welche Funktionen von MensaUPB genutzt? Sind diese notwenidg? Werden neue Funktionen entdeckt oder nicht? Diese Fragen stelle ich mir als Entwickler und kann diese durch die Statistiken beantworten."
+        android:id="@+id/textExplanationUserMonitoring" />
+
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/switchMonitoringEnabled"
+        android:layout_marginTop="@dimen/elementMargin"
         android:layout_width="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
         android:textOn="Ja"
         android:textOff="Nein"
-        android:text="Anonymisierte Nutzungsstatistik erfassen" />
+        android:text="Anonyme Nutzungsstatistik erfassen" />
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-        <!--android:text="Um MensaUPB weiter zu verbessern, "-->
-        <!--android:id="@+id/textView" />-->
 
 </LinearLayout>
