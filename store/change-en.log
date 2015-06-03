@@ -1,4 +1,4 @@
-* Fixed: image background doesn't increase size anymore
-* App remembers the last restaurant you visited
-* Added first support for opening times
-* Anonymous user statstics to improve app
+2.18.0-1
+
+ * Added first support for opening times
+ * Anonymous user statstics to improve app
