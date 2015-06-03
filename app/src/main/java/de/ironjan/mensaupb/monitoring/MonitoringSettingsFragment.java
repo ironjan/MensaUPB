@@ -15,23 +15,13 @@ import de.ironjan.mensaupb.MensaUpbApplication;
 import de.ironjan.mensaupb.R;
 
 /**
- * Actual content of {@link de.ironjan.mensaupb.activities.About}.
+ * Fragment to enable the user to change the app's behaviour about user monitoring.
  */
 @SuppressWarnings("WeakerAccess")
 @EFragment(R.layout.fragment_monitoring_settings)
 public class MonitoringSettingsFragment extends Fragment {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
-
-//    // out out
-//    CheckBox optOut = (CheckBox) findViewById(R.id.optOutCheckbox);
-//    optOut.setChecked(((PiwikApplication) getApplication()).getGlobalSettings().isOptOut());
-//    optOut.setOnClickListener(new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            ((PiwikApplication) getApplication()).getGlobalSettings().setAppOptOut(((CheckBox) v).isChecked());
-//        }
-//    });
 
     @ViewById
     SwitchCompat switchMonitoringEnabled;
