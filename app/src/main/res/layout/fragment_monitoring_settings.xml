@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switchMonitoringEnabled"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/elementMinHeight"
+        android:textOn="Ja"
+        android:textOff="Nein"
+        android:text="Anonymisierte Nutzungsstatistik erfassen" />
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+        <!--android:text="Um MensaUPB weiter zu verbessern, "-->
+        <!--android:id="@+id/textView" />-->
+
+</LinearLayout>

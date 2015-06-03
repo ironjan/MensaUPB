@@ -33,7 +33,7 @@ import java.util.Date;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.MensaUpbApplication;
-import de.ironjan.mensaupb.MonitoringConstants;
+import de.ironjan.mensaupb.monitoring.MonitoringConstants;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.adapters.WeekdayHelper;
 import de.ironjan.mensaupb.adapters.WeekdayPagerAdapter;

@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb;
+package de.ironjan.mensaupb.monitoring;
 
 /**
  * Class to keep track of what should be monitored in addition to screen views
