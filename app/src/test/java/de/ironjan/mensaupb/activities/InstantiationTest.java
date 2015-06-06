@@ -1,0 +1,46 @@
+package de.ironjan.mensaupb.activities;
+
+import android.app.Activity;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.robolectric.util.ActivityController;
+
+/**
+ * Test to make sure that every Activity can be opened
+ */
+@Config(emulateSdk = 18)
+@RunWith(RobolectricTestRunner.class)
+public class InstantiationTest {
+    @Test
+    public void test_AboutCanBeOpened(){
+        ActivityController controller = Robolectric.buildActivity(About_.class).create().start();
+        Activity activity = (Activity) controller.get();
+        Assert.assertNotNull(activity);
+    }
+    @Test
+    public void test_MenusCanBeOpened(){
+        ActivityController controller = Robolectric.buildActivity(Menus_.class).create().start();
+        Activity activity = (Activity) controller.get();
+        Assert.assertNotNull(activity);
+    }
+    @Test
+    public void test_MenuDetailsCanBeOpened(){
+        // TODO pass arguments for menu
+        ActivityController controller = Robolectric.buildActivity(MenuDetails_.class).create().start();
+        Activity activity = (Activity) controller.get();
+        Assert.assertNotNull(activity);
+    }
+    @Test
+    public void test_MenuSettingsCanBeOpened(){
+        ActivityController controller = Robolectric.buildActivity(Settings_.class).create().start();
+        Activity activity = (Activity) controller.get();
+        Assert.assertNotNull(activity);
+    }
+
+}
