@@ -46,9 +46,6 @@ public class AboutFragment extends Fragment {
     @FromHtml(R.string.source)
     TextView mTextSourceLink;
 
-    @StringRes
-    String feedbackTemplateBody, feedbackTemplateSubject;
-
     @Bean
     Mailer mMailer;
 
@@ -73,11 +70,4 @@ public class AboutFragment extends Fragment {
         actionBar.setTitle(title);
     }
 
-    @Click(R.id.btnFeedback)
-    void sendFeedback() {
-        String subject = String.format(feedbackTemplateSubject, BuildConfig.VERSION_NAME);
-        String body = this.feedbackTemplateBody;
-
-        mMailer.sendMail(subject,body);
-    }
 }

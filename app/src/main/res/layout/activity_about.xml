@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/elementMargin"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:padding="@dimen/elementMargin">
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <fragment
+            android:id="@+id/fragmentFeedback"
+            android:name="de.ironjan.mensaupb.feedback.FeedbackFragment_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_feedback" />
 
         <fragment
             android:id="@+id/aboutFragment"
@@ -20,10 +27,10 @@
             tools:layout="@layout/fragment_about" />
 
         <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/fragmentMonitoringSettings"
             android:name="de.ironjan.mensaupb.monitoring.MonitoringSettingsFragment_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             tools:layout="@layout/fragment_monitoring_settings" />
     </LinearLayout>
 </ScrollView>
