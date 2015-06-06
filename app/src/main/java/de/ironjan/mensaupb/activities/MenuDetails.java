@@ -9,10 +9,10 @@ import android.support.v7.app.*;
 import org.androidannotations.annotations.*;
 
 import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.fragments.*;
+import de.ironjan.mensaupb.menus_ui.MenuDetailFragment;
 
 /**
- * Wrapping activity for {@link de.ironjan.mensaupb.fragments.MenuDetailFragment}.
+ * Wrapping activity for {@link MenuDetailFragment}.
  */
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_menu_details)

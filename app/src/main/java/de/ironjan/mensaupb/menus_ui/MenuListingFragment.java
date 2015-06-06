@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.fragments;
+package de.ironjan.mensaupb.menus_ui;
 
 
 import android.app.Activity;
@@ -23,6 +23,7 @@ import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.activities.MenusNavigationCallback;
 import de.ironjan.mensaupb.adapters.MenuDetailViewBinder;
 import de.ironjan.mensaupb.adapters.MenuListingAdapter;
+import de.ironjan.mensaupb.fragments.MenuListingFragment_;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.opening_times.OpeningTimesKeeper;
 import de.ironjan.mensaupb.sync.AccountCreator;

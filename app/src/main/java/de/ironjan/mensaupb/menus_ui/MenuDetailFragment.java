@@ -1,12 +1,10 @@
-package de.ironjan.mensaupb.fragments;
+package de.ironjan.mensaupb.menus_ui;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.text.SpannableString;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -32,8 +30,7 @@ import java.util.Locale;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.activities.Menus;
-import de.ironjan.mensaupb.helpers.DateHelper;
+import de.ironjan.mensaupb.fragments.MenuDetailFragment_;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
 import de.ironjan.mensaupb.stw.Restaurant;

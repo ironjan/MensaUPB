@@ -18,7 +18,7 @@ import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.prefs.AllergenFilterPrefs_;
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 import de.ironjan.mensaupb.sync.MenuContentProvider;
-import de.ironjan.mensaupb.views.MenuListingHeaderView;
+import de.ironjan.mensaupb.menus_ui.MenuListingHeaderView;
 import de.ironjan.mensaupb.views.MenuListingHeaderView_;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 

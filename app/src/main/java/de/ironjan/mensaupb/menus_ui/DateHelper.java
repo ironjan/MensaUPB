@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.helpers;
+package de.ironjan.mensaupb.menus_ui;
 
 import java.text.*;
 import java.util.*;

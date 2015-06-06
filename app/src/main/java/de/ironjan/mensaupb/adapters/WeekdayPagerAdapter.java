@@ -1,10 +1,9 @@
 package de.ironjan.mensaupb.adapters;
 
 import android.content.*;
-import android.os.*;
 import android.support.v4.app.*;
 
-import de.ironjan.mensaupb.fragments.*;
+import de.ironjan.mensaupb.menus_ui.MenuListingFragment;
 
 public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
 

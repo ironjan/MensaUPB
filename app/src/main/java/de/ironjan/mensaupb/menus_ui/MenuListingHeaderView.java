@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.views;
+package de.ironjan.mensaupb.menus_ui;
 
 import android.content.*;
 import android.widget.*;
