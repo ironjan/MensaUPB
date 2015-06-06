@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.adapters;
+package de.ironjan.mensaupb.menus_ui;
 
 import android.content.Context;
 import android.content.res.Resources;

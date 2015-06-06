@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * TODO merge with WeekDayHelper
  *
- * @see de.ironjan.mensaupb.adapters.WeekdayHelper
+ * @see WeekdayHelper
  */
 public class DateHelper {
 

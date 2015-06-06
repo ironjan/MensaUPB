@@ -30,7 +30,7 @@ import java.util.Locale;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.fragments.MenuDetailFragment_;
+import de.ironjan.mensaupb.menus_ui.MenuDetailFragment_;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
 import de.ironjan.mensaupb.stw.Restaurant;

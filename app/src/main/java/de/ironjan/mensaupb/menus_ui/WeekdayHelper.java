@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.adapters;
+package de.ironjan.mensaupb.menus_ui;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;

@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.adapters.WeekdayHelper_;
+import de.ironjan.mensaupb.menus_ui.WeekdayHelper_;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
