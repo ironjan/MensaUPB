@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FromHtml;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.feedback.Mailer;
 
 /**
  * Fragment with some information about the app.
@@ -28,8 +30,6 @@ import de.ironjan.mensaupb.R;
 @EFragment(R.layout.fragment_about)
 public class AboutFragment extends Fragment {
 
-    public static final String[] DEVELOPER_EMAILS = new String[]{"lippertsjan+mensaupb@gmail.com"};
-    public static final String MAIL_MIME_TYPE = "text/plain";
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());
     @ViewById(R.id.txtDependencies)
     @FromHtml(R.string.dependencies)
@@ -46,9 +46,11 @@ public class AboutFragment extends Fragment {
     @FromHtml(R.string.source)
     TextView mTextSourceLink;
 
-
     @StringRes
-    String feedbackTemplateBody, feedbackTemplateSubject, feedbackNoEmailNote;
+    String feedbackTemplateBody, feedbackTemplateSubject;
+
+    @Bean
+    Mailer mMailer;
 
     @AfterViews
     void linkify() {
@@ -73,20 +75,9 @@ public class AboutFragment extends Fragment {
 
     @Click(R.id.btnFeedback)
     void sendFeedback() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SENDTO);
-        intent.setType(MAIL_MIME_TYPE);
-        intent.putExtra(Intent.EXTRA_EMAIL, DEVELOPER_EMAILS);
         String subject = String.format(feedbackTemplateSubject, BuildConfig.VERSION_NAME);
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_TEXT, feedbackTemplateBody);
-        boolean activityExists = intent.resolveActivityInfo(getActivity().getPackageManager(), 0) != null;
+        String body = this.feedbackTemplateBody;
 
-        if (activityExists) {
-            getActivity().startActivity(intent);
-        } else {
-            Toast.makeText(getActivity(), feedbackNoEmailNote, Toast.LENGTH_LONG).show();
-        }
-
+        mMailer.sendMail(subject,body);
     }
 }
