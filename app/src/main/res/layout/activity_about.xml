@@ -21,7 +21,7 @@
 
         <fragment
             android:id="@+id/aboutFragment"
-            android:name="de.ironjan.mensaupb.fragments.AboutFragment_"
+            android:name="de.ironjan.mensaupb.app_info.AboutFragment_"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_about" />

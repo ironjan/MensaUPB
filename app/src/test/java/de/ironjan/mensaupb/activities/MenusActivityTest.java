@@ -16,6 +16,7 @@ import org.robolectric.fakes.RoboMenuItem;
 import org.robolectric.util.ActivityController;
 
 import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.app_info.About_;
 import de.ironjan.mensaupb.menus_ui.Menus;
 import de.ironjan.mensaupb.menus_ui.Menus_;
 

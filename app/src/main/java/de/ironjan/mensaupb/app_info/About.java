@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.activities;
+package de.ironjan.mensaupb.app_info;
 
 import android.annotation.*;
 import android.os.*;
@@ -10,7 +10,7 @@ import org.androidannotations.annotations.*;
 import de.ironjan.mensaupb.*;
 
 /**
- * Wrapping activity for {@link de.ironjan.mensaupb.fragments.AboutFragment} and
+ * Wrapping activity for {@link AboutFragment} and
  * {@link de.ironjan.mensaupb.monitoring.MonitoringSettingsFragment}.
  */
 @SuppressLint("Registered")

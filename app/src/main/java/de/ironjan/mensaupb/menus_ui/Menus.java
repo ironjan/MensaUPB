@@ -33,7 +33,7 @@ import java.util.Date;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.MensaUpbApplication;
-import de.ironjan.mensaupb.activities.About_;
+import de.ironjan.mensaupb.app_info.About_;
 import de.ironjan.mensaupb.menus_ui.MenuDetails_;
 import de.ironjan.mensaupb.monitoring.MonitoringConstants;
 import de.ironjan.mensaupb.R;
