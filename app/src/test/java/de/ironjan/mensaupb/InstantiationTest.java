@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.activities;
+package de.ironjan.mensaupb;
 
 import android.app.Activity;
 
@@ -10,6 +10,11 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
+
+import de.ironjan.mensaupb.activities.About_;
+import de.ironjan.mensaupb.activities.MenuDetails_;
+import de.ironjan.mensaupb.activities.Menus_;
+import de.ironjan.mensaupb.prefs.Settings_;
 
 /**
  * Test to make sure that every Activity can be opened

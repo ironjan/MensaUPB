@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.activities;
+package de.ironjan.mensaupb.prefs;
 
 import android.support.v7.app.ActionBarActivity;
 
