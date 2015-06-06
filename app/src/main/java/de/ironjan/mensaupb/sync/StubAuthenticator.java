@@ -1,8 +1,11 @@
 package de.ironjan.mensaupb.sync;
 
-import android.accounts.*;
-import android.content.*;
-import android.os.*;
+import android.accounts.AbstractAccountAuthenticator;
+import android.accounts.Account;
+import android.accounts.AccountAuthenticatorResponse;
+import android.accounts.NetworkErrorException;
+import android.content.Context;
+import android.os.Bundle;
 
 /**
  * Stubbed {@link android.accounts.AbstractAccountAuthenticator} - needed by sync framework.

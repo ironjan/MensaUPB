@@ -1,21 +1,17 @@
 package de.ironjan.mensaupb.app_info;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FromHtml;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

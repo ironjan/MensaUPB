@@ -1,13 +1,14 @@
 package de.ironjan.mensaupb.app_info;
 
-import android.annotation.*;
-import android.os.*;
-import android.support.v4.app.*;
-import android.support.v7.app.*;
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 
-import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 
-import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.R;
 
 /**
  * Wrapping activity for {@link AboutFragment} and

@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.prefs.AllergenFilterPrefs_;
 import de.ironjan.mensaupb.stw.rest_api.Allergen;
 
 /**

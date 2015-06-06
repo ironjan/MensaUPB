@@ -1,10 +1,14 @@
 package de.ironjan.mensaupb.sync;
 
-import android.accounts.*;
-import android.content.*;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
 
-import org.androidannotations.annotations.*;
-import org.slf4j.*;
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
+import org.androidannotations.annotations.SystemService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class to generate and add an account to the device's account list. Needed for the android

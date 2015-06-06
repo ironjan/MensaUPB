@@ -1,11 +1,13 @@
 package de.ironjan.mensaupb.menus_ui;
 
-import android.content.*;
-import android.widget.*;
+import android.content.Context;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
-import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ViewById;
 
-import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.R;
 
 /**
  * Custom View for headers in menu listing.

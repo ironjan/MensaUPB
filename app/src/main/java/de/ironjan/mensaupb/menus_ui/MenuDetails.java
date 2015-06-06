@@ -1,15 +1,18 @@
 package de.ironjan.mensaupb.menus_ui;
 
-import android.annotation.*;
-import android.content.*;
-import android.os.*;
-import android.support.v4.app.*;
-import android.support.v7.app.*;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 
-import org.androidannotations.annotations.*;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OptionsItem;
 
-import de.ironjan.mensaupb.*;
-import de.ironjan.mensaupb.menus_ui.MenuDetailFragment;
+import de.ironjan.mensaupb.R;
 
 /**
  * Wrapping activity for {@link MenuDetailFragment}.

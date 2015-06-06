@@ -1,7 +1,9 @@
 package de.ironjan.mensaupb.menus_ui;
 
-import android.content.*;
-import android.support.v4.app.*;
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 
 public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
