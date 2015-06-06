@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.activities;
+package de.ironjan.mensaupb.menus_ui;
 
 
 import android.annotation.SuppressLint;
@@ -33,10 +33,10 @@ import java.util.Date;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.MensaUpbApplication;
+import de.ironjan.mensaupb.activities.About_;
+import de.ironjan.mensaupb.menus_ui.MenuDetails_;
 import de.ironjan.mensaupb.monitoring.MonitoringConstants;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.menus_ui.WeekdayHelper;
-import de.ironjan.mensaupb.menus_ui.WeekdayPagerAdapter;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.stw.opening_times.OpeningTimesKeeper;

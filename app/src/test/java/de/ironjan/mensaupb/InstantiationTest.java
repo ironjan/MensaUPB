@@ -12,8 +12,8 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
 import de.ironjan.mensaupb.activities.About_;
-import de.ironjan.mensaupb.activities.MenuDetails_;
-import de.ironjan.mensaupb.activities.Menus_;
+import de.ironjan.mensaupb.menus_ui.MenuDetails_;
+import de.ironjan.mensaupb.menus_ui.Menus_;
 import de.ironjan.mensaupb.prefs.Settings_;
 
 /**

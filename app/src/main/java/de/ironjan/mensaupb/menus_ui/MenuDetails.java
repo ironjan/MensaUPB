@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.activities;
+package de.ironjan.mensaupb.menus_ui;
 
 import android.annotation.*;
 import android.content.*;
