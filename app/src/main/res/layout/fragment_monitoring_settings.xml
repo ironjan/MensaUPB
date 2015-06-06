@@ -28,6 +28,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="wrap_content"
         android:textOn="Ja"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:textOff="Nein"
         android:text="@string/anonymousUserStatisticsEnabled" />
 

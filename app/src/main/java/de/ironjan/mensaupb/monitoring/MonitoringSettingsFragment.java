@@ -43,6 +43,7 @@ public class MonitoringSettingsFragment extends Fragment {
         boolean monitoringEnabled = switchMonitoringEnabled.isChecked();
         boolean optOut = !monitoringEnabled;
         getGlobalSettings().setAppOptOut(optOut);
+        updateSwitchText();
     }
 
     private Piwik getGlobalSettings() {
