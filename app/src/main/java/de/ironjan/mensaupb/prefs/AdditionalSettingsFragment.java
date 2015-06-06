@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.fragments;
+package de.ironjan.mensaupb.prefs;
 
 import android.support.v4.app.Fragment;
 import android.widget.CheckBox;
