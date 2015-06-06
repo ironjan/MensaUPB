@@ -36,7 +36,6 @@ public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
-
     @Override
     public int getCount() {
         return WeekdayHelper.DISPLAYED_DAYS_COUNT;

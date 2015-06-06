@@ -28,6 +28,6 @@ public class FeedbackFragment extends Fragment {
         String subject = String.format(feedbackTemplateSubject, BuildConfig.VERSION_NAME);
         String body = this.feedbackTemplateBody;
 
-        mMailer.sendMail(subject,body);
+        mMailer.sendMail(subject, body);
     }
 }

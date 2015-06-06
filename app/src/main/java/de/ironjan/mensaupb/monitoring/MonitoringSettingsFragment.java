@@ -31,7 +31,7 @@ public class MonitoringSettingsFragment extends Fragment {
     String anonymousUserStatisticsEnabled, anonymousUserStatisticsDisabled;
 
     @AfterViews
-    void fetchSettings(){
+    void fetchSettings() {
         boolean optOut = getGlobalSettings().isOptOut();
         boolean monitoringEnabled = !optOut;
         switchMonitoringEnabled.setChecked(monitoringEnabled);
@@ -39,7 +39,7 @@ public class MonitoringSettingsFragment extends Fragment {
     }
 
     @CheckedChange(R.id.switchMonitoringEnabled)
-    void optOutChange(){
+    void optOutChange() {
         boolean monitoringEnabled = switchMonitoringEnabled.isChecked();
         boolean optOut = !monitoringEnabled;
         getGlobalSettings().setAppOptOut(optOut);
@@ -53,9 +53,9 @@ public class MonitoringSettingsFragment extends Fragment {
 
     private void updateSwitchText() {
         boolean monitoringEnabled = switchMonitoringEnabled.isChecked();
-        if(monitoringEnabled){
+        if (monitoringEnabled) {
             switchMonitoringEnabled.setText(anonymousUserStatisticsEnabled);
-        }else{
+        } else {
             switchMonitoringEnabled.setText(anonymousUserStatisticsDisabled);
         }
     }

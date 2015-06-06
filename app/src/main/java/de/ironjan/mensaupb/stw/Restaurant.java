@@ -31,9 +31,10 @@ public enum Restaurant {
 
     /**
      * Retrieves a Restaurant by key
+     *
      * @param key the restaurant's key
      * @return the corresponding restaurant
-     * @throws  IllegalArgumentException if the key is unknown
+     * @throws IllegalArgumentException if the key is unknown
      */
     public static Restaurant fromKey(String key) {
         switch (key) {

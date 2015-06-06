@@ -25,6 +25,7 @@ public class Mailer {
     /**
      * Sends an email with the given subject and body. Notifies the user that an email app should be
      * set up, if there is none available.
+     *
      * @param subject
      * @param body
      */
