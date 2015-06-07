@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="elementMarginSmall">16dp</dimen>
+    <dimen name="elementMargin">32dp</dimen>
+    <dimen name="elementMarginBig">72dp</dimen>
+
     <!--large screens are at least 640dp x 480dp-->
     <dimen name="menuDetailsImageMaxHeight">300dp</dimen>
 
