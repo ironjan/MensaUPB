@@ -27,7 +27,7 @@ class BistroHotspotOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
 
         int[] specialTimeStart = {2015, Calendar.JUNE, 29};
         int[] specialTimeEnd = {2016, Calendar.JULY, 19};
-        boolean isInSpecialTime = IntervalChecker.isInInterval(dateInstance, specialTimeStart, specialTimeEnd);
+        boolean isInSpecialTime = DateTimeUtilities.isInInterval(dateInstance, specialTimeStart, specialTimeEnd);
         int dayOfWeek = dateInstance.get(Calendar.DAY_OF_WEEK);
         boolean isSaturday = (dayOfWeek == Calendar.SATURDAY);
         boolean isSunday = (dayOfWeek == Calendar.SUNDAY);
@@ -40,6 +40,6 @@ class BistroHotspotOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
 
     @Override
     public Date hasCheapFoodUntil(Date date) {
-        return TimeChanger.updateTime(date, 14, 0);
+        return DateTimeUtilities.updateTime(date, 14, 0);
     }
 }

@@ -29,13 +29,13 @@ public class GrillCafeOpeningtimeKeeper implements RestaurantOpeningTimesKeeper 
         int[] closedDayOne = {2015, Calendar.MAY, 15};
         int[] closedDayTwo = {2015, Calendar.JUNE, 5};
 
-        boolean isClosedDayOne = IntervalChecker.isOn(dateInstance, closedDayOne);
+        boolean isClosedDayOne = DateTimeUtilities.isOn(dateInstance, closedDayOne);
 
-        boolean isClosedDayTwo = IntervalChecker.isOn(dateInstance, closedDayTwo);
+        boolean isClosedDayTwo = DateTimeUtilities.isOn(dateInstance, closedDayTwo);
 
         int[] winterBreakStart = {2015, Calendar.DECEMBER, 18};
         int[] winterBreakEnd = {2016, Calendar.JANUARY, 5};
-        boolean isInWinterBreak = IntervalChecker.isInInterval(dateInstance, winterBreakStart, winterBreakEnd);
+        boolean isInWinterBreak = DateTimeUtilities.isInInterval(dateInstance, winterBreakStart, winterBreakEnd);
 
         if (isClosedDayOne
                 || isClosedDayTwo
@@ -48,6 +48,6 @@ public class GrillCafeOpeningtimeKeeper implements RestaurantOpeningTimesKeeper 
 
     @Override
     public Date hasCheapFoodUntil(Date date) {
-        return TimeChanger.updateTime(date, 19, 0);
+        return DateTimeUtilities.updateTime(date, 19, 0);
     }
 }

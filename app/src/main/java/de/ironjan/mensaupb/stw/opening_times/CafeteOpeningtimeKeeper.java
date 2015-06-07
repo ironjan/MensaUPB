@@ -21,7 +21,7 @@ public class CafeteOpeningtimeKeeper implements RestaurantOpeningTimesKeeper {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        boolean isInWinterBreak = IntervalChecker.isInInterval(calendar, winterBreakStart, winterBreakEnd);
+        boolean isInWinterBreak = DateTimeUtilities.isInInterval(calendar, winterBreakStart, winterBreakEnd);
 
         if (isInWinterBreak)
             return false;
@@ -45,9 +45,9 @@ public class CafeteOpeningtimeKeeper implements RestaurantOpeningTimesKeeper {
         breakEnd.set(2015, Calendar.JULY, 25);
 
         if (breakStart.before(calendar) && calendar.before(breakEnd)) {
-            return TimeChanger.updateTime(date, 18, 0);
+            return DateTimeUtilities.updateTime(date, 18, 0);
         } else {
-            return TimeChanger.updateTime(date, 22, 0);
+            return DateTimeUtilities.updateTime(date, 22, 0);
         }
     }
 

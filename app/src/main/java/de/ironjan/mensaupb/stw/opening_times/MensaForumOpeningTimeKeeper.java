@@ -25,8 +25,8 @@ class MensaForumOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
-        boolean inInterval = IntervalChecker.isInInterval(calendar, closedIntervalStart, closedIntervalEnd);
-        boolean inChristmas = IntervalChecker.isInInterval(calendar, closedIntervalWinterStart, closedIntervalWinterEnd);
+        boolean inInterval = DateTimeUtilities.isInInterval(calendar, closedIntervalStart, closedIntervalEnd);
+        boolean inChristmas = DateTimeUtilities.isInInterval(calendar, closedIntervalWinterStart, closedIntervalWinterEnd);
 
         if (inInterval || inChristmas)
             return false;
@@ -42,9 +42,9 @@ class MensaForumOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
 
         boolean isFriday = Calendar.FRIDAY == calendar.get(Calendar.DAY_OF_WEEK);
         if (isFriday) {
-            return TimeChanger.updateTime(date, 13, 30);
+            return DateTimeUtilities.updateTime(date, 13, 30);
         } else {
-            return TimeChanger.updateTime(date, 14, 0);
+            return DateTimeUtilities.updateTime(date, 14, 0);
         }
     }
 }
