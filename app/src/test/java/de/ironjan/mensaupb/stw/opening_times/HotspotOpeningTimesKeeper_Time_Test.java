@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.ironjan.mensaupb.stw.Restaurant;
+import de.ironjan.mensaupb.opening_times.data_storage.OpeningTimesKeeper;
 
 /**
  * Ganzjährig

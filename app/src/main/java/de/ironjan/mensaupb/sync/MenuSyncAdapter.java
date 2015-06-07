@@ -17,7 +17,6 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.support.ConnectionSource;
 
-import org.androidannotations.annotations.rest.Rest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.NestedRuntimeException;
@@ -28,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.adapters.WeekdayHelper_;
+import de.ironjan.mensaupb.menus_ui.WeekdayHelper_;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;

@@ -1,8 +1,8 @@
 package de.ironjan.mensaupb.sync;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
 
 /**
  * A service that instantiates the {@link de.ironjan.mensaupb.sync.StubAuthenticator}

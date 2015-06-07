@@ -1,18 +1,15 @@
 package de.ironjan.mensaupb;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
+import android.content.ContentResolver;
+import android.os.Bundle;
 
-import org.androidannotations.annotations.*;
-import org.piwik.sdk.Piwik;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EApplication;
 import org.piwik.sdk.PiwikApplication;
-import org.piwik.sdk.Tracker;
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.net.MalformedURLException;
-
-import de.ironjan.mensaupb.sync.*;
+import de.ironjan.mensaupb.sync.AccountCreator;
 
 /**
  * Used to set up synchronization on first start.

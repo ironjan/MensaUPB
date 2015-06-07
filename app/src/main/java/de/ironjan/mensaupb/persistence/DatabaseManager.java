@@ -1,8 +1,8 @@
 package de.ironjan.mensaupb.persistence;
 
-import android.content.*;
+import android.content.Context;
 
-import com.j256.ormlite.android.apptools.*;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 /**
  * Class to manage a DatabaseHelper instance

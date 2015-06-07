@@ -15,46 +15,52 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/GreenTheme">
+
         <activity
-            android:name="de.ironjan.mensaupb.activities.Menus_"
+            android:name="de.ironjan.mensaupb.menus_ui.Menus_"
             android:label="@string/app_name"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop" />
+
+        <activity-alias
+            android:name="de.ironjan.mensaupb.activities.Menus_"
+            android:targetActivity="de.ironjan.mensaupb.menus_ui.Menus_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
+
 
         <activity
-            android:name="de.ironjan.mensaupb.activities.About_"
+            android:name="de.ironjan.mensaupb.app_info.About_"
             android:label="@string/app_name"
-            android:parentActivityName="de.ironjan.mensaupb.activities.Menus_">
+            android:parentActivityName="de.ironjan.mensaupb.menus_ui.Menus_">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ironjan.mensaupb.activities.Menus_" />
+                android:value="de.ironjan.mensaupb.menus_ui.Menus_" />
 
         </activity>
 
         <activity
-            android:name="de.ironjan.mensaupb.activities.MenuDetails_"
+            android:name="de.ironjan.mensaupb.menus_ui.MenuDetails_"
             android:label="@string/app_name"
-            android:parentActivityName="de.ironjan.mensaupb.activities.Menus_"
+            android:parentActivityName="de.ironjan.mensaupb.menus_ui.Menus_"
             android:theme="@style/TransparentActionBarActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ironjan.mensaupb.activities.Menus_" />
+                android:value="de.ironjan.mensaupb.menus_ui.Menus_" />
 
         </activity>
 
         <activity
-            android:name="de.ironjan.mensaupb.activities.Settings_"
+            android:name="de.ironjan.mensaupb.prefs.Settings_"
             android:label="@string/app_name"
-            android:parentActivityName="de.ironjan.mensaupb.activities.Menus_"
+            android:parentActivityName="de.ironjan.mensaupb.menus_ui.Menus_"
             android:theme="@style/TransparentActionBarActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ironjan.mensaupb.activities.Menus_" />
+                android:value="de.ironjan.mensaupb.menus_ui.Menus_" />
 
         </activity>
 

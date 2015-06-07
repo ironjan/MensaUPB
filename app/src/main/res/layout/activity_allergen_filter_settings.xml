@@ -17,12 +17,12 @@
             android:text="@string/allergensHintAtSTW" />
 
         <fragment
-            android:name="de.ironjan.mensaupb.fragments.AllergenSettingsFragment_"
+            android:name="de.ironjan.mensaupb.prefs.AllergenSettingsFragment_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <fragment
-            android:name="de.ironjan.mensaupb.fragments.AdditionalSettingsFragment_"
+            android:name="de.ironjan.mensaupb.prefs.AdditionalSettingsFragment_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

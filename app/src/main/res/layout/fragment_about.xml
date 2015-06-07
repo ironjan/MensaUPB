@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="de.ironjan.mensaupb.AboutFragment"
+    tools:context="de.ironjan.mensaupb.app_info.AboutFragment_"
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,21 +8,6 @@
     android:layout_marginRight="@dimen/elementMargin"
     android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/txtFeedback"
-        style="@style/TextBody"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Du hast einene Fehler gefunden oder eine Anregung? Schick mir einfach eine Email!" />
-
-    <Button
-        android:id="@+id/btnFeedback"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtFeedback"
-        android:layout_marginTop="@dimen/elementMarginSmall"
-        android:text="Feedback geben" />
 
     <TextView
         android:id="@+id/txtAbout"

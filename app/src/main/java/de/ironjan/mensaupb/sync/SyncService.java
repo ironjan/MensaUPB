@@ -1,12 +1,13 @@
 package de.ironjan.mensaupb.sync;
 
-import android.app.*;
-import android.content.*;
-import android.os.*;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
 
-import org.slf4j.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import de.ironjan.mensaupb.*;
+import de.ironjan.mensaupb.BuildConfig;
 
 public class SyncService extends Service {
     private static final Logger LOGGER = LoggerFactory.getLogger("SyncService");

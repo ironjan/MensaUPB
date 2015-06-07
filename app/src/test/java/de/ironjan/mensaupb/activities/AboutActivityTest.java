@@ -15,6 +15,7 @@ import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
 import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.app_info.About_;
 
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
