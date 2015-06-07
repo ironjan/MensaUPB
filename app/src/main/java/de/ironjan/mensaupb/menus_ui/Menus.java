@@ -212,20 +212,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
      * Tracks a screen view for "/restaurant/dayOffset
      */
     private void trackScreenView() {
-        final String dayOffset;
-        switch (mDayOffset) {
-            case 0:
-                dayOffset = "today";
-                break;
-            case 1:
-                dayOffset = "tomorrow";
-                break;
-            case 2:
-                dayOffset = "day_after_tomorrow";
-                break;
-            default:
-                dayOffset = "unknown";
-        }
         ((MensaUpbApplication) getApplication()).getTracker()
                 .trackScreenView("/" + mRestaurantKeys[mLocation] + "/" + mDayOffset);
     }
