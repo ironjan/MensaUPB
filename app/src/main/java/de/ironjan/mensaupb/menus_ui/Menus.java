@@ -35,6 +35,7 @@ import de.ironjan.mensaupb.app_info.About_;
 import de.ironjan.mensaupb.monitoring.MonitoringConstants;
 import de.ironjan.mensaupb.opening_times.OpeningTimesDialogFragment;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
+import de.ironjan.mensaupb.prefs.Settings_;
 import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.sync.AccountCreator;
 
@@ -247,5 +248,10 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     @OptionsItem(R.id.ab_about)
     void aboutClicked() {
         About_.intent(this).start();
+    }
+
+    @OptionsItem(R.id.ab_settings)
+    void settingsClicked() {
+        Settings_.intent(this).start();
     }
 }
