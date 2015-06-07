@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mensaAcademicaOpeningTimes">
+<![CDATA[
+Montag - Donnerstag: 11:15 - 14:00 Uhr<br/>
+Freitag: 11:15 - 13:30 Uhr<br/>
+<br/>
+04.06.2015: Feiertag<br/>
+05.06.2015: Brückentag<br/>
+19.12.2015 bis 03.01.2016: Betriebsferien
+]]></string>
+     <string name="mensaForumOpeningTimes">
+<![CDATA[
+Montag - Donnerstag: 11:15 - 14:00 Uhr<br />
+Freitag: 11:15 - 13:30 Uhr<br />
+<br />
+04.06.2015: Feiertag<br />
+18.07.2015	bis 11.10.2015: Betriebsferien<br />
+19.12.2015	bis 03.01.2016: Betriebsferien
+]]>
+     </string>
+    <string name="hotspotOpeningTimes">
+<![CDATA[
+<b>Ganzjährig</b><br />
+Montag: 09:00 - 15:30 Uhr<br />
+Dienstag - Freitag: 09:00 - 17:00 Uhr<br />
+Samstag, Sonntag, Feiertage: 11:00 - 17:00 Uhr<br />
+<br />
+<b>29.06.2015 bis 19.07.2015</b><br />
+Montag - Freitag: 09:00-15:00 Uhr<br />
+Samstag, Sonntag: geschlossen
+]]>
+    </string>
+<string name="grillCafeOpeningTimes">
+<![CDATA[
+<b>Vorlesungszeit</b><br />
+Montag - Donnerstag: 09:00 - 22:00 Uhr<br />
+Freitag: 09:00 - 18:00 Uhr<br />
+<br/>
+<b>25.07.2015 bis 18.10.2015</b><br />
+Montag - Freitag: 09:00 - 18:00 Uhr<br />
+<br />
+04.06.2015: Feiertag<br />
+05.06.2015: Brückentag<br />
+19.12.2015 bis 03.01.2016: Betriebsferien
+]]>
+</string>
+    <string name="cafeteOpeningTimes">
+<![CDATA[
+<b>Vorlesungszeit</b><br />
+Montag- Donnerstag: 08:00 - 17:00 Uhr<br />
+Freitag: 08:00 - 15:45 Uhr<br />
+Samstag: 10:00 - 14:00 Uhr<br />
+<br />
+04.06.2015: Feiertag<br />
+24.12.2015 bis 03.01.2016: Betriebsferien
+]]>
+    </string>
+
+</resources>

@@ -20,8 +20,8 @@ import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.opening_times.data_storage.OpeningTimesKeeper;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
-import de.ironjan.mensaupb.stw.opening_times.OpeningTimesKeeper;
 import de.ironjan.mensaupb.sync.AccountCreator;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 

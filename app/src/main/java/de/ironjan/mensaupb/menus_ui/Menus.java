@@ -5,12 +5,13 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -23,22 +24,18 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.Trace;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.res.StringRes;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.MensaUpbApplication;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.app_info.About_;
 import de.ironjan.mensaupb.monitoring.MonitoringConstants;
+import de.ironjan.mensaupb.opening_times.OpeningTimesDialogFragment;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.Restaurant;
-import de.ironjan.mensaupb.stw.opening_times.OpeningTimesKeeper;
 import de.ironjan.mensaupb.sync.AccountCreator;
 
 @SuppressWarnings("WeakerAccess")
@@ -74,8 +71,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
     InternalKeyValueStore_ mInternalKeyValueStore;
     @Bean
     WeekdayHelper mWeekdayHelper;
-    @StringRes(R.string.openUntil)
-    String openUntil;
     private WeekdayPagerAdapter[] adapters;
     private WeekdayPagerAdapter mWeekdayPagerAdapter;
 
@@ -230,10 +225,10 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
 
     @OptionsItem(R.id.ab_showtimes)
     void showTimes() {
-        Date time = OpeningTimesKeeper.hasCheapFoodUntil(restaurant, mwWeekdayHelper.getNextWeekDayAsKey(mDayOffset));
-        String formattedTime = new SimpleDateFormat("HH:mm").format(time);
-        String msg = String.format(openUntil, formattedTime);
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        DialogFragment newFragment = OpeningTimesDialogFragment.newInstance(mRestaurantKeys[mLocation]);
+        newFragment.show(ft, "dialog");
+
         trackEvent(MonitoringConstants.CATEGORY_MENUS, MonitoringConstants.ACTION_SHOW_TIMES, "", 1);
     }
 

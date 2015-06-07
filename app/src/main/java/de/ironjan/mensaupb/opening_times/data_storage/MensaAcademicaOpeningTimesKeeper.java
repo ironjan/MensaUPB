@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.stw.opening_times;
+package de.ironjan.mensaupb.opening_times.data_storage;
 
 import org.androidannotations.annotations.EBean;
 
@@ -15,13 +15,13 @@ class MensaAcademicaOpeningTimesKeeper implements RestaurantOpeningTimesKeeper {
         int[] closedDayOne = {2015, Calendar.MAY, 15};
         int[] closedDayTwo = {2015, Calendar.JUNE, 5};
 
-        boolean isClosedDayOne = IntervalChecker.isOn(dateInstance, closedDayOne);
+        boolean isClosedDayOne = DateTimeUtilities.isOn(dateInstance, closedDayOne);
 
-        boolean isClosedDayTwo = IntervalChecker.isOn(dateInstance, closedDayTwo);
+        boolean isClosedDayTwo = DateTimeUtilities.isOn(dateInstance, closedDayTwo);
 
         int[] winterBreakStart = {2015, Calendar.DECEMBER, 18};
         int[] winterBreakEnd = {2016, Calendar.JANUARY, 5};
-        boolean isInWinterBreak = IntervalChecker.isInInterval(dateInstance, winterBreakStart, winterBreakEnd);
+        boolean isInWinterBreak = DateTimeUtilities.isInInterval(dateInstance, winterBreakStart, winterBreakEnd);
 
         if (isClosedDayOne
                 || isClosedDayTwo
@@ -39,9 +39,9 @@ class MensaAcademicaOpeningTimesKeeper implements RestaurantOpeningTimesKeeper {
 
         boolean isFriday = Calendar.FRIDAY == calendar.get(Calendar.DAY_OF_WEEK);
         if (isFriday) {
-            return TimeChanger.updateTime(date, 13, 30);
+            return DateTimeUtilities.updateTime(date, 13, 30);
         } else {
-            return TimeChanger.updateTime(date, 14, 0);
+            return DateTimeUtilities.updateTime(date, 14, 0);
         }
     }
 }

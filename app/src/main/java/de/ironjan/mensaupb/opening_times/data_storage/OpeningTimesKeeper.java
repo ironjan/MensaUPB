@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.stw.opening_times;
+package de.ironjan.mensaupb.opening_times.data_storage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,8 +17,8 @@ public class OpeningTimesKeeper {
 
     /**
      * @param dateAsKey     a date to check for (yyyy-MM-dd)
-     * @param restaurantKey the restaurant to check for
-     * @return true, if the restaurant is open on that date
+     * @param restaurantKey the restaurantKey to check for
+     * @return true, if the restaurantKey is open on that date
      */
     public static boolean isOpenOn(String restaurantKey, String dateAsKey) {
         Restaurant restaurant = Restaurant.fromKey(restaurantKey);
@@ -42,7 +42,7 @@ public class OpeningTimesKeeper {
 
     /**
      * @param dateAsKey     a date to check for (yyyy-MM-dd)
-     * @param restaurantKey the restaurant to check for
+     * @param restaurantKey the restaurantKey to check for
      * @return The date with the closing time for cheap food (Mensa, Happy Dinner) or the real
      * closing time (Cafete) on this day
      */
