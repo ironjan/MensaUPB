@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.stw.opening_times;
+package de.ironjan.mensaupb.opening_times;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -14,9 +14,10 @@ import org.androidannotations.annotations.ViewById;
 
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.stw.Restaurant;
+import de.ironjan.mensaupb.opening_times.OpeningTimesDialogFragment_;
 
 /**
- * Created by ljan on 07.06.15.
+ * Dialog to show opening times
  */
 @EFragment(R.layout.fragment_dialog_opening_times)
 public class OpeningTimesDialogFragment extends DialogFragment {
