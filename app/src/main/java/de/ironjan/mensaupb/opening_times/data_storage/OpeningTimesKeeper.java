@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.stw.opening_times;
+package de.ironjan.mensaupb.opening_times.data_storage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -38,7 +38,7 @@ import de.ironjan.mensaupb.app_info.About_;
 import de.ironjan.mensaupb.monitoring.MonitoringConstants;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.Restaurant;
-import de.ironjan.mensaupb.stw.opening_times.OpeningTimesKeeper;
+import de.ironjan.mensaupb.opening_times.data_storage.OpeningTimesKeeper;
 import de.ironjan.mensaupb.sync.AccountCreator;
 
 @SuppressWarnings("WeakerAccess")

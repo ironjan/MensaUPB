@@ -1,13 +1,27 @@
-package de.ironjan.mensaupb.stw.opening_times;
-
-import org.androidannotations.annotations.EBean;
+package de.ironjan.mensaupb.opening_times.data_storage;
 
 import java.util.Calendar;
 import java.util.Date;
 
-@EBean(scope = EBean.Scope.Singleton)
-class MensaAcademicaOpeningTimesKeeper implements RestaurantOpeningTimesKeeper {
-
+/**
+ * Vorlesungszeit
+ * Montag - Donnerstag	09:00 - 22:00 Uhr
+ * Freitag	09:00 - 18:00 Uhr
+ * <p/>
+ * Vorlesungsfreie Zeit	vom 14.02.2015	bis 06.04.2015
+ * Montag - Donnerstag	09:00 - 19:30 Uhr
+ * Freitag	09:00 - 18:00 Uhr
+ * <p/>
+ * Vorlesungsfreie Zeit	vom 25.07.2015	bis 18.10.2015
+ * Montag - Freitag	09:00 - 18:00 Uhr
+ * <p/>
+ * Wartungsarbeiten	vom 06.03.2015	bis 06.03.2015
+ * Brückentag	vom 15.05.2015	bis 15.05.2015
+ * Brückentag	vom 05.06.2015	bis 05.06.2015
+ * Betriebsferien Weihnachten und Jahreswechsel	vom 19.12.2015	bis 03.01.2016
+ */
+public class GrillCafeOpeningtimeKeeper implements RestaurantOpeningTimesKeeper {
+    @Override
     public boolean isOpenOn(Date date) {
         Calendar dateInstance = Calendar.getInstance();
         dateInstance.setTime(date);
@@ -34,14 +48,6 @@ class MensaAcademicaOpeningTimesKeeper implements RestaurantOpeningTimesKeeper {
 
     @Override
     public Date hasCheapFoodUntil(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-
-        boolean isFriday = Calendar.FRIDAY == calendar.get(Calendar.DAY_OF_WEEK);
-        if (isFriday) {
-            return DateTimeUtilities.updateTime(date, 13, 30);
-        } else {
-            return DateTimeUtilities.updateTime(date, 14, 0);
-        }
+        return DateTimeUtilities.updateTime(date, 19, 0);
     }
 }
