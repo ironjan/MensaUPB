@@ -248,6 +248,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         String formattedTime = new SimpleDateFormat("HH:mm").format(time);
         String msg = String.format(openUntil, formattedTime);
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        trackEvent(MonitoringConstants.CATEGORY_MENUS, MonitoringConstants.ACTION_SHOW_TIMES, "", 1);
     }
 
     @OptionsItem(R.id.ab_refresh)
@@ -259,6 +260,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 
         ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
+        trackEvent(MonitoringConstants.CATEGORY_MENUS, MonitoringConstants.ACTION_REFRESH, "", 1);
     }
 
     @OptionsItem(R.id.ab_about)
