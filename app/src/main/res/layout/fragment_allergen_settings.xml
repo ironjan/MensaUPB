@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:gravity="center_vertical"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:singleLine="true"
         android:text="@string/unacceptableAllergens"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -26,98 +26,98 @@
         android:id="@+id/checkBoxEggs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/eggs" />
 
     <CheckBox
         android:id="@+id/checkBoxPeanuts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/peanuts" />
 
     <CheckBox
         android:id="@+id/checkBoxFish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/fish" />
 
     <CheckBox
         android:id="@+id/checkBoxGluten"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/gluten" />
 
     <CheckBox
         android:id="@+id/checkBoxCurstacean"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/crustacean" />
 
     <CheckBox
         android:id="@+id/checkBoxLupines"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/lupines" />
 
     <CheckBox
         android:id="@+id/checkBoxMilk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/milk" />
 
     <CheckBox
         android:id="@+id/checkBoxNuts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/nuts" />
 
     <CheckBox
         android:id="@+id/checkBoxSulfates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/sulfates" />
 
     <CheckBox
         android:id="@+id/checkBoxCeleriac"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/celeriac" />
 
     <CheckBox
         android:id="@+id/checkBoxMustard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/mustard" />
 
     <CheckBox
         android:id="@+id/checkBoxSesame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/sesame" />
 
     <CheckBox
         android:id="@+id/checkBoxSoy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/soy" />
 
     <CheckBox
         android:id="@+id/checkBoxMollusks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/mollusks" />
 
 </LinearLayout>

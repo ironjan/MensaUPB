@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:gravity="center_vertical"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:singleLine="true"
         android:text="@string/unacceptableAdditionals"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -26,105 +26,105 @@
         android:id="@+id/checkBoxAntioxidants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/antioxidants" />
 
     <CheckBox
         android:id="@+id/checkBoxColored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/colored" />
 
     <CheckBox
         android:id="@+id/checkBoxTasteEnhancer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/tasteEnhancer" />
 
     <CheckBox
         android:id="@+id/checkBoxBlackened"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/blackened" />
 
     <CheckBox
         android:id="@+id/checkBoxSulfured"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/sulfured" />
 
     <CheckBox
         android:id="@+id/checkBoxWaxed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/waxed" />
 
     <CheckBox
         android:id="@+id/checkBoxCaffeine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/caffeine" />
 
     <CheckBox
         android:id="@+id/checkBoxConserved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/conserved" />
 
     <CheckBox
         android:id="@+id/checkBoxLactoProtein"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/lacto_protein" />
 
     <CheckBox
         android:id="@+id/checkBoxNitrateSalt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/nitrate_salt" />
 
     <CheckBox
         android:id="@+id/checkBoxPhenylalanine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/phenylalanine" />
 
     <CheckBox
         android:id="@+id/checkBoxPhosphate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/phosphate" />
 
     <CheckBox
         android:id="@+id/checkBoxSweetener"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/sweetener" />
 
     <CheckBox
         android:id="@+id/checkBoxQuinine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/quinine" />
 
     <CheckBox
         android:id="@+id/checkBoxTaurine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/elementMinHeight"
+        android:minHeight="@dimen/elementMinHeightSmall"
         android:text="@string/taurine" />
 
 </LinearLayout>
