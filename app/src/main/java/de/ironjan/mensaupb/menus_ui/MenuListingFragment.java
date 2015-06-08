@@ -15,6 +15,8 @@ import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
+import org.androidannotations.api.view.HasViews;
+import org.androidannotations.api.view.OnViewChangedListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,10 +37,12 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
 
-    @ViewById(android.R.id.empty)
+    @ViewById(R.id.emptyExplanation)
     View mLoadingView;
     @ViewById(R.id.closed)
     View mClosed;
+    @ViewById(android.R.id.empty)
+    View  empty;
     @ViewById(android.R.id.list)
     StickyListHeadersListView list;
     @Pref
@@ -102,10 +106,18 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     }
 
     private void updateEmptyView() {
-        if (OpeningTimesKeeper.isOpenOn(getArgLocation(), getArgDate())) {
-            list.setEmptyView(mLoadingView);
-        } else {
-            list.setEmptyView(mClosed);
+        list.setEmptyView(empty);
+        boolean isOpen = OpeningTimesKeeper.isOpenOn(getArgLocation(), getArgDate());
+        boolean isEmpty = adapter.isEmpty();
+        if (isEmpty && isOpen) {
+            mLoadingView.setVisibility(View.VISIBLE);
+            mClosed.setVisibility(View.GONE);
+        } else if(isEmpty){
+            mLoadingView.setVisibility(View.GONE);
+            mClosed.setVisibility(View.VISIBLE);
+        }else {
+            mLoadingView.setVisibility(View.GONE);
+            mClosed.setVisibility(View.GONE);
         }
     }
 
