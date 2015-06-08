@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/elementMargin"
@@ -10,6 +11,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="de.ironjan.mensaupb.monitoring.MonitoringSettingsFragment_"
+            tools:layout="@layout/fragment_monitoring_settings" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/elementMargin"
+            android:layout_height="wrap_content"
+            style="@style/TextSubhead"
+            android:text="@string/allergensHeader" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,11 +33,13 @@
         <fragment
             android:name="de.ironjan.mensaupb.prefs.AllergenSettingsFragment_"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_allergen_settings" />
 
         <fragment
             android:name="de.ironjan.mensaupb.prefs.AdditionalSettingsFragment_"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_additional_settings" />
     </LinearLayout>
 </ScrollView>

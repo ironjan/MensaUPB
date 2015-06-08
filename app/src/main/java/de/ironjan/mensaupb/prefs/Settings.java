@@ -9,6 +9,6 @@ import de.ironjan.mensaupb.R;
 /**
  * Created by ljan on 16.03.15.
  */
-@EActivity(R.layout.activity_allergen_filter_settings)
+@EActivity(R.layout.activity_settings)
 public class Settings extends ActionBarActivity {
 }
