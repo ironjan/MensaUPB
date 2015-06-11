@@ -33,8 +33,9 @@ automatisch.
 
 # Wie man mitentwickelt
 
-Aufgrund von Beschränkungen durch das Studentenwerk gibt es leider kein einfaches clonen dieses Projekts, welches 
-direkt funktioniert. Es wird jedoch bereits nach Lösungen für dieses Problem gesucht. Aktuelle Methode:
+Der erste Schritt ist: [forke dieses Repository](https://help.github.com/articles/using-pull-requests/). Anschließend solltest du deinen Fork clonen und [das Projekt in Android Studio importieren](http://stackoverflow.com/questions/27570516/how-to-open-an-existing-project-in-android-studio) (Wähle die build.gradle dieses Projekts für den Import aus).
+
+Um echte Daten für deine Entwicklung zu haben, brauchst du eine geheime URL des Studentenwerks. Informationen hierzu finden sich auf den [Seiten des Studentenwerks](http://www.studentenwerk-pb.de/gastronomie/rahmenbedingungen-fuer-speiseplan-nutzung/). 
 
 1. Schreibe eine Email an "Rittmeier, Florian" <Rittmeier@studentenwerk-pb.de> um eine eigene geheime URL für 
 die Studentenwerks-API zu erhalten
@@ -55,6 +56,8 @@ android {
   }
 }
 ```
+
+Anschließend kannst du mir einen [Pull Request](https://help.github.com/articles/using-pull-requests/) schicken. Damit dieser nicht übersehen wird, [erwähne mich im PR](https://github.com/blog/821) indem du "PR für @ironjan" oder ähnliches in den Kommentar schreibst.
 
 # Travis CI
 
