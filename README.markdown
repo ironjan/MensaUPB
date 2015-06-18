@@ -63,8 +63,6 @@ Anschließend kannst du mir einen [Pull Request](https://help.github.com/article
 
 master: [![Build Status master](https://travis-ci.org/ironjan/MensaUPB.svg?branch=master)](https://travis-ci.org/ironjan/MensaUPB)
 
-develop: [![Build Status develop](https://travis-ci.org/ironjan/MensaUPB.svg?branch=develop)](https://travis-ci.org/ironjan/MensaUPB)
-
 Travis CI kann von open source Projekten kostenlos genutzt werden.
 
 # License
