@@ -21,7 +21,10 @@ Friday: 11:15 - 13:30<br />
      </string>
     <string name="hotspotOpeningTimes">
 <![CDATA[
-<b>Ganzjährig</b><br />
+<b>Lunch</b><br />
+11:30 - 14:00 Uhr<br />
+<br />
+<b>Opening times</b><br />
 Monday: 09:00 - 15:30<br />
 Tuesday - Friday: 09:00 - 17:00<br />
 Saturday, Sunday, Holidays: 11:00 - 17:00<br />
@@ -33,7 +36,7 @@ Saturday, Sunday: closed
     </string>
 <string name="grillCafeOpeningTimes">
 <![CDATA[
-<b>Vorlesungszeit</b><br />
+<b>In Semester</b><br />
 Monday - Thursday: 09:00 - 22:00<br />
 Friday: 09:00 - 18:00<br />
 <br/>
@@ -47,7 +50,7 @@ Monday - Friday: 09:00 - 18:00<br />
 </string>
     <string name="cafeteOpeningTimes">
 <![CDATA[
-<b>Vorlesungszeit</b><br />
+<b>In Semester</b><br />
 Monday- Thursday: 08:00 - 17:00<br />
 Friday: 08:00 - 15:45<br />
 Saturday: 10:00 - 14:00<br />
