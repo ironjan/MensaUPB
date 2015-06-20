@@ -2,6 +2,7 @@ package de.ironjan.mensaupb.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.view.MenuItem;
 
 import junit.framework.Assert;
@@ -27,7 +28,7 @@ import static org.robolectric.Shadows.shadowOf;
  *
  * @see Menus
  */
-@Config(emulateSdk = 18)
+@Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
 @RunWith(RobolectricTestRunner.class)
 public class MenusActivityTest {
     private Activity mActivity;

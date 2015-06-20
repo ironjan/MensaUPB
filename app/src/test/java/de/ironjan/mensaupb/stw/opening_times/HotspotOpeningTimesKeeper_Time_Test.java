@@ -3,6 +3,8 @@ package de.ironjan.mensaupb.stw.opening_times;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
+import android.os.Build;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -26,7 +28,7 @@ import de.ironjan.mensaupb.opening_times.data_storage.OpeningTimesKeeper;
  *
  * @see <a href="http://www.studentenwerk-pb.de/gastronomie/oeffnungszeiten/">Official source of opening times</a>
  */
-@Config(emulateSdk = 18)
+@Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
 @RunWith(BlockJUnit4ClassRunner.class)
 public class HotspotOpeningTimesKeeper_Time_Test extends TestCase {
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

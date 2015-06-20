@@ -1,5 +1,7 @@
 import junit.framework.Assert;
 
+import android.os.Build;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -8,7 +10,7 @@ import org.robolectric.annotation.Config;
 /**
  * Just a working test.
  */
-@Config(emulateSdk = 18)
+@Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
 @RunWith(RobolectricTestRunner.class)
 public class SanityTest {
     @Test

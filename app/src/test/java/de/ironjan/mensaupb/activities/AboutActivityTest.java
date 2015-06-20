@@ -1,5 +1,7 @@
 package de.ironjan.mensaupb.activities;
 
+import android.os.Build;
+
 import android.app.Activity;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
@@ -17,7 +19,7 @@ import org.robolectric.util.ActivityController;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.app_info.About_;
 
-@Config(emulateSdk = 18)
+@Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
 @RunWith(RobolectricTestRunner.class)
 public class AboutActivityTest {
 
