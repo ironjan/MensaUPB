@@ -2,6 +2,8 @@ package de.ironjan.mensaupb.stw.filters;
 
 import junit.framework.Assert;
 
+import android.os.Build;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -14,7 +16,7 @@ import de.ironjan.mensaupb.stw.rest_api.StwMenu;
  *
  * @see de.ironjan.mensaupb.stw.filters.CategoryFilter
  */
-@Config(emulateSdk = 18)
+@Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
 @RunWith(RobolectricTestRunner.class)
 public class CategoryFilterTest {
     private static final String EMPTY = "";
