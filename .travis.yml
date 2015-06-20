@@ -7,7 +7,7 @@ android:
     - extra
 
 before_script:
-  - ./gradlew dependencies
+./gradlew dependencies
 
 script:
   - ./gradlew test
