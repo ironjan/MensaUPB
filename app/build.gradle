@@ -3,7 +3,7 @@ def versionMajor = 2
 // added functionality in a backwards-compatible manner, must be <=99
 def versionMinor = 18
 // backwards-compatible bug fixes, must be <=99
-def versionPatch = 2
+def versionPatch = 3
 // bump for dogfood builds, public betas, etc., must be <=99
 def versionBuild = 0
 
@@ -97,6 +97,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.5.3'
     compile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
+    compile 'com.github.piwik:piwik-sdk-android:a03b536f31'
 
     compile fileTree(dir: 'libs', include: '*.jar')
 
