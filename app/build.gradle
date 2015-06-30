@@ -61,6 +61,21 @@ android {
         androidTest.setRoot('src/test')
     }
 
+    if (project.hasProperty("mensaupb.signing")) {
+        println "project has property mensaupb.signing:"
+        println project.property("mensaupb.signing")
+        if (new File(project.property("mensaupb.signing")).exists()) {
+            apply from: project.property("mensaupb.signing");
+            println "Applied properties"
+        }
+        else{
+	        println "Could not find signing config";
+        }
+    }
+    else{
+    	println "Could not find signing property.";
+    }
+    
     buildTypes {
         debug {
             buildConfigField "int", "SYNC_INTERVAL", "60" // 1 minute
@@ -71,17 +86,10 @@ android {
         release {
             buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 24 " // 1 day
             buildConfigField "String", "STW_URL", "\"\""
+            signingConfig signingConfigs.release
         }
     }
 
-    if (project.hasProperty("mensaupb.signing")) {
-        println "project has property mensaupb.signing:"
-        println project.property("mensaupb.signing")
-        if (new File(project.property("mensaupb.signing")).exists()) {
-            apply from: project.property("mensaupb.signing");
-            println "Applied properties"
-        }
-    }
 }
 
 dependencies {
