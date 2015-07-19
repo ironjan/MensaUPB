@@ -18,7 +18,7 @@ import java.util.IllegalFormatConversionException;
 import de.ironjan.mensaupb.feedback.*;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.app_info.*;
-import org.robolectric.util.SupportFragmentTestUtil;
+import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
 @RunWith(RobolectricTestRunner.class)
