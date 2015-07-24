@@ -85,7 +85,6 @@ android {
 
         release {
             buildConfigField "int", "SYNC_INTERVAL", "60 * 60 * 24 " // 1 day
-            signingConfig signingConfigs.release
         }
 
         println "Applied basic configurations."
