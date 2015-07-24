@@ -71,9 +71,7 @@ Hinweis: um zu sehen, ob es Updates für die benutzten Bibliotheken gibt, kann
 
 master: [![Build Status master](https://travis-ci.org/ironjan/MensaUPB.svg?branch=master)](https://travis-ci.org/ironjan/MensaUPB)
 
-Travis CI kann von open source Projekten kostenlos genutzt werden. Leider ist der Build aktuell
-broken; travis ci killt den build Prozess, bevor er erfolgreich ist. Daher bitte lokal
-```./gradlew test``` nutzen, um einen korrekten Build-Status zu bekommen ;)
+Travis CI kann von open source Projekten kostenlos genutzt werden.
 
 # License
 
