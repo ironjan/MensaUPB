@@ -16,5 +16,5 @@ android:
 
 script:
   - free -m
-  - gradle test
+  - ./gradlew testDebug
   - free -m
