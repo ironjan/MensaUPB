@@ -14,4 +14,6 @@ android:
 #  - adb shell input keyevent 82 &
 
 script:
+  - free -m
   - ./gradlew test
+  - free -m
