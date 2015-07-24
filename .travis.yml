@@ -15,5 +15,5 @@ android:
 
 script:
   - free -m
-  - ./gradlew test
+  - ./gradlew assemble
   - free -m
