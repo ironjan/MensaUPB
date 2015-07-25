@@ -123,8 +123,3 @@ robolectric {
     include '**/*Test.class'
     maxHeapSize = "2048m"
 }
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.9'
-}
-
