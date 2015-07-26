@@ -30,7 +30,6 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
             StwMenu.PRICE_TYPE, // 2
             StwMenu.BADGES, // 3
             StwMenu.CATEGORY_DE, // 4
-
             StwMenu.NAME_EN, // 5
             StwMenu.CATEGORY_EN, // 6
             BaseColumns._ID}; // 7
@@ -60,7 +59,6 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
 
         final Uri menuUri;
         menuUri = MenuContentProvider.MENU_URI;
-
 
         return new CursorLoader(mContext,
                 menuUri, projection, MENU_SELECTION, selectionArgs, null);
