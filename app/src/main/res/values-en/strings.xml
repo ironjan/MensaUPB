@@ -71,4 +71,7 @@ The following Open Source libraries are used:</string>
         Do the users find new features easily? These are the questions that I - the developer - try to answer.</string>
     <string name="anonymousUserStatisticsEnabled">Anonymous statistics activated</string>
     <string name="anonymousUserStatisticsDisabled">Anonymous statistics deactivated</string>
+    <string name="opening_times">Opening times</string>
+    <string name="betaAllergensAdditionals">This function is in beta and as such may fail to work.</string>
+
 </resources>
