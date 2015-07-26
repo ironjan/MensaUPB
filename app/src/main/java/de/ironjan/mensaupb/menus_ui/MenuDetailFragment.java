@@ -18,11 +18,10 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
 import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.builder.Builders;
+import com.koushikdutta.ion.ProgressCallback;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -120,7 +119,7 @@ public class MenuDetailFragment extends Fragment {
         bindPrice(stwMenu);
         bindAllergens(stwMenu);
         bindBadges(stwMenu);
-        loadImage(stwMenu,false);
+        loadImage(stwMenu, false);
     }
 
     private void bindManuallyLocalizedData(StwMenu stwMenu) {
@@ -229,7 +228,7 @@ public class MenuDetailFragment extends Fragment {
      * @param stwMenu The menu to load a image for
      */
     @Background
-    void loadImage(StwMenu stwMenu,boolean forced) {
+    void loadImage(StwMenu stwMenu, boolean forced) {
         setProgressVisibility(View.VISIBLE);
 
         LOGGER.debug("loadImage()");
@@ -249,6 +248,7 @@ public class MenuDetailFragment extends Fragment {
             Bitmap bitmap = Ion.with(getActivity())
                     .load(uri)
                     .setLogging("MenuDetailFragment", Log.VERBOSE)
+                    .progressBar(progressBar)
                     .asBitmap()
                     .get();
             applyLoadedImage(bitmap);
@@ -271,7 +271,17 @@ public class MenuDetailFragment extends Fragment {
 
     @UiThread
     void applyErrorImage() {
-        Ion.with(image).load(URI_NO_IMAGE_FILE);
+        Ion.with(getActivity())
+                .load(URI_NO_IMAGE_FILE)
+                .progressHandler(new ProgressCallback() {
+                    @Override
+                    public void onProgress(long downloaded, long total) {
+                        LOGGER.warn("{}/{}");
+                        progressBar.setMax((int) total);
+                        progressBar.setProgress((int) downloaded);
+                    }
+                })
+                .intoImageView(image);
         setProgressVisibility(View.GONE);
     }
 
