@@ -1,11 +1,13 @@
 package de.ironjan.mensaupb.menus_ui;
 
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,11 +17,13 @@ import com.j256.ormlite.android.AndroidConnectionSource;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
-import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.ProgressCallback;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 import org.slf4j.Logger;
@@ -27,6 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
@@ -89,14 +94,14 @@ public class MenuDetailFragment extends Fragment {
             if (mMenu != null) {
                 bindMenuDataToViews(mMenu);
             } else {
-                // FIXME notify fail load
+                LOGGER.error("Could not find menu");
             }
         } catch (java.sql.SQLException e) {
             LOGGER.error("Could not load menu details", e);
         }
 
         if (BuildConfig.DEBUG)
-            LOGGER.debug("bindData()");
+            LOGGER.debug("bindData() done");
     }
 
     private StwMenu loadMenu(long _id) throws java.sql.SQLException {
@@ -114,7 +119,7 @@ public class MenuDetailFragment extends Fragment {
         bindPrice(stwMenu);
         bindAllergens(stwMenu);
         bindBadges(stwMenu);
-        loadImage(stwMenu);
+        loadImage(stwMenu, false);
     }
 
     private void bindManuallyLocalizedData(StwMenu stwMenu) {
@@ -222,8 +227,14 @@ public class MenuDetailFragment extends Fragment {
      *
      * @param stwMenu The menu to load a image for
      */
-    private void loadImage(StwMenu stwMenu) {
+    @Background
+    void loadImage(StwMenu stwMenu, boolean forced) {
+        setProgressVisibility(View.VISIBLE);
 
+        LOGGER.debug("loadImage()");
+        final long start = System.currentTimeMillis();
+
+        LOGGER.debug("loadImage() - start={}", start);
         final String uri;
         if (!TextUtils.isEmpty(stwMenu.getImage())) {
             uri = stwMenu.getImage();
@@ -231,18 +242,53 @@ public class MenuDetailFragment extends Fragment {
             uri = URI_NO_IMAGE_FILE;
         }
 
-        Ion.with(image)
-                .load(uri)
-                .setCallback(new FutureCallback<ImageView>() {
+        LOGGER.debug("loadImage() - URI set [{}]", start);
+
+        try {
+            Bitmap bitmap = Ion.with(getActivity())
+                    .load(uri)
+                    .setLogging("MenuDetailFragment", Log.VERBOSE)
+                    .progressBar(progressBar)
+                    .asBitmap()
+                    .get();
+            applyLoadedImage(bitmap);
+        } catch (InterruptedException e) {
+            applyErrorImage();
+            LOGGER.error("InterruptedException: {}", e);
+        } catch (ExecutionException e) {
+            applyErrorImage();
+            LOGGER.error("InterruptedException: {}", e);
+        }
+
+
+        LOGGER.debug("loadImage() done");
+    }
+
+    @UiThread
+    void setProgressVisibility(int visible) {
+        progressBar.setVisibility(visible);
+    }
+
+    @UiThread
+    void applyErrorImage() {
+        Ion.with(getActivity())
+                .load(URI_NO_IMAGE_FILE)
+                .progressHandler(new ProgressCallback() {
                     @Override
-                    public void onCompleted(Exception e, ImageView result) {
-                        if (e != null) {
-                            LOGGER.error(e.getMessage(), e);
-                            Ion.with(image).load(URI_NO_IMAGE_FILE);
-                        }
-                        progressBar.setVisibility(View.GONE);
+                    public void onProgress(long downloaded, long total) {
+                        LOGGER.warn("{}/{}");
+                        progressBar.setMax((int) total);
+                        progressBar.setProgress((int) downloaded);
                     }
-                });
+                })
+                .intoImageView(image);
+        setProgressVisibility(View.GONE);
+    }
+
+    @UiThread
+    void applyLoadedImage(Bitmap bitmap) {
+        image.setImageBitmap(bitmap);
+        setProgressVisibility(View.GONE);
     }
 
 }
