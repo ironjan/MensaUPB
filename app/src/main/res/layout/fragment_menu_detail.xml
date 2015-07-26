@@ -28,14 +28,6 @@
                 android:maxHeight="@dimen/menuDetailsImageMaxHeight"
                 android:scaleType="centerCrop" />
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminate="true"
-                android:visibility="visible" />
-
         </FrameLayout>
 
 
@@ -51,6 +43,13 @@
             android:padding="@dimen/elementMargin"
             android:singleLine="false"
             tools:text="Gegrillter Lachs im Schinkenmantel auf Gemüsegyros" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textName"/>
 
         <RelativeLayout
             android:id="@+id/relativeLayoutInfoWrapper"
@@ -163,5 +162,6 @@
             android:layout_marginTop="@dimen/elementMargin"
             android:text="@string/allergensHintAtSTW"
             android:textColor="@color/material_accent" />
+
     </RelativeLayout>
 </ScrollView>
