@@ -114,5 +114,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="anonymousUserStatisticsExplanation">Um MensaUPB weiter zu verbessern, werden anonyme Nutzungsstatistiken erfasst. Wie oft werden welche Funktionen von MensaUPB genutzt? Sind diese notwenidg? Werden neue Funktionen entdeckt oder nicht? Diese Fragen stelle ich mir als Entwickler und kann diese durch die Statistiken beantworten.</string>
     <string name="anonymousUserStatisticsEnabled">Anonyme Nutzungsstatistik aktiviert</string>
     <string name="anonymousUserStatisticsDisabled">Anonyme Nutzungsstatistik deaktiviert</string>
+    <string name="opening_times">Öffnungszeiten</string>
+    <string name="betaAllergensAdditionals">Diese Funktion ist noch im Test-Stadium und daher möglicherweise unzuverlässig.</string>
 </resources>
 
