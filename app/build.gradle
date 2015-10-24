@@ -19,7 +19,7 @@ configurations {
 }
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion '21.1.2'
 
     packagingOptions {
@@ -48,7 +48,7 @@ android {
         }
 
         minSdkVersion 10
-        targetSdkVersion 22
+        targetSdkVersion 23
 
         applicationId "de.ironjan.mensaupb"
     }

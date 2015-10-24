@@ -42,11 +42,5 @@ public class InstantiationTest {
         Activity activity = (Activity) controller.get();
         Assert.assertNotNull(activity);
     }
-    @Test
-    public void test_MenuSettingsCanBeOpened(){
-        ActivityController controller = Robolectric.buildActivity(Settings_.class).create().start();
-        Activity activity = (Activity) controller.get();
-        Assert.assertNotNull(activity);
-    }
 
 }
