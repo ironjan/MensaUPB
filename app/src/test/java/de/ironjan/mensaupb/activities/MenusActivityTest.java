@@ -11,11 +11,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.fakes.RoboMenuItem;
 import org.robolectric.util.ActivityController;
 
+import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.app_info.About_;
 import de.ironjan.mensaupb.menus_ui.Menus;
@@ -28,8 +30,8 @@ import static org.robolectric.Shadows.shadowOf;
  *
  * @see Menus
  */
-@Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class MenusActivityTest {
     private Activity mActivity;
 

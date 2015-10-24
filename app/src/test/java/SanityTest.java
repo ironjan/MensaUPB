@@ -4,14 +4,17 @@ import android.os.Build;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+
+import de.ironjan.mensaupb.BuildConfig;
 
 /**
  * Just a working test.
  */
-@Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class SanityTest {
     @Test
     public void testAddition() {
