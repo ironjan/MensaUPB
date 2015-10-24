@@ -6,6 +6,9 @@ android:
     - android-23
     - add-on
     - extras
+    - extra-android-m2repository
+  licenses:
+    - android-sdk-license-.+
 
 # Emulator Management: Create, Start and Wait
 #before_script:
