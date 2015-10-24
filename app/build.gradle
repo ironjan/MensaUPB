@@ -47,7 +47,7 @@ android {
             versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         }
 
-        minSdkVersion 9
+        minSdkVersion 10
         targetSdkVersion 22
 
         applicationId "de.ironjan.mensaupb"
