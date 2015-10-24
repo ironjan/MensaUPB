@@ -8,6 +8,7 @@ import android.os.Build;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
@@ -20,8 +21,8 @@ import de.ironjan.mensaupb.prefs.Settings_;
 /**
  * Test to make sure that every Activity can be opened
  */
-@Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class InstantiationTest {
     @Test
     public void test_AboutCanBeOpened(){
