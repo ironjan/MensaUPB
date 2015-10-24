@@ -31,7 +31,7 @@ import static org.robolectric.Shadows.shadowOf;
  * @see Menus
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class MenusActivityTest {
     private Activity mActivity;
 

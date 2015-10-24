@@ -22,7 +22,7 @@ import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.app_info.About_;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class AboutActivityTest {
 
     @Test

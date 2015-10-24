@@ -14,7 +14,7 @@ import de.ironjan.mensaupb.BuildConfig;
  * Just a working test.
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class SanityTest {
     @Test
     public void testAddition() {

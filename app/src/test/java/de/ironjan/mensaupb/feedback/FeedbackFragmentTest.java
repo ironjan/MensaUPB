@@ -22,7 +22,7 @@ import de.ironjan.mensaupb.app_info.*;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class FeedbackFragmentTest extends TestCase {
 
   String bodyTemplateGerman="Hallo Jan,\n\nich möchte dir folgendes Feedback zu MensaUPB geben:\n\n";

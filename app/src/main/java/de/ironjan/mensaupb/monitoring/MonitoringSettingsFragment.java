@@ -42,13 +42,13 @@ public class MonitoringSettingsFragment extends Fragment {
     void optOutChange() {
         boolean monitoringEnabled = switchMonitoringEnabled.isChecked();
         boolean optOut = !monitoringEnabled;
-        getGlobalSettings().setAppOptOut(optOut);
+        getGlobalSettings().setOptOut(optOut);
         updateSwitchText();
     }
 
     private Piwik getGlobalSettings() {
         return ((MensaUpbApplication) getActivity().getApplication())
-                .getGlobalSettings();
+                .getPiwik();
     }
 
     private void updateSwitchText() {

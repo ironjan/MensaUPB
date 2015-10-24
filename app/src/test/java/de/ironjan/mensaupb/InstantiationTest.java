@@ -22,7 +22,7 @@ import de.ironjan.mensaupb.prefs.Settings_;
  * Test to make sure that every Activity can be opened
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class InstantiationTest {
     @Test
     public void test_AboutCanBeOpened(){
@@ -40,12 +40,6 @@ public class InstantiationTest {
     public void test_MenuDetailsCanBeOpened(){
         // TODO pass arguments for menu
         ActivityController controller = Robolectric.buildActivity(MenuDetails_.class).create().start();
-        Activity activity = (Activity) controller.get();
-        Assert.assertNotNull(activity);
-    }
-    @Test
-    public void test_MenuSettingsCanBeOpened(){
-        ActivityController controller = Robolectric.buildActivity(Settings_.class).create().start();
         Activity activity = (Activity) controller.get();
         Assert.assertNotNull(activity);
     }
