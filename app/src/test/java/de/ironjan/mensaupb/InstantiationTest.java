@@ -22,7 +22,7 @@ import de.ironjan.mensaupb.prefs.Settings_;
  * Test to make sure that every Activity can be opened
  */
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, sdk = 21)
 public class InstantiationTest {
     @Test
     public void test_AboutCanBeOpened(){

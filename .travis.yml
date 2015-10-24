@@ -3,9 +3,9 @@ sudo: false
 android:
   components:
     - build-tools-21.1.2
-    - android-22
+    - android-23
     - add-on
-    - extra
+    - extras
 
 # Emulator Management: Create, Start and Wait
 #before_script:
