@@ -15,13 +15,14 @@ import org.robolectric.annotation.Config;
 import junit.framework.Assert;
 import java.util.IllegalFormatConversionException;
 
+import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.feedback.*;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.app_info.*;
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil;
 
-@Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class FeedbackFragmentTest extends TestCase {
 
   String bodyTemplateGerman="Hallo Jan,\n\nich möchte dir folgendes Feedback zu MensaUPB geben:\n\n";

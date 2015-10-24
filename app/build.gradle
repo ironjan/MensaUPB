@@ -11,7 +11,6 @@ def versionBuild = 0
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'idea'
-apply plugin: 'org.robolectric'
 apply plugin: 'com.github.ben-manes.versions'
 
 configurations {
@@ -117,10 +116,5 @@ dependencies {
     androidTestCompile 'junit:junit:4.12'
     androidTestCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.robolectric:shadows-support-v4:3.0'
-}
-
-robolectric {
-    include '**/*Test.class'
-    maxHeapSize = "2048m"
 }
 
