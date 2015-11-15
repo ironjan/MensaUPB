@@ -86,7 +86,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 // buckets: 0-10, 10-20, ...
                 String scrollPercentageBucket = 10 * Math.round(10 * positionOffset) + "";
-                trackEvent(MonitoringConstants.CATEGORY_MENUS, MonitoringConstants.ACTION_SCROLLING, scrollPercentageBucket, 1);
+                trackEvent(MonitoringConstants.CATEGORY_MENUS, MonitoringConstants.ACTION_SCROLLING + scrollPercentageBucket, null, 1);
             }
 
             @Override
@@ -141,6 +141,7 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         if (BuildConfig.DEBUG) LOGGER.info("Got adapter: {}", mWeekdayPagerAdapter);
         if (mWeekdayPagerAdapter != null) {
             switchAdapterTo(mDayOffset);
+            trackScreenView();
         }
     }
 
@@ -183,8 +184,6 @@ public class Menus extends ActionBarActivity implements ActionBar.OnNavigationLi
         loadPagerAdapter(i);
 
         restaurant = mRestaurantKeys[i];
-
-        trackScreenView();
 
         return true;
     }
