@@ -40,6 +40,7 @@ public class StwMenu implements Cloneable {
     public static final String CATEGORY_EN = "category_en";
     public static final String DESCRIPTION_EN = "description_en";
     public static final String DESCRIPTION_DE = "description_de";
+    public static final String UPDATED_ON = "updated_on";
 
     @DatabaseField(generatedId = true, columnName = BaseColumns._ID)
     long _id;
@@ -91,6 +92,9 @@ public class StwMenu implements Cloneable {
     @DatabaseField(columnName = SORT_ORDER, defaultValue = "100")
     private int sortOrder = 100;
 
+    @DatabaseField(canBeNull = false, columnName = UPDATED_ON, dataType = DataType.DATE_LONG)
+    Date updatedOn;
+
     public StwMenu() {
     }
 
@@ -127,10 +131,10 @@ public class StwMenu implements Cloneable {
         return name_de;
     }
 
-
     public void setName_de(String name_de) {
         this.name_de = name_de;
     }
+
 
     public String getName_en() {
         return name_en;
@@ -326,6 +330,14 @@ public class StwMenu implements Cloneable {
 
     public void setCategoryIdentifier(String categoryIdentifier) {
         this.categoryIdentifier = categoryIdentifier;
+    }
+
+    public Date getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
     }
 
 
