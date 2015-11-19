@@ -15,11 +15,9 @@ class NameFilter extends FilterBase {
 
     @Override
     public StwMenu filter(StwMenu menu) {
-        LOGGER.debug("filter({}) {de: {}, en: {}}", menu, menu.getName_de(), menu.getName_en());
         StwMenu copy = menu.copy();
         copy.setName_de(cleanName(copy.getName_de()));
         copy.setName_en(cleanName(copy.getName_en()));
-        LOGGER.debug("filter({}) done {de: {}, en: {}}", menu, copy.getName_de(), copy.getName_en());
         return copy;
     }
 

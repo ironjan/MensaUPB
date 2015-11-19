@@ -16,13 +16,11 @@ abstract class FilterBase implements Filter {
 
     @Override
     public List<StwMenu> filter(List<StwMenu> menus) {
-        LOGGER.debug("filter(list)");
         List<StwMenu> cleanedMenus = new ArrayList<>(menus.size());
         for (StwMenu menu : menus) {
             StwMenu cleanedMenu = filter(menu);
             cleanedMenus.add(cleanedMenu);
         }
-        LOGGER.debug("filter(list) done");
         return cleanedMenus;
     }
 
