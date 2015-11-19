@@ -13,6 +13,7 @@ import android.os.Bundle;
 import com.j256.ormlite.android.AndroidConnectionSource;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.stmt.DeleteBuilder;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.SelectArg;
 import com.j256.ormlite.support.ConnectionSource;
@@ -24,9 +25,9 @@ import org.springframework.web.client.RestClientException;
 
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
-import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.menus_ui.WeekdayHelper_;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
@@ -122,6 +123,10 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     private void tryMenuSync() throws java.sql.SQLException {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("tryMenuSync()");
+        }
+
         DatabaseManager databaseManager = new DatabaseManager();
         DatabaseHelper helper = (databaseManager.getHelper(getContext()));
         ConnectionSource connectionSource =
@@ -130,29 +135,27 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
         String[] cachedDaysAsStrings = mWeekdayHelper.getCachedDaysAsStrings();
 
+        Date now = new Date();
+
         for (String date : cachedDaysAsStrings) {
             for (String restaurant : restaurants) {
-                syncMenus(dao, restaurant, date);
+                syncMenus(dao, restaurant, date, now);
             }
         }
-        cleanOldMenus(dao, cachedDaysAsStrings);
+        removeUnneededMenusFromDatabase(dao, now);
         databaseManager.releaseHelper(helper);
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("tryMenuSync() done");
+        }
     }
 
     @org.androidannotations.annotations.Trace
-    void syncMenus(Dao<StwMenu, ?> dao, String restaurant, String date) throws java.sql.SQLException, RestClientException {
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("syncMenus(dao,{},{})", restaurant, date);
-        }
-
+    void syncMenus(Dao<StwMenu, ?> dao, String restaurant, String date, Date now) throws java.sql.SQLException, RestClientException {
         StwMenu[] menus = downloadMenus(restaurant, date);
         List<StwMenu> menuList = Arrays.asList(menus);
         List<StwMenu> filteredList = filterChain.filter(menuList);
-        persistMenus(dao, filteredList);
-
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("syncMenus(dao,{},{}) done", restaurant, date);
-        }
+        persistMenus(dao, filteredList, now);
     }
 
     @org.androidannotations.annotations.Trace
@@ -161,15 +164,17 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     }
 
     @org.androidannotations.annotations.Trace
-    void persistMenus(Dao<StwMenu, ?> dao, Iterable<StwMenu> menus) throws java.sql.SQLException {
+    void persistMenus(Dao<StwMenu, ?> dao, Iterable<StwMenu> menus, Date now) throws java.sql.SQLException {
+        SelectArg nameArg = new SelectArg(),
+                dateArg = new SelectArg(),
+                restaurantArg = new SelectArg();
+        PreparedQuery<StwMenu> preparedQuery = dao.queryBuilder().where().eq(StwMenu.NAME_GERMAN, nameArg)
+                .and().eq(StwMenu.DATE, dateArg)
+                .and().eq(StwMenu.RESTAURANT, restaurantArg)
+                .prepare();
+
         for (StwMenu stwMenu : menus) {
-            SelectArg nameArg = new SelectArg(),
-                    dateArg = new SelectArg(),
-                    restaurantArg = new SelectArg();
-            PreparedQuery<StwMenu> preparedQuery = dao.queryBuilder().where().eq(StwMenu.NAME_GERMAN, nameArg)
-                    .and().eq(StwMenu.DATE, dateArg)
-                    .and().eq(StwMenu.RESTAURANT, restaurantArg)
-                    .prepare();
+            stwMenu.setUpdatedOn(now);
 
             nameArg.setValue(stwMenu.getName_de());
             dateArg.setValue(stwMenu.getDate());
@@ -186,26 +191,21 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
         }
     }
 
-    private void cleanOldMenus(Dao<StwMenu, ?> dao, String[] cachedDaysAsStrings) throws SQLException {
-        if (cachedDaysAsStrings == null || cachedDaysAsStrings.length < 1) {
-            return;
+    private void removeUnneededMenusFromDatabase(Dao<StwMenu, ?> dao, Date now) throws SQLException {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("removeUnneededMenusFromDatabase(dao,{})", now);
         }
 
-        StringBuilder rawQueryBuilder = new StringBuilder("DELETE FROM ")
-                .append(StwMenu.TABLE)
-                .append(" WHERE ").append(StwMenu.DATE).append(" not in ('")
-                .append(cachedDaysAsStrings[0]);
-        for (int i = 1; i < cachedDaysAsStrings.length; i++) {
-            rawQueryBuilder.append("', '")
-                    .append(cachedDaysAsStrings[i]);
+        int deleted = 0;
+        try {
+            DeleteBuilder<StwMenu, ?> deleteBuilder = dao.deleteBuilder();
+            deleteBuilder.where().not().eq(StwMenu.UPDATED_ON, now);
+            deleted = deleteBuilder.delete();
+        } catch (Exception e) {
+            LOGGER.error("Error", e);
         }
-        rawQueryBuilder.append("');");
-        String rawQuery = rawQueryBuilder.toString();
-
-        int rows = dao.executeRawNoArgs(rawQuery);
-
-        if (BuildConfig.DEBUG) {
-            LOGGER.info("Deleted {} rows of old menus.", rows);
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("removeUnneededMenusFromDatabase(dao,{}) done - deleted {} menus", now, deleted);
         }
     }
 
