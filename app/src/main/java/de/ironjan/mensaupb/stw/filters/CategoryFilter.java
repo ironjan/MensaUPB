@@ -15,11 +15,9 @@ class CategoryFilter extends FilterBase {
 
     @Override
     public StwMenu filter(StwMenu menu) {
-        LOGGER.debug("filter({})", menu);
         StwMenu copy = menu.copy();
         updateDeCategory(copy);
         updateEnCategory(copy);
-        LOGGER.debug("{} <- filter({}) done", copy, menu);
         return copy;
     }
 

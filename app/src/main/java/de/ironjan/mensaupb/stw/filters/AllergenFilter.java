@@ -12,8 +12,6 @@ import de.ironjan.mensaupb.stw.rest_api.StwMenu;
  * Filters allergens
  */
 public class AllergenFilter extends FilterBase {
-    Logger LOGGER = LoggerFactory.getLogger(AllergenFilter.class);
-
     @Override
     public StwMenu filter(StwMenu menu) {
         Allergen[] allergens = menu.getAllergens();
@@ -33,7 +31,6 @@ public class AllergenFilter extends FilterBase {
         Allergen[] filteredAllergens = new Allergen[filteredAllergensAsVector.size()];
         filteredAllergensAsVector.copyInto(filteredAllergens);
 
-        LOGGER.debug("{} <- filter({})", filteredAllergens, allergens);
         return filteredAllergens;
     }
 }
