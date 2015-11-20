@@ -24,7 +24,7 @@ import de.ironjan.mensaupb.sync.AccountCreator_;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
 
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 15;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
 
@@ -54,7 +54,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         LOGGER.info("onUpgrade()");
         try {
             //noinspection MagicNumber
-            if (old <= 13) {
+            if (old <= 14) {
                 TableUtils.dropTable(connectionSource, StwMenu.class, true);
                 onCreate(sqLiteDatabase, connectionSource);
                 LOGGER.info("Database updated from {} to {}", old, newVersion);
