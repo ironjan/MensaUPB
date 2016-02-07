@@ -47,7 +47,7 @@ public class OpeningTimesDialogFragment extends DialogFragment {
         Restaurant restaurant = Restaurant.fromKey(restaurantKey);
         switch (restaurant) {
             case MENSA_FORUM:
-                openingTimesString = getString(R.string.mensa_forum_paderborn);
+                openingTimesString = getString(R.string.mensaAcademicaOpeningTimes);
                 break;
             case BISTRO_HOTSPOT:
                 openingTimesString = getString(R.string.hotspotOpeningTimes);
