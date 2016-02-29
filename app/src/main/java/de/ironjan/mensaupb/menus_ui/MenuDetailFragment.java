@@ -1,6 +1,7 @@
 package de.ironjan.mensaupb.menus_ui;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -245,7 +246,12 @@ public class MenuDetailFragment extends Fragment {
         LOGGER.debug("loadImage() - URI set [{}]", start);
 
         try {
-            Bitmap bitmap = Ion.with(getActivity())
+            Context context = getContext();
+            if (context == null){
+                return;
+            }
+
+            Bitmap bitmap = Ion.with(context)
                     .load(uri)
                     .setLogging("MenuDetailFragment", Log.VERBOSE)
                     .progressBar(progressBar)
@@ -273,14 +279,6 @@ public class MenuDetailFragment extends Fragment {
     void applyErrorImage() {
         Ion.with(getActivity())
                 .load(URI_NO_IMAGE_FILE)
-                .progressHandler(new ProgressCallback() {
-                    @Override
-                    public void onProgress(long downloaded, long total) {
-                        LOGGER.warn("{}/{}");
-                        progressBar.setMax((int) total);
-                        progressBar.setProgress((int) downloaded);
-                    }
-                })
                 .intoImageView(image);
         setProgressVisibility(View.GONE);
     }
