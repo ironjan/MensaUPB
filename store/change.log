@@ -1,5 +1,5 @@
-2.18.0-1
+# 2.18.7
 
- * Erste Schritte gemacht, um Öffnungszeiten anzuzeigen
- * Anonyme Nutzungsstatistiken, um Anwendung zu optimieren
- * Kleinere Fehler behoben
+ * [Öffnungszeizen Mensa forum hinzugefügt](https://github.com/ironjan/MensaUPB/issues/124)
+ * [Öffnungszeiten geupdated](https://github.com/ironjan/MensaUPB/issues/125)
+ * [Absturz behoben](https://github.com/ironjan/MensaUPB/issues/128)
