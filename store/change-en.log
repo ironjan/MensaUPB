@@ -1,5 +1,5 @@
-2.18.0-1
+# 2.18.7
 
- * Added first support for opening times
- * Anonymous user statstics to improve app
- * Fixed some small issues
+ * [Öffnungszeizen Mensa forum hinzugefügt](https://github.com/ironjan/MensaUPB/issues/124)
+ * [Öffnungszeiten geupdated](https://github.com/ironjan/MensaUPB/issues/125)
+ * [Absturz behoben](https://github.com/ironjan/MensaUPB/issues/128)
