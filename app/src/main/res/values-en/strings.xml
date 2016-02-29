@@ -9,12 +9,12 @@
     <string name="settings">Preferences</string>
     <string name="menusLoading1">Loading menus. This could take some minutes.</string>
     <string name="menusLoading2">The menus are cached on your phone - the next time you\'ll see them immediatelly ;)\n\n(If a restaurant is closed, this loading screen will be shown. I\'ll fix this as soon as possible)</string>
-    <string name="dependencies">MensaUPB is an Open Source application. The source code can be found on &lt;a href="http://github.com/ironjan/MensaUPB">github&lt;/a>. Feedback and bug reports can be sent via mail to &lt;a href="mailto:lippertsjan+mensaupb@gmail.com?subject=MensaUPB">lippertsjan@gmail.com&lt;/a>.&lt;br>
-&lt;br>
-The Studentenwerk Paderborn provides an API to access the menu data. More information on &lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/">hier&lt;/a>&lt;br>
-&lt;br>
-The following Open Source libraries are used:</string>
-    <string name="aboutText"><![CDATA[MensaUPB is a rewrite of <a href="https://plus.google.com/112214633916360855280">David Maicher\'s</a> and <a href="https://plus.google.com/104836562609964067147">Tony Lemke\'s</a> app "MensaUPB".<br> This app shows the menus for the Studendenwerk\'s restaurants. In the original version, a "secret" XML was downloaded and cached. The Studentenwerk did not allow to distribute the original app. Luckily, the Studentenwerk\'s postition changed and now there\'s an API to access the menu data. Therefore the app had to be rewritten from the scratch — and finally is available in the PlayStore again.]]></string>
+    <string name="dependencies"><![CDATA[MensaUPB is an Open Source application. The source code can be found on <a href=“http://github.com/ironjan/MensaUPB”>github</a>. Feedback and bug reports can be sent via mail to <a href="mailto:lippertsjan+mensaupb@gmail.com?subject=MensaUPB">lippertsjan@gmail.com</a>.<br>
+<br>
+The Studentenwerk Paderborn provides an API to access the menu data. More information on <a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/">hier</a><br>
+<br>
+The following Open Source libraries are used:]]></string>
+    <string name="aboutText"><![CDATA[MensaUPB is a rewrite of <a href=“https://plus.google.com/112214633916360855280”>David Maicher\'s</a> and <a href="https://plus.google.com/104836562609964067147">Tony Lemke\'s</a> app "MensaUPB".<br> This app shows the menus for the Studendenwerk\'s restaurants. In the original version, a "secret" XML was downloaded and cached. The Studentenwerk did not allow to distribute the original app. Luckily, the Studentenwerk\'s postition changed and now there\'s an API to access the menu data. Therefore the app had to be rewritten from the scratch — and finally is available in the PlayStore again.]]></string>
     <string name="allergensHeader">Allergens and additives</string>
     <string name="campusMensae">Campus Mensae</string>
 
@@ -73,5 +73,9 @@ The following Open Source libraries are used:</string>
     <string name="anonymousUserStatisticsDisabled">Anonymous statistics deactivated</string>
     <string name="opening_times">Opening times</string>
     <string name="betaAllergensAdditionals">This function is in beta and as such may fail to work.</string>
+    <string name="feedback_explanation">You found a bug or got a nice idea? Send me a mail!</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="close">Close</string>
+    <string name="imade_description_menu_image">A picture of the menu</string>
 
 </resources>

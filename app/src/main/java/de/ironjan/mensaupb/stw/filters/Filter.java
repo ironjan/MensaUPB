@@ -14,7 +14,7 @@ interface Filter {
      * @param menus the menus to be filtered
      * @return filtered clone
      */
-    public List<StwMenu> filter(List<StwMenu> menus);
+    List<StwMenu> filter(List<StwMenu> menus);
 
     /**
      * Filters the given menus
@@ -22,5 +22,5 @@ interface Filter {
      * @param menu the menu to be filtered
      * @return filtered clone
      */
-    public StwMenu filter(StwMenu menu);
+    StwMenu filter(StwMenu menu);
 }

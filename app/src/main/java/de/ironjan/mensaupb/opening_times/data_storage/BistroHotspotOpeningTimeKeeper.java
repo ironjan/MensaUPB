@@ -32,10 +32,7 @@ class BistroHotspotOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
         boolean isSaturday = (dayOfWeek == Calendar.SATURDAY);
         boolean isSunday = (dayOfWeek == Calendar.SUNDAY);
 
-        if (isInSpecialTime && (isSaturday || isSunday)) {
-            return false;
-        }
-        return true;
+        return !(isInSpecialTime && (isSaturday || isSunday));
     }
 
     @Override

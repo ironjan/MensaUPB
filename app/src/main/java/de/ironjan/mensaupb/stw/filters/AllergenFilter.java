@@ -1,8 +1,5 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Vector;
 
 import de.ironjan.mensaupb.stw.rest_api.Allergen;

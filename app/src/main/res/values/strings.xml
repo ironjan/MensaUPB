@@ -11,25 +11,25 @@
 
 
     <!-- about -->
-    <string name="aboutText">MensaUPB ist ein Neubau von
-        &lt;a href="https://plus.google.com/112214633916360855280">David Maichers&lt;/a> und &lt;a href="https://plus.google.com/104836562609964067147">Tony Lemkes&lt;/a> Mensa App für die Uni Paderborn: Mensa UPB.&lt;br/>
-        Diese zeigt für die kommenden Tage an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen Version eine XML vom Studentenwerk runtergeladen und gecached, bis sie nicht mehr verwendet werden konnte. Es wurde damals vom Studentenwerk untersagt, diese App im Play Store zu vertreiben - daher wurde sie damals wieder entfernt.&lt;br/>
-&lt;br/>
+    <string name="aboutText"><![CDATA[MensaUPB ist ein Neubau von
+        <a href=“https://plus.google.com/112214633916360855280”>David Maichers</a> und <a href="https://plus.google.com/104836562609964067147">Tony Lemkes</a> Mensa App für die Uni Paderborn: Mensa UPB.<br/>
+        Diese zeigt für die kommenden Tage an, was es in unserer Mensa zu essen gibt. Dazu wurde in der ursprünglichen Version eine XML vom Studentenwerk runtergeladen und gecached, bis sie nicht mehr verwendet werden konnte. Es wurde damals vom Studentenwerk untersagt, diese App im Play Store zu vertreiben - daher wurde sie damals wieder entfernt.<br/>
+<br/>
 Mittlerweile kooperiert das Studentenwerk mit Entwicklern und stellt eine Schnittstelle bereit, über die die Speisepläne heruntergeladen werden können; daher wurde die App zu einem Großteil neu geschrieben und ist nun endlich wieder im PlayStore ;)
-</string>
-    <string name="dependencies">
-MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github.com/ironjan/MensaUPB">github&lt;/a>. Feedback und Fehlermeldungen können via Email an &lt;a href="mailto:lippertsjan+mensaupb@gmail.com?subject=MensaUPB">lippertsjan@gmail.com&lt;/a> gesendet werden.&lt;br>
-&lt;br>
-        Die Speisepläne werden über eine Schnittstelle des Studentenwerk Paderborns abgerufen. Näheres dazu &lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/">hier&lt;/a>&lt;br>
-&lt;br>
-        Des weiteren benutzt die folgenden Open Source Bibliotheken:</string>
+]]></string>
+    <string name="dependencies"><![CDATA[
+MensaUPB ist Open Source. Den Quellcode findest du auf <a href=“http://github.com/ironjan/MensaUPB”>github</a>. Feedback und Fehlermeldungen können via Email an <a href="mailto:lippertsjan+mensaupb@gmail.com?subject=MensaUPB">lippertsjan@gmail.com</a> gesendet werden.<br>
+<br>
+        Die Speisepläne werden über eine Schnittstelle des Studentenwerk Paderborns abgerufen. Näheres dazu <a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/">hier</a><br>
+<br>
+        Des weiteren benutzt die folgenden Open Source Bibliotheken:]]></string>
 
-    <string name="dependencyNames" translatable="false">* &lt;a href="https://github.com/excilys/androidannotations/">Androidannotations&lt;/a>, &lt;a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0&lt;/a>&lt;br>
- * &lt;a href="http://developer.android.com/tools/support-library/index.html">Android support libraries v4 and v7, &lt;a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0&lt;/a>&lt;br>
- * &lt;a href="http://www.slf4j.org/android/">SLF4J-android&lt;/a>, &lt;a href="http://www.slf4j.org/license.html">MIT License&lt;/a>&lt;br>
- * &lt;a href="http://ormlite.com/">ormlite&lt;/a>, &lt;a href="http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_9.html#License">ormlite license&lt;/a>&lt;br>
- * &lt;a href="http://android-holo-colors.com/">android-holo-colors&lt;/a>
-    </string>
+    <string name="dependencyNames" translatable="false"><![CDATA[* <a href=“https://github.com/excilys/androidannotations/”>Androidannotations</a>, <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a><br>
+ * <a href="http://developer.android.com/tools/support-library/index.html">Android support libraries v4 and v7, <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a><br>
+ * <a href="http://www.slf4j.org/android/">SLF4J-android</a>, <a href="http://www.slf4j.org/license.html">MIT License</a><br>
+ * <a href="http://ormlite.com/">ormlite</a>, <a href="http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_9.html#License">ormlite license</a><br>
+ * <a href="http://android-holo-colors.com/">android-holo-colors</a>
+    ]]></string>
     <!--menu-->
     <string name="source">&lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/>Quelle der Speisepläne: Studentenwerk Paderborn&lt;/a></string>
     <string name="about">Über die App</string>
@@ -116,5 +116,9 @@ MensaUPB ist Open Source. Den Quellcode findest du auf &lt;a href="http://github
     <string name="anonymousUserStatisticsDisabled">Anonyme Nutzungsstatistik deaktiviert</string>
     <string name="opening_times">Öffnungszeiten</string>
     <string name="betaAllergensAdditionals">Diese Funktion ist noch im Test-Stadium und daher möglicherweise unzuverlässig.</string>
+    <string name="feedback_explanation">Du hast einen Fehler gefunden oder eine Anregung? Schick mir einfach eine Email!</string>
+    <string name="send_feedback">Feedback geben</string>
+    <string name="close">Schließen</string>
+    <string name="imade_description_menu_image">Ein Bild des Gerichts</string>
 </resources>
 

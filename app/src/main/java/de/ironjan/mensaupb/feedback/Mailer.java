@@ -26,8 +26,8 @@ public class Mailer {
      * Sends an email with the given subject and body. Notifies the user that an email app should be
      * set up, if there is none available.
      *
-     * @param subject
-     * @param body
+     * @param subject The mail's subject
+     * @param body The mail's body
      */
     public void sendMail(String subject, String body) {
         Intent intent = new Intent();

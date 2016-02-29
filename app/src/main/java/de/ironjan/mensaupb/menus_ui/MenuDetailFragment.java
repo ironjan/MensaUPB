@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +20,6 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
 import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.ProgressCallback;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -134,7 +134,7 @@ public class MenuDetailFragment extends Fragment {
 
         bindDescription(description);
 
-        ActionBarActivity activity = (ActionBarActivity) getActivity();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity == null) return;
         ActionBar supportActionBar = activity.getSupportActionBar();
         if (supportActionBar == null) return;
@@ -200,7 +200,7 @@ public class MenuDetailFragment extends Fragment {
 
     private void showAllergensList(Allergen[] allergens) {
         boolean notFirst = false;
-        StringBuffer allergensListAsStringBuffer = new StringBuffer();
+        StringBuilder allergensListAsStringBuffer = new StringBuilder();
         for (Allergen allergen : allergens) {
             if (allergen != null) {
                 if (notFirst) {
@@ -258,10 +258,7 @@ public class MenuDetailFragment extends Fragment {
                     .asBitmap()
                     .get();
             applyLoadedImage(bitmap);
-        } catch (InterruptedException e) {
-            applyErrorImage();
-            LOGGER.error("InterruptedException: {}", e);
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             applyErrorImage();
             LOGGER.error("InterruptedException: {}", e);
         }

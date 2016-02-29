@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,14 +9,13 @@
         style="@style/TextBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Du hast einene Fehler gefunden oder eine Anregung? Schick mir einfach eine Email!" />
+        android:text="@string/feedback_explanation" />
 
     <Button
         android:id="@+id/btnFeedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtFeedback"
         android:layout_marginTop="@dimen/elementMarginSmall"
-        android:text="Feedback geben" />
+        android:text="@string/send_feedback" />
 
 </LinearLayout>

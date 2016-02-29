@@ -19,7 +19,7 @@ public class DateHelper {
      *
      * @param day a day. must not be null
      * @return the offset between day and today
-     * @See http://stackoverflow.com/questions/20165564/calculating-days-between-two-dates-with-in-java
+     * @see "http://stackoverflow.com/questions/20165564/calculating-days-between-two-dates-with-in-java"
      */
     public static int computeDayOffset(Date day) {
         if (day == null) {

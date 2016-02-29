@@ -23,10 +23,8 @@ public class CafeteOpeningtimeKeeper implements RestaurantOpeningTimesKeeper {
         calendar.setTime(date);
         boolean isInWinterBreak = DateTimeUtilities.isInInterval(calendar, winterBreakStart, winterBreakEnd);
 
-        if (isInWinterBreak)
-            return false;
+        return !isInWinterBreak;
 
-        return true;
     }
 
 

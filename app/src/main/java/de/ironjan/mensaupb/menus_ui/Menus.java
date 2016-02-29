@@ -11,6 +11,7 @@ import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 
 import org.androidannotations.annotations.AfterViews;
@@ -42,7 +43,7 @@ import de.ironjan.mensaupb.sync.AccountCreator;
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_menu_listing)
 @OptionsMenu(R.menu.main)
-public class Menus extends ActionBarActivity implements ActionBar.OnNavigationListener, MenusNavigationCallback {
+public class Menus extends AppCompatActivity implements ActionBar.OnNavigationListener, MenusNavigationCallback {
 
     public static final String KEY_DAY_OFFSET = "KEY_DAY_OFFSET";
     public static final String KEY_DATE = "KEY_DATE";

@@ -1,5 +1,6 @@
 package de.ironjan.mensaupb.menus_ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -84,6 +85,7 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void bindPricePer100g(TextView view, Cursor cursor, int columnIndex) {
         double price = cursor.getDouble(columnIndex - 1);
         if (price == 0) {

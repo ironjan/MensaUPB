@@ -6,13 +6,13 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
 import java.util.Set;
 
 /**
- * Created by ljan on 27.03.15.
+ * Interface to generate AllergenFilter Preferences
  */
 @SharedPref(SharedPref.Scope.UNIQUE)
 public interface AllergenFilterPrefs {
     @DefaultStringSet
-    public Set<String> filteredAllergens();
+    Set<String> filteredAllergens();
 
     @DefaultStringSet
-    public Set<String> filteredAdditionals();
+    Set<String> filteredAdditionals();
 }
