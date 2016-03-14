@@ -28,10 +28,7 @@ class MensaForumOpeningTimeKeeper implements RestaurantOpeningTimesKeeper {
         boolean inInterval = DateTimeUtilities.isInInterval(calendar, closedIntervalStart, closedIntervalEnd);
         boolean inChristmas = DateTimeUtilities.isInInterval(calendar, closedIntervalWinterStart, closedIntervalWinterEnd);
 
-        if (inInterval || inChristmas)
-            return false;
-
-        return true;
+        return !(inInterval || inChristmas);
     }
 
 

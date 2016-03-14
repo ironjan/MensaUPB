@@ -23,13 +23,8 @@ class MensaAcademicaOpeningTimesKeeper implements RestaurantOpeningTimesKeeper {
         int[] winterBreakEnd = {2016, Calendar.JANUARY, 5};
         boolean isInWinterBreak = DateTimeUtilities.isInInterval(dateInstance, winterBreakStart, winterBreakEnd);
 
-        if (isClosedDayOne
-                || isClosedDayTwo
-                || isInWinterBreak) {
-            return false;
-        }
+        return !(isClosedDayOne || isClosedDayTwo || isInWinterBreak);
 
-        return true;
     }
 
     @Override

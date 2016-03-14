@@ -17,7 +17,7 @@ public enum PriceType {
     private final int id;
     private final String name;
 
-    private PriceType(final int id, final String name) {
+    PriceType(final int id, final String name) {
         this.id = id;
         this.name = name;
     }

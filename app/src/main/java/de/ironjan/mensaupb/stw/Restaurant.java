@@ -23,7 +23,7 @@ public enum Restaurant {
     private final int ordinal;
     private final int nameStringId;
 
-    private Restaurant(int ordinal, String key, int nameStringId) {
+    Restaurant(int ordinal, String key, int nameStringId) {
         this.ordinal = ordinal;
         this.key = key;
         this.nameStringId = nameStringId;

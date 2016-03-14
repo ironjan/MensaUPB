@@ -26,11 +26,9 @@ class DateTimeUtilities {
         int month = dateInstance.get(Calendar.MONTH);
         int day = dateInstance.get(Calendar.DAY_OF_MONTH);
 
-        boolean isOnDate = year == date[YEAR_INDEX]
+        return year == date[YEAR_INDEX]
                 && month == date[MONTH_INDEX]
                 && day == date[DAY_INDEX];
-
-        return isOnDate;
     }
 
     /**
@@ -57,11 +55,8 @@ class DateTimeUtilities {
         intervalEndCalendar.set(intervalEnd[YEAR_INDEX], intervalEnd[MONTH_INDEX], intervalEnd[DAY_INDEX] + 1);
 
 
-        if (intervalStartCalendar.before(dateInstance)
-                && dateInstance.before(intervalEndCalendar)) {
-            return true;
-        }
-        return false;
+        return intervalStartCalendar.before(dateInstance)
+                && dateInstance.before(intervalEndCalendar);
     }
 
     /**

@@ -13,7 +13,7 @@ import java.util.Arrays;
 import de.ironjan.mensaupb.stw.rest_api.Allergen;
 
 /**
- * Created by ljan on 12.03.15.
+ * A custom persister that saves an AllergensArray as String in the database.
  */
 public class AllergensArrayPersister extends StringType {
     private static final String DELIMITER = ";";
@@ -42,14 +42,14 @@ public class AllergensArrayPersister extends StringType {
         }
 
         Allergen[] allergens = (Allergen[]) object;
-        if (allergens == null || allergens.length == 0) {
+        if (allergens.length == 0) {
             return "";
         }
 
         Arrays.sort(allergens);
-        StringBuffer stringBuffer = new StringBuffer(DELIMITER);
-        for (int i = 0; i < allergens.length; i++) {
-            stringBuffer.append(allergens[i].toString());
+        StringBuilder stringBuffer = new StringBuilder(DELIMITER);
+        for (Allergen allergen : allergens) {
+            stringBuffer.append(allergen.toString());
             stringBuffer.append(DELIMITER);
         }
         return stringBuffer.toString();
@@ -58,7 +58,7 @@ public class AllergensArrayPersister extends StringType {
     @Override
     public Object resultToSqlArg(FieldType fieldType, DatabaseResults results, int columnPos) throws SQLException {
         String allergensAsString = results.getString(columnPos);
-        if (TextUtils.isEmpty(allergensAsString) || (allergensAsString != null && allergensAsString.length() <= 1)) {
+        if (TextUtils.isEmpty(allergensAsString) || (allergensAsString.length() <= 1)) {
             return new Allergen[0];
         }
 

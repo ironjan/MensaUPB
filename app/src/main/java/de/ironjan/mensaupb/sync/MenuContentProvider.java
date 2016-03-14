@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import org.androidannotations.annotations.EProvider;
@@ -63,7 +64,7 @@ public class MenuContentProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 //        TODO checkProjection(uri, projection);
 
@@ -125,12 +126,12 @@ public class MenuContentProvider extends ContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         return null;
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues contentValues) {
+    public Uri insert(@NonNull Uri uri, ContentValues contentValues) {
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
 
@@ -149,7 +150,7 @@ public class MenuContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String where, String[] whereArgs) {
+    public int delete(@NonNull Uri uri, String where, String[] whereArgs) {
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
                 final SQLiteDatabase db = getHelper().getWritableDatabase();
@@ -163,7 +164,7 @@ public class MenuContentProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
+    public int update(@NonNull Uri uri, ContentValues contentValues, String s, String[] strings) {
         switch (sUriMatcher.match(uri)) {
             case MENUS_MATCH:
                 SQLiteDatabase db = getHelper().getWritableDatabase();

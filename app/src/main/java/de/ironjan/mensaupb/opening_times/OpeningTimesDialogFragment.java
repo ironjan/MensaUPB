@@ -30,9 +30,9 @@ public class OpeningTimesDialogFragment extends DialogFragment {
     String restaurantKey;
 
     public static OpeningTimesDialogFragment newInstance(String restaurantKey) {
-        OpeningTimesDialogFragment f = OpeningTimesDialogFragment_.builder().arg(ARG_RESTAURANT, restaurantKey).build();
-
-        return f;
+        return OpeningTimesDialogFragment_.builder()
+                .arg(ARG_RESTAURANT, restaurantKey)
+                .build();
     }
 
     @Override

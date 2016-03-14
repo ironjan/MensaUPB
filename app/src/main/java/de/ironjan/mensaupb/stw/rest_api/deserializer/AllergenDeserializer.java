@@ -20,8 +20,6 @@ public class AllergenDeserializer extends JsonDeserializer<Allergen> {
 
     @Override
     public Allergen deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
-        if (jp.getCurrentToken() == JsonToken.START_OBJECT) {
-        }
         try {
             String valueAsString = jp.getValueAsString();
             return Allergen.fromString(valueAsString);

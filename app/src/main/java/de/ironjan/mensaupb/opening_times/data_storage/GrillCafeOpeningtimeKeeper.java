@@ -37,13 +37,10 @@ public class GrillCafeOpeningtimeKeeper implements RestaurantOpeningTimesKeeper 
         int[] winterBreakEnd = {2016, Calendar.JANUARY, 5};
         boolean isInWinterBreak = DateTimeUtilities.isInInterval(dateInstance, winterBreakStart, winterBreakEnd);
 
-        if (isClosedDayOne
+        return !(isClosedDayOne
                 || isClosedDayTwo
-                || isInWinterBreak) {
-            return false;
-        }
+                || isInWinterBreak);
 
-        return true;
     }
 
     @Override

@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.menus_ui;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,8 +16,6 @@ import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
-import org.androidannotations.api.view.HasViews;
-import org.androidannotations.api.view.OnViewChangedListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,12 +64,12 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        if (!(activity instanceof MenusNavigationCallback)) {
+    public void onAttach(Context context) {
+        if (!(context instanceof MenusNavigationCallback)) {
             throw new IllegalArgumentException("MenuListingFragment can only be attached to an Activity implementing MenusNavigationCallback.");
         }
-        super.onAttach(activity);
-        this.navigationCallback = (MenusNavigationCallback) activity;
+        super.onAttach(context);
+        this.navigationCallback = (MenusNavigationCallback) context;
 
     }
 

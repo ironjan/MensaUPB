@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.app_info;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.widget.TextView;
@@ -57,7 +58,7 @@ public class AboutFragment extends Fragment {
 
     @AfterViews
     void bindVersion() {
-        ActionBarActivity activity = (ActionBarActivity) getActivity();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity == null) return;
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar == null) return;
