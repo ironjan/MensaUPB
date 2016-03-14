@@ -21,7 +21,7 @@ android {
     signingConfigs {
     }
     compileSdkVersion 23
-    buildToolsVersion '21.1.2'
+    buildToolsVersion '23.0.2'
     packagingOptions {
         // prevents Error: duplicate files during packaging of APK
         // no wildcard support yet
