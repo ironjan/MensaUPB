@@ -1,5 +1,8 @@
 # Projektbeschreibung
 
+[![Build Status master](https://travis-ci.org/ironjan/MensaUPB.svg?branch=master)](https://travis-ci.org/ironjan/MensaUPB)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/fa54d899368346c1b292cef71c2d2dce)](https://www.codacy.com/app/lippertsjan/MensaUPB)
+
 MensaUPB ist ein Neubau von [David Maichers](https://plus.google.com/112214633916360855280) und
 [Tony Lemkes](https://plus.google.com/104836562609964067147) Android App "MensaUPB".
 
@@ -66,12 +69,6 @@ du "PR für @ironjan" oder ähnliches in den Kommentar schreibst.
 
 Hinweis: um zu sehen, ob es Updates für die benutzten Bibliotheken gibt, kann
 ```./gradlew dependencyUpdates``` benutzt werden.
-
-# Travis CI
-
-master: [![Build Status master](https://travis-ci.org/ironjan/MensaUPB.svg?branch=master)](https://travis-ci.org/ironjan/MensaUPB)
-
-Travis CI kann von open source Projekten kostenlos genutzt werden.
 
 # License
 
