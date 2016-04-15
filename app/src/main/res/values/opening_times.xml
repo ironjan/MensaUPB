@@ -16,10 +16,9 @@ Freitag: 11:15 - 13:30 Uhr<br/>
 Montag - Donnerstag: 11:15 - 14:00 Uhr<br />
 Freitag: 11:15 - 13:30 Uhr<br />
 <br />
-04.06.2015: Feiertag<br />
-22.02.2016	bis 03.04.2016: Betriebsferien<br />
-23.07.2016	bis 16.10.2016: Betriebsferien<br />
-24.12.2016	bis 01.01.2017: Betriebsferien
+22.02.2016 - 03.04.2016: Betriebsferien<br />
+23.07.2016 - 16.10.2016: Betriebsferien<br />
+24.12.2016 - 01.01.2017: Betriebsferien
 ]]>
      </string>
 
@@ -46,14 +45,12 @@ Samstag, Sonntag geschlossen<br />
 <string name="grillCafeOpeningTimes">
 <![CDATA[
 <b>Vorlesungszeit</b><br />
-Montag - Donnerstag: 09:00 - 22:00 Uhr<br />
-Freitag: 09:00 - 18:00 Uhr<br />
+Montag - Donnerstag: 08:00 - 22:00 Uhr<br />
+Freitag: 08:00 - 15:00 Uhr<br />
 <br/>
-<b>Happy Dinner</b><br />
-Montag - Donnerstag: 17:30 - 19:00<br />
-<br />
 <b>Vorlesungsfreie Zeit</b><br />
-Montag - Freitag: 09:00 - 18:00 Uhr<br />
+Montag - Donnerstag: 09:00 - 18:00 Uhr<br />
+Freitag: 09:0 - 15:00<br />
 <br />
 06.05.2016: Brückentag<br />
 27.05.2016: Brückentag<br />
