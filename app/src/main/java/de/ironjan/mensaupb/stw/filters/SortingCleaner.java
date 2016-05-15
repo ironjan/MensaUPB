@@ -7,7 +7,6 @@ import de.ironjan.mensaupb.stw.rest_api.StwMenu;
  */
 public class SortingCleaner implements Cleaner {
 
-
     public static final String DISH_DEFAULT = "dish-default";
     public static final String SOUPS = "soups";
     public static final String SIDEDISH = "sidedish";
@@ -34,8 +33,12 @@ public class SortingCleaner implements Cleaner {
     private static final int SORT_GC_ABENDMENSA = 5;
     private static final int SORT_GC_CLASSICS_EVENING = 35;
     private static final int SORT_GC_SNACKS = 50;
+    public static final String PASTA_NAME_DE = "Pasta-Variation \"was auf den Teller passt\"";
 
-    static int getSortOrder(String name_de, String categoryIdentifier) {
+    static int getSortOrder(StwMenu menu) {
+        final String name_de = menu.getName_de();
+        final String categoryIdentifier = menu.getCategoryIdentifier();
+
         switch (categoryIdentifier) {
             case DISH_DEFAULT:
                 return SORT_MAIN_DISH;
@@ -60,26 +63,17 @@ public class SortingCleaner implements Cleaner {
             case GC_SNACKS:
                 return SORT_GC_SNACKS;
             default:
-                return returnPastaOrArbitrary(name_de);
+                return PASTA_NAME_DE.equals(name_de)
+                        ? SORT_PASTA :
+                        SORT_REST;
         }
-    }
-
-    private static int returnPastaOrArbitrary(String name_de) {
-        if ("Pasta-Variation \"was auf den Teller passt\"".equals(name_de)) {
-            return SORT_PASTA;
-        }
-        return SORT_REST;
     }
 
     @Override
     public StwMenu clean(StwMenu menu) {
-        final String name_de = menu.getName_de();
-        final String categoryIdentifier = menu.getCategoryIdentifier();
-
-        int sortOrder = getSortOrder(name_de, categoryIdentifier);
-
         StwMenu copy = menu.copy();
-        copy.setSortOrder(sortOrder);
+
+        copy.setSortOrder(getSortOrder(menu));
 
         return copy;
     }
