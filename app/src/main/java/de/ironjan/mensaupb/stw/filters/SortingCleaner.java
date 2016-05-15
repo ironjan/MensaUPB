@@ -5,7 +5,7 @@ import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 /**
  * Applies sort order values for menus.
  */
-public class SortingFilter extends FilterBase {
+public class SortingCleaner implements Cleaner {
 
 
     public static final String DISH_DEFAULT = "dish-default";
@@ -72,7 +72,7 @@ public class SortingFilter extends FilterBase {
     }
 
     @Override
-    public StwMenu filter(StwMenu menu) {
+    public StwMenu clean(StwMenu menu) {
         final String name_de = menu.getName_de();
         final String categoryIdentifier = menu.getCategoryIdentifier();
 

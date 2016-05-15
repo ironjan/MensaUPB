@@ -8,13 +8,13 @@ import org.slf4j.LoggerFactory;
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
- * Filters the categories. Replaces "category" with "subcategory" if the latter is non-empty.
+ * Cleans the categories. Replaces "category" with "subcategory" if the latter is non-empty.
  */
-class CategoryFilter extends FilterBase {
-    Logger LOGGER = LoggerFactory.getLogger(CategoryFilter.class);
+class CategoryCleaner implements Cleaner {
+    Logger LOGGER = LoggerFactory.getLogger(CategoryCleaner.class);
 
     @Override
-    public StwMenu filter(StwMenu menu) {
+    public StwMenu clean(StwMenu menu) {
         StwMenu copy = menu.copy();
         updateDeCategory(copy);
         updateEnCategory(copy);

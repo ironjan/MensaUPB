@@ -12,25 +12,25 @@ import org.robolectric.annotation.Config;
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
- * Test for CategoryFilter which replaces "category" with "subcategory" if the latter is non-empty.
+ * Test for CategoryCleaner which replaces "category" with "subcategory" if the latter is non-empty.
  *
- * @see de.ironjan.mensaupb.stw.filters.CategoryFilter
+ * @see CategoryCleaner
  */
 @Config(sdk = Build.VERSION_CODES.JELLY_BEAN_MR2)
 @RunWith(RobolectricTestRunner.class)
-public class CategoryFilterTest {
+public class CategoryCleanerTest {
     private static final String EMPTY = "";
     private static final String CATEGORY = "CATEGORY";
     private static final String SUB_CATEGORY = "SUB_CATEGORY";
 
-    CategoryFilter categoryFilter = new CategoryFilter();
+    CategoryCleaner categoryFilter = new CategoryCleaner();
 
     @org.junit.Test
     public void test_deFilterEmptySub() throws Exception {
         StwMenu menu = new StwMenu();
         menu.setCategory_de(CATEGORY);
         menu.setSubcategory_de(EMPTY);
-        StwMenu filtered = categoryFilter.filter(menu);
+        StwMenu filtered = categoryFilter.clean(menu);
         Assert.assertEquals(CATEGORY, filtered.getCategory_de());
     }
 
@@ -39,7 +39,7 @@ public class CategoryFilterTest {
         StwMenu menu = new StwMenu();
         menu.setCategory_de(CATEGORY);
         menu.setSubcategory_de(null);
-        StwMenu filtered = categoryFilter.filter(menu);
+        StwMenu filtered = categoryFilter.clean(menu);
         Assert.assertEquals(CATEGORY, filtered.getCategory_de());
     }
 
@@ -48,7 +48,7 @@ public class CategoryFilterTest {
         StwMenu menu = new StwMenu();
         menu.setCategory_de(CATEGORY);
         menu.setSubcategory_de(SUB_CATEGORY);
-        StwMenu filtered = categoryFilter.filter(menu);
+        StwMenu filtered = categoryFilter.clean(menu);
         Assert.assertEquals(SUB_CATEGORY, filtered.getCategory_de());
     }
 
@@ -57,7 +57,7 @@ public class CategoryFilterTest {
         StwMenu menu = new StwMenu();
         menu.setCategory_en(CATEGORY);
         menu.setSubcategory_en(EMPTY);
-        StwMenu filtered = categoryFilter.filter(menu);
+        StwMenu filtered = categoryFilter.clean(menu);
         Assert.assertEquals(CATEGORY, filtered.getCategory_en());
     }
 
@@ -66,7 +66,7 @@ public class CategoryFilterTest {
         StwMenu menu = new StwMenu();
         menu.setCategory_en(CATEGORY);
         menu.setSubcategory_en(null);
-        StwMenu filtered = categoryFilter.filter(menu);
+        StwMenu filtered = categoryFilter.clean(menu);
         Assert.assertEquals(CATEGORY, filtered.getCategory_en());
     }
 
@@ -75,7 +75,7 @@ public class CategoryFilterTest {
         StwMenu menu = new StwMenu();
         menu.setCategory_en(CATEGORY);
         menu.setSubcategory_en(SUB_CATEGORY);
-        StwMenu filtered = categoryFilter.filter(menu);
+        StwMenu filtered = categoryFilter.clean(menu);
         Assert.assertEquals(SUB_CATEGORY, filtered.getCategory_en());
     }
 
