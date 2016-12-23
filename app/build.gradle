@@ -100,7 +100,6 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.6.5'
 
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
-    compile 'com.github.piwik:piwik-sdk-android:v0.0.3'
 
     compile fileTree(include: '*.jar', dir: 'libs')
     testCompile 'junit:junit:4.12'

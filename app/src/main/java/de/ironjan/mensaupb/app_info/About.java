@@ -12,8 +12,7 @@ import org.androidannotations.annotations.OptionsItem;
 import de.ironjan.mensaupb.R;
 
 /**
- * Wrapping activity for {@link AboutFragment} and
- * {@link de.ironjan.mensaupb.monitoring.MonitoringSettingsFragment}.
+ * Wrapping activity for {@link AboutFragment}.
  */
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_about)

@@ -25,11 +25,5 @@
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_about" />
 
-        <fragment
-            android:id="@+id/fragmentMonitoringSettings"
-            android:name="de.ironjan.mensaupb.monitoring.MonitoringSettingsFragment_"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_monitoring_settings" />
     </LinearLayout>
 </ScrollView>

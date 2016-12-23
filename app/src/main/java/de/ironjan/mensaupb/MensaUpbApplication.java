@@ -1,11 +1,11 @@
 package de.ironjan.mensaupb;
 
+import android.app.Application;
 import android.content.ContentResolver;
 import android.os.Bundle;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EApplication;
-import org.piwik.sdk.PiwikApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ import de.ironjan.mensaupb.sync.AccountCreator;
  */
 @SuppressWarnings("WeakerAccess")
 @EApplication
-public class MensaUpbApplication extends PiwikApplication {
+public class MensaUpbApplication extends Application {
     private final Logger LOGGER = LoggerFactory.getLogger(MensaUpbApplication.class.getSimpleName()
     );
     @Bean
@@ -27,7 +27,6 @@ public class MensaUpbApplication extends PiwikApplication {
         if (BuildConfig.DEBUG) LOGGER.debug("onCreate()");
         super.onCreate();
         setupSynchronization();
-        setupUserMonitoring();
         if (BuildConfig.DEBUG) LOGGER.debug("onCreate() done");
     }
 
@@ -48,20 +47,5 @@ public class MensaUpbApplication extends PiwikApplication {
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
         ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
     }
-
-    @Override
-    public String getTrackerUrl() {
-        return "http://ironjan.de/piwik/piwik.php";
-    }
-
-    @Override
-    public Integer getSiteId() {
-        return 1;
-    }
-
-    private void setupUserMonitoring() {
-        getTracker().setDispatchInterval(BuildConfig.SYNC_INTERVAL);
-    }
-
 
 }
