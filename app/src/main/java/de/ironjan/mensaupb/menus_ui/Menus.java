@@ -82,23 +82,6 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
         mLocation = mInternalKeyValueStore.lastLocation().get();
         initPager();
         initActionBar();
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                // buckets: 0-10, 10-20, ...
-                String scrollPercentageBucket = 10 * Math.round(10 * positionOffset) + "";
-                trackEvent(MonitoringConstants.CATEGORY_MENUS, MonitoringConstants.ACTION_SCROLLING + scrollPercentageBucket, null, 1);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                trackScreenView();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
     }
 
     @Trace
@@ -142,7 +125,6 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
         if (BuildConfig.DEBUG) LOGGER.info("Got adapter: {}", mWeekdayPagerAdapter);
         if (mWeekdayPagerAdapter != null) {
             switchAdapterTo(mDayOffset);
-            trackScreenView();
         }
     }
 
@@ -189,28 +171,6 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
         return true;
     }
 
-    /**
-     * Events are a useful way to collect data about a user's interaction with interactive components of your app, like button presses or the use of a particular item in a game.
-     * Parameters:
-     *
-     * @param category - (required) – this String defines the event category. You might define event categories based on the class of user actions, like clicks or gestures or voice commands, or you might define them based upon the features available in your application (play, pause, fast forward, etc.).
-     * @param action   - (required) this String defines the specific event action within the category specified. In the example, we are basically saying that the category of the event is user clicks, and the action is a button click.
-     * @param label    - defines a label associated with the event. For example, if you have multiple Button controls on a screen, you might use the label to specify the specific View control identifier that was clicked.
-     * @param value    - defines a numeric value associated with the event. For example, if you were tracking "Buy" button clicks, you might log the number of items being purchased, or their total cost.
-     */
-    private void trackEvent(String category, String action, String label, int value) {
-        ((MensaUpbApplication) getApplication()).getTracker()
-                .trackEvent(category, action, label, value);
-    }
-
-    /**
-     * Tracks a screen view for "/restaurant/dayOffset
-     */
-    private void trackScreenView() {
-        ((MensaUpbApplication) getApplication()).getTracker()
-                .trackScreenView("/" + mRestaurantKeys[mLocation] + "/" + mDayOffset);
-    }
-
     @Override
     public void showMenu(long _id) {
         MenuDetails_.intent(this).menuId(_id).start();
@@ -228,8 +188,6 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         DialogFragment newFragment = OpeningTimesDialogFragment.newInstance(mRestaurantKeys[mLocation]);
         newFragment.show(ft, "dialog");
-
-        trackEvent(MonitoringConstants.CATEGORY_MENUS, MonitoringConstants.ACTION_SHOW_TIMES, "", 1);
     }
 
     @OptionsItem(R.id.ab_refresh)
@@ -241,7 +199,6 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 
         ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
-        trackEvent(MonitoringConstants.CATEGORY_MENUS, MonitoringConstants.ACTION_REFRESH, "", 1);
     }
 
     @OptionsItem(R.id.ab_about)
