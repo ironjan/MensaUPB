@@ -8,9 +8,9 @@ import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 /**
  * Filters allergens
  */
-public class AllergenFilter extends FilterBase {
+public class AllergenCleaner implements Cleaner {
     @Override
-    public StwMenu filter(StwMenu menu) {
+    public StwMenu clean(StwMenu menu) {
         Allergen[] allergens = menu.getAllergens();
         Allergen[] filteredAllergens = filter(allergens);
         StwMenu filteredMenu = menu.copy();

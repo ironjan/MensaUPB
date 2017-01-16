@@ -5,15 +5,15 @@ import android.text.TextUtils;
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
- * A filter to replace an awkward translation
+ * A cleaner to replace an awkward translation
  */
-public class AwkwardTranslationFilter extends FilterBase {
+public class AwkwardTranslationCleaner implements Cleaner {
 
     public static final String BAD_TRANSLATION = "Default Menu";
     public static final String BETTER_TRANSLATION = "Recommendation";
 
     @Override
-    public StwMenu filter(StwMenu menu) {
+    public StwMenu clean(StwMenu menu) {
         StwMenu filteredMenu = menu.copy();
         String category_en = menu.getCategory_en();
         if (TextUtils.isEmpty(category_en)) {

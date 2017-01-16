@@ -1,37 +1,31 @@
 package de.ironjan.mensaupb.stw.filters;
 
-import java.util.ArrayList;
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+import com.annimon.stream.function.Function;
+
 import java.util.List;
 
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
- * A filter chain, invoking all filters.
+ * A cleaner chain, invoking all cleaners.
  */
-public class FilterChain implements Filter {
-    private static final Filter[] filters = {
-            new NameFilter(),
-            new CategoryFilter(),
-            new AllergenFilter(),
-            new AwkwardTranslationFilter(),
-            new SortingFilter()
-    };
+public class FilterChain  {
+    Function<StwMenu, StwMenu> cleanName = (new NameCleaner())::clean;
+    Function<StwMenu, StwMenu> cleanCategory = (new CategoryCleaner())::clean;
+    Function<StwMenu, StwMenu> cleanAllergens = (new AllergenCleaner())::clean;
+    Function<StwMenu, StwMenu> cleanAwkwardTranslations = (new AwkwardTranslationCleaner())::clean;
+    Function<StwMenu, StwMenu> fixSorting = (new SortingCleaner())::clean;
 
-    @Override
     public List<StwMenu> filter(List<StwMenu> menus) {
-        List<StwMenu> filteredMenus = new ArrayList<>(menus);
-        for (Filter filter : filters) {
-            filteredMenus = filter.filter(filteredMenus);
-        }
-        return filteredMenus;
+        return Stream.of(menus)
+                .map(cleanName)
+                .map(cleanCategory)
+                .map(cleanAllergens)
+                .map(cleanAwkwardTranslations)
+                .map(fixSorting)
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public StwMenu filter(StwMenu menu) {
-        StwMenu filteredMenu = menu;
-        for (Filter filter : filters) {
-            filteredMenu = filter.filter(filteredMenu);
-        }
-        return filteredMenu;
-    }
 }

@@ -3,16 +3,16 @@ package de.ironjan.mensaupb.stw.filters;
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
- * Filter to recategorize Pastavariation in Mensa Academice to receommendation.
+ * Cleaner to recategorize Pastavariation in Mensa Academice to receommendation.
  */
-public class PastavariationFilter extends FilterBase {
+public class PastavariationCleaner implements Cleaner {
     private final static String PASTA_VARIATION_STRING = "Pasta-Variation \"was auf den Teller passt\"";
     private static final String CATEGORY_DEFAULT = "dish-default";
     private static final String CATEGORY_DEFAULT_DE_NAME = "Vorschlagsmenü";
     private static final String CATEGORY_DEFAULT_EN_NAME = "Recommendation";
 
     @Override
-    public StwMenu filter(StwMenu menu) {
+    public StwMenu clean(StwMenu menu) {
         if (menu == null) {
             return null;
         }

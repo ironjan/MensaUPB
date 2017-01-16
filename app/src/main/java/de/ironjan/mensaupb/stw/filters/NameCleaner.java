@@ -10,11 +10,11 @@ import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 /**
  * Filters and corrects the names of the given menus
  */
-class NameFilter extends FilterBase {
-    Logger LOGGER = LoggerFactory.getLogger(NameFilter.class);
+class NameCleaner implements Cleaner {
+    Logger LOGGER = LoggerFactory.getLogger(NameCleaner.class);
 
     @Override
-    public StwMenu filter(StwMenu menu) {
+    public StwMenu clean(StwMenu menu) {
         StwMenu copy = menu.copy();
         copy.setName_de(cleanName(copy.getName_de()));
         copy.setName_en(cleanName(copy.getName_en()));
