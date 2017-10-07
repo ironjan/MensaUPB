@@ -14,6 +14,7 @@ public class FilterChain implements Filter {
             new CategoryFilter(),
             new AllergenFilter(),
             new AwkwardTranslationFilter(),
+            new SideDishAddCategoryFilter(),
             new SortingFilter()
     };
 

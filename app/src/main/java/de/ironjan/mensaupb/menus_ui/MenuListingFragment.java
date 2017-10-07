@@ -133,7 +133,9 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         if (0L == lastSyncTimeStamp) {
             updateEmptyView();
         } else {
-            list.setEmptyView(mClosed);
+           if (list != null) {
+               list.setEmptyView(mClosed);
+           }
         }
     }
 

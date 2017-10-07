@@ -36,6 +36,8 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
     public static final int CATEGORY_EN_INDEX = 6, CATEGORY_DE_INDEX = 4, NAME_EN_INDEX = 5, NAME_DE_INDEX = 0;
     private static final String MENU_SELECTION = StwMenu.DATE + " = ? AND " + StwMenu.RESTAURANT + " LIKE ?";
     private static final int[] BIND_TO = {R.id.textName, R.id.textPrice, R.id.textPricePer100g, R.id.textBadges};
+    private static final String SORT_ORDER = String.format("%s ASC, %s ASC, %s ASC",
+            StwMenu.SORT_ORDER, StwMenu.PRICE_TYPE, StwMenu.STUDENTS_PRICE);
     private final String mDate;
     private final String mLocation;
     private final AllergenFilterPrefs_ mAllergenFilterPrefs;
@@ -61,7 +63,7 @@ public class MenuListingAdapter extends SimpleCursorAdapter implements android.s
         menuUri = MenuContentProvider.MENU_URI;
 
         return new CursorLoader(mContext,
-                menuUri, projection, MENU_SELECTION, selectionArgs, null);
+                menuUri, projection, MENU_SELECTION, selectionArgs, SORT_ORDER);
     }
 
     @Override
