@@ -1,13 +1,13 @@
 package de.ironjan.mensaupb.menus_ui;
 
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.widget.AdapterView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -41,7 +41,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @ViewById(R.id.closed)
     View mClosed;
     @ViewById(android.R.id.empty)
-    View  empty;
+    View empty;
     @ViewById(android.R.id.list)
     StickyListHeadersListView list;
     @Pref
@@ -89,6 +89,13 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         getLoaderManager().initLoader(0, null, adapter);
         list.setAdapter(adapter);
         list.setAreHeadersSticky(false);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            listItemClicked(position);
+                                        }
+                                    }
+        );
         updateEmptyView();
         new Thread(new Runnable() {
             @Override
@@ -111,10 +118,10 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         if (isEmpty && isOpen) {
             mLoadingView.setVisibility(View.VISIBLE);
             mClosed.setVisibility(View.GONE);
-        } else if(isEmpty){
+        } else if (isEmpty) {
             mLoadingView.setVisibility(View.GONE);
             mClosed.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             mLoadingView.setVisibility(View.GONE);
             mClosed.setVisibility(View.GONE);
         }
@@ -130,7 +137,6 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         }
     }
 
-    @ItemClick
     void listItemClicked(int pos) {
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);
 

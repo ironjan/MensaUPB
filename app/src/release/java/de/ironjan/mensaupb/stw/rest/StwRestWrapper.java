@@ -4,7 +4,7 @@ import android.content.Context;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
-import org.androidannotations.annotations.rest.RestService;
+import org.androidannotations.rest.spring.annotations.RestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

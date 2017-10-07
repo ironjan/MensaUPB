@@ -1,10 +1,11 @@
 package de.ironjan.mensaupb.stw.rest_api;
 
-import org.androidannotations.annotations.rest.Accept;
-import org.androidannotations.annotations.rest.Get;
-import org.androidannotations.annotations.rest.Rest;
-import org.androidannotations.api.rest.MediaType;
+import org.androidannotations.rest.spring.annotations.Accept;
+import org.androidannotations.rest.spring.annotations.Get;
+import org.androidannotations.rest.spring.annotations.Path;
+import org.androidannotations.rest.spring.api.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.androidannotations.rest.spring.annotations.Rest;
 
 import de.ironjan.mensaupb.BuildConfig;
 
@@ -17,5 +18,5 @@ import de.ironjan.mensaupb.BuildConfig;
 interface StwRest {
     @Get("&restaurant={restaurant}&date={date}")
     @Accept(MediaType.APPLICATION_JSON)
-    StwMenu[] getMenus(String restaurant, String date);
+    StwMenu[] getMenus(@Path String restaurant, @Path String date);
 }
