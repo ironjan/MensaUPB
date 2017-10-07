@@ -22,37 +22,33 @@ public class SortingFilter extends FilterBase {
     private static final String GC_SNACKS = "snacks";
 
 
-    private static final int SORT_MAIN_DISH = 0;
-    private static final int SORT_SOUP = 10;
-    private static final int SORT_PASTA = 20;
-    private static final int SORT_GRILL = 25;
-    private static final int SORT_WOK = 30;
+    private static final int SORT_DISHES = 0;
+    /** When in doubt: we place things in the front */
+    private static final int SORT_REST = 0;
     private static final int SORT_SIDE_DISH = 35;
     private static final int SORT_DESSERT = 70;
-    private static final int SORT_EXPENSIVE_DESSERT = 75;
-    private static final int SORT_REST = 100;
     private static final int SORT_GC_ABENDMENSA = 5;
     private static final int SORT_GC_CLASSICS_EVENING = 35;
     private static final int SORT_GC_SNACKS = 50;
 
-    static int getSortOrder(String name_de, String categoryIdentifier) {
-        switch (categoryIdentifier) {
+    static int getSortOrder(final StwMenu menu) {
+        switch (menu.getCategoryIdentifier()) {
             case DISH_DEFAULT:
-                return SORT_MAIN_DISH;
+                return SORT_DISHES;
             case SOUPS:
-                return SORT_SOUP;
+                return SORT_DISHES;
             case DISH_GRILL:
-                return SORT_GRILL;
+                return SORT_DISHES;
             case DISH_PASTA:
-                return SORT_PASTA;
+                return SORT_DISHES;
             case DISH_WOK:
-                return SORT_WOK;
+                return SORT_DISHES;
             case SIDEDISH:
                 return SORT_SIDE_DISH;
             case DESSERT:
                 return SORT_DESSERT;
             case DESSERT_COUNTER:
-                return SORT_EXPENSIVE_DESSERT;
+                return SORT_DESSERT;
             case GC_ABENDMENSA:
                 return SORT_GC_ABENDMENSA;
             case GC_CLASSICS_EVENING:
@@ -60,27 +56,40 @@ public class SortingFilter extends FilterBase {
             case GC_SNACKS:
                 return SORT_GC_SNACKS;
             default:
-                return returnPastaOrArbitrary(name_de);
+                return SORT_REST;
         }
-    }
-
-    private static int returnPastaOrArbitrary(String name_de) {
-        if ("Pasta-Variation \"was auf den Teller passt\"".equals(name_de)) {
-            return SORT_PASTA;
-        }
-        return SORT_REST;
     }
 
     @Override
     public StwMenu filter(StwMenu menu) {
-        final String name_de = menu.getName_de();
-        final String categoryIdentifier = menu.getCategoryIdentifier();
-
-        int sortOrder = getSortOrder(name_de, categoryIdentifier);
+        int sortOrder = getSortOrder(menu);
 
         StwMenu copy = menu.copy();
         copy.setSortOrder(sortOrder);
+        copy.setCategory_de(getCategory_de(sortOrder));
+        copy.setCategory_en(getCategory_en(sortOrder));
 
         return copy;
+    }
+
+    private String getCategory_de(int sortOrder) {
+        switch (sortOrder){
+            case SORT_SIDE_DISH:
+                return "Beilage";
+            case SORT_DESSERT:
+                return "Dessert";
+            default:
+                return "Hauptgerichte";
+        }
+    }
+    private String getCategory_en(int sortOrder) {
+        switch (sortOrder){
+            case SORT_SIDE_DISH:
+                return "Side Dish";
+            case SORT_DESSERT:
+                return "Dessert";
+            default:
+                return "Main Dishes";
+        }
     }
 }
