@@ -1,2 +1,2 @@
 #!/bin/bash
-./gradlew --parallel ktlint lint
+./gradlew --parallel lint
