@@ -5,12 +5,9 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 
@@ -30,11 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.MensaUpbApplication;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.app_info.About_;
-import de.ironjan.mensaupb.monitoring.MonitoringConstants;
-import de.ironjan.mensaupb.opening_times.OpeningTimesDialogFragment;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.sync.AccountCreator;
@@ -182,13 +176,6 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
         mInternalKeyValueStore.edit().lastLocation().put(mLocation).apply();
     }
 
-
-    @OptionsItem(R.id.ab_showtimes)
-    void showTimes() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        DialogFragment newFragment = OpeningTimesDialogFragment.newInstance(mRestaurantKeys[mLocation]);
-        newFragment.show(ft, "dialog");
-    }
 
     @OptionsItem(R.id.ab_refresh)
     void refreshClicked() {

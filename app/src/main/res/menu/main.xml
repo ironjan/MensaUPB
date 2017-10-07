@@ -13,13 +13,6 @@
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
     <item
-        android:id="@+id/ab_showtimes"
-        android:icon="@drawable/ic_action_alarms_light"
-        android:orderInCategory="15"
-        android:title="@string/opening_times"
-        app:showAsAction="always"
-        tools:ignore="AlwaysShowAction"  />
-    <item
         android:id="@+id/ab_about"
         android:orderInCategory="90"
         android:title="@string/about"
