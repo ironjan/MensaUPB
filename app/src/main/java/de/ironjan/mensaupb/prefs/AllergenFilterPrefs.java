@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.prefs;
 import org.androidannotations.annotations.sharedpreferences.DefaultStringSet;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -10,9 +11,7 @@ import java.util.Set;
  */
 @SharedPref(SharedPref.Scope.UNIQUE)
 public interface AllergenFilterPrefs {
-    @DefaultStringSet
     Set<String> filteredAllergens();
 
-    @DefaultStringSet
     Set<String> filteredAdditionals();
 }
