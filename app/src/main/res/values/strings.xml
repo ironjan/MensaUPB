@@ -47,7 +47,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf <a href=“http://github.
 
     <string name="campusMensae">Campus Mensae</string>
     <string name="nameMensaAcademica" translatable="false">Mensa Academica</string>
-    <string name="nameMensaForum" translatable="false">Mensa Forum (neue)</string>
+    <string name="nameMensaForum" translatable="false">Mensa Forum</string>
     <string name="nameBistroHotspot" translatable="false">Bistro Hotspot</string>
     <string name="nameGrillCafe" translatable="false">Grill | Café</string>
     <string name="nameCafete" translatable="false">Caféte</string>
