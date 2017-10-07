@@ -5,6 +5,8 @@ android:
     - tools
     - platform-tools
     - build-tools-23.0.2
+    - tools
+    - build-tools-25.0.2
     - android-23
     - add-on
     - extras

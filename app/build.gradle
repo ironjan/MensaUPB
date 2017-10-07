@@ -67,6 +67,9 @@ android {
         }
         println 'Applied basic configurations.'
     }
+    lintOptions {
+        disable "InvalidPackage"
+    }
     // must be set after basic configurations
     if (project.hasProperty('mensaupb.signing')) {
         println 'project has property mensaupb.signing:'
@@ -88,7 +91,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.0'
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.j256.ormlite:ormlite-android:5.0'
-    apt     'org.androidannotations:androidannotations:4.3.1'
+    apt 'org.androidannotations:androidannotations:4.3.1'
     compile 'org.androidannotations:androidannotations-api:4.3.1'
     apt "org.androidannotations:rest-spring:4.3.1"
     compile "org.androidannotations:rest-spring:4.3.1"
@@ -109,8 +112,8 @@ dependencies {
     testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.robolectric:shadows-support-v4:3.0'
     // Repetition for autocompletion in android studio
-    androidTestCompile  'junit:junit:4.12'
-    androidTestCompile  'org.robolectric:robolectric:3.0'
-    testCompile         'org.robolectric:shadows-support-v4:3.0'
+    androidTestCompile 'junit:junit:4.12'
+    androidTestCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.robolectric:shadows-support-v4:3.0'
 }
 
