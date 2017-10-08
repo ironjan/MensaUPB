@@ -8,10 +8,9 @@ import android.os.Build;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
-import org.robolectric.util.ActivityController;
 
 import de.ironjan.mensaupb.app_info.About_;
 import de.ironjan.mensaupb.menus_ui.MenuDetails_;
@@ -21,7 +20,7 @@ import de.ironjan.mensaupb.prefs.Settings_;
 /**
  * Test to make sure that every Activity can be opened
  */
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
 public class InstantiationTest {
     @Test

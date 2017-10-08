@@ -4,7 +4,6 @@ import android.os.Build;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -13,7 +12,7 @@ import de.ironjan.mensaupb.BuildConfig;
 /**
  * Just a working test.
  */
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
 public class SanityTest {
     @Test
