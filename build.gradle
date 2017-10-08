@@ -2,15 +2,14 @@
 
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
+        maven { url 'https://maven.google.com' }
         maven { url 'http://repo1.maven.org/maven2' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
-        jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.android.tools.build:gradle:3.0.0-beta7'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.6'
     }
@@ -20,7 +19,8 @@ buildscript {
 allprojects {
 
     repositories {
-        mavenCentral()
+        jcenter()
+        maven { url 'https://maven.google.com' }
         maven { url 'http://repo1.maven.org/maven2' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
         maven { url "https://jitpack.io" }
