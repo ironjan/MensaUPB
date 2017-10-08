@@ -1,6 +1,5 @@
 package de.ironjan.mensaupb.prefs;
 
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.EActivity;

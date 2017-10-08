@@ -3,7 +3,6 @@ package de.ironjan.mensaupb.app_info;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 
 import org.androidannotations.annotations.EActivity;

@@ -2,7 +2,6 @@ package de.ironjan.mensaupb.app_info;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
