@@ -14,8 +14,6 @@ apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
-    signingConfigs {
-    }
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
     packagingOptions {
@@ -40,6 +38,16 @@ android {
         targetSdkVersion 23
 
         applicationId 'de.ironjan.mensaupb'
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["resourcePackageName": android.defaultConfig.applicationId]
+            }
+        }
+
+            resValue "string", "authority", applicationId + '.provider'
+            resValue "string", "account_type", applicationId + ".account"
+            buildConfigField "String", "ACCOUNT_TYPE", '"' + applicationId + '.account' + '"'
     }
     sourceSets {
         main {
@@ -53,6 +61,11 @@ android {
             buildConfigField 'int', 'SYNC_INTERVAL', '60' // 1 minute
             buildConfigField 'String', 'STW_URL', '\"\"'
             testCoverageEnabled true
+            applicationIdSuffix ".debug"
+
+            resValue "string", "authority", defaultConfig.applicationId + '.debug.provider'
+            resValue "string", "account_type", defaultConfig.applicationId + ".debug.account"
+            buildConfigField "String", "ACCOUNT_TYPE", '"' + defaultConfig.applicationId + '.debug.account' + '"'
         }
         release {
             buildConfigField 'int', 'SYNC_INTERVAL', '60 * 60 * 24 ' // 1 day
@@ -82,6 +95,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -89,19 +103,16 @@ dependencies {
     annotationProcessor 'org.androidannotations:androidannotations:4.3.1'
     implementation 'org.androidannotations:androidannotations-api:4.3.1'
     annotationProcessor "org.androidannotations:rest-spring:4.3.1"
-    implementation "org.androidannotations:rest-spring:4.3.1"
+    implementation 'org.androidannotations:rest-spring:4.3.1'
     implementation 'com.noveogroup.android:android-logger:1.3.6'
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
     implementation 'com.koushikdutta.ion:ion:2.2.1'
-
     // current jackson version is 2.7.x but this version introduced a call to java.nio.file
     // which is not supported on android
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.9.1'
-
     implementation 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
-
     implementation fileTree(include: '*.jar', dir: 'libs')
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.robolectric:robolectric:3.4.2'
@@ -109,6 +120,6 @@ dependencies {
     // Repetition for autocompletion in android studio
     androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'org.robolectric:robolectric:3.4.2'
-    androidTestImplementation "org.robolectric:shadows-support-v4:3.3.2"
+    androidTestImplementation 'org.robolectric:shadows-support-v4:3.3.2'
 }
 

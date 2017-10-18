@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.ItemClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
@@ -24,6 +23,7 @@ import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.opening_times.data_storage.OpeningTimesKeeper;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.sync.AccountCreator;
+import de.ironjan.mensaupb.sync.ProviderContract;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 @SuppressWarnings("WeakerAccess")
@@ -112,18 +112,20 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     }
 
     private void updateEmptyView() {
-        list.setEmptyView(empty);
+        if (list != null) {
+            list.setEmptyView(empty);
+        }
         boolean isOpen = OpeningTimesKeeper.isOpenOn(getArgLocation(), getArgDate());
         boolean isEmpty = adapter.isEmpty();
         if (isEmpty && isOpen) {
-            mLoadingView.setVisibility(View.VISIBLE);
-            mClosed.setVisibility(View.GONE);
+            if (mLoadingView != null) mLoadingView.setVisibility(View.VISIBLE);
+            if (mClosed != null) mClosed.setVisibility(View.GONE);
         } else if (isEmpty) {
-            mLoadingView.setVisibility(View.GONE);
-            mClosed.setVisibility(View.VISIBLE);
+            if (mLoadingView != null) mLoadingView.setVisibility(View.GONE);
+            if (mClosed != null) mClosed.setVisibility(View.VISIBLE);
         } else {
-            mLoadingView.setVisibility(View.GONE);
-            mClosed.setVisibility(View.GONE);
+            if (mLoadingView != null) mLoadingView.setVisibility(View.GONE);
+            if (mClosed != null) mClosed.setVisibility(View.GONE);
         }
     }
 
@@ -133,9 +135,9 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         if (0L == lastSyncTimeStamp) {
             updateEmptyView();
         } else {
-           if (list != null) {
-               list.setEmptyView(mClosed);
-           }
+            if (list != null) {
+                list.setEmptyView(mClosed);
+            }
         }
     }
 
@@ -155,7 +157,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
                 ContentResolver.SYNC_EXTRAS_MANUAL, true);
         settingsBundle.putBoolean(
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-        ContentResolver.requestSync(mAccountCreator.getAccount(), AccountCreator.AUTHORITY, settingsBundle);
+        ContentResolver.requestSync(mAccountCreator.getAccount(), ProviderContract.AUTHORITY, settingsBundle);
         LOGGER.debug("Sync requested.");
     }
 
