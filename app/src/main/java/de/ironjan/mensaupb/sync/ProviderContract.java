@@ -1,10 +1,12 @@
 package de.ironjan.mensaupb.sync;
 
+import de.ironjan.mensaupb.BuildConfig;
+
 /**
  * General contract for the content provider of this app
  */
-class ProviderContract {
-    public static final String AUTHORITY = "de.ironjan.mensaupb.provider";
-    public static final String ACCOUNT_TYPE = "ironjan.MensaUPB";
+public class ProviderContract {
+    public static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
+    public static final String ACCOUNT_TYPE = BuildConfig.APPLICATION_ID + ".account";
     public static final String ACCOUNT = "dummy";
 }

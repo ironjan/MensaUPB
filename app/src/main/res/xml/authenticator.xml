@@ -2,4 +2,4 @@
 <!--only mandatory attributes included-->
 <account-authenticator
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:accountType="ironjan.MensaUPB"/>
+    android:accountType="@string/account_type"/>
