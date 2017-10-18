@@ -10,20 +10,20 @@
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
 
     <application
-        android:name="de.ironjan.mensaupb.MensaUpbApplication_"
+        android:name=".MensaUpbApplication_"
         android:allowBackup="false"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/GreenTheme">
 
         <activity
-            android:name="de.ironjan.mensaupb.menus_ui.Menus_"
+            android:name=".menus_ui.Menus_"
             android:label="@string/app_name"
             android:launchMode="singleTop" />
 
         <activity-alias
-            android:name="de.ironjan.mensaupb.activities.Menus_"
-            android:targetActivity="de.ironjan.mensaupb.menus_ui.Menus_">
+            android:name=".activities.Menus_"
+            android:targetActivity=".menus_ui.Menus_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,34 +33,34 @@
 
 
         <activity
-            android:name="de.ironjan.mensaupb.app_info.About_"
+            android:name=".app_info.About_"
             android:label="@string/app_name"
-            android:parentActivityName="de.ironjan.mensaupb.menus_ui.Menus_">
+            android:parentActivityName=".menus_ui.Menus_">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ironjan.mensaupb.menus_ui.Menus_" />
+                android:value=".menus_ui.Menus_" />
 
         </activity>
 
         <activity
-            android:name="de.ironjan.mensaupb.menus_ui.MenuDetails_"
+            android:name=".menus_ui.MenuDetails_"
             android:label="@string/app_name"
-            android:parentActivityName="de.ironjan.mensaupb.menus_ui.Menus_"
+            android:parentActivityName=".menus_ui.Menus_"
             android:theme="@style/TransparentActionBarActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ironjan.mensaupb.menus_ui.Menus_" />
+                android:value=".menus_ui.Menus_" />
 
         </activity>
 
         <activity
-            android:name="de.ironjan.mensaupb.prefs.Settings_"
+            android:name=".prefs.Settings_"
             android:label="@string/app_name"
-            android:parentActivityName="de.ironjan.mensaupb.menus_ui.Menus_"
+            android:parentActivityName=".menus_ui.Menus_"
             android:theme="@style/TransparentActionBarActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ironjan.mensaupb.menus_ui.Menus_" />
+                android:value=".menus_ui.Menus_" />
 
         </activity>
 
@@ -74,8 +74,8 @@
                 android:resource="@xml/authenticator" />
         </service>
         <provider
-            android:name="de.ironjan.mensaupb.sync.MenuContentProvider_"
-            android:authorities="de.ironjan.mensaupb.provider"
+            android:name=".sync.MenuContentProvider_"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:syncable="true" />
         <service
