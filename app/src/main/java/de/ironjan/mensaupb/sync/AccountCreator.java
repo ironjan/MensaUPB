@@ -16,11 +16,6 @@ import org.slf4j.LoggerFactory;
  */
 @EBean
 public class AccountCreator {
-    /**
-     * Neded for synchroniztation initialization
-     */
-    public static final String AUTHORITY = ProviderContract.AUTHORITY;
-    private static final String ACCOUNT_TYPE = ProviderContract.ACCOUNT_TYPE;
 
     private final Logger LOGGER = LoggerFactory.getLogger(AccountCreator.class.getSimpleName());
 
@@ -39,7 +34,7 @@ public class AccountCreator {
      */
     public Account getAccount() {
         if (mAccount == null) {
-            mAccount = new Account(ProviderContract.ACCOUNT, ACCOUNT_TYPE);
+            mAccount = new Account(ProviderContract.ACCOUNT, ProviderContract.ACCOUNT_TYPE);
             if (mAccountManager == null) {
                 LOGGER.warn("AccountManager was null.");
                 return mAccount;
@@ -58,6 +53,6 @@ public class AccountCreator {
      * @return the authority string
      */
     public String getAuthority() {
-        return AUTHORITY;
+        return ProviderContract.AUTHORITY;
     }
 }
