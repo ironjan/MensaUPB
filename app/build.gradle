@@ -40,6 +40,12 @@ android {
         targetSdkVersion 23
 
         applicationId 'de.ironjan.mensaupb'
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["resourcePackageName": android.defaultConfig.applicationId]
+            }
+        }
     }
     sourceSets {
         main {
@@ -53,6 +59,7 @@ android {
             buildConfigField 'int', 'SYNC_INTERVAL', '60' // 1 minute
             buildConfigField 'String', 'STW_URL', '\"\"'
             testCoverageEnabled true
+            applicationIdSuffix ".debug"
         }
         release {
             buildConfigField 'int', 'SYNC_INTERVAL', '60 * 60 * 24 ' // 1 day
@@ -81,6 +88,7 @@ android {
     productFlavors {
     }
 }
+
 
 dependencies {
     implementation 'com.android.support:support-v4:26.1.0'
