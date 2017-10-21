@@ -56,7 +56,7 @@ The following Open Source libraries are used:]]></string>
     <string name="taurine">Taurine</string>
     <string name="versionLabel">Version:</string>
     <string name="waxed">Waxed</string>
-    <string name="noMenusToday">Restaurant closed today.</string>
+    <string name="noMenusToday">Restaurant may be closed today.</string>
     <string name="unacceptableAllergens">Filtered out allergens</string>
     <string name="unacceptableAdditionals">Filtered out additionals</string>
     <string name="allergensHintAtSTW">Please inform yourself about allergens and additionals on the Studentenwerk\' internet page and at the counter!</string>
