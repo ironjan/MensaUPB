@@ -13,6 +13,10 @@ buildscript {
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.5.6'
     }
+
+    ext {
+        androidannotations_version = '4.3.1'
+    }
 }
 
 
