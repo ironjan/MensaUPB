@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.opening_times.data_storage.OpeningTimesKeeper;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.sync.AccountCreator;
 import de.ironjan.mensaupb.sync.ProviderContract;
@@ -115,12 +114,8 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         if (list != null) {
             list.setEmptyView(empty);
         }
-        boolean isOpen = OpeningTimesKeeper.isOpenOn(getArgLocation(), getArgDate());
         boolean isEmpty = adapter.isEmpty();
-        if (isEmpty && isOpen) {
-            if (mLoadingView != null) mLoadingView.setVisibility(View.VISIBLE);
-            if (mClosed != null) mClosed.setVisibility(View.GONE);
-        } else if (isEmpty) {
+        if (isEmpty) {
             if (mLoadingView != null) mLoadingView.setVisibility(View.GONE);
             if (mClosed != null) mClosed.setVisibility(View.VISIBLE);
         } else {
@@ -137,6 +132,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         } else {
             if (list != null) {
                 list.setEmptyView(mClosed);
+
             }
         }
     }
