@@ -22,7 +22,8 @@
         android:layout_gravity="center"
         android:gravity="center">
 
-        <LinearLayout android:id="@+id/emptyExplanation"
+        <LinearLayout
+            android:id="@+id/emptyExplanation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -51,9 +52,11 @@
 
         <TextView
             android:id="@+id/could_not_load_view"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:text="@string/menus_listing_could_not_load_menus"/>
+            android:layout_height="match_parent"
+            android:padding="@dimen/elementMargin"
+            android:text="@string/menus_listing_could_not_load_menus"
+            android:visibility="gone" />
 
     </FrameLayout>
 </FrameLayout>
