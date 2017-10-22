@@ -3,7 +3,9 @@ package de.ironjan.mensaupb.menus_ui;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
@@ -186,6 +188,14 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
                 ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
 
         ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
+    }
+
+    @OptionsItem(R.id.ab_openingTimes)
+    void openBrowserWithOpeningTimes(){
+        final String OPENING_TIMES_URL = "http://www.studierendenwerk-pb.de/gastronomie/allgemein/oeffnungszeiten/";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(OPENING_TIMES_URL));
+        startActivity(intent);
+
     }
 
     @OptionsItem(R.id.ab_about)
