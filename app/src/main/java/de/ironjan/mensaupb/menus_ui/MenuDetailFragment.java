@@ -59,6 +59,10 @@ public class MenuDetailFragment extends Fragment {
     @ViewById
     ProgressBar progressBar;
     @SuppressWarnings("WeakerAccess")
+    @ViewById(android.R.id.progress)
+    ProgressBar indefiniteProgressBar;
+
+    @SuppressWarnings("WeakerAccess")
     @StringRes
     String localizedDatePattern;
 
@@ -269,6 +273,7 @@ public class MenuDetailFragment extends Fragment {
     @UiThread
     void setProgressVisibility(int visible) {
         progressBar.setVisibility(visible);
+        indefiniteProgressBar.setVisibility(visible);
     }
 
     @UiThread

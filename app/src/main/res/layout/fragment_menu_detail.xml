@@ -29,6 +29,13 @@
                 android:maxHeight="@dimen/menuDetailsImageMaxHeight"
                 android:scaleType="centerCrop" />
 
+            <ProgressBar
+                android:id="@android:id/progress"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
         </FrameLayout>
 
 
