@@ -120,5 +120,6 @@ MensaUPB ist Open Source. Den Quellcode findest du auf <a href=“http://github.
     <string name="send_feedback">Feedback geben</string>
     <string name="close">Schließen</string>
     <string name="imade_description_menu_image">Ein Bild des Gerichts</string>
+    <string name="menus_listing_could_not_load_menus">Speisepläne konnten für diesen Tag nicht geladen werden. Bitte schau nach, ob du eine Internetverbindung hast *und* ob das Restaurant an diesem Tag geöffnet hat.</string>
 </resources>
 

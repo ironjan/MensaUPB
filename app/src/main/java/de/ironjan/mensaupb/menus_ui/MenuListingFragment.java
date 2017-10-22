@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -32,17 +33,21 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     public static final String ARG_DATE = "date";
     public static final String ARG_LOCATION = "restaurant";
     public static final int TIMEOUT_30_SECONDS = 30000;
+    public static final long TWO_MINUTES_IN_MS = 120000L;
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
 
     @ViewById(R.id.emptyExplanation)
     View mLoadingView;
-    @ViewById(R.id.closed)
-    View mClosed;
+    @ViewById(R.id.could_not_load_view)
+    View mcouldNotLoadView;
     @ViewById(android.R.id.empty)
     View empty;
     @ViewById(android.R.id.list)
     StickyListHeadersListView list;
+    @ViewById(R.id.progressBar)
+    ProgressBar mProgressBar;
+
     @Pref
     InternalKeyValueStore_ mInternalKeyValueStore;
 
@@ -50,6 +55,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     AccountCreator mAccountCreator;
     private MenuListingAdapter adapter;
     private MenusNavigationCallback navigationCallback;
+    private long startedAt = Long.MAX_VALUE;
 
     public static MenuListingFragment getInstance(String dateAsKey, String restaurant) {
         MenuListingFragment fragment = new MenuListingFragment_();
@@ -60,6 +66,11 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
         fragment.setArguments(arguments);
         return fragment;
+    }
+
+    @AfterViews
+    void rememberStartupTime() {
+        this.startedAt = System.currentTimeMillis();
     }
 
     @Override
@@ -95,7 +106,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
                                         }
                                     }
         );
-        updateEmptyView();
+        list.setEmptyView(empty);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -111,30 +122,17 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     }
 
     private void updateEmptyView() {
-        if (list != null) {
-            list.setEmptyView(empty);
-        }
-        boolean isEmpty = adapter.isEmpty();
-        if (isEmpty) {
-            if (mLoadingView != null) mLoadingView.setVisibility(View.GONE);
-            if (mClosed != null) mClosed.setVisibility(View.VISIBLE);
-        } else {
-            if (mLoadingView != null) mLoadingView.setVisibility(View.GONE);
-            if (mClosed != null) mClosed.setVisibility(View.GONE);
+        boolean wasLoadingForALongTime = System.currentTimeMillis() - this.startedAt > TWO_MINUTES_IN_MS;
+        if (wasLoadingForALongTime) {
+            if (mProgressBar != null) mProgressBar.setVisibility(View.GONE);
         }
     }
 
     @UiThread
     void updateLoadingMessage() {
-        long lastSyncTimeStamp = mInternalKeyValueStore.lastSyncTimeStamp().get();
-        if (0L == lastSyncTimeStamp) {
-            updateEmptyView();
-        } else {
-            if (list != null) {
-                list.setEmptyView(mClosed);
-                mClosed.setVisibility(View.VISIBLE);
-                mLoadingView.setVisibility(View.GONE);
-            }
+        if (list != null) {
+            mLoadingView.setVisibility(View.GONE);
+            mcouldNotLoadView.setVisibility(View.VISIBLE);
         }
     }
 
