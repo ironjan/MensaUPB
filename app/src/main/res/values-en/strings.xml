@@ -8,7 +8,7 @@
     <string name="source">&lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/>Source of menu data: Studentenwerk Paderborn&lt;/a></string>
     <string name="settings">Preferences</string>
     <string name="menusLoading1">Loading menus. This could take some minutes.</string>
-    <string name="menusLoading2">The menus are cached on your phone - the next time you\'ll see them immediatelly ;)\n\n(If a restaurant is closed, this loading screen will be shown. I\'ll fix this as soon as possible)</string>
+    <string name="menusLoading2">The menus are cached on your phone - the next time you\'ll see them immediatelly ;)</string>
     <string name="dependencies"><![CDATA[MensaUPB is an Open Source application. The source code can be found on <a href=“http://github.com/ironjan/MensaUPB”>github</a>. Feedback and bug reports can be sent via mail to <a href="mailto:lippertsjan+mensaupb@gmail.com?subject=MensaUPB">lippertsjan@gmail.com</a>.<br>
 <br>
 The Studentenwerk Paderborn provides an API to access the menu data. More information on <a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/">hier</a><br>
