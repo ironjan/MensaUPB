@@ -41,7 +41,7 @@ Anschließend solltest du deinen Fork clonen und [das Projekt in Android Studio 
 (Wähle die build.gradle dieses Projekts für den Import aus).
 
 Um echte Daten für deine Entwicklung zu haben, brauchst du eine geheime URL des Studentenwerks.
-Informationen hierzu finden sich auf den [Seiten des Studentenwerks](http://www.studentenwerk-pb.de/gastronomie/rahmenbedingungen-fuer-speiseplan-nutzung/).
+Informationen hierzu finden sich auf den [Seiten des Studentenwerks](http://www.studierendenwerk-pb.de/gastronomie/allgemein/online-speiseplaene/).
 
 1. Schreibe eine Email an die dort verlinkte Emailadresse, um eine geheime URL für die Studentenwerks-API
    zu erhalten.
