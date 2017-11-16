@@ -1,18 +1,10 @@
 language: android
 sudo: false
 android:
-  components:
-    - tools
-    - platform-tools
-    - build-tools-23.0.2
-    - tools
-    - build-tools-25.0.2
-    - android-23
-    - add-on
-    - extras
-    - extra-android-m2repository
   licenses:
-    - android-sdk-license-.+
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -22,4 +14,7 @@ cache:
     - $HOME/.gradle/wrapper/
 
 script:
-    - ./gradlew lint test
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+  - LC_NUMERIC="en_US.UTF-8" ./gradlew --parallel assemble
+  - ./scripts/lint.sh
