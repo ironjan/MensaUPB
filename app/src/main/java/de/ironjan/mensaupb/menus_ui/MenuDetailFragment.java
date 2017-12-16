@@ -272,8 +272,8 @@ public class MenuDetailFragment extends Fragment {
 
     @UiThread
     void setProgressVisibility(int visible) {
-        progressBar.setVisibility(visible);
-        indefiniteProgressBar.setVisibility(visible);
+        if(progressBar != null) progressBar.setVisibility(visible);
+        if(indefiniteProgressBar != null) indefiniteProgressBar.setVisibility(visible);
     }
 
     @UiThread
