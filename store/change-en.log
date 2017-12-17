@@ -1,3 +1,7 @@
+# Unreleased
+
+* Fixed crash when opening up menu details
+
 # 2.18.12
 
  * Internal changes and minor bug-fixes
