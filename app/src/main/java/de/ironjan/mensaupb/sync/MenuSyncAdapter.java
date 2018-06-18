@@ -35,8 +35,6 @@ import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.stw.filters.FilterChain;
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
-import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper;
-import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper_;
 
 
 /**
@@ -53,7 +51,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final String[] restaurants = Restaurant.getKeys();
     private final WeekdayHelper_ mWeekdayHelper;
     private final ContentResolver contentResolver;
-    private final StwRestWrapper stwRestWrapper;
     private final FilterChain filterChain = new FilterChain();
     private final InternalKeyValueStore_ mInternalKeyValueStore;
 
@@ -61,7 +58,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
-        stwRestWrapper = StwRestWrapper_.getInstance_(context);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
         mInternalKeyValueStore = new InternalKeyValueStore_(context);
@@ -72,7 +68,6 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private MenuSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
         mContentResolver = context.getContentResolver();
-        stwRestWrapper = StwRestWrapper_.getInstance_(context);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
         mInternalKeyValueStore = new InternalKeyValueStore_(context);
@@ -160,7 +155,8 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
     @org.androidannotations.annotations.Trace
     StwMenu[] downloadMenus(String restaurant, String date) {
-        return stwRestWrapper.getMenus(restaurant, date);
+        LOGGER.warn("Using fake synchronization!");
+        return new StwMenu[0];
     }
 
     @org.androidannotations.annotations.Trace
