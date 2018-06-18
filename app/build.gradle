@@ -15,7 +15,7 @@ apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     packagingOptions {
         // prevents Error: duplicate files during packaging of APK
         // no wildcard support yet
@@ -93,6 +93,10 @@ android {
     }
     productFlavors {
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 
@@ -105,11 +109,19 @@ dependencies {
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
 
 
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
+
     // Android annotations and dependendencies
     annotationProcessor "org.androidannotations:androidannotations:$androidannotations_version"
-    compile "org.androidannotations:androidannotations-api:$androidannotations_version"
+    implementation "org.androidannotations:androidannotations-api:$androidannotations_version"
     annotationProcessor "org.androidannotations:rest-spring:$androidannotations_version"
-    compile "org.androidannotations:rest-spring-api:$androidannotations_version"
+    implementation "org.androidannotations:rest-spring-api:$androidannotations_version"
 
     // current jackson version is 2.7.x but this version introduced a call to java.nio.file
     // which is not supported on android

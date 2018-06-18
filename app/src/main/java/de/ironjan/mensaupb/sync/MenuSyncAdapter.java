@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.SyncResult;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Pair;
 
 import com.j256.ormlite.android.AndroidConnectionSource;
 import com.j256.ormlite.dao.Dao;
@@ -21,22 +22,27 @@ import com.j256.ormlite.support.ConnectionSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.NestedRuntimeException;
-import org.springframework.web.client.RestClientException;
 
 import java.sql.SQLException;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.ironjan.mensaupb.api.ApiFactory;
+import de.ironjan.mensaupb.api.MensaUpbApi;
+import de.ironjan.mensaupb.backwards_comp.MenuToStwMenuConverter;
 import de.ironjan.mensaupb.menus_ui.WeekdayHelper_;
+import de.ironjan.mensaupb.model.Menu;
 import de.ironjan.mensaupb.persistence.DatabaseHelper;
 import de.ironjan.mensaupb.persistence.DatabaseManager;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.stw.filters.FilterChain;
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
-import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper;
-import de.ironjan.mensaupb.stw.rest_api.StwRestWrapper_;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -53,18 +59,18 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private final String[] restaurants = Restaurant.getKeys();
     private final WeekdayHelper_ mWeekdayHelper;
     private final ContentResolver contentResolver;
-    private final StwRestWrapper stwRestWrapper;
     private final FilterChain filterChain = new FilterChain();
     private final InternalKeyValueStore_ mInternalKeyValueStore;
+    private final MensaUpbApi api;
 
     @SuppressWarnings("SameParameterValue")
     private MenuSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
         mContentResolver = context.getContentResolver();
-        stwRestWrapper = StwRestWrapper_.getInstance_(context);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
         mInternalKeyValueStore = new InternalKeyValueStore_(context);
+        api = new ApiFactory(context).getApiImplementation();
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -72,10 +78,10 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
     private MenuSyncAdapter(Context context, boolean autoInitialize, boolean allowParallelSyncs) {
         super(context, autoInitialize, allowParallelSyncs);
         mContentResolver = context.getContentResolver();
-        stwRestWrapper = StwRestWrapper_.getInstance_(context);
         contentResolver = context.getContentResolver();
         mWeekdayHelper = WeekdayHelper_.getInstance_(context);
         mInternalKeyValueStore = new InternalKeyValueStore_(context);
+        api = new ApiFactory(context).getApiImplementation();
     }
 
     public static MenuSyncAdapter getInstance(Context context) {
@@ -137,30 +143,60 @@ public class MenuSyncAdapter extends AbstractThreadedSyncAdapter {
 
         Date now = new Date();
 
-        for (String date : cachedDaysAsStrings) {
-            for (String restaurant : restaurants) {
-                syncMenus(dao, restaurant, date, now);
-            }
-        }
-        removeUnneededMenusFromDatabase(dao, now);
-        databaseManager.releaseHelper(helper);
+
+        Observable<String> o1 = Observable.fromArray(cachedDaysAsStrings);
+        Observable<String> o2 = Observable.fromArray(restaurants);
+        Observable<Pair<String, String>> o3 = o1.flatMap(d -> o2.map(r -> new Pair<String, String>(d, r)));
+
+        o3.subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribeWith(new Observer<Pair<String, String>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Pair<String, String> dateRestaurantPair) {
+                        reactiveMenuSync(dateRestaurantPair.second, dateRestaurantPair.first, dao, now);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LOGGER.error("Unexpected error in sync", e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        try {
+                            removeUnneededMenusFromDatabase(dao, now);
+                        } catch (SQLException e) {
+                            LOGGER.error("database exception in sync", e);
+                        }
+                        databaseManager.releaseHelper(helper);
+                    }
+                });
+
+
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("tryMenuSync() done");
         }
     }
 
-    @org.androidannotations.annotations.Trace
-    void syncMenus(Dao<StwMenu, ?> dao, String restaurant, String date, Date now) throws java.sql.SQLException, RestClientException {
-        StwMenu[] menus = downloadMenus(restaurant, date);
-        List<StwMenu> menuList = Arrays.asList(menus);
-        List<StwMenu> filteredList = filterChain.filter(menuList);
-        persistMenus(dao, filteredList, now);
-    }
-
-    @org.androidannotations.annotations.Trace
-    StwMenu[] downloadMenus(String restaurant, String date) {
-        return stwRestWrapper.getMenus(restaurant, date);
+    private void reactiveMenuSync(String restaurant, String date, Dao<StwMenu, ?> dao, Date now) {
+        api.getMenus(restaurant, date)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .map(menus -> {
+                    List<StwMenu> converted = new ArrayList<>(menus.size());
+                    for (Menu m : menus) {
+                        converted.add(MenuToStwMenuConverter.convert(m));
+                    }
+                    LOGGER.debug("Converted menus to old model.");
+                    return converted;
+                }).map(stwMenus -> filterChain.filter(stwMenus))
+                .subscribe(stwMenus -> persistMenus(dao, stwMenus, now));
     }
 
     @org.androidannotations.annotations.Trace
