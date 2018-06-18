@@ -43,20 +43,4 @@ public class Restaurant {
         this.active = active;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Restaurant that = (Restaurant) o;
-        return active == that.active &&
-                Objects.equals(key, that.key) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(location, that.location);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(key, name, location, active);
-    }
 }
