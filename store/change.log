@@ -1,6 +1,8 @@
 # Unreleased
 
-* Absturz beim Anzeigen eines Menus behoben
+# 2.18.13
+
+Daten werden wieder geladen. Zudem wurde ein Absturz beim Anzeigen eines Menus behoben.
 
 # 2.18.12
 
