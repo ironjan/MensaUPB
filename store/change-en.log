@@ -1,6 +1,8 @@
 # Unreleased
 
-* Fixed crash when opening up menu details
+# 2.18.13
+
+Fixed data loading and a crash.
 
 # 2.18.12
 
