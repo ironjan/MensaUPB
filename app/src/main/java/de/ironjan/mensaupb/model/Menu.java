@@ -1,37 +1,37 @@
 package de.ironjan.mensaupb.model;
 
 
-import java.util.Optional;
+import com.google.gson.annotations.SerializedName;
 
 public class Menu {
-    String date;
-    String name_de;
-    String name_en;
-    String description_de;
-    String description_en;
-    String category;
-    String category_de;
-    String category_en;
-    String subcategory_de;
-    String subcategory_en;
-    String restaurant;
-    String pricetype;
-    String image;
-    String key;
-    Double priceStudents;
-    Double priceWorkers;
-    Double priceGuests;
-    String[] allergens;
-    String[] badges;
-    Integer order_info;
-    NutritionalInfo nutritionalInfo;
+    private String date;
+    private String name_de;
+    private String name_en;
+    private String description_de;
+    private String description_en;
+    @SerializedName("category")
+    private String categoryIdentifier;
+    private String category_de;
+    private String category_en;
+    private String subcategory_de;
+    private String subcategory_en;
+    private String restaurant;
+    private String pricetype;
+    private String image;
+    private String key;
+    private Double priceStudents;
+    private Double priceWorkers;
+    private Double priceGuests;
+    private String[] allergens;
+    private String[] badges;
+    private Integer order_info;
+    private NutritionalInfo nutritionalInfo;
 
     public Menu() {
     }
 
     public String getDate() {
-
-        return this.date;
+        return date;
     }
 
     public void setDate(String date) {
@@ -39,7 +39,7 @@ public class Menu {
     }
 
     public String getName_de() {
-        return this.name_de;
+        return name_de;
     }
 
     public void setName_de(String name_de) {
@@ -47,7 +47,7 @@ public class Menu {
     }
 
     public String getName_en() {
-        return this.name_en;
+        return name_en;
     }
 
     public void setName_en(String name_en) {
@@ -55,7 +55,7 @@ public class Menu {
     }
 
     public String getDescription_de() {
-        return this.description_de;
+        return description_de;
     }
 
     public void setDescription_de(String description_de) {
@@ -63,23 +63,15 @@ public class Menu {
     }
 
     public String getDescription_en() {
-        return this.description_en;
+        return description_en;
     }
 
     public void setDescription_en(String description_en) {
         this.description_en = description_en;
     }
 
-    public String getCategory() {
-        return this.category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getCategory_de() {
-        return this.category_de;
+        return category_de;
     }
 
     public void setCategory_de(String category_de) {
@@ -87,7 +79,7 @@ public class Menu {
     }
 
     public String getCategory_en() {
-        return this.category_en;
+        return category_en;
     }
 
     public void setCategory_en(String category_en) {
@@ -95,7 +87,7 @@ public class Menu {
     }
 
     public String getSubcategory_de() {
-        return this.subcategory_de;
+        return subcategory_de;
     }
 
     public void setSubcategory_de(String subcategory_de) {
@@ -103,7 +95,7 @@ public class Menu {
     }
 
     public String getSubcategory_en() {
-        return this.subcategory_en;
+        return subcategory_en;
     }
 
     public void setSubcategory_en(String subcategory_en) {
@@ -111,7 +103,7 @@ public class Menu {
     }
 
     public String getRestaurant() {
-        return this.restaurant;
+        return restaurant;
     }
 
     public void setRestaurant(String restaurant) {
@@ -119,7 +111,7 @@ public class Menu {
     }
 
     public String getPricetype() {
-        return this.pricetype;
+        return pricetype;
     }
 
     public void setPricetype(String pricetype) {
@@ -127,15 +119,15 @@ public class Menu {
     }
 
     public String getImage() {
-        return this.image;
+        return image;
     }
 
     public void setImage(String image) {
         this.image = image;
     }
 
-    public String getKey() {
-        return this.key;
+    String getKey() {
+        return key;
     }
 
     public void setKey(String key) {
@@ -143,7 +135,7 @@ public class Menu {
     }
 
     public Double getPriceStudents() {
-        return this.priceStudents;
+        return priceStudents;
     }
 
     public void setPriceStudents(Double priceStudents) {
@@ -151,7 +143,7 @@ public class Menu {
     }
 
     public Double getPriceWorkers() {
-        return this.priceWorkers;
+        return priceWorkers;
     }
 
     public void setPriceWorkers(Double priceWorkers) {
@@ -159,7 +151,7 @@ public class Menu {
     }
 
     public Double getPriceGuests() {
-        return this.priceGuests;
+        return priceGuests;
     }
 
     public void setPriceGuests(Double priceGuests) {
@@ -167,7 +159,7 @@ public class Menu {
     }
 
     public String[] getAllergens() {
-        return this.allergens;
+        return allergens;
     }
 
     public void setAllergens(String[] allergens) {
@@ -175,7 +167,7 @@ public class Menu {
     }
 
     public String[] getBadges() {
-        return this.badges;
+        return badges;
     }
 
     public void setBadges(String[] badges) {
@@ -183,15 +175,15 @@ public class Menu {
     }
 
     public Integer getOrder_info() {
-        return this.order_info;
+        return order_info;
     }
 
     public void setOrder_info(Integer order_info) {
         this.order_info = order_info;
     }
 
-    public NutritionalInfo getNutritionalInfo() {
-        return this.nutritionalInfo;
+    NutritionalInfo getNutritionalInfo() {
+        return nutritionalInfo;
     }
 
     public void setNutritionalInfo(NutritionalInfo nutritionalInfo) {
@@ -200,5 +192,13 @@ public class Menu {
 
     public boolean hasNutritionalInfo(){
         return nutritionalInfo != null;
+    }
+
+    public String getCategoryIdentifier() {
+        return this.categoryIdentifier;
+    }
+
+    public void setCategoryIdentifier(String categoryIdentifier) {
+        this.categoryIdentifier = categoryIdentifier;
     }
 }
