@@ -22,6 +22,6 @@ public interface MensaUpbApi {
     @GET("menu")
     Observable<Optional<Menu>> getMenu(@Query("key") String key);
 
-    @GET("simple_menusa")
+    @GET("simple_menus")
     Observable<List<Menu>> getSimpleMenus(@Query("restaurant") String restaurant, @Query("date") String date);
 }
