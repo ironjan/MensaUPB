@@ -1,27 +1,26 @@
 package de.ironjan.mensaupb.menus_ui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.stw.BadgesStringConverter;
+import de.ironjan.mensaupb.model.LocalizedMenu;
 import de.ironjan.mensaupb.stw.rest_api.Badge;
 import de.ironjan.mensaupb.stw.rest_api.PriceType;
 
 /**
  * Binds raw menus to de.ironjan.mensaupb.R.layout.view_menu_list_item
  */
-public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCursorAdapter.ViewBinder {
+public class MenuDetailViewBinder  {
 
-    @Override
-    public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-        if (view == null || cursor == null || columnIndex < 0) {
+    public static boolean setViewValue(View view, LocalizedMenu menu) {
+        if (view == null || menu == null) {
             return false;
         }
 
@@ -31,92 +30,74 @@ public class MenuDetailViewBinder implements android.support.v4.widget.SimpleCur
 
 
         int id = view.getId();
+        final TextView tv = (TextView) view;
         switch (id) {
             case R.id.textName:
-                bindName((TextView) view, cursor);
+                tv.setText(menu.getName());
                 return true;
             case R.id.textCategory:
-                bindCategory((TextView) view, cursor);
+                tv.setText(menu.getCategory());
                 return true;
             case R.id.textPrice:
-                bindPrice((TextView) view, cursor, columnIndex);
+                bindPrice(tv, menu);
                 return true;
             case R.id.textPricePer100g:
-                bindPricePer100g((TextView) view, cursor, columnIndex);
+                bindPricePer100g(tv, menu);
                 return true;
             case R.id.textBadges:
-                bindBadges((TextView) view, cursor, columnIndex);
+                bindBadges(tv, menu);
                 return true;
             default:
-                ((TextView) view).setText(cursor.getString(columnIndex));
+                tv.setText(menu.toString());
                 return true;
         }
     }
 
-    private void bindName(TextView view, Cursor cursor) {
-        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
-        final String name;
-        if (isEnglish) {
-            name = cursor.getString(MenuListingAdapter.NAME_EN_INDEX);
-        } else {
-            name = cursor.getString(MenuListingAdapter.NAME_DE_INDEX);
-        }
-        view.setText(name);
-    }
-
-    private void bindCategory(TextView view, Cursor cursor) {
-        boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
-        final String category;
-        if (isEnglish) {
-            category = cursor.getString(MenuListingAdapter.CATEGORY_EN_INDEX);
-        } else {
-            category = cursor.getString(MenuListingAdapter.CATEGORY_DE_INDEX);
-        }
-        view.setText(category);
-
-    }
-
-    private void bindPrice(TextView view, Cursor cursor, int columnIndex) {
-        Double price = cursor.getDouble(columnIndex);
+    private static void bindPrice(TextView tv, LocalizedMenu menu) {
+        Double price = menu.getPrice();
         if (price != 0) {
             // it can be 0 when syncing and not yet set
             String priceAsString = String.format(Locale.GERMAN, "%.2f €", price);
-            view.setText(priceAsString);
+            tv.setText(priceAsString);
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private void bindPricePer100g(TextView view, Cursor cursor, int columnIndex) {
-        double price = cursor.getDouble(columnIndex - 1);
+
+    private static void bindPricePer100g(TextView view, LocalizedMenu menu) {
+        double price = menu.getPrice();
         if (price == 0) {
             return;
         }
 
-        String string = cursor.getString(columnIndex);
-        if (PriceType.WEIGHT.toString().equals(string)) {
+        if (PriceType.WEIGHT.toString().equals(menu.getPricetype())) {
             view.setText("/100g");
         } else {
             view.setText("");
         }
     }
 
-    private void bindBadges(TextView textView, Cursor cursor, int columnIndex) {
-        String badgesAsString = cursor.getString(columnIndex);
-        Badge[] badges = BadgesStringConverter.convert(badgesAsString);
+    private static void bindBadges(TextView textView, LocalizedMenu menu) {
+        final String[] badgesArray = menu.getBadges();
+        List<Badge> badges = new ArrayList<>(badgesArray.length);
+        for (String s : badgesArray) {
+            badges.add(Badge.fromString(s));
+        }
+
         Context context = textView.getContext();
         Resources resources = context.getResources();
 
-        if (badges == null || badges.length < 1) {
+        if (badges.isEmpty()) {
             textView.setText("");
             return;
         }
 
-        StringBuilder stringBuilder = new StringBuilder(context.getString(badges[0].getStringId()));
-        for (int i = 1; i < badges.length; i++) {
-            String badgeString = resources.getString(badges[i].getStringId());
+        StringBuilder stringBuilder = new StringBuilder(context.getString(badges.get(0).getStringId()));
+        for (int i = 1; i < badges.size(); i++) {
+            String badgeString = resources.getString(badges.get(i).getStringId());
             stringBuilder.append(", ")
                     .append(badgeString);
         }
         textView.setText(stringBuilder.toString());
     }
+
 }

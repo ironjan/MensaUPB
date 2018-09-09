@@ -9,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -20,10 +19,17 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.api.ApiFactory;
 import de.ironjan.mensaupb.api.MensaUpbApi;
+import de.ironjan.mensaupb.model.Menu;
+import de.ironjan.mensaupb.model.LocalizedMenu;
+import de.ironjan.mensaupb.model.MenuSorter;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.sync.AccountCreator;
 import de.ironjan.mensaupb.sync.ProviderContract;
@@ -58,7 +64,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @Bean
     AccountCreator mAccountCreator;
-    private MenuListingAdapter adapter;
+    private ArrayBasedMenuListingAdapter adapter;
     private MenusNavigationCallback navigationCallback;
     private long startedAt = Long.MAX_VALUE;
 
@@ -99,30 +105,20 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @AfterViews
     void loadContent() {
-        if (BuildConfig.DEBUG) {
-            MensaUpbApi api = new ApiFactory(getContext()).getApiImplementation();
-            api.getSimpleMenus(getArgLocation(), getArgDate())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(menus -> {
-                        Toast.makeText(getActivity(), menus.toString(), Toast.LENGTH_LONG).show();
-                    });
-        }
+        MensaUpbApi api = new ApiFactory(getContext()).getApiImplementation();
+        api.getSimpleMenus(getArgLocation(), getArgDate())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(menus -> {
+                    List<LocalizedMenu> localizedMenus = new ArrayList<>(menus.size());
+                    for (Menu m : menus) {
+                        localizedMenus.add(new LocalizedMenu(m, isEnglish()));
+                    }
+                    return localizedMenus;
+                })
+                .map(menus -> MenuSorter.sort(menus))
+                .subscribe(localizedMenus -> showMenus(localizedMenus));
 
-
-        adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
-        adapter.setViewBinder(new MenuDetailViewBinder());
-        getLoaderManager().initLoader(0, null, adapter);
-        list.setAdapter(adapter);
-        list.setAreHeadersSticky(false);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                            listItemClicked(position);
-                                        }
-                                    }
-        );
-        list.setEmptyView(empty);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -135,6 +131,25 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
             }
         }).start();
+    }
+
+    private boolean isEnglish() {
+        return Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
+    }
+
+    private void showMenus(List<LocalizedMenu> menus) {
+        adapter = new ArrayBasedMenuListingAdapter(getActivity(), menus);
+        list.setAdapter(adapter);
+        list.setAreHeadersSticky(false);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            listItemClicked(position);
+                                        }
+                                    }
+        );
+        list.setEmptyView(empty);
+
     }
 
     private void updateEmptyView() {
