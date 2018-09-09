@@ -41,7 +41,9 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = ["resourcePackageName": android.defaultConfig.applicationId]
+                arguments = ['resourcePackageName': 'de.ironjan.mensaupb',
+                        // FIXME this will only use debug manifests!
+                'androidManifestFile': "app/build/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml"]
             }
         }
 
@@ -50,10 +52,6 @@ android {
         buildConfigField "String", "ACCOUNT_TYPE", '"' + applicationId + '.account' + '"'
     }
     sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-        }
-
         androidTest.setRoot('src/test')
     }
     buildTypes {
