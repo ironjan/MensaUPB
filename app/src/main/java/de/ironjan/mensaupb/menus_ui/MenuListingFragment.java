@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -21,9 +22,13 @@ import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.api.ApiFactory;
+import de.ironjan.mensaupb.api.MensaUpbApi;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.sync.AccountCreator;
 import de.ironjan.mensaupb.sync.ProviderContract;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 @SuppressWarnings("WeakerAccess")
@@ -94,6 +99,17 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @AfterViews
     void loadContent() {
+        if (BuildConfig.DEBUG) {
+            MensaUpbApi api = new ApiFactory(getContext()).getApiImplementation();
+            api.getSimpleMenus(getArgLocation(), getArgDate())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(menus -> {
+                        Toast.makeText(getActivity(), menus.toString(), Toast.LENGTH_LONG).show();
+                    });
+        }
+
+
         adapter = new MenuListingAdapter(getActivity(), getArgDate(), getArgLocation());
         adapter.setViewBinder(new MenuDetailViewBinder());
         getLoaderManager().initLoader(0, null, adapter);
