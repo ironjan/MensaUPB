@@ -14,7 +14,7 @@ apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     buildToolsVersion '27.0.3'
     packagingOptions {
         // prevents Error: duplicate files during packaging of APK
@@ -35,7 +35,7 @@ android {
         }
 
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 28
 
         applicationId 'de.ironjan.mensaupb'
 
