@@ -1,9 +1,7 @@
 package de.ironjan.mensaupb.persistence;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
@@ -15,11 +13,10 @@ import org.slf4j.LoggerFactory;
 import java.sql.SQLException;
 
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
-import de.ironjan.mensaupb.sync.AccountCreator;
-import de.ironjan.mensaupb.sync.AccountCreator_;
 
 /**
  * Class to manage the underlying database scheme.
+ * FIXME We don't use DB anymore to save menus...
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "mensaupb.db";
@@ -28,11 +25,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class.getSimpleName());
 
-    private final AccountCreator mAccountCreator;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        mAccountCreator = AccountCreator_.getInstance_(context);
     }
 
     @Override
@@ -45,7 +40,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             LOGGER.error("Can't create database", e);
             throw new RuntimeException(e);
         }
-        requestSync();
         LOGGER.info("onCreate() done");
     }
 
@@ -63,17 +57,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             LOGGER.error("Can't update database", e);
             throw new RuntimeException(e);
         }
-        requestSync();
         LOGGER.info("onUpgrade() done");
-    }
-
-
-    private void requestSync() {
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-
-        ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
     }
 
 }

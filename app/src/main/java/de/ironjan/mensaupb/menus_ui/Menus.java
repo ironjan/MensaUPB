@@ -2,11 +2,9 @@ package de.ironjan.mensaupb.menus_ui;
 
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -33,7 +31,6 @@ import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.app_info.About_;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.stw.Restaurant;
-import de.ironjan.mensaupb.sync.AccountCreator;
 
 @SuppressWarnings("WeakerAccess")
 @SuppressLint("Registered")
@@ -56,8 +53,6 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
     Integer[] mRestaurantNameIds = Restaurant.getNameStringIds();
     @Bean
     WeekdayHelper mwWeekdayHelper;
-    @Bean
-    AccountCreator mAccountCreator;
     @Extra(value = KEY_RESTAURANT)
     String restaurant = mRestaurantKeys[0];
     @InstanceState
@@ -181,13 +176,7 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
 
     @OptionsItem(R.id.ab_refresh)
     void refreshClicked() {
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-
-        ContentResolver.requestSync(mAccountCreator.getAccount(), mAccountCreator.getAuthority(), settingsBundle);
+        /** FIXME Reimplement using new API */
     }
 
     @OptionsItem(R.id.ab_openingTimes)
