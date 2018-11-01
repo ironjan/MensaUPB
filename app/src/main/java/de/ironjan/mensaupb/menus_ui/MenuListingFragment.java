@@ -1,7 +1,6 @@
 package de.ironjan.mensaupb.menus_ui;
 
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ProgressBar;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -27,12 +25,10 @@ import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.api.ApiFactory;
 import de.ironjan.mensaupb.api.MensaUpbApi;
-import de.ironjan.mensaupb.model.Menu;
 import de.ironjan.mensaupb.model.LocalizedMenu;
+import de.ironjan.mensaupb.model.Menu;
 import de.ironjan.mensaupb.model.MenuSorter;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
-import de.ironjan.mensaupb.sync.AccountCreator;
-import de.ironjan.mensaupb.sync.ProviderContract;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -62,8 +58,6 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @Pref
     InternalKeyValueStore_ mInternalKeyValueStore;
 
-    @Bean
-    AccountCreator mAccountCreator;
     private ArrayBasedMenuListingAdapter adapter;
     private MenusNavigationCallback navigationCallback;
     private long startedAt = Long.MAX_VALUE;
@@ -178,13 +172,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        settingsBundle.putBoolean(
-                ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-        ContentResolver.requestSync(mAccountCreator.getAccount(), ProviderContract.AUTHORITY, settingsBundle);
-        LOGGER.debug("Sync requested.");
+        /** FIXME Reimplement with new API */
     }
 
 
