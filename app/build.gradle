@@ -9,13 +9,14 @@ def versionBuild = 0
 
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'idea'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
     packagingOptions {
         // prevents Error: duplicate files during packaging of APK
         // no wildcard support yet
@@ -130,6 +131,12 @@ dependencies {
 
     implementation fileTree(include: '*.jar', dir: 'libs')
 
+    implementation "com.github.kittinunf.fuel:fuel:$fuel_version" //for JVM
+    implementation "com.github.kittinunf.fuel:fuel-android:$fuel_version" //for Android
+    implementation "com.github.kittinunf.fuel:fuel-rxjava:$fuel_version" //for RxJava support
+    implementation "com.github.kittinunf.fuel:fuel-gson:$fuel_version" //for Gson support
+    implementation "io.arrow-kt:arrow-core:$arrow_version"
+
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'
@@ -139,5 +146,9 @@ dependencies {
     androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'org.robolectric:robolectric:3.4.2'
     androidTestImplementation 'org.robolectric:shadows-support-v4:3.3.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
 
