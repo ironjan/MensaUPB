@@ -19,7 +19,7 @@ public class LocalizedMenu {
     private Integer order_info;
     private NutritionalInfo nutritionalInfo;
 
-    public LocalizedMenu(Menu menu, boolean isEnglish) {
+    public LocalizedMenu(de.ironjan.mensaupb.api.model.Menu menu, boolean isEnglish) {
         date = menu.getDate();
 
         if (isEnglish) {
@@ -33,7 +33,7 @@ public class LocalizedMenu {
             category = menu.getCategory_de();
             subcategory = menu.getSubcategory_de();
         }
-        categoryIdentifier = menu.getCategoryIdentifier();
+        categoryIdentifier = menu.getCategory();
         restaurant = menu.getRestaurant();
         pricetype = menu.getPricetype();
         image = menu.getImage();
@@ -44,7 +44,7 @@ public class LocalizedMenu {
         allergens = menu.getAllergens();
         badges = menu.getBadges();
         order_info = menu.getOrder_info();
-        nutritionalInfo = menu.getNutritionalInfo();
+        // FIXME nutritionalInfo = menu.getNutritionalInfo();
     }
 
     public String getDate() {

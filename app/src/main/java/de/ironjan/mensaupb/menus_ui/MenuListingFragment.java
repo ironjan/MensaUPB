@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ProgressBar;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -21,16 +22,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import arrow.core.Either;
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.api.ApiFactory;
-import de.ironjan.mensaupb.api.MensaUpbApi;
+import de.ironjan.mensaupb.api.ClientV2;
+import de.ironjan.mensaupb.api.model.Menu;
 import de.ironjan.mensaupb.model.LocalizedMenu;
-import de.ironjan.mensaupb.model.Menu;
-import de.ironjan.mensaupb.model.MenuSorter;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 @SuppressWarnings("WeakerAccess")
@@ -98,21 +96,30 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     }
 
     @AfterViews
+    @Background
     void loadContent() {
-        MensaUpbApi api = new ApiFactory(getContext()).getApiImplementation();
-        api.getSimpleMenus(getArgLocation(), getArgDate())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(menus -> {
-                    List<LocalizedMenu> localizedMenus = new ArrayList<>(menus.size());
-                    for (Menu m : menus) {
-                        localizedMenus.add(new LocalizedMenu(m, isEnglish()));
-                    }
-                    return localizedMenus;
-                })
-                .map(menus -> MenuSorter.sort(menus))
-                .subscribe(localizedMenus -> showMenus(localizedMenus));
+        adapter  = new ArrayBasedMenuListingAdapter(getActivity(), new ArrayList<>(0));
+        list.setAdapter(adapter);
+        list.setAreHeadersSticky(false);
+        list.setOnItemClickListener((parent, view, position, id) -> listItemClicked(position)
+        );
+        list.setEmptyView(empty);
 
+
+        final Either<String, Menu[]> either = ClientV2.Companion.getClient().getMenus(getArgLocation(), getArgDate());
+        if (either.isLeft()) {
+            either.mapLeft(s -> {
+                showError(s);
+                return s;
+            });
+        } else {
+            either.map(menus1 -> {
+                showMenusV2(menus1);
+                return menus1;
+            });
+        }
+
+        /*TODO is this useful?
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -124,7 +131,22 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
                 }
 
             }
-        }).start();
+        }).start();*/
+    }
+
+    @UiThread
+    void showMenusV2(Menu[] menus) {
+        List<LocalizedMenu> localizedMenus = new ArrayList<>(menus.length);
+        for (Menu m : menus) {
+            localizedMenus.add(new LocalizedMenu(m, isEnglish()));
+        }
+        adapter.clear();
+        adapter.addAll(localizedMenus);
+    }
+
+    @UiThread
+    void showError(String msg) {
+        updateLoadingMessage();
     }
 
     private boolean isEnglish() {
