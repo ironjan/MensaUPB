@@ -1,5 +1,9 @@
 # Unreleased
 
+# 2.19.0
+
+Nearly complete rewrite with new background API. Fixed crashes.
+
 # 2.18.13
 
 Fixed data loading and a crash.

@@ -1,9 +1,9 @@
 // incompatible API changes
 def versionMajor = 2
 // added functionality in a backwards-compatible manner, must be <=99
-def versionMinor = 18
+def versionMinor = 19
 // backwards-compatible bug fixes, must be <=99
-def versionPatch = 13
+def versionPatch = 0
 // bump for dogfood builds, public betas, etc., must be <=99
 def versionBuild = 0
 
@@ -15,7 +15,7 @@ apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     buildToolsVersion '28.0.2'
     packagingOptions {
         // prevents Error: duplicate files during packaging of APK
@@ -36,7 +36,7 @@ android {
         }
 
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 28
 
         applicationId 'de.ironjan.mensaupb'
 
@@ -61,14 +61,8 @@ android {
             buildConfigField 'String', 'STW_URL', '\"\"'
             testCoverageEnabled true
             applicationIdSuffix ".debug"
-
-            resValue "string", "authority", defaultConfig.applicationId + '.debug.provider'
-            resValue "string", "account_type", defaultConfig.applicationId + ".debug.account"
-            buildConfigField "String", "ACCOUNT_TYPE", '"' + defaultConfig.applicationId + '.debug.account' + '"'
         }
         release {
-            buildConfigField 'int', 'SYNC_INTERVAL', '60 * 60 * 24 ' // 1 day
-            buildConfigField 'String', 'STW_URL', '\"\"'
             debuggable false
             jniDebuggable false
         }
@@ -82,13 +76,13 @@ android {
         println 'project has property mensaupb.signing:'
         println project.property('mensaupb.signing')
         if (new File(project.property('mensaupb.signing')).exists()) {
-            apply from: project.property('mensaupb.signing');
+            apply from: project.property('mensaupb.signing')
             println 'Applied properties'
         } else {
-            println 'Could not find signing config';
+            println 'Could not find signing config'
         }
     } else {
-        println 'Could not find signing property.';
+        println 'Could not find signing property.'
     }
     productFlavors {
     }

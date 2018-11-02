@@ -1,5 +1,9 @@
 # Unreleased
 
+# 2.19.0
+
+Fast kompletter Rewrite mit neuer Anbindung ans Studentenwerk. Abstürze sollten behoben sein.
+
 # 2.18.13
 
 Daten werden wieder geladen. Zudem wurde ein Absturz beim Anzeigen eines Menus behoben.
