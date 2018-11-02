@@ -118,7 +118,8 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
             });
         }
 
-        /*TODO is this useful?
+        /*
+        TODO is this useful? yes - but not in this form.
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -187,7 +188,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
-        /** FIXME Reimplement with new API */
+        loadContent();
     }
 
 

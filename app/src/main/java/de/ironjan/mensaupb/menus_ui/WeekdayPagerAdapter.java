@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
 
-    private final Fragment[] fragments = new Fragment[WeekdayHelper.DISPLAYED_DAYS_COUNT];
+    private final MenuListingFragment[] fragments = new MenuListingFragment[WeekdayHelper.DISPLAYED_DAYS_COUNT];
     private final String mRestaurant;
 
     private final WeekdayHelper mWeekdayHelper;
@@ -28,7 +28,7 @@ public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
     private Fragment getMenuListingFragment(int i) {
         if (fragments[i] == null) {
             String nextWeekDayAsKey = mWeekdayHelper.getNextWeekDayAsKey(i);
-            Fragment fragment = MenuListingFragment.getInstance(nextWeekDayAsKey, mRestaurant);
+            MenuListingFragment fragment = MenuListingFragment.getInstance(nextWeekDayAsKey, mRestaurant);
             fragments[i] = fragment;
         }
 
@@ -46,4 +46,9 @@ public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
         return mWeekdayHelper.getNextWeekDayForUI(position);
     }
 
+    public void onRefresh(){
+        for(MenuListingFragment f: fragments) {
+            f.onRefresh();
+        }
+    }
 }
