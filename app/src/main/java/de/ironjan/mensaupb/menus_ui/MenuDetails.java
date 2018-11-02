@@ -21,14 +21,14 @@ import de.ironjan.mensaupb.R;
 @EActivity(R.layout.activity_menu_details)
 public class MenuDetails extends AppCompatActivity {
     @SuppressWarnings("WeakerAccess")
-    @Extra(value = MenuDetailFragment.ARG_ID)
-    long menuId;
+    @Extra(value = MenuDetailFragment.ARG_KEY)
+    String menuKey;
     private MenuDetailFragment mFragment;
 
     @AfterViews
     void bindFragment() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        mFragment = MenuDetailFragment.newInstance(menuId);
+        mFragment = MenuDetailFragment.newInstance(menuKey);
         ft.replace(R.id.fragmentMenuDetails, mFragment, "mFragment");
         ft.commit();
     }

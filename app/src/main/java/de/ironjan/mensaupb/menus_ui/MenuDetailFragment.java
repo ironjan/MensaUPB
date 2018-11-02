@@ -14,10 +14,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.j256.ormlite.android.AndroidConnectionSource;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.support.ConnectionSource;
 import com.koushikdutta.ion.Ion;
 
 import org.androidannotations.annotations.AfterViews;
@@ -30,23 +26,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import arrow.core.Either;
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.persistence.DatabaseHelper;
-import de.ironjan.mensaupb.persistence.DatabaseManager;
+import de.ironjan.mensaupb.api.ClientV2;
+import de.ironjan.mensaupb.api.model.Menu;
+import de.ironjan.mensaupb.model.LocalizedMenu;
 import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.stw.rest_api.Allergen;
 import de.ironjan.mensaupb.stw.rest_api.Badge;
 import de.ironjan.mensaupb.stw.rest_api.PriceType;
 import de.ironjan.mensaupb.stw.rest_api.StwMenu;
+import kotlin.jvm.functions.Function1;
 
 @EFragment(R.layout.fragment_menu_detail)
 public class MenuDetailFragment extends Fragment {
 
-    public static final String ARG_ID = "ARG_ID";
+    public static final String ARG_KEY = "ARG_KEY";
     public static final String URI_NO_IMAGE_FILE = "file:///android_asset/menu_has_no_image.png";
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuDetailFragment.class.getSimpleName());
     @SuppressWarnings("WeakerAccess")
@@ -68,21 +70,21 @@ public class MenuDetailFragment extends Fragment {
 
     private StwMenu mMenu;
 
-    public static MenuDetailFragment newInstance(long _id) {
+    public static MenuDetailFragment newInstance(String key) {
         if (BuildConfig.DEBUG)
-            LOGGER.debug("newInstance({})", _id);
+            LOGGER.debug("newInstance({})", key);
 
         Bundle args = new Bundle();
-        args.putLong(ARG_ID, _id);
+        args.putString(ARG_KEY, key);
 
         MenuDetailFragment menuDetailFragment = new MenuDetailFragment_();
         menuDetailFragment.setArguments(args);
 
         if (BuildConfig.DEBUG)
-            LOGGER.debug("Created new MenuDetailFragment({})", _id);
+            LOGGER.debug("Created new MenuDetailFragment({})", key);
 
         if (BuildConfig.DEBUG)
-            LOGGER.debug("newInstance({}) done", _id);
+            LOGGER.debug("newInstance({}) done", key);
         return menuDetailFragment;
     }
 
@@ -91,57 +93,68 @@ public class MenuDetailFragment extends Fragment {
         if (BuildConfig.DEBUG)
             LOGGER.debug("bindData()");
 
-        final long _id = getArguments().getLong(ARG_ID);
+        final String key = getArguments().getString(ARG_KEY);
 
-        try {
-            mMenu = loadMenu(_id);
-            if (mMenu != null) {
-                bindMenuDataToViews(mMenu);
-            } else {
-                LOGGER.error("Could not find menu");
-            }
-        } catch (java.sql.SQLException e) {
-            LOGGER.error("Could not load menu details", e);
-        }
+        loadMenu(key);
 
         if (BuildConfig.DEBUG)
             LOGGER.debug("bindData() done");
     }
 
-    private StwMenu loadMenu(long _id) throws java.sql.SQLException {
-        DatabaseManager databaseManager = new DatabaseManager();
-        DatabaseHelper helper = (databaseManager.getHelper(getActivity()));
-        ConnectionSource connectionSource = new AndroidConnectionSource(helper);
-        Dao<StwMenu, Long> dao = DaoManager.createDao(connectionSource, StwMenu.class);
-        return dao.queryForId(_id);
+    @Background
+    void loadMenu(String key) {
+        final Either<String, Menu> either = ClientV2.Companion.getClient().getMenu(key);
+
+        if (either.isLeft()) {
+            either.mapLeft(new Function1<String, String>() {
+                @Override
+                public String invoke(String s) {
+                    showError(s);
+                    return s;
+                }
+            });
+        } else {
+            either.map(new Function1<Menu, Menu>() {
+                @Override
+                public Menu invoke(Menu menu) {
+                    showMenu(menu);
+                    return menu;
+                }
+            });
+        }
     }
 
-    private void bindMenuDataToViews(StwMenu stwMenu) {
-        bindManuallyLocalizedData(stwMenu);
-        bindRestaurant(stwMenu);
-        bindDate(stwMenu);
-        bindPrice(stwMenu);
-        bindAllergens(stwMenu);
-        bindBadges(stwMenu);
-        loadImage(stwMenu, false);
+    @UiThread
+    void showError(String s) {
+
     }
 
-    private void bindManuallyLocalizedData(StwMenu stwMenu) {
+    private void showMenu(Menu menu) {
+        bindMenuDataToViews(menu);
+    }
+
+    @UiThread
+    void bindMenuDataToViews(Menu menu) {
         boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
-        final String name = (isEnglish) ? stwMenu.getName_en() : stwMenu.getName_de();
-        final String category = (isEnglish) ? stwMenu.getCategory_en() : stwMenu.getCategory_de();
-        final String description = (isEnglish) ? stwMenu.getDescription_en() : stwMenu.getDescription_de();
+        final LocalizedMenu localizedMenu = new LocalizedMenu(menu, isEnglish);
 
-        textName.setText(name);
-        textCategory.setText(category);
+        textName.setText(localizedMenu.getName());
+        textCategory.setText(localizedMenu.getCategory());
 
-        bindDescription(description);
+        bindDescription(localizedMenu.getDescription());
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity == null) return;
         ActionBar supportActionBar = activity.getSupportActionBar();
         if (supportActionBar == null) return;
         supportActionBar.setTitle("");
+
+        bindRestaurant(localizedMenu);
+        bindDate(localizedMenu);
+        bindPrice(localizedMenu);
+        bindAllergens(localizedMenu);
+        bindBadges(localizedMenu);
+        loadImage(localizedMenu, false);
     }
 
     private void bindDescription(String description) {
@@ -152,56 +165,65 @@ public class MenuDetailFragment extends Fragment {
         }
     }
 
-    private void bindBadges(StwMenu stwMenu) {
-        Badge[] badges = stwMenu.getBadges();
+    private void bindBadges(LocalizedMenu stwMenu) {
+        List<Badge> badges = new ArrayList<>();
 
-        if (badges == null || badges.length < 1) {
+        final String[] badgesAsString = stwMenu.getBadges();
+        for (String badgeKey : badgesAsString) {
+            badges.add(Badge.fromString(badgeKey));
+        }
+
+        if (badges.isEmpty()) {
             textBadges.setVisibility(View.GONE);
             return;
         }
         textBadges.setVisibility(View.VISIBLE);
-        StringBuilder stringBuilder = new StringBuilder(getActivity().getString(badges[0].getStringId()));
-        for (int i = 1; i < badges.length; i++) {
-            String badgeString = getActivity().getString(badges[i].getStringId());
+        StringBuilder stringBuilder = new StringBuilder(getActivity().getString(badges.get(0).getStringId()));
+        for (int i = 1; i < badges.size(); i++) {
+            String badgeString = getActivity().getString(badges.get(i).getStringId());
             stringBuilder.append(", ")
                     .append(badgeString);
         }
         textBadges.setText(stringBuilder.toString());
     }
 
-    private void bindRestaurant(StwMenu stwMenu) {
+    private void bindRestaurant(LocalizedMenu stwMenu) {
         String restaurantId = stwMenu.getRestaurant();
         int restaurantNameId = Restaurant.fromKey(restaurantId).getNameStringId();
         textRestaurant.setText(restaurantNameId);
     }
 
-    private void bindDate(StwMenu stwMenu) {
+    private void bindDate(LocalizedMenu stwMenu) {
         SimpleDateFormat sdf = new SimpleDateFormat(localizedDatePattern);
-        textDate.setText(sdf.format(stwMenu.getDate()));
+        final Date date = stwMenu.getDate();
+        if (date != null) {
+            textDate.setText(sdf.format(date));
+        }
     }
 
-    private void bindPrice(StwMenu stwMenu) {
+    private void bindPrice(LocalizedMenu stwMenu) {
         double price = stwMenu.getPriceStudents();
         String priceAsString = String.format(Locale.GERMAN, "%.2f €", price);
 
         textPrice.setText(priceAsString);
-        if (stwMenu.getPricetype() == PriceType.WEIGHT) {
+        if (PriceType.Constants.WEIGHT_STRING.equals(stwMenu.getPricetype())) {
             textPrice.append("/100g");
         }
     }
 
-    private void bindAllergens(StwMenu stwMenu) {
-        Allergen[] allergens = stwMenu.getAllergens();
-
-        if (allergens == null || allergens.length == 0) {
+    private void bindAllergens(LocalizedMenu stwMenu) {
+        List<Allergen> allergens = new ArrayList<>();
+        for (String allergenKey: stwMenu.getAllergens()) {
+            allergens.add(Allergen.fromString(allergenKey));
+        }
+        if (allergens.isEmpty()) {
             hideAllergenList();
         } else {
             showAllergensList(allergens);
         }
-
     }
 
-    private void showAllergensList(Allergen[] allergens) {
+    private void showAllergensList(List<Allergen> allergens) {
         boolean notFirst = false;
         StringBuilder allergensListAsStringBuffer = new StringBuilder();
         for (Allergen allergen : allergens) {
@@ -232,7 +254,7 @@ public class MenuDetailFragment extends Fragment {
      * @param stwMenu The menu to load a image for
      */
     @Background
-    void loadImage(StwMenu stwMenu, boolean forced) {
+    void loadImage(LocalizedMenu stwMenu, boolean forced) {
         setProgressVisibility(View.VISIBLE);
 
         LOGGER.debug("loadImage()");
@@ -250,7 +272,7 @@ public class MenuDetailFragment extends Fragment {
 
         try {
             Context context = getContext();
-            if (context == null){
+            if (context == null) {
                 return;
             }
 
@@ -272,8 +294,8 @@ public class MenuDetailFragment extends Fragment {
 
     @UiThread
     void setProgressVisibility(int visible) {
-        if(progressBar != null) progressBar.setVisibility(visible);
-        if(indefiniteProgressBar != null) indefiniteProgressBar.setVisibility(visible);
+        if (progressBar != null) progressBar.setVisibility(visible);
+        if (indefiniteProgressBar != null) indefiniteProgressBar.setVisibility(visible);
     }
 
     @UiThread

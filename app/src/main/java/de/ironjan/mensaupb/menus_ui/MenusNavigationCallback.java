@@ -7,7 +7,7 @@ public interface MenusNavigationCallback {
     /**
      * Navigated to the menu with the given id
      *
-     * @param _id the menu's id
+     * @param key the menu's id
      */
-    void showMenu(long _id);
+    void showMenu(String key);
 }
