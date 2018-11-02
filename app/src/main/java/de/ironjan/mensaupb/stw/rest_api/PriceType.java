@@ -41,7 +41,7 @@ public enum PriceType {
         return name;
     }
 
-    private static class Constants {
+    public static class Constants {
         public static final String FIXED_STRING = "fixed";
         public static final String WEIGHT_STRING = "weighted";
     }
