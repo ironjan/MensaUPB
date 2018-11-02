@@ -21,7 +21,6 @@ public class LocalizedMenu {
     private String[] allergens;
     private String[] badges;
     private Integer order_info;
-    private NutritionalInfo nutritionalInfo;
 
     public LocalizedMenu(de.ironjan.mensaupb.api.model.Menu menu, boolean isEnglish) {
         date = menu.getDate();
@@ -114,10 +113,6 @@ public class LocalizedMenu {
 
     public Integer getOrder_info() {
         return order_info;
-    }
-
-    public NutritionalInfo getNutritionalInfo() {
-        return nutritionalInfo;
     }
 
     public Double getPrice() {
