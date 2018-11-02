@@ -6,12 +6,11 @@ import com.github.kittinunf.fuel.httpGet
 import de.ironjan.mensaupb.api.model.Menu
 
 object ClientV2Implementation : ClientV2 {
-
     val baseUrl = "http://mensaupb.herokuapp.com/api/"
+
     override fun getMenus(): Either<String, Array<Menu>> {
         return getMenus("", "")
     }
-
     override fun getMenus(restaurant: String, date: String): Either<String, Array<Menu>> {
         FuelManager.instance.basePath = baseUrl
         val paramList = mutableListOf<Pair<String, String>>()
@@ -29,4 +28,18 @@ object ClientV2Implementation : ClientV2 {
             Either.left(error.localizedMessage)
         }
     }
+
+    override fun getMenu(key: String): Either<String, Menu> {
+        FuelManager.instance.basePath = baseUrl
+
+        val (_, _, result) =
+                "/menus/$key".httpGet()
+                        .responseObject(Menu.Deserializer())
+        val (data, error) = result
+
+        return if (error == null) {
+            Either.right(data!!)
+        } else {
+            Either.left(error.localizedMessage)
+        }    }
 }
