@@ -176,7 +176,7 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
 
     @OptionsItem(R.id.ab_refresh)
     void refreshClicked() {
-        /** FIXME Reimplement using new API */
+        mWeekdayPagerAdapter.onRefresh();
     }
 
     @OptionsItem(R.id.ab_openingTimes)
