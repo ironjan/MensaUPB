@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ProgressBar;
 
 import org.androidannotations.annotations.AfterViews;
@@ -157,12 +156,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         adapter = new ArrayBasedMenuListingAdapter(getActivity(), menus);
         list.setAdapter(adapter);
         list.setAreHeadersSticky(false);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                            listItemClicked(position);
-                                        }
-                                    }
+        list.setOnItemClickListener((parent, view, position, id) -> listItemClicked(position)
         );
         list.setEmptyView(empty);
 
@@ -186,8 +180,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     void listItemClicked(int pos) {
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);
 
-        final long _id = adapter.getItemId(pos);
-        navigationCallback.showMenu(_id);
+        navigationCallback.showMenu(adapter.getKey(pos));
 
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({}) done", pos);
     }

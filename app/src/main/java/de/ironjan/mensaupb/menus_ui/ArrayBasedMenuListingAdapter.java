@@ -79,4 +79,7 @@ public class ArrayBasedMenuListingAdapter
         return "";
     }
 
+    public String getKey(int position) {
+        return getItem(position).getKey();
+    }
 }

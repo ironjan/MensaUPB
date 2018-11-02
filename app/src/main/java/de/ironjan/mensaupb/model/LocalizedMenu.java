@@ -1,5 +1,9 @@
 package de.ironjan.mensaupb.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class LocalizedMenu {
     private String date;
     private String name;
@@ -47,8 +51,13 @@ public class LocalizedMenu {
         // FIXME nutritionalInfo = menu.getNutritionalInfo();
     }
 
-    public String getDate() {
-        return date;
+    public Date getDate() {
+        try {
+            return new SimpleDateFormat("YYYY-MM-DD").parse(date);
+        } catch (ParseException e) {
+
+        }
+        return null;
     }
 
     public String getName() {

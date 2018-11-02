@@ -163,8 +163,8 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
     }
 
     @Override
-    public void showMenu(long _id) {
-        MenuDetails_.intent(this).menuId(_id).start();
+    public void showMenu(String key) {
+        MenuDetails_.intent(this).menuKey(key).start();
     }
 
     @Override
