@@ -3,6 +3,7 @@ package de.ironjan.mensaupb.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class LocalizedMenu {
     private String date;
@@ -52,7 +53,7 @@ public class LocalizedMenu {
 
     public Date getDate() {
         try {
-            return new SimpleDateFormat("YYYY-MM-DD").parse(date);
+            return new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(date);
         } catch (ParseException e) {
 
         }
