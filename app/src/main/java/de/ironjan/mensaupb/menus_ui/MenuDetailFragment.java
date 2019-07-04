@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.koushikdutta.ion.Ion;
 
@@ -126,7 +127,7 @@ public class MenuDetailFragment extends Fragment {
 
     @UiThread
     void showError(String s) {
-
+        Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
     }
 
     private void showMenu(Menu menu) {
@@ -138,16 +139,16 @@ public class MenuDetailFragment extends Fragment {
         boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
         final LocalizedMenu localizedMenu = new LocalizedMenu(menu, isEnglish);
 
-        textName.setText(localizedMenu.getName());
-        textCategory.setText(localizedMenu.getCategory());
+        if (textName != null) textName.setText(localizedMenu.getName());
+        if (textCategory != null) textCategory.setText(localizedMenu.getCategory());
 
         bindDescription(localizedMenu.getDescription());
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        if (activity == null) return;
-        ActionBar supportActionBar = activity.getSupportActionBar();
-        if (supportActionBar == null) return;
-        supportActionBar.setTitle("");
+        if (activity != null) {
+            ActionBar supportActionBar = activity.getSupportActionBar();
+            if (supportActionBar != null) supportActionBar.setTitle("");
+        }
 
         bindRestaurant(localizedMenu);
         bindDate(localizedMenu);
@@ -159,9 +160,9 @@ public class MenuDetailFragment extends Fragment {
 
     private void bindDescription(String description) {
         if (TextUtils.isEmpty(description)) {
-            textDescription.setVisibility(View.GONE);
+            if (textDescription != null) textDescription.setVisibility(View.GONE);
         } else {
-            textDescription.setText(description);
+            if (textDescription != null) textDescription.setText(description);
         }
     }
 
@@ -174,30 +175,30 @@ public class MenuDetailFragment extends Fragment {
         }
 
         if (badges.isEmpty()) {
-            textBadges.setVisibility(View.GONE);
+            if (textBadges != null) textBadges.setVisibility(View.GONE);
             return;
         }
-        textBadges.setVisibility(View.VISIBLE);
+        if (textBadges != null) textBadges.setVisibility(View.VISIBLE);
         StringBuilder stringBuilder = new StringBuilder(getActivity().getString(badges.get(0).getStringId()));
         for (int i = 1; i < badges.size(); i++) {
             String badgeString = getActivity().getString(badges.get(i).getStringId());
             stringBuilder.append(", ")
                     .append(badgeString);
         }
-        textBadges.setText(stringBuilder.toString());
+        if (textBadges != null) textBadges.setText(stringBuilder.toString());
     }
 
     private void bindRestaurant(LocalizedMenu stwMenu) {
         String restaurantId = stwMenu.getRestaurant();
         int restaurantNameId = Restaurant.fromKey(restaurantId).getNameStringId();
-        textRestaurant.setText(restaurantNameId);
+        if (textRestaurant != null) textRestaurant.setText(restaurantNameId);
     }
 
     private void bindDate(LocalizedMenu stwMenu) {
         SimpleDateFormat sdf = new SimpleDateFormat(localizedDatePattern);
         final Date date = stwMenu.getDate();
         if (date != null) {
-            textDate.setText(sdf.format(date));
+            if (textDate != null) textDate.setText(sdf.format(date));
         }
     }
 
@@ -205,15 +206,15 @@ public class MenuDetailFragment extends Fragment {
         double price = stwMenu.getPriceStudents();
         String priceAsString = String.format(Locale.GERMAN, "%.2f €", price);
 
-        textPrice.setText(priceAsString);
+        if (textPrice != null) textPrice.setText(priceAsString);
         if (PriceType.Constants.WEIGHT_STRING.equals(stwMenu.getPricetype())) {
-            textPrice.append("/100g");
+            if (textPrice != null) textPrice.append("/100g");
         }
     }
 
     private void bindAllergens(LocalizedMenu stwMenu) {
         List<Allergen> allergens = new ArrayList<>();
-        for (String allergenKey: stwMenu.getAllergens()) {
+        for (String allergenKey : stwMenu.getAllergens()) {
             allergens.add(Allergen.fromString(allergenKey));
         }
         if (allergens.isEmpty()) {
@@ -238,14 +239,18 @@ public class MenuDetailFragment extends Fragment {
                 allergensListAsStringBuffer.append(string);
             }
         }
-        textAllergens.setText(allergensListAsStringBuffer.toString());
-        textAllergens.setVisibility(View.VISIBLE);
-        textAllergensHeader.setVisibility(View.VISIBLE);
+        if (textAllergens != null) {
+            textAllergens.setText(allergensListAsStringBuffer.toString());
+            textAllergens.setVisibility(View.VISIBLE);
+            textAllergensHeader.setVisibility(View.VISIBLE);
+        }
     }
 
     private void hideAllergenList() {
-        textAllergens.setVisibility(View.GONE);
-        textAllergensHeader.setVisibility(View.GONE);
+        if (textAllergens != null) {
+            textAllergens.setVisibility(View.GONE);
+            textAllergensHeader.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -308,7 +313,7 @@ public class MenuDetailFragment extends Fragment {
 
     @UiThread
     void applyLoadedImage(Bitmap bitmap) {
-        image.setImageBitmap(bitmap);
+        if(image!=null) image.setImageBitmap(bitmap);
         setProgressVisibility(View.GONE);
     }
 
