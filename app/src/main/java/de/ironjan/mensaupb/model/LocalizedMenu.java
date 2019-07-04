@@ -69,9 +69,7 @@ public class LocalizedMenu {
     }
 
     public String getCategory() {
-        return category.trim().isEmpty()
-                ? "No category" 
-                : category;
+        return category;
     }
 
     public String getSubcategory() {
@@ -123,9 +121,7 @@ public class LocalizedMenu {
     }
 
     public String getCategoryIdentifier() {
-        return categoryIdentifier.trim().isEmpty() ?
-                "category identifier missing"
-                : categoryIdentifier;
+        return categoryIdentifier;
     }
 
     public int getSortOrder() {
