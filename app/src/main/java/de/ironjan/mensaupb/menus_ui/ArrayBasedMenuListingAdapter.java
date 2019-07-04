@@ -1,7 +1,7 @@
 package de.ironjan.mensaupb.menus_ui;
 
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -22,11 +22,11 @@ public class ArrayBasedMenuListingAdapter
         extends ArrayAdapter<LocalizedMenu>
         implements StickyListHeadersAdapter {
     @NonNull
-    private final Activity activity;
+    private final Context context;
 
-    public ArrayBasedMenuListingAdapter(@NonNull Activity activity, @NonNull List<LocalizedMenu> menus) {
-        super(activity, R.layout.view_menu_list_item, menus);
-        this.activity = activity;
+    public ArrayBasedMenuListingAdapter(@NonNull Context context, @NonNull List<LocalizedMenu> menus) {
+        super(context, R.layout.view_menu_list_item, menus);
+        this.context = context;
     }
 
 
@@ -35,7 +35,7 @@ public class ArrayBasedMenuListingAdapter
         String categoryOfPosition = getLocalizedCategoryOfPosition(pos);
         MenuListingHeaderView view;
         if (convertView == null) {
-            view = MenuListingHeaderView_.build(activity);
+            view = MenuListingHeaderView_.build(context);
         } else {
             view = (MenuListingHeaderView) convertView;
         }

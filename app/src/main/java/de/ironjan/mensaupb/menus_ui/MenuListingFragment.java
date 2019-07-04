@@ -132,7 +132,13 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @UiThread
     void bindListAdapter() {
-        adapter  = new ArrayBasedMenuListingAdapter(getActivity(), new ArrayList<>(0));
+        final Context context = getContext();
+        if(context == null) {
+            LOGGER.info("MenuListingFragment is not associated to a context at the moment.");
+            return;
+        }
+
+        adapter  = new ArrayBasedMenuListingAdapter(context, new ArrayList<>(0));
         list.setAdapter(adapter);
         list.setAreHeadersSticky(false);
         list.setOnItemClickListener((parent, view, position, id) -> listItemClicked(position));
