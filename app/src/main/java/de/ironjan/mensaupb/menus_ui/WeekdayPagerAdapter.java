@@ -48,7 +48,9 @@ public class WeekdayPagerAdapter extends FragmentStatePagerAdapter {
 
     public void onRefresh(){
         for(MenuListingFragment f: fragments) {
-            f.onRefresh();
+            if(f != null) {
+                f.onRefresh();
+            }
         }
     }
 }
