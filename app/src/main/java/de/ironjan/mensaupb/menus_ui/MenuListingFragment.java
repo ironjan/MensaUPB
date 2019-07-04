@@ -37,7 +37,6 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     public static final String ARG_DATE = "date";
     public static final String ARG_LOCATION = "restaurant";
     public static final int TIMEOUT_30_SECONDS = 30000;
-    public static final long TWO_MINUTES_IN_MS = 120000L;
 
     private final Logger LOGGER = LoggerFactory.getLogger(MenuListingFragment.class.getSimpleName());
 
@@ -95,28 +94,9 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     }
 
     @AfterViews
-    @Background
-    void loadContent() {
-        adapter  = new ArrayBasedMenuListingAdapter(getActivity(), new ArrayList<>(0));
-        list.setAdapter(adapter);
-        list.setAreHeadersSticky(false);
-        list.setOnItemClickListener((parent, view, position, id) -> listItemClicked(position)
-        );
-        list.setEmptyView(empty);
-
-
-        final Either<String, Menu[]> either = ClientV2.Companion.getClient().getMenus(getArgLocation(), getArgDate());
-        if (either.isLeft()) {
-            either.mapLeft(s -> {
-                showError(s);
-                return s;
-            });
-        } else {
-            either.map(menus1 -> {
-                showMenusV2(menus1);
-                return menus1;
-            });
-        }
+    void afterViews() {
+        bindListAdapter();
+        loadContent();
 
         /*
         TODO is this useful? yes - but not in this form.
@@ -132,6 +112,31 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
             }
         }).start();*/
+    }
+
+    @Background
+    void loadContent() {
+        final Either<String, Menu[]> either = ClientV2.Companion.getClient().getMenus(getArgLocation(), getArgDate());
+        if (either.isLeft()) {
+            either.mapLeft(s -> {
+                showError(s);
+                return s;
+            });
+        } else {
+            either.map(menus1 -> {
+                showMenusV2(menus1);
+                return menus1;
+            });
+        }
+    }
+
+    @UiThread
+    void bindListAdapter() {
+        adapter  = new ArrayBasedMenuListingAdapter(getActivity(), new ArrayList<>(0));
+        list.setAdapter(adapter);
+        list.setAreHeadersSticky(false);
+        list.setOnItemClickListener((parent, view, position, id) -> listItemClicked(position));
+        list.setEmptyView(empty);
     }
 
     @UiThread
@@ -153,23 +158,6 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         return Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
     }
 
-    private void showMenus(List<LocalizedMenu> menus) {
-        adapter = new ArrayBasedMenuListingAdapter(getActivity(), menus);
-        list.setAdapter(adapter);
-        list.setAreHeadersSticky(false);
-        list.setOnItemClickListener((parent, view, position, id) -> listItemClicked(position)
-        );
-        list.setEmptyView(empty);
-
-    }
-
-    private void updateEmptyView() {
-        boolean wasLoadingForALongTime = System.currentTimeMillis() - this.startedAt > TWO_MINUTES_IN_MS;
-        if (wasLoadingForALongTime) {
-            if (mProgressBar != null) mProgressBar.setVisibility(View.GONE);
-        }
-    }
-
     @UiThread
     void updateLoadingMessage() {
         if (list != null) {
@@ -188,7 +176,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
-        loadContent();
+        afterViews();
     }
 
 
