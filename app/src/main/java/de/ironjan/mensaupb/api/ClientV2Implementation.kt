@@ -4,9 +4,13 @@ import arrow.core.Either
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.httpGet
 import de.ironjan.mensaupb.api.model.Menu
+import org.slf4j.LoggerFactory
+
+private val REQUEST_TIMEOUT_10_SECONDS = 10000
 
 object ClientV2Implementation : ClientV2 {
-    val baseUrl = "http://mensaupb.herokuapp.com/api/"
+    val baseUrl = "https://mensaupb.herokuapp.com/api/"
+    var LOGGER = LoggerFactory.getLogger(ClientV2Implementation::class.java)
 
     override fun getMenus(): Either<String, Array<Menu>> {
         return getMenus("", "")
@@ -19,12 +23,14 @@ object ClientV2Implementation : ClientV2 {
 
         val (_, _, result) =
                 "/menus".httpGet(parameters = paramList)
+                        .timeout(REQUEST_TIMEOUT_10_SECONDS)
                         .responseObject(Menu.ArrayDeserializer())
         val (data, error) = result
 
         return if (error == null) {
             Either.right(data!!)
         } else {
+            LOGGER.error(error.localizedMessage)
             Either.left(error.localizedMessage)
         }
     }
@@ -34,6 +40,7 @@ object ClientV2Implementation : ClientV2 {
 
         val (_, _, result) =
                 "/menus/$key".httpGet()
+                        .timeout(REQUEST_TIMEOUT_10_SECONDS)
                         .responseObject(Menu.Deserializer())
         val (data, error) = result
 
@@ -41,5 +48,6 @@ object ClientV2Implementation : ClientV2 {
             Either.right(data!!)
         } else {
             Either.left(error.localizedMessage)
-        }    }
+        }
+    }
 }
