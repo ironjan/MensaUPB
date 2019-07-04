@@ -1,5 +1,9 @@
 # Unreleased
 
+# 2.19.1
+
+Fixed multiple crashes. Finally had the time to take a look...
+
 # 2.19.0
 
 Nearly complete rewrite with new background API. Fixed crashes.

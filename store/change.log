@@ -1,5 +1,10 @@
 # Unreleased
 
+
+# 2.19.1
+
+Crashes gefixt. Hatte endlich wieder Zeit...
+
 # 2.19.0
 
 Fast kompletter Rewrite mit neuer Anbindung ans Studentenwerk. Abstürze sollten behoben sein.
