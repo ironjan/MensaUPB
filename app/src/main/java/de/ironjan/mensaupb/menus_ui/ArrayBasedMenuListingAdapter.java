@@ -70,7 +70,7 @@ public class ArrayBasedMenuListingAdapter
     private String getLocalizedCategoryOfPosition(int pos) {
         final LocalizedMenu item = getItem(pos);
         if (item != null) {
-            String category = item.getCategoryIdentifier();
+            String category = item.getCategory();
             if (category != null) {
                 return category;
             }
