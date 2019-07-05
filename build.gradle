@@ -18,7 +18,7 @@ buildscript {
     }
 
     ext {
-        androidannotations_version = '4.4.0'
+        androidannotations_version = '4.6.0'
         arrow_version = "0.7.3"
         fuel_version = "1.15.1"
     }
