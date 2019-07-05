@@ -42,9 +42,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = ['resourcePackageName': 'de.ironjan.mensaupb',
-                        // FIXME this will only use debug manifests!
-                'androidManifestFile': "app/build/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml"]
+                arguments = ['resourcePackageName': 'de.ironjan.mensaupb']
             }
         }
 
