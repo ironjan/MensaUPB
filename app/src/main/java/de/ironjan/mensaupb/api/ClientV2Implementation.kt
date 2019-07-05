@@ -6,7 +6,7 @@ import com.github.kittinunf.fuel.httpGet
 import de.ironjan.mensaupb.api.model.Menu
 import org.slf4j.LoggerFactory
 
-private val REQUEST_TIMEOUT_10_SECONDS = 10000
+private val REQUEST_TIMEOUT_15_SECONDS = 15000
 
 object ClientV2Implementation : ClientV2 {
     val baseUrl = "https://mensaupb.herokuapp.com/api/"
@@ -23,7 +23,7 @@ object ClientV2Implementation : ClientV2 {
 
         val (_, _, result) =
                 "/menus".httpGet(parameters = paramList)
-                        .timeout(REQUEST_TIMEOUT_10_SECONDS)
+                        .timeout(REQUEST_TIMEOUT_15_SECONDS)
                         .responseObject(Menu.ArrayDeserializer())
         val (data, error) = result
 
@@ -40,7 +40,7 @@ object ClientV2Implementation : ClientV2 {
 
         val (_, _, result) =
                 "/menus/$key".httpGet()
-                        .timeout(REQUEST_TIMEOUT_10_SECONDS)
+                        .timeout(REQUEST_TIMEOUT_15_SECONDS)
                         .responseObject(Menu.Deserializer())
         val (data, error) = result
 
