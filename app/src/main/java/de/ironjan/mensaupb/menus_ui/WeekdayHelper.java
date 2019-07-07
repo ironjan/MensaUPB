@@ -19,7 +19,7 @@ import de.ironjan.mensaupb.stw.rest_api.StwMenu;
  */
 @EBean(scope = EBean.Scope.Singleton)
 public class WeekdayHelper {
-    public static final int DISPLAYED_DAYS_COUNT = 3;
+    public static final int DISPLAYED_DAYS_COUNT = 5;
     private static final int CACHED_DAYS_COUNT = DISPLAYED_DAYS_COUNT + 2;
     private static final int WEEKEND_OFFSET = 2;
     private static final SimpleDateFormat SDF = new SimpleDateFormat(StwMenu.DATE_FORMAT);
