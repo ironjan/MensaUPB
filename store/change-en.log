@@ -1,5 +1,9 @@
 # Unreleased
 
+# 2.20.0
+
+Extended preview to 5 days. Increased loading timeout.
+
 # 2.19.2
 
 Fixed multiple crashes. Finally had the time to take a look...
