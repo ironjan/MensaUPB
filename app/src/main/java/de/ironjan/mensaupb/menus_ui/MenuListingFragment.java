@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -18,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -118,6 +118,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @Background
     void loadContent() {
         final Either<String, Menu[]> either = ClientV2.Companion.getClient().getMenus(getArgLocation(), getArgDate());
+
         if (either.isLeft()) {
             either.mapLeft(s -> {
                 showError(s);
@@ -158,6 +159,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @UiThread
     void showError(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
         updateLoadingMessage();
     }
 
