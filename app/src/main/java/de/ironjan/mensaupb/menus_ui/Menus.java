@@ -29,8 +29,8 @@ import org.slf4j.LoggerFactory;
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.app_info.About_;
-import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import de.ironjan.mensaupb.model.Restaurant;
+import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 
 @SuppressWarnings("WeakerAccess")
 @SuppressLint("Registered")
@@ -50,7 +50,7 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
     @ViewById(R.id.pager_title_strip)
     PagerTabStrip mPagerTabStrip;
     String[] mRestaurantKeys = Restaurant.getKeys();
-    Integer[] mRestaurantNameIds = Restaurant.getNameStringIds();
+    Integer[] mRestaurantNameIds = Restaurant.Companion.getNameStringIds();
     @Bean
     WeekdayHelper mwWeekdayHelper;
     @Extra(value = KEY_RESTAURANT)
