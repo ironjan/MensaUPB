@@ -33,6 +33,7 @@ open class Mailer {
         intent.data = Uri.parse("mailto:") // only email apps should handle this
         intent.putExtra(Intent.EXTRA_EMAIL, DEVELOPER_EMAILS)
         intent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        intent.putExtra(Intent.EXTRA_TEXT, body)
         val activityExists = intent.resolveActivity(mContext!!.packageManager) != null
         if (activityExists) {
             mContext!!.startActivity(intent)
