@@ -1,11 +1,11 @@
-package de.ironjan.mensaupb.model
+package de.ironjan.mensaupb.api.model
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class LocalizedMenu(menu: de.ironjan.mensaupb.api.model.Menu, isEnglish: Boolean) {
+class LocalizedMenu(menu: Menu, isEnglish: Boolean) {
     private val date: String = menu.date
     var name: String? = null
         private set

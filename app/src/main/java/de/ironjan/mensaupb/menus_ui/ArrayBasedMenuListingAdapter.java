@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import java.util.List;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.model.LocalizedMenu;
+import de.ironjan.mensaupb.api.model.LocalizedMenu;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**

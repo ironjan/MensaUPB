@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.model
+package de.ironjan.mensaupb.api.model
 
 import de.ironjan.mensaupb.R
 

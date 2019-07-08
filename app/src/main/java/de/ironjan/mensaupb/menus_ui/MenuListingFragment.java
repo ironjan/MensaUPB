@@ -26,8 +26,8 @@ import arrow.core.Either;
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.api.ClientV2;
+import de.ironjan.mensaupb.api.model.LocalizedMenu;
 import de.ironjan.mensaupb.api.model.Menu;
-import de.ironjan.mensaupb.model.LocalizedMenu;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
