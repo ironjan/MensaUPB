@@ -211,7 +211,7 @@ public class MenuDetailFragment extends Fragment {
     private void bindAllergens(LocalizedMenu stwMenu) {
         List<Allergen> allergens = new ArrayList<>();
         for (String allergenKey : stwMenu.getAllergens()) {
-            allergens.add(Allergen.fromString(allergenKey));
+            allergens.add(Allergen.Companion.fromString(allergenKey));
         }
         if (allergens.isEmpty()) {
             hideAllergenList();
