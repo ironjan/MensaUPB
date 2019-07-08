@@ -49,7 +49,7 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
     ViewPager mViewPager;
     @ViewById(R.id.pager_title_strip)
     PagerTabStrip mPagerTabStrip;
-    String[] mRestaurantKeys = Restaurant.getKeys();
+    String[] mRestaurantKeys = Restaurant.Companion.getKeys();
     Integer[] mRestaurantNameIds = Restaurant.Companion.getNameStringIds();
     @Bean
     WeekdayHelper mwWeekdayHelper;
