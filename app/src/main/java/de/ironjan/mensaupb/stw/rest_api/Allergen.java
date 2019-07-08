@@ -1,17 +1,13 @@
 package de.ironjan.mensaupb.stw.rest_api;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.stw.rest_api.deserializer.AllergenDeserializer;
 
 /**
  * Class that represents Allergens and Additionals.
  */
 @SuppressWarnings("MagicNumber")
-@JsonDeserialize(using = AllergenDeserializer.class)
 public enum Allergen implements Comparable<Allergen> {
     UNKNOWN(0, "", R.string.empty),
     COLORED(1, Constants.COLORED, R.string.colored),

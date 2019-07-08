@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.ironjan.mensaupb.BuildConfig;
-import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 
 /**
  * Helper class to find the next weekdays etc.
@@ -22,7 +21,7 @@ public class WeekdayHelper {
     public static final int DISPLAYED_DAYS_COUNT = 5;
     private static final int CACHED_DAYS_COUNT = DISPLAYED_DAYS_COUNT + 2;
     private static final int WEEKEND_OFFSET = 2;
-    private static final SimpleDateFormat SDF = new SimpleDateFormat(StwMenu.DATE_FORMAT);
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
     private final String[] weekDaysAsString = new String[CACHED_DAYS_COUNT];
     private final String[] weekDaysforUi = new String[CACHED_DAYS_COUNT];
     private final Logger LOGGER = LoggerFactory.getLogger(getClass().getSimpleName());

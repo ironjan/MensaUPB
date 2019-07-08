@@ -43,7 +43,6 @@ import de.ironjan.mensaupb.stw.Restaurant;
 import de.ironjan.mensaupb.stw.rest_api.Allergen;
 import de.ironjan.mensaupb.stw.rest_api.Badge;
 import de.ironjan.mensaupb.stw.rest_api.PriceType;
-import de.ironjan.mensaupb.stw.rest_api.StwMenu;
 import kotlin.jvm.functions.Function1;
 
 @EFragment(R.layout.fragment_menu_detail)
@@ -68,8 +67,6 @@ public class MenuDetailFragment extends Fragment {
     @SuppressWarnings("WeakerAccess")
     @StringRes
     String localizedDatePattern;
-
-    private StwMenu mMenu;
 
     public static MenuDetailFragment newInstance(String key) {
         if (BuildConfig.DEBUG)

@@ -1,16 +1,10 @@
 package de.ironjan.mensaupb.stw.rest_api;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.stw.rest_api.deserializer.BadgeDeserializer;
 
 /**
  * Enum for the badges used
  */
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
-@JsonDeserialize(using = BadgeDeserializer.class)
 public enum Badge {
     LOW_CALORIE(1, Constants.LOW_CALORIE, R.string.lowCalorie),
     FAT_FREE(2, Constants.FAT_FREE, R.string.fatFree),

@@ -20,6 +20,7 @@ public enum Restaurant {
             Constants.CAFETE};
     private static Integer[] nameStringIds;
     public final String key;
+    @SuppressWarnings("unused")
     private final int ordinal;
     private final int nameStringId;
 

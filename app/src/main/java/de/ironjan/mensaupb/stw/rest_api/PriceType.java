@@ -1,16 +1,10 @@
 package de.ironjan.mensaupb.stw.rest_api;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-import de.ironjan.mensaupb.stw.rest_api.deserializer.PriceTypeDeserializer;
 
 /**
  * An enum to list all possible price types
  */
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
-@JsonDeserialize(using = PriceTypeDeserializer.class)
 public enum PriceType {
     FIXED(0, Constants.FIXED_STRING), WEIGHT(1, Constants.WEIGHT_STRING);
 
