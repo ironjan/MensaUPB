@@ -38,7 +38,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf <a href=“http://github.
     <string name="about_open_source">Open Source</string>
 
     <string name="devHeader">Entwickler</string>
-    <string name="devNames" translatable="false" translateable="false">David Maicher\nTony Lemke\nJan Lippert\nChristian Brüggemann</string>
+    <string name="devNames" translatable="false" translateable="false">Jan Lippert\nDavid Maicher\nTony Lemke\nChristian Brüggemann</string>
 
     <string name="localizedDatePattern">EE, dd.MM.yyyy</string>
     <string name="allergensHeader">Allergene und Zusatzstoffe</string>
