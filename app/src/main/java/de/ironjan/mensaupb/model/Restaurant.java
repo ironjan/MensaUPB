@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.stw;
+package de.ironjan.mensaupb.model;
 
 import de.ironjan.mensaupb.R;
 

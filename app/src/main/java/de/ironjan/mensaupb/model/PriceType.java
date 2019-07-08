@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.stw.rest_api;
+package de.ironjan.mensaupb.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

@@ -11,8 +11,8 @@ import java.util.Locale;
 
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.model.LocalizedMenu;
-import de.ironjan.mensaupb.stw.rest_api.Badge;
-import de.ironjan.mensaupb.stw.rest_api.PriceType;
+import de.ironjan.mensaupb.model.Badge;
+import de.ironjan.mensaupb.model.PriceType;
 
 /**
  * Binds raw menus to de.ironjan.mensaupb.R.layout.view_menu_list_item

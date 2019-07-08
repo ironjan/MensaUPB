@@ -39,10 +39,10 @@ import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.api.ClientV2;
 import de.ironjan.mensaupb.api.model.Menu;
 import de.ironjan.mensaupb.model.LocalizedMenu;
-import de.ironjan.mensaupb.stw.Restaurant;
-import de.ironjan.mensaupb.stw.rest_api.Allergen;
-import de.ironjan.mensaupb.stw.rest_api.Badge;
-import de.ironjan.mensaupb.stw.rest_api.PriceType;
+import de.ironjan.mensaupb.model.Restaurant;
+import de.ironjan.mensaupb.model.Allergen;
+import de.ironjan.mensaupb.model.Badge;
+import de.ironjan.mensaupb.model.PriceType;
 import kotlin.jvm.functions.Function1;
 
 @EFragment(R.layout.fragment_menu_detail)
