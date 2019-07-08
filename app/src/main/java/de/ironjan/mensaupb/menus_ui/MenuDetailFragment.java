@@ -41,7 +41,6 @@ import de.ironjan.mensaupb.api.model.Menu;
 import de.ironjan.mensaupb.model.Allergen;
 import de.ironjan.mensaupb.model.Badge;
 import de.ironjan.mensaupb.model.LocalizedMenu;
-import de.ironjan.mensaupb.model.PriceType;
 import de.ironjan.mensaupb.model.Restaurant;
 import kotlin.jvm.functions.Function1;
 
@@ -204,7 +203,7 @@ public class MenuDetailFragment extends Fragment {
         String priceAsString = String.format(Locale.GERMAN, "%.2f €", price);
 
         if (textPrice != null) textPrice.setText(priceAsString);
-        if (PriceType.Constants.WEIGHT_STRING.equals(stwMenu.getPricetype())) {
+        if (stwMenu.isWeighted()) {
             if (textPrice != null) textPrice.append("/100g");
         }
     }

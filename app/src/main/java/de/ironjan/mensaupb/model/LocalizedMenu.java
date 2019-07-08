@@ -168,4 +168,8 @@ public class LocalizedMenu {
                 ", priceStudents=" + priceStudents +
                 '}';
     }
+
+    public boolean isWeighted() {
+        return "weighted".equals(pricetype);
+    }
 }

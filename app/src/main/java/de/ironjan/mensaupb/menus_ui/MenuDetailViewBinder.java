@@ -10,9 +10,8 @@ import java.util.List;
 import java.util.Locale;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.model.LocalizedMenu;
 import de.ironjan.mensaupb.model.Badge;
-import de.ironjan.mensaupb.model.PriceType;
+import de.ironjan.mensaupb.model.LocalizedMenu;
 
 /**
  * Binds raw menus to de.ironjan.mensaupb.R.layout.view_menu_list_item
@@ -69,7 +68,7 @@ public class MenuDetailViewBinder  {
             return;
         }
 
-        if (PriceType.WEIGHT.toString().equals(menu.getPricetype())) {
+        if (menu.isWeighted()) {
             view.setText("/100g");
         } else {
             view.setText("");
