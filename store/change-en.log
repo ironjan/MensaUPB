@@ -1,5 +1,9 @@
 # Unreleased
 
+# 2.21.0
+
+Extended preview to 5 days. Increased loading timeout. Internal cleanup.
+
 # 2.20.0
 
 Extended preview to 5 days. Increased loading timeout.
