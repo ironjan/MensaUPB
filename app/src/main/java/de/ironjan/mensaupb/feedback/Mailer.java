@@ -2,6 +2,7 @@ package de.ironjan.mensaupb.feedback;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.EBean;
@@ -30,14 +31,11 @@ public class Mailer {
      * @param body The mail's body
      */
     public void sendMail(String subject, String body) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SENDTO);
-        intent.setType(MAIL_MIME_TYPE);
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
         intent.putExtra(Intent.EXTRA_EMAIL, DEVELOPER_EMAILS);
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        intent.putExtra(Intent.EXTRA_TEXT, body);
-        boolean activityExists = intent.resolveActivityInfo(mContext.getPackageManager(), 0) != null;
-
+        boolean activityExists = intent.resolveActivity(mContext.getPackageManager()) != null;
         if (activityExists) {
             mContext.startActivity(intent);
         } else {
