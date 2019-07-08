@@ -167,7 +167,7 @@ public class MenuDetailFragment extends Fragment {
 
         final String[] badgesAsString = stwMenu.getBadges();
         for (String badgeKey : badgesAsString) {
-            badges.add(Badge.fromString(badgeKey));
+            badges.add(Badge.Companion.fromString(badgeKey));
         }
 
         if (badges.isEmpty()) {

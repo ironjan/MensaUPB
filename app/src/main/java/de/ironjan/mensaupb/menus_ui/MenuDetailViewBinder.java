@@ -79,7 +79,7 @@ public class MenuDetailViewBinder  {
         final String[] badgesArray = menu.getBadges();
         List<Badge> badges = new ArrayList<>(badgesArray.length);
         for (String s : badgesArray) {
-            badges.add(Badge.fromString(s));
+            badges.add(Badge.Companion.fromString(s));
         }
 
         Context context = textView.getContext();
