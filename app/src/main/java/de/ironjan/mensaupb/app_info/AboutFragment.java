@@ -8,7 +8,6 @@ import android.text.method.MovementMethod;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FromHtml;
 import org.androidannotations.annotations.ViewById;
@@ -17,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.feedback.Mailer;
 
 /**
  * Fragment with some information about the app.
@@ -41,9 +39,6 @@ public class AboutFragment extends Fragment {
     @ViewById(R.id.textSource)
     @FromHtml(R.string.source)
     TextView mTextSourceLink;
-
-    @Bean
-    Mailer mMailer;
 
     @AfterViews
     void linkify() {
