@@ -1,5 +1,12 @@
 # Unreleased
 
+# 2.21.1
+
+Extended preview to 5 days. Increased loading timeout. Internal cleanup.
+
+Internal: Fixed ArrayIndexOutOfBound.
+
+
 # 2.21.0
 
 Extended preview to 5 days. Increased loading timeout. Internal cleanup.
