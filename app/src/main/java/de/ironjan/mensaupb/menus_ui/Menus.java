@@ -26,6 +26,8 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.api.model.Restaurant;
@@ -50,7 +52,6 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
     @ViewById(R.id.pager_title_strip)
     PagerTabStrip mPagerTabStrip;
     String[] mRestaurantKeys = Restaurant.Companion.getKeys();
-    Integer[] mRestaurantNameIds = Restaurant.Companion.getNameStringIds();
     @Bean
     WeekdayHelper mwWeekdayHelper;
     @Extra(value = KEY_RESTAURANT)
@@ -82,11 +83,12 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-        int restaurantCount = mRestaurantNameIds.length;
+        List<Integer> nameStringIds = Restaurant.Companion.getNameStringIds();
+        int restaurantCount = nameStringIds.size();
         String[] mDisplayedRestaurantNames = new String[restaurantCount];
         final Resources resources = getResources();
         for (int i = 0; i < restaurantCount; i++) {
-            mDisplayedRestaurantNames[i] = resources.getString(mRestaurantNameIds[i]);
+            mDisplayedRestaurantNames[i] = resources.getString(nameStringIds.get(i));
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(actionBar.getThemedContext(),

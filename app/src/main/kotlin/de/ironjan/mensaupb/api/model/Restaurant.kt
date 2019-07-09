@@ -1,4 +1,4 @@
-package de.ironjan.mensaupb.api.model
+ package de.ironjan.mensaupb.api.model
 
 import de.ironjan.mensaupb.R
 
@@ -29,13 +29,9 @@ enum class Restaurant(val key: String, val restaurantName: Int) {
                 Constants.GRILL_CAFE,
                 Constants.CAFETE)
 
-        val nameStringIds: Array<Int>
+        val nameStringIds: List<Int>
             get() {
-                val nameStringIds = arrayOf(keys.size)
-                for (i in keys.indices) {
-                    nameStringIds[i] = getNameFromKey(keys[i])
-                }
-                return nameStringIds
+                return keys.map {getNameFromKey(it)}
             }
 
         private fun getNameFromKey(key: String): Int =
