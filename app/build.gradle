@@ -3,13 +3,14 @@ def versionMajor = 2
 // added functionality in a backwards-compatible manner, must be <=99
 def versionMinor = 21
 // backwards-compatible bug fixes, must be <=99
-def versionPatch = 2
+def versionPatch = 3
 // bump for dogfood builds, public betas, etc., must be <=99
 def versionBuild = 0
 
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'idea'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'com.getkeepsafe.dexcount'
@@ -96,6 +97,7 @@ android {
 
 
 dependencies {
+
     implementation 'com.android.support:multidex:1.0.3'
 
     implementation 'com.android.support:support-v4:28.0.0'
@@ -119,6 +121,7 @@ dependencies {
     implementation "org.androidannotations:androidannotations-api:$androidannotations_version"
     annotationProcessor "org.androidannotations:rest-spring:$androidannotations_version"
     implementation "org.androidannotations:rest-spring-api:$androidannotations_version"
+    kapt "org.androidannotations:androidannotations:$androidannotations_version"
 
     // current jackson version is 2.7.x but this version introduced a call to java.nio.file
     // which is not supported on android

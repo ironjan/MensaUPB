@@ -17,13 +17,13 @@ import org.androidannotations.annotations.res.StringRes
 open class FeedbackFragment : Fragment() {
 
     @StringRes
-    open var feedbackTemplateBody: String? = null
+    protected lateinit var feedbackTemplateBody: String
     @StringRes
-    open var feedbackTemplateSubject: String? = null
+    protected lateinit var feedbackTemplateSubject: String
 
 
     @StringRes
-    internal var feedbackNoEmailNote: String? = null
+    protected lateinit var feedbackNoEmailNote: String
 
 
     @Click(R.id.btnFeedback)
