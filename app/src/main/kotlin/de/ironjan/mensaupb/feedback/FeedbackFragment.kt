@@ -17,9 +17,9 @@ import org.androidannotations.annotations.res.StringRes
 open class FeedbackFragment : Fragment() {
 
     @StringRes
-    internal var feedbackTemplateBody: String? = null
+    open var feedbackTemplateBody: String? = null
     @StringRes
-    internal var feedbackTemplateSubject: String? = null
+    open var feedbackTemplateSubject: String? = null
 
 
     @StringRes
