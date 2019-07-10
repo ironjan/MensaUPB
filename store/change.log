@@ -1,5 +1,15 @@
 # Unreleased
 
+# 2.21.4
+
+Preview auf 5 Tage erweitert. Lade-Timeout erhöht. Code Cleanup.
+
+Internal:
+Fixed ArrayIndexOutOfBound.
+About activity could not start.
+AA was not setup for kotlin.
+Fixed weekend offset.
+
 # 2.21.3
 
 Preview auf 5 Tage erweitert. Lade-Timeout erhöht. Code Cleanup.

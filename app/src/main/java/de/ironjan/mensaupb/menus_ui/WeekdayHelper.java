@@ -28,25 +28,16 @@ public class WeekdayHelper {
     @SuppressWarnings("WeakerAccess")
     @StringRes
     String localizedDatePattern;
-    private volatile boolean mDaysNotInitializedYet = true;
 
     @Trace
     public synchronized String getNextWeekDayAsKey(int i) {
         if (weekDaysAsString[i] == null) {
-            weekDaysAsString[i] = SDF.format(getNextWeekDay(i));
+            weekDaysAsString[i] = SDF.format(getNextWeekDayByOffset(i));
         }
 
         if (BuildConfig.DEBUG)
             LOGGER.debug("getNextWeekDayAsKey({}) -> {}", i, weekDaysAsString[i]);
         return weekDaysAsString[i];
-    }
-
-    @Trace
-    public synchronized String[] getCachedDaysAsStrings() {
-        if (mDaysNotInitializedYet) {
-            initDays();
-        }
-        return weekDaysAsString.clone();
     }
 
     @AfterInject
@@ -55,54 +46,30 @@ public class WeekdayHelper {
         for (int i = 0; i < CACHED_DAYS_COUNT; i++) {
             getNextWeekDayAsKey(i);
         }
-        mDaysNotInitializedYet = false;
     }
 
     @Trace
-    Date getNextWeekDay(int offset) {
+    Date getNextWeekDayByOffset(int offset) {
         if (BuildConfig.DEBUG) LOGGER.debug("getNextWeekDay({})", offset);
         Calendar cal = Calendar.getInstance();
 
-        final int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-        if (needsWeekendOffset(offset, dayOfWeek)) {
-            cal.add(Calendar.DAY_OF_WEEK, WEEKEND_OFFSET);
-        } else if (needsSundayOffset(dayOfWeek)) {
-            cal.add(Calendar.DAY_OF_WEEK, 1);
-        }
         cal.add(Calendar.DAY_OF_WEEK, offset);
 
+        boolean isOnWeekend =
+                cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+                || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
+        if (isOnWeekend) {
+            cal.add(Calendar.DAY_OF_WEEK, WEEKEND_OFFSET);
+        }
+
         return cal.getTime();
-    }
-
-    private boolean needsSundayOffset(int dayOfWeek) {
-        return dayOfWeek == Calendar.SUNDAY;
-    }
-
-    /**
-     * Checks for weekend offset according to the following table; +2 means that day+offset is
-     * on weekend and needs offset:
-     * {@code
-     * day, offset  |  0 |  1 |  2 |
-     * thursday     |    |    | +2 |
-     * friday       |    | +2 | +2 |
-     * saturday     | +2 | +2 | +2 |
-     * }
-     *
-     * @param offset    offset applied to dayOfWeek
-     * @param dayOfWeek the day which is "today"
-     * @return true, if weekend offset has to be added
-     */
-    private boolean needsWeekendOffset(int offset, int dayOfWeek) {
-        return (dayOfWeek == Calendar.THURSDAY && offset == 2)
-                || (dayOfWeek == Calendar.FRIDAY && offset >= 1)
-                || (dayOfWeek == Calendar.SATURDAY);
     }
 
 
     public String getNextWeekDayForUI(int i) {
         if (weekDaysforUi[i] == null) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(localizedDatePattern);
-            weekDaysforUi[i] = simpleDateFormat.format(getNextWeekDay(i));
+            weekDaysforUi[i] = simpleDateFormat.format(getNextWeekDayByOffset(i));
         }
 
         if (BuildConfig.DEBUG)
