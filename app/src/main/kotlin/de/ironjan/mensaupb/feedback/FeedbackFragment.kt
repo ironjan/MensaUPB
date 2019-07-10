@@ -28,10 +28,10 @@ open class FeedbackFragment : Fragment() {
 
     @Click(R.id.btnFeedback)
     internal fun sendFeedback() {
-        val subject = String.format(feedbackTemplateSubject!!, BuildConfig.VERSION_NAME)
-        val body = this.feedbackTemplateBody
+        val subject = String.format(feedbackTemplateSubject, BuildConfig.VERSION_NAME)
+        val body = feedbackTemplateBody
 
-        sendMail(subject, body!!)
+        sendMail(subject, body)
     }
 
     private val developerMails = arrayOf("lippertsjan+mensaupb@gmail.com")
