@@ -22,6 +22,10 @@ object ClientV2Implementation : ClientV2 {
         if (date.isNotBlank()) paramList.add(Pair("date", date))
 
         val httpGet = "/menus".httpGet(parameters = paramList)
+
+        // TODO add file permission
+        // TODO implement check on file
+        // TODO add cleaning
         val cacheableKey = httpGet.url.toString()
 
 
