@@ -1,5 +1,9 @@
 # Unreleased
 
+# 2.21.5
+
+Internal: Fixed NPE.
+
 # 2.21.4
 
 Extended preview to 5 days. Increased loading timeout. Internal cleanup.
