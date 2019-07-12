@@ -21,10 +21,13 @@ object ClientV2Implementation : ClientV2 {
         if (restaurant.isNotBlank()) paramList.add(Pair("restaurant", restaurant))
         if (date.isNotBlank()) paramList.add(Pair("date", date))
 
+        val httpGet = "/menus".httpGet(parameters = paramList)
+        val cacheableKey = httpGet.url.toString()
+
+
         val (_, _, result) =
-                "/menus".httpGet(parameters = paramList)
-                        .timeout(REQUEST_TIMEOUT_30_SECONDS)
-                        .responseObject(Menu.ArrayDeserializer())
+                httpGet.timeout(REQUEST_TIMEOUT_30_SECONDS)
+                       .responseObject(Menu.ArrayDeserializer())
         val (data, error) = result
 
         return if (error == null) {
