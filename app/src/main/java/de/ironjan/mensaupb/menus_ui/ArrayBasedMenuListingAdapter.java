@@ -52,10 +52,10 @@ public class ArrayBasedMenuListingAdapter
         }
 
         LocalizedMenu menu = getItem(position);
-        MenuDetailViewBinder.setViewValue(convertView.findViewById(R.id.textName), menu);
-        MenuDetailViewBinder.setViewValue(convertView.findViewById(R.id.textPrice), menu);
-        MenuDetailViewBinder.setViewValue(convertView.findViewById(R.id.textPricePer100g), menu);
-        MenuDetailViewBinder.setViewValue(convertView.findViewById(R.id.textBadges), menu);
+        MenuDetailViewBinder.INSTANCE.setViewValue(convertView.findViewById(R.id.textName), menu);
+        MenuDetailViewBinder.INSTANCE.setViewValue(convertView.findViewById(R.id.textPrice), menu);
+        MenuDetailViewBinder.INSTANCE.setViewValue(convertView.findViewById(R.id.textPricePer100g), menu);
+        MenuDetailViewBinder.INSTANCE.setViewValue(convertView.findViewById(R.id.textBadges), menu);
 
         return convertView;
     }
