@@ -1,5 +1,9 @@
 # Unreleased
 
+# 2.22.0
+
+Added: better menu loading (experimental, opt-in). Fixed: weekend is now correctly skipped.
+
 # 2.21.5
 
 Internal: Fixed NPE.

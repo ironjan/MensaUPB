@@ -1,5 +1,9 @@
 # Unreleased
 
+# 2.22.0
+
+Neu: Schnelleres Laden der Gerichte (experimentel, opt-in). Fixed: Wochenende wird nun korrekt übersprungen.
+
 # 2.21.5
 
 Internal: Fixed NPE.
