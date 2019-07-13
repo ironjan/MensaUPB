@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -26,8 +25,7 @@ import java.util.Locale;
 import arrow.core.Either;
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.api.ClientV2;
-import de.ironjan.mensaupb.api.ContextBoundClient;
+import de.ironjan.mensaupb.api.ClientImplementationFactory;
 import de.ironjan.mensaupb.api.model.LocalizedMenu;
 import de.ironjan.mensaupb.api.model.Menu;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
@@ -99,9 +97,32 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @AfterViews
     void afterViews() {
         bindListAdapter();
+        loadContent();
     }
 
 
+    @Background
+    void loadContent() {
+        Context nonNullContext = getContext();
+        if(nonNullContext==null){
+            return;
+        }
+
+
+        final Either<String, Menu[]> either = ClientImplementationFactory.INSTANCE.getClient(nonNullContext).getMenus(getArgLocation(), getArgDate());
+
+        if (either.isLeft()) {
+            either.mapLeft(s -> {
+                showError(s);
+                return s;
+            });
+        } else {
+            either.map(menus1 -> {
+                showMenusV2(menus1);
+                return menus1;
+            });
+        }
+    }
     @UiThread
     void bindListAdapter() {
         final Context context = getContext();
