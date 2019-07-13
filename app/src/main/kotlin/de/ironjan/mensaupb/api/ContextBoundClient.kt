@@ -18,7 +18,6 @@ class ContextBoundClient(val context: Context) : ClientV2 {
 
     private val menusUri = ClientV2Implementation.baseUrl + ClientV2Implementation.menusPath
 
-    private val logger = LoggerFactory.getLogger("ContextBoundClient")
 
     override fun getMenus(): Either<String, Array<Menu>> = getMenus("", "", false)
 
@@ -68,13 +67,7 @@ class ContextBoundClient(val context: Context) : ClientV2 {
     }
 
     override fun getMenu(key: String): Either<String, Menu> {
-        val splitKey = key.split("_")
-        val date = splitKey[0]
-        val restaurant = splitKey[1]
-
         val allMenusRequest = prepareRequest(constructMenusUriWithParams("", ""), false)
-
-        val cachedStatus = allMenusRequest.isLocallyCached
 
         return try {
             val resp = tryMenusRequestExecution(allMenusRequest)
@@ -83,38 +76,6 @@ class ContextBoundClient(val context: Context) : ClientV2 {
         } catch (e: java.lang.Exception){
             wrapException(e)
         }
-
-        if (cachedStatus == CACHED) {
-            val resp = tryMenusRequestExecution(allMenusRequest)
-            val right = resp.first { it.key == key }
-            return Either.right(right)
-        }
-
-
-        val menusRequest = prepareRequest(constructMenusUriWithParams(restaurant, date), false)
-        val locallyCached = menusRequest.isLocallyCached
-
-        if (locallyCached == CACHED) {
-            val resp = tryMenusRequestExecution(menusRequest)
-            val right = resp.first { it.key == key }
-            return Either.right(right)
-        }
-        val menuRequest = prepareRequest(constructMenuUriWithKey(key), false)
-       return try {
-            Either.right(tryMenuRequestExecution(menuRequest))
-        } catch (e: Exception) {
-            wrapException(e)
-        }
-    }
-
-    private fun tryMenuRequestExecution(request: B): Menu {
-        val response =
-                request.asString()
-                        .withResponse()
-                        .get(ClientV2Implementation.REQUEST_TIMEOUT_30_SECONDS.toLong(), MILLISECONDS)
-
-
-        return Deserializer().deserialize(response.result)
     }
 
     private fun constructMenusUriWithParams(restaurant: String = "", date: String = ""): String {
@@ -128,7 +89,5 @@ class ContextBoundClient(val context: Context) : ClientV2 {
 
         return "$menusUri$paramsAsString"
     }
-
-    private fun constructMenuUriWithKey(key: String): String = "$menusUri/$key"
 
 }
