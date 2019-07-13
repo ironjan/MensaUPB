@@ -80,11 +80,9 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
         mLocation = mInternalKeyValueStore.lastLocation().get();
         initPager();
         initActionBar();
-loadTest();
     }
 
 
-    @Background
     void loadTest() {
         final long t1 = System.currentTimeMillis();
         final ClientV3Implementation client = new ClientV3Implementation(this);
@@ -234,7 +232,6 @@ loadTest();
     @OptionsItem(R.id.ab_refresh)
     void refreshClicked() {
         mWeekdayPagerAdapter.onRefresh();
-        loadTest();
     }
 
     @OptionsItem(R.id.ab_openingTimes)
