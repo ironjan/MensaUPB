@@ -1,31 +1,35 @@
 package de.ironjan.mensaupb.api
 
+import android.util.Log
 import arrow.core.Either
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.httpGet
+import com.koushikdutta.ion.Ion
 import de.ironjan.mensaupb.api.model.Menu
 import org.slf4j.LoggerFactory
 
-private val REQUEST_TIMEOUT_30_SECONDS = 30000
+
 
 object ClientV2Implementation : ClientV2 {
-    val baseUrl = "https://mensaupb.herokuapp.com/api/"
+    const val REQUEST_TIMEOUT_30_SECONDS = 30000
+    val baseUrl = "https://mensaupb.herokuapp.com/api"
     var LOGGER = LoggerFactory.getLogger(ClientV2Implementation::class.java)
 
     override fun getMenus(): Either<String, Array<Menu>> {
         return getMenus("", "")
     }
+
+    const val menusPath = "/menus"
+
     override fun getMenus(restaurant: String, date: String): Either<String, Array<Menu>> {
         FuelManager.instance.basePath = baseUrl
         val paramList = mutableListOf<Pair<String, String>>()
         if (restaurant.isNotBlank()) paramList.add(Pair("restaurant", restaurant))
         if (date.isNotBlank()) paramList.add(Pair("date", date))
 
-        val httpGet = "/menus".httpGet(parameters = paramList)
+        val httpGet = menusPath.httpGet(parameters = paramList)
 
-        // TODO add file permission
-        // TODO implement check on file
-        // TODO add cleaning
+        // TODO see ContextBoundClient
         val cacheableKey = httpGet.url.toString()
 
 

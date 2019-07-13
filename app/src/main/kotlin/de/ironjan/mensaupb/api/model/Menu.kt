@@ -37,6 +37,10 @@ data class Menu(val date: String,
             val type = object : TypeToken<Array<Menu>>() {}.type
             return customDateFormatGson.fromJson(reader, type)
         }
+        override fun deserialize(content: String): Array<Menu>? {
+            val type = object : TypeToken<Array<Menu>>() {}.type
+            return customDateFormatGson.fromJson(content, type)
+        }
     }
 
 

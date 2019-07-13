@@ -2,6 +2,7 @@ package de.ironjan.mensaupb.menus_ui;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -28,8 +29,11 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+import arrow.core.Either;
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
+import de.ironjan.mensaupb.api.ContextBoundClient;
+import de.ironjan.mensaupb.api.model.Menu;
 import de.ironjan.mensaupb.api.model.Restaurant;
 import de.ironjan.mensaupb.app_info.About_;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
@@ -74,6 +78,19 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
         mLocation = mInternalKeyValueStore.lastLocation().get();
         initPager();
         initActionBar();
+loadTest();
+    }
+
+
+    @Background
+    void loadTest() {
+        Either<String, Menu[]> menus = new ContextBoundClient(this).getMenus();
+        if(menus.isRight()){
+            menus.map(menus1 -> {
+                LOGGER.warn(menus1.length + " menus loaded via ion.");
+                return menus1;
+            });
+        }
     }
 
     @Trace
@@ -179,6 +196,7 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
     @OptionsItem(R.id.ab_refresh)
     void refreshClicked() {
         mWeekdayPagerAdapter.onRefresh();
+        loadTest();
     }
 
     @OptionsItem(R.id.ab_openingTimes)
