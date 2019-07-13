@@ -44,7 +44,7 @@ class ContextBoundClient(val context: Context) : ClientV3 {
 
     private fun tryMenusRequestExecution(request: B): Array<Menu> {
         val response =
-                request.asString()
+                request.asString(Charsets.UTF_8)
                         .withResponse()
                         .get(ClientV2Implementation.REQUEST_TIMEOUT_30_SECONDS.toLong(), MILLISECONDS)
 
