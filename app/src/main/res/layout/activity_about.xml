@@ -25,5 +25,12 @@
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_about" />
 
+        <fragment
+            android:id="@+id/featureToggleFragment"
+            android:name="de.ironjan.mensaupb.feature_toggle.FeatureToggleFragment_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_feature_toggles"/>
+
     </LinearLayout>
 </ScrollView>

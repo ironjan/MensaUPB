@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+
+    <TextView
+        style="@style/TextSubhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:text="Experimental Functions" />
+    <TextView
+        style="@style/TextBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/elementMargin"
+        android:text="You can toggle these function on and try out new things before they are enabled for everybody." />
+
+
+    <CheckBox
+        android:id="@+id/toggleClientV3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Better request client" />
+</LinearLayout>

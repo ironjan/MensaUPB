@@ -37,10 +37,10 @@ open class AboutFragment : Fragment() {
     @AfterViews
     internal fun linkify() {
         val movementMethod = LinkMovementMethod.getInstance()
-        mTxtDependencies!!.movementMethod = movementMethod
-        mTxtAbout!!.movementMethod = movementMethod
-        mTxtDependencyNames!!.movementMethod = movementMethod
-        mTextSourceLink!!.movementMethod = movementMethod
+        mTxtDependencies.movementMethod = movementMethod
+        mTxtAbout.movementMethod = movementMethod
+        mTxtDependencyNames.movementMethod = movementMethod
+        mTextSourceLink.movementMethod = movementMethod
         if (BuildConfig.DEBUG) LOGGER.debug("linkify() done")
     }
 

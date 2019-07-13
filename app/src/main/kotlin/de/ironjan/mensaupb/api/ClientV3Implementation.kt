@@ -10,7 +10,7 @@ import java.io.PrintWriter
 import java.io.StringWriter
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
-class ContextBoundClient(val context: Context) : ClientV3 {
+class ClientV3Implementation(val context: Context) : ClientV3 {
 
     private val menusUri = ClientV2Implementation.baseUrl + ClientV2Implementation.menusPath
 
@@ -54,7 +54,7 @@ class ContextBoundClient(val context: Context) : ClientV3 {
 
     private fun prepareRequest(url: String, forceReload: Boolean): B {
         val requestBuilder = Ion.with(context).load(url)
-//                .setLogging("ContextBoundClient", Log.DEBUG)
+//                .setLogging("ClientV3Implementation", Log.DEBUG)
         return if (forceReload) {
             requestBuilder.noCache()
         } else {
