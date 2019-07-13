@@ -2,7 +2,6 @@ package de.ironjan.mensaupb.menus_ui;
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -27,7 +26,10 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import arrow.core.Either;
 import de.ironjan.mensaupb.BuildConfig;
@@ -84,13 +86,49 @@ loadTest();
 
     @Background
     void loadTest() {
-        Either<String, Menu[]> menus = new ContextBoundClient(this).getMenus();
-        if(menus.isRight()){
-            menus.map(menus1 -> {
-                LOGGER.warn(menus1.length + " menus loaded via ion.");
-                return menus1;
+        final long t1 = System.currentTimeMillis();
+        final ContextBoundClient client = new ContextBoundClient(this);
+        Either<String, Menu[]> either = client.getMenus();
+
+        final long t2 = System.currentTimeMillis();
+
+        AtomicInteger requests = new AtomicInteger();
+        AtomicInteger discards = new AtomicInteger();
+
+        HashMap<String, Menu> menusByKey = new HashMap<>();
+        LinkedList<String> errors = new LinkedList<>();
+        if(either.isRight()){
+            either.map(menus -> {
+                LOGGER.warn(menus.length + " menus loaded via ion.");
+                for (Menu menu : menus) {
+                    final String key = menu.getKey();
+                    final Either<String, Menu> loadedMenuEither = client.getMenu(key);
+                    if(loadedMenuEither.isRight()) {
+                        loadedMenuEither.map(m -> {menusByKey.put(key,m); return m;});
+                    }else{
+                        loadedMenuEither.mapLeft(s -> {errors.add(s); return s;});
+                    }
+                    requests.getAndIncrement();
+                    LOGGER.debug("Did "+requests+"/"+menus.length+ " requests.");
+                }
+                return menus;
+            });
+        }else{
+            either.mapLeft(s -> {
+                LOGGER.warn(s);
+                return s;
             });
         }
+
+        final long t3 = System.currentTimeMillis();
+
+        long originalRequestTime = t2-t1;
+        long singleMenusRequestsTime = t3-t2;
+
+        int errorCount = errors.size();
+        int successCount = menusByKey.size();
+
+        LOGGER.warn("Timing. orignal request = " + originalRequestTime + "ms. single menus = "+singleMenusRequestsTime+"ms. " + requests+ " requests and " + discards + " discards. Successes: "+ successCount+", Errors: "+errorCount);
     }
 
     @Trace

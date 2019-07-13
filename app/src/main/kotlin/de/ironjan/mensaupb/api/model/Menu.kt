@@ -30,6 +30,10 @@ data class Menu(val date: String,
             return customDateFormatGson
                     .fromJson(reader, Menu::class.java)!!
         }
+
+        override fun deserialize(content: String): Menu {
+            return customDateFormatGson.fromJson(content, Menu::class.java)!!
+        }
     }
 
     class ArrayDeserializer : ResponseDeserializable<Array<Menu>> {
