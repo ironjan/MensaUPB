@@ -1,16 +1,15 @@
 package de.ironjan.mensaupb.api
 
-import android.util.Log
 import arrow.core.Either
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.httpGet
-import com.koushikdutta.ion.Ion
 import de.ironjan.mensaupb.api.model.Menu
 import org.slf4j.LoggerFactory
 
 
+object ClientV2Implementation : ClientV3 {
+    override fun getMenus(noCache: Boolean): Either<String, Array<Menu>> = getMenus()
 
-object ClientV2Implementation : ClientV2 {
     const val REQUEST_TIMEOUT_30_SECONDS = 30000
     val baseUrl = "https://mensaupb.herokuapp.com/api"
     var LOGGER = LoggerFactory.getLogger(ClientV2Implementation::class.java)

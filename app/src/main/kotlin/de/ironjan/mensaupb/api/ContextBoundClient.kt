@@ -1,27 +1,23 @@
 package de.ironjan.mensaupb.api
 
 import android.content.Context
-import android.util.Log
 import arrow.core.Either
 import com.koushikdutta.ion.Ion
-import com.koushikdutta.ion.bitmap.LocallyCachedStatus.CACHED
 import com.koushikdutta.ion.builder.Builders.Any.B
 import de.ironjan.mensaupb.api.model.Menu
 import de.ironjan.mensaupb.api.model.Menu.ArrayDeserializer
-import de.ironjan.mensaupb.api.model.Menu.Deserializer
-import org.slf4j.LoggerFactory
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
-class ContextBoundClient(val context: Context) : ClientV2 {
+class ContextBoundClient(val context: Context) : ClientV3 {
 
     private val menusUri = ClientV2Implementation.baseUrl + ClientV2Implementation.menusPath
 
 
     override fun getMenus(): Either<String, Array<Menu>> = getMenus("", "", false)
 
-    fun getMenus(noCache: Boolean): Either<String, Array<Menu>> = getMenus("", "", noCache)
+    override fun getMenus(noCache: Boolean): Either<String, Array<Menu>> = getMenus("", "", noCache)
 
     override fun getMenus(restaurant: String, date: String): Either<String, Array<Menu>> =
             getMenus(restaurant, date, false)

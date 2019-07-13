@@ -15,7 +15,7 @@ import android.widget.Toast
 import com.koushikdutta.ion.Ion
 import de.ironjan.mensaupb.BuildConfig
 import de.ironjan.mensaupb.R
-import de.ironjan.mensaupb.api.ClientV2
+import de.ironjan.mensaupb.api.ClientImplementationFactory
 import de.ironjan.mensaupb.api.model.Allergen
 import de.ironjan.mensaupb.api.model.Badge
 import de.ironjan.mensaupb.api.model.LocalizedMenu
@@ -78,7 +78,9 @@ open class MenuDetailFragment : Fragment() {
 
     @Background
     internal open fun loadMenu(key: String?) {
-        val either = ClientV2.getClient().getMenu(key!!)
+        val nonNullContext = context ?: return
+
+        val either = ClientImplementationFactory.getClient(nonNullContext).getMenu(key!!)
 
         if (either.isLeft()) {
             either.mapLeft { s ->
