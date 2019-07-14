@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.androidannotations.annotations.AfterViews;
@@ -51,6 +52,8 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     StickyListHeadersListView list;
     @ViewById(R.id.progressBar)
     ProgressBar mProgressBar;
+    @ViewById(R.id.txtError)
+    TextView txtError;
 
     @Pref
     InternalKeyValueStore_ mInternalKeyValueStore;
@@ -96,7 +99,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @AfterViews
     void afterViews() {
-        bindListAdapter();
+        prepareListForRefresh();
         loadContent(false);
     }
 
@@ -124,7 +127,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         }
     }
     @UiThread
-    void bindListAdapter() {
+    void prepareListForRefresh() {
         final Context context = getContext();
         if (context == null) {
             LOGGER.info("MenuListingFragment is not associated to a context at the moment.");
@@ -154,6 +157,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         if (context != null) {
             Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
         }
+        txtError.setText("Error: " + msg);
         updateLoadingMessage();
     }
 
@@ -177,6 +181,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
+        prepareListForRefresh();
         loadContent(true);
     }
 

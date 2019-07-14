@@ -50,13 +50,26 @@
                 android:text="@string/menusLoading2" />
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:id="@+id/could_not_load_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/elementMargin"
-            android:text="@string/menus_listing_could_not_load_menus"
-            android:visibility="gone" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/elementMargin"
+                android:text="@string/menus_listing_could_not_load_menus"
+                />
+
+            <TextView
+                android:id="@+id/txtError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/elementMargin"/>
+        </LinearLayout>
 
     </FrameLayout>
 </FrameLayout>
