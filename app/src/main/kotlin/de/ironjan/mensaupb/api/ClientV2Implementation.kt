@@ -13,30 +13,23 @@ object ClientV2Implementation : ClientV3 {
 
     override fun getMenus(noCache: Boolean): Either<String, Array<Menu>> = getMenus()
 
-    const val REQUEST_TIMEOUT_30_SECONDS = 30000
-    val baseUrl = "https://mensaupb.herokuapp.com/api"
-    var LOGGER = LoggerFactory.getLogger(ClientV2Implementation::class.java)
+    private val LOGGER = LoggerFactory.getLogger(ClientV2Implementation::class.java)!!
 
     override fun getMenus(): Either<String, Array<Menu>> {
         return getMenus("", "")
     }
 
-    const val menusPath = "/menus"
-
     override fun getMenus(restaurant: String, date: String): Either<String, Array<Menu>> {
-        FuelManager.instance.basePath = baseUrl
+        FuelManager.instance.basePath = ClientV3.baseUrl
         val paramList = mutableListOf<Pair<String, String>>()
         if (restaurant.isNotBlank()) paramList.add(Pair("restaurant", restaurant))
         if (date.isNotBlank()) paramList.add(Pair("date", date))
 
-        val httpGet = menusPath.httpGet(parameters = paramList)
-
-        // TODO see ClientV3Implementation
-        val cacheableKey = httpGet.url.toString()
+        val httpGet = ClientV3.menusPath.httpGet(parameters = paramList)
 
 
         val (_, _, result) =
-                httpGet.timeout(REQUEST_TIMEOUT_30_SECONDS)
+                httpGet.timeout(ClientV3.REQUEST_TIMEOUT_30_SECONDS)
                        .responseObject(Menu.ArrayDeserializer())
         val (data, error) = result
 
@@ -49,11 +42,11 @@ object ClientV2Implementation : ClientV3 {
     }
 
     override fun getMenu(key: String): Either<String, Menu> {
-        FuelManager.instance.basePath = baseUrl
+        FuelManager.instance.basePath = ClientV3.baseUrl
 
         val (_, _, result) =
                 "/menus/$key".httpGet()
-                        .timeout(REQUEST_TIMEOUT_30_SECONDS)
+                        .timeout(ClientV3.REQUEST_TIMEOUT_30_SECONDS)
                         .responseObject(Menu.Deserializer())
         val (data, error) = result
 

@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 
 class FeatureTogglePrefs(context: Context) {
     private val prefsKeyFeatureToggles = "de.ironjan.mensaupb.feature_toggle.prefs"
-    private val toggleClientV3 = "FeatureToggle.ClientV3"
+    private val toggleClientV3 = "FeatureToggle.companion"
 
     val prefs: SharedPreferences = context.getSharedPreferences(prefsKeyFeatureToggles, Context.MODE_PRIVATE)
 

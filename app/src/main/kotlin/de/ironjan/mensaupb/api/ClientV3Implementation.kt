@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit.MILLISECONDS
 
 class ClientV3Implementation(val context: Context) : ClientV3 {
 
-    private val menusUri = ClientV2Implementation.baseUrl + ClientV2Implementation.menusPath
+    private val menusUri = ClientV3.baseUrl + ClientV3.menusPath
 
 
     override fun getMenus(): Either<String, Array<Menu>> = getMenus("", "", false)
@@ -45,7 +45,7 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
         val response =
                 request.asString(Charsets.UTF_8)
                         .withResponse()
-                        .get(ClientV2Implementation.REQUEST_TIMEOUT_30_SECONDS.toLong(), MILLISECONDS)
+                        .get(ClientV3.REQUEST_TIMEOUT_30_SECONDS.toLong(), MILLISECONDS)
 
 
         return ArrayDeserializer().deserialize(response.result) ?: arrayOf()
