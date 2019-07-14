@@ -7,14 +7,4 @@ interface ClientV2 {
     fun getMenus(): Either<String, Array<Menu>>
     fun getMenus(restaurant: String, date: String): Either<String, Array<Menu>>
     fun getMenu(key: String): Either<String, Menu>
-
-    companion object {
-
-        /**
-         * Gets a singleton instance of the client for usage.
-         */
-        fun getClient(): ClientV2 {
-            return ClientV2Implementation
-        }
-    }
 }
