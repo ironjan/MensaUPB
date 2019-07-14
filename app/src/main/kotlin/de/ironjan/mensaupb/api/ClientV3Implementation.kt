@@ -76,7 +76,9 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
     }
 
     override fun getMenu(key: String): Either<String, Menu> {
-        val allMenusRequest = prepareRequest(constructMenusUriWithParams("", ""), false)
+        val (date, restaurant) = splitMenuKey(key)
+
+        val allMenusRequest = prepareRequest(constructMenusUriWithParams(restaurant, date), false)
 
         return try {
             val resp = tryMenusRequestExecution(allMenusRequest)
@@ -85,6 +87,14 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
         } catch (e: java.lang.Exception){
             wrapException(e)
         }
+    }
+
+    private fun splitMenuKey(key: String): Pair<String, String> {
+        val splitKey = key.split("_")
+        val date = splitKey.first()
+        val toIndex = splitKey.lastIndex - 1
+        val restaurant = splitKey.subList(1, toIndex).joinToString(separator = "_")
+        return Pair(date, restaurant)
     }
 
 }
