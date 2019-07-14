@@ -16,12 +16,14 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
     private val menusUri = ClientV3.baseUrl + ClientV3.menusPath
 
 
-    override fun getMenus(): Either<String, Array<Menu>> = getMenus("", "", false)
+    override fun getMenus(): Either<String, Array<Menu>>
+            = getMenus(false)
 
-    override fun getMenus(noCache: Boolean): Either<String, Array<Menu>> = getMenus("", "", noCache)
+    override fun getMenus(noCache: Boolean): Either<String, Array<Menu>>
+            = getMenus("", "", noCache)
 
-    override fun getMenus(restaurant: String, date: String): Either<String, Array<Menu>> =
-            getMenus(restaurant, date, false)
+    override fun getMenus(restaurant: String, date: String): Either<String, Array<Menu>>
+            = getMenus(restaurant, date, false)
 
     override fun getMenus(restaurant: String, date: String, noCache: Boolean): Either<String, Array<Menu>> {
         val url = constructMenusUriWithParams(restaurant, date)
@@ -31,44 +33,6 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
         return try {
             Either.right(tryMenusRequestExecution(preparedRequest))
         } catch (e: Exception) {
-            wrapException(e)
-        }
-    }
-
-    private fun wrapException(e: Exception): Either<String, Nothing> {
-        val sw: Writer = StringWriter()
-        e.printStackTrace(PrintWriter(sw))
-        return Either.left(sw.toString())
-    }
-
-    private fun tryMenusRequestExecution(request: B): Array<Menu> {
-        val response =
-                request.asString(Charsets.UTF_8)
-                        .withResponse()
-                        .get(ClientV3.REQUEST_TIMEOUT_30_SECONDS.toLong(), MILLISECONDS)
-
-
-        return ArrayDeserializer().deserialize(response.result) ?: arrayOf()
-    }
-
-    private fun prepareRequest(url: String, forceReload: Boolean): B {
-        val requestBuilder = Ion.with(context).load(url)
-//                .setLogging("ClientV3Implementation", Log.DEBUG)
-        return if (forceReload) {
-            requestBuilder.noCache()
-        } else {
-            requestBuilder
-        }
-    }
-
-    override fun getMenu(key: String): Either<String, Menu> {
-        val allMenusRequest = prepareRequest(constructMenusUriWithParams("", ""), false)
-
-        return try {
-            val resp = tryMenusRequestExecution(allMenusRequest)
-            val right = resp.first { it.key == key }
-            return Either.right(right)
-        } catch (e: java.lang.Exception){
             wrapException(e)
         }
     }
@@ -83,6 +47,44 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
                 else paramList.joinToString(prefix = "?", separator = "&", transform = { "${it.first}=${it.second}" })
 
         return "$menusUri$paramsAsString"
+    }
+
+    private fun prepareRequest(url: String, forceReload: Boolean): B {
+        val requestBuilder = Ion.with(context).load(url)
+//                .setLogging("ClientV3Implementation", Log.DEBUG)
+        return if (forceReload) {
+            requestBuilder.noCache()
+        } else {
+            requestBuilder
+        }
+    }
+
+    private fun tryMenusRequestExecution(request: B): Array<Menu> {
+        val response =
+                request.asString(Charsets.UTF_8)
+                        .withResponse()
+                        .get(ClientV3.REQUEST_TIMEOUT_30_SECONDS.toLong(), MILLISECONDS)
+
+
+        return ArrayDeserializer().deserialize(response.result) ?: arrayOf()
+    }
+
+    private fun wrapException(e: Exception): Either<String, Nothing> {
+        val sw: Writer = StringWriter()
+        e.printStackTrace(PrintWriter(sw))
+        return Either.left(sw.toString())
+    }
+
+    override fun getMenu(key: String): Either<String, Menu> {
+        val allMenusRequest = prepareRequest(constructMenusUriWithParams("", ""), false)
+
+        return try {
+            val resp = tryMenusRequestExecution(allMenusRequest)
+            val right = resp.first { it.key == key }
+            return Either.right(right)
+        } catch (e: java.lang.Exception){
+            wrapException(e)
+        }
     }
 
 }
