@@ -1,5 +1,11 @@
 # Unreleased
 
+# 2.22.1
+
+Added: better menu loading (experimental, opt-in), loading errors are now shown in UI. Fixed: weekend is now correctly skipped.übersprungen. 
+
+Internal: Added nocache to refresh. Showing error in UI.
+
 # 2.22.0
 
 Added: better menu loading (experimental, opt-in). Fixed: weekend is now correctly skipped.

@@ -1,5 +1,11 @@
 # Unreleased
 
+# 2.22.1
+
+Added: Schnelleres Laden der Gerichte (experimentel, opt-in), Fehler beim Laden werden in der UI angezeigt. Fixed: Wochenende wird nun korrekt übersprungen. 
+
+Internal: Added nocache to refresh. Showing error in UI.
+
 # 2.22.0
 
 Neu: Schnelleres Laden der Gerichte (experimentel, opt-in). Fixed: Wochenende wird nun korrekt übersprungen.
