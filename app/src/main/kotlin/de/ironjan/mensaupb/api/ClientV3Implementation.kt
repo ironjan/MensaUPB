@@ -8,6 +8,7 @@ import de.ironjan.mensaupb.api.model.Menu
 import de.ironjan.mensaupb.api.model.Menu.ArrayDeserializer
 import java.io.PrintWriter
 import java.io.StringWriter
+import java.io.Writer
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
 class ClientV3Implementation(val context: Context) : ClientV3 {
@@ -35,10 +36,8 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
     }
 
     private fun wrapException(e: Exception): Either<String, Nothing> {
-        val sw = StringWriter()
-        val pw = PrintWriter(sw)
-        e.printStackTrace(pw)
-
+        val sw: Writer = StringWriter()
+        e.printStackTrace(PrintWriter(sw))
         return Either.left(sw.toString())
     }
 
