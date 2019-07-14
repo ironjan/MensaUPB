@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory
 
 
 object ClientV2Implementation : ClientV3 {
+    override fun getMenus(restaurant: String, date: String, noCache: Boolean): Either<String, Array<Menu>> =
+            getMenus(restaurant, date)
+
     override fun getMenus(noCache: Boolean): Either<String, Array<Menu>> = getMenus()
 
     const val REQUEST_TIMEOUT_30_SECONDS = 30000

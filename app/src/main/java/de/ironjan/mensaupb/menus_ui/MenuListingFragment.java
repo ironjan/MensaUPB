@@ -97,19 +97,19 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @AfterViews
     void afterViews() {
         bindListAdapter();
-        loadContent();
+        loadContent(false);
     }
 
 
     @Background
-    void loadContent() {
+    void loadContent(boolean noCache) {
         Context nonNullContext = getContext();
         if(nonNullContext==null){
             return;
         }
 
 
-        final Either<String, Menu[]> either = ClientImplementationFactory.INSTANCE.getClient(nonNullContext).getMenus(getArgLocation(), getArgDate());
+        final Either<String, Menu[]> either = ClientImplementationFactory.INSTANCE.getClient(nonNullContext).getMenus(getArgLocation(), getArgDate(), noCache);
 
         if (either.isLeft()) {
             either.mapLeft(s -> {
@@ -177,7 +177,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @Override
     public void onRefresh() {
-        afterViews();
+        loadContent(true);
     }
 
 

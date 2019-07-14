@@ -23,7 +23,7 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
     override fun getMenus(restaurant: String, date: String): Either<String, Array<Menu>> =
             getMenus(restaurant, date, false)
 
-    private fun getMenus(restaurant: String, date: String, noCache: Boolean): Either<String, Array<Menu>> {
+    override fun getMenus(restaurant: String, date: String, noCache: Boolean): Either<String, Array<Menu>> {
         val url = constructMenusUriWithParams(restaurant, date)
 
         val preparedRequest = prepareRequest(url, noCache)
