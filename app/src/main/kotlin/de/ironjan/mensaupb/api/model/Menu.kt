@@ -38,6 +38,10 @@ data class Menu(val date: String,
     fun localizedSubCategory(isEnglish: Boolean) = if(isEnglish) subcategory_en else subcategory_de
 
     class Deserializer : ResponseDeserializable<Menu> {
+        val customDateFormatGson = GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm")
+                .create()
+
         override fun deserialize(reader: Reader): Menu {
             return customDateFormatGson
                     .fromJson(reader, Menu::class.java)!!
@@ -49,6 +53,10 @@ data class Menu(val date: String,
     }
 
     class ArrayDeserializer : ResponseDeserializable<Array<Menu>> {
+        val customDateFormatGson = GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm")
+                .create()
+
         override fun deserialize(reader: Reader): Array<Menu>? {
             val type = object : TypeToken<Array<Menu>>() {}.type
             return customDateFormatGson.fromJson(reader, type)
@@ -57,12 +65,5 @@ data class Menu(val date: String,
             val type = object : TypeToken<Array<Menu>>() {}.type
             return customDateFormatGson.fromJson(content, type)
         }
-    }
-
-
-    companion object {
-        val customDateFormatGson = GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm")
-                .create()
     }
 }
