@@ -11,21 +11,17 @@ import java.io.StringWriter
 import java.io.Writer
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
-class ClientV3Implementation(val context: Context) : ClientV3 {
+class ClientV3Implementation(val context: Context)  {
 
-    private val menusUri = ClientV3.baseUrl + ClientV3.menusPath
+    private val menusUri = baseUrl + menusPath
 
 
-    override fun getMenus(): Either<String, Array<Menu>>
-            = getMenus(false)
 
-    override fun getMenus(noCache: Boolean): Either<String, Array<Menu>>
+    fun getMenus(noCache: Boolean): Either<String, Array<Menu>>
             = getMenus("", "", noCache)
 
-    override fun getMenus(restaurant: String, date: String): Either<String, Array<Menu>>
-            = getMenus(restaurant, date, false)
 
-    override fun getMenus(restaurant: String, date: String, noCache: Boolean): Either<String, Array<Menu>> {
+    fun getMenus(restaurant: String, date: String, noCache: Boolean): Either<String, Array<Menu>> {
         val url = constructMenusUriWithParams(restaurant, date)
 
         val preparedRequest = prepareRequest(url, noCache)
@@ -63,7 +59,7 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
         val response =
                 request.asString(Charsets.UTF_8)
                         .withResponse()
-                        .get(ClientV3.REQUEST_TIMEOUT_30_SECONDS.toLong(), MILLISECONDS)
+                        .get(REQUEST_TIMEOUT_30_SECONDS.toLong(), MILLISECONDS)
 
 
         return ArrayDeserializer().deserialize(response.result) ?: arrayOf()
@@ -88,27 +84,10 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
         }
     }
 
-
-    override fun getMenu(key: String): Either<String, Menu> {
-        val (date, restaurant) = splitMenuKey(key)
-
-        val allMenusRequest = prepareRequest(constructMenusUriWithParams(restaurant, date), false)
-
-        return try {
-            val resp = tryMenusRequestExecution(allMenusRequest)
-            val right = resp.first { it.key == key }
-            return Either.right(right)
-        } catch (e: java.lang.Exception){
-            wrapException(e)
-        }
-    }
-
-    private fun splitMenuKey(key: String): Pair<String, String> {
-        val splitKey = key.split("_")
-        val date = splitKey.first()
-        val toIndex = splitKey.lastIndex - 1
-        val restaurant = splitKey.subList(1, toIndex).joinToString(separator = "_")
-        return Pair(date, restaurant)
+    companion object {
+        const val REQUEST_TIMEOUT_30_SECONDS = 30000
+        const val baseUrl = "https://mensaupb.herokuapp.com/api"
+        const val menusPath = "/menus"
     }
 
 }

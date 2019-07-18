@@ -17,9 +17,6 @@ import org.androidannotations.annotations.OptionsItem
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_menu_details)
 open class MenuDetails : AppCompatActivity() {
-    @Extra(value = MenuDetailFragment.ARG_KEY)
-    internal lateinit var menuKey: String
-
     @Extra(value = MenuDetailFragment.ARG_RESTAURANT)
     internal lateinit var restaurant: String
     @Extra(value = MenuDetailFragment.ARG_DATE)

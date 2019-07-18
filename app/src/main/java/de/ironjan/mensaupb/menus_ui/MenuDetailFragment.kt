@@ -66,8 +66,6 @@ open class MenuDetailFragment : Fragment() {
         if (BuildConfig.DEBUG)
             LOGGER.debug("bindData()")
 
-        val key = arguments!!.getString(ARG_KEY)
-
         loadMenu(arguments!!)
 
         if (BuildConfig.DEBUG)
@@ -100,25 +98,6 @@ open class MenuDetailFragment : Fragment() {
         }
     }
 
-
-    @Background
-    internal open fun loadMenu(key: String?) {
-        val nonNullContext = context ?: return
-
-        val either = ClientV3Implementation(nonNullContext).getMenu(key!!)
-
-        if (either.isLeft()) {
-            either.mapLeft { s ->
-                showError(s)
-                s
-            }
-        } else {
-            either.map { menu ->
-                showMenu(menu)
-                menu
-            }
-        }
-    }
 
     @UiThread
     internal open fun showError(s: String) {
@@ -335,23 +314,6 @@ open class MenuDetailFragment : Fragment() {
             return menuDetailFragment_
         }
 
-        fun newInstance(key: String): MenuDetailFragment {
-            if (BuildConfig.DEBUG)
-                LOGGER.debug("newInstance({})", key)
-
-            val args = Bundle()
-            args.putString(ARG_KEY, key)
-
-            val menuDetailFragment = MenuDetailFragment_()
-            menuDetailFragment.arguments = args
-
-            if (BuildConfig.DEBUG)
-                LOGGER.debug("Created new MenuDetailFragment({})", key)
-
-            if (BuildConfig.DEBUG)
-                LOGGER.debug("newInstance({}) done", key)
-            return menuDetailFragment
-        }
     }
 
 }

@@ -26,15 +26,10 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import arrow.core.Either;
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.api.ClientV3Implementation;
 import de.ironjan.mensaupb.api.model.Menu;
 import de.ironjan.mensaupb.api.model.Restaurant;
 import de.ironjan.mensaupb.app_info.About_;
@@ -169,13 +164,6 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
         restaurant = mRestaurantKeys[i];
 
         return true;
-    }
-
-    @Override
-    public void showMenu(String key) {
-        MenuDetails_.intent(this)
-                .menuKey(key)
-                .start();
     }
 
     @Override
