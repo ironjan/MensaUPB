@@ -1,8 +1,9 @@
 package de.ironjan.mensaupb.app_info
 
 import android.support.v4.app.Fragment
+import android.support.v4.text.HtmlCompat
+import android.support.v4.text.HtmlCompat.FROM_HTML_MODE_COMPACT
 import android.support.v7.app.AppCompatActivity
-import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import de.ironjan.mensaupb.BuildConfig
@@ -37,10 +38,10 @@ open class AboutFragment : Fragment() {
         val nonNullActivity = activity ?: return
 
         val movementMethod = LinkMovementMethod.getInstance()
-        mTxtAbout.text = Html.fromHtml(nonNullActivity.getString(R.string.aboutText))
-        mTxtDependencyNames.text = Html.fromHtml(nonNullActivity.getString(R.string.dependencyNames))
-        mTxtDependencies.text = Html.fromHtml(nonNullActivity.getString(R.string.dependencies))
-        mTextSourceLink.text = Html.fromHtml(nonNullActivity.getString(R.string.source))
+        mTxtAbout.text = HtmlCompat.fromHtml(nonNullActivity.getString(R.string.aboutText), FROM_HTML_MODE_COMPACT)
+        mTxtDependencyNames.text = HtmlCompat.fromHtml(nonNullActivity.getString(R.string.dependencyNames), FROM_HTML_MODE_COMPACT)
+        mTxtDependencies.text = HtmlCompat.fromHtml(nonNullActivity.getString(R.string.dependencies), FROM_HTML_MODE_COMPACT)
+        mTextSourceLink.text = HtmlCompat.fromHtml(nonNullActivity.getString(R.string.source), FROM_HTML_MODE_COMPACT)
 
         mTxtAbout.movementMethod = movementMethod
         mTxtDependencyNames.movementMethod = movementMethod
