@@ -25,7 +25,7 @@ import java.util.Locale;
 import arrow.core.Either;
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.api.ClientImplementationFactory;
+import de.ironjan.mensaupb.api.ClientV3Implementation;
 import de.ironjan.mensaupb.api.model.Menu;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -110,7 +110,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
         }
 
 
-        final Either<String, Menu[]> either = ClientImplementationFactory.INSTANCE.getClient(nonNullContext).getMenus(getArgLocation(), getArgDate(), noCache);
+        final Either<String, Menu[]> either = new ClientV3Implementation(nonNullContext).getMenus(getArgLocation(), getArgDate(), noCache);
 
         if (either.isLeft()) {
             either.mapLeft(s -> {
