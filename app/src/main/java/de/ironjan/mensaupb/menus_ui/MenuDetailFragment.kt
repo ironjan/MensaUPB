@@ -270,8 +270,8 @@ open class MenuDetailFragment : Fragment() {
             val args = Bundle()
             args.putParcelable(PARCEL_MENU,menu)
 
-            val menuDetailFragment_ = MenuDetailFragment_()
-            menuDetailFragment_.arguments = args
+            val menuDetailFragment = MenuDetailFragment_()
+            menuDetailFragment.arguments = args
 
 
             if (BuildConfig.DEBUG)
@@ -280,7 +280,7 @@ open class MenuDetailFragment : Fragment() {
             if (BuildConfig.DEBUG)
                 LOGGER.debug("newInstance({}) done", menu)
 
-            return menuDetailFragment_
+            return menuDetailFragment
         }
 
     }
