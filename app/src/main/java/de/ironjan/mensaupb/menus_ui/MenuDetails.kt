@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
 import de.ironjan.mensaupb.R
+import de.ironjan.mensaupb.api.model.Menu
 import de.ironjan.mensaupb.menus_ui.MenuDetailFragment.Companion
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
@@ -17,19 +18,15 @@ import org.androidannotations.annotations.OptionsItem
 @SuppressLint("Registered")
 @EActivity(R.layout.activity_menu_details)
 open class MenuDetails : AppCompatActivity() {
-    @Extra(value = MenuDetailFragment.ARG_RESTAURANT)
-    internal lateinit var restaurant: String
-    @Extra(value = MenuDetailFragment.ARG_DATE)
-    internal lateinit var date: String
-    @Extra(value = MenuDetailFragment.ARG_NAME_EN)
-    internal lateinit var nameEn: String
+    @Extra(value = MenuDetailFragment.PARCEL_MENU)
+    internal lateinit var menu: Menu
 
     private var mFragment: MenuDetailFragment? = null
 
     @AfterViews
     internal fun bindFragment() {
         val ft = supportFragmentManager.beginTransaction()
-        mFragment = Companion.newInstance(restaurant, date, nameEn)
+        mFragment = Companion.newInstance(menu)
         ft.replace(R.id.fragmentMenuDetails, mFragment!!, "mFragment")
         ft.commit()
     }

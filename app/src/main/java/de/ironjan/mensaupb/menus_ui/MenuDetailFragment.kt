@@ -15,7 +15,6 @@ import android.widget.Toast
 import com.koushikdutta.ion.Ion
 import de.ironjan.mensaupb.BuildConfig
 import de.ironjan.mensaupb.R
-import de.ironjan.mensaupb.api.ClientV3
 import de.ironjan.mensaupb.api.model.Allergen
 import de.ironjan.mensaupb.api.model.Badge
 import de.ironjan.mensaupb.api.model.Menu
@@ -66,36 +65,11 @@ open class MenuDetailFragment : Fragment() {
         if (BuildConfig.DEBUG)
             LOGGER.debug("bindData()")
 
-        loadMenu(arguments!!)
+        val menu: Menu = arguments!!.getParcelable(PARCEL_MENU)!!
+        showMenu(menu)
 
         if (BuildConfig.DEBUG)
             LOGGER.debug("bindData() done")
-    }
-
-    private fun loadMenu(arguments: Bundle) {
-        loadMenu(arguments.getString(ARG_RESTAURANT)!!,
-                arguments.getString(ARG_DATE)!!,
-                arguments.getString(ARG_NAME_EN)!!)
-    }
-
-    private fun loadMenu(restaurant: String, date: String, nameEn: String) {
-        val nonNullContext = context ?: return
-
-        val either =
-                ClientV3(nonNullContext)
-                        .getMenu(restaurant, date, nameEn)
-
-        if (either.isLeft()) {
-            either.mapLeft { s ->
-                showError(s)
-                s
-            }
-        } else {
-            either.map { menu ->
-                showMenu(menu)
-                menu
-            }
-        }
     }
 
 
@@ -284,32 +258,27 @@ open class MenuDetailFragment : Fragment() {
 
     companion object {
 
-        const val ARG_KEY = "ARG_KEY"
-        const val ARG_RESTAURANT = "ARG_RESTAURANT"
-        const val ARG_DATE = "ARG_DATE"
-        const val ARG_NAME_EN = "ARG_NAME_EN"
+        const val PARCEL_MENU = "PARCEL_MENU"
 
         const val URI_NO_IMAGE_FILE = "file:///android_asset/menu_has_no_image.png"
         private val LOGGER = LoggerFactory.getLogger(MenuDetailFragment::class.java.simpleName)
 
-        fun newInstance(restaurant: String, date: String, nameEn:String): MenuDetailFragment_ {
+        fun newInstance(menu: Menu): MenuDetailFragment_ {
             if (BuildConfig.DEBUG)
-                LOGGER.debug("newInstance({},{},{})", restaurant, date, nameEn)
+                LOGGER.debug("newInstance({})", menu)
 
             val args = Bundle()
-            args.putString(ARG_RESTAURANT,restaurant)
-            args.putString(ARG_DATE,date)
-            args.putString(ARG_NAME_EN,nameEn)
+            args.putParcelable(PARCEL_MENU,menu)
 
             val menuDetailFragment_ = MenuDetailFragment_()
             menuDetailFragment_.arguments = args
 
 
             if (BuildConfig.DEBUG)
-                LOGGER.debug("Created new MenuDetailFragment ({},{},{})", restaurant, date, nameEn)
+                LOGGER.debug("Created new MenuDetailFragment ({})", menu)
 
             if (BuildConfig.DEBUG)
-                LOGGER.debug("newInstance({},{},{}) done", restaurant, date, nameEn)
+                LOGGER.debug("newInstance({}) done", menu)
 
             return menuDetailFragment_
         }
