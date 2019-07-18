@@ -3,7 +3,7 @@
     <string name="about">About the app</string>
     <string name="about_open_source">Open Source</string>
     <string name="change_location">Change location</string>
-    <string name="devHeader">Developers</string>
+    <string name="devHeader">Contributors</string>
     <string name="refresh">Refresh</string>
     <string name="source">&lt;a href="http://www.studentenwerk-pb.de/gastronomie/speiseplaene/>Source of menu data: Studentenwerk Paderborn&lt;/a></string>
     <string name="settings">Preferences</string>

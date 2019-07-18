@@ -37,7 +37,7 @@ MensaUPB ist Open Source. Den Quellcode findest du auf <a href=“http://github.
     <string name="menusLoading2">Die Pläne werden jedoch auf dem Gerät gespeichert - beim nächsten Mal sind sie sofort verfügbar ;)</string>
     <string name="about_open_source">Open Source</string>
 
-    <string name="devHeader">Entwickler</string>
+    <string name="devHeader">Mitwirkende</string>
     <string name="devNames" translatable="false" translateable="false">Jan Lippert\nDavid Maicher\nTony Lemke\nChristian Brüggemann\nMichael Whittaker</string>
 
     <string name="localizedDatePattern">EE, dd.MM.yyyy</string>

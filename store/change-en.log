@@ -1,5 +1,12 @@
 # Unreleased
 
+# 2.23.1
+
+ * Fixed: Weekend is now correctly skipped.
+ * Fixed: error when viewing menu details.
+ * Fixed: one of the contributors was missing in about view.
+ * Added: Faster loading. 
+
 # 2.23.0
 
  * Fixed: Weekend is now correctly skipped.

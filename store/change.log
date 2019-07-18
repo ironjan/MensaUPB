@@ -1,5 +1,12 @@
 # Unreleased
 
+# 2.23.1
+
+ * Fixed: Wochenende wird nun korrekt übersprungen. 
+ * Fixed: Fehler beim Betrachten einzelner Gerichte behoben. 
+ * Fixed: Einer der Mitwirkenden hat in "Über die App" gefehlt
+ * Added: Schnelleres Laden der Gerichte.
+
 # 2.23.0
 
  * Fixed: Wochenende wird nun korrekt übersprungen. 
