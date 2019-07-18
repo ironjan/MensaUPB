@@ -2,13 +2,13 @@ package de.ironjan.mensaupb.app_info
 
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
 import de.ironjan.mensaupb.BuildConfig
 import de.ironjan.mensaupb.R
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EFragment
-import org.androidannotations.annotations.FromHtml
 import org.androidannotations.annotations.ViewById
 import org.slf4j.LoggerFactory
 
@@ -19,28 +19,34 @@ import org.slf4j.LoggerFactory
 open class AboutFragment : Fragment() {
 
     private val LOGGER = LoggerFactory.getLogger(javaClass.simpleName)
+
     @ViewById(R.id.txtDependencies)
-    @FromHtml(R.string.dependencies)
     internal lateinit var mTxtDependencies: TextView
+
     @ViewById(R.id.txtAbout)
-    @FromHtml(R.string.aboutText)
     internal lateinit var mTxtAbout: TextView
 
     @ViewById(R.id.txtDependencyNames)
-    @FromHtml(R.string.dependencyNames)
     internal lateinit var mTxtDependencyNames: TextView
 
     @ViewById(R.id.textSource)
-    @FromHtml(R.string.source)
     internal lateinit var mTextSourceLink: TextView
 
     @AfterViews
     internal fun linkify() {
+        val nonNullActivity = activity ?: return
+
         val movementMethod = LinkMovementMethod.getInstance()
-        mTxtDependencies.movementMethod = movementMethod
+        mTxtAbout.text = Html.fromHtml(nonNullActivity.getString(R.string.aboutText))
+        mTxtDependencyNames.text = Html.fromHtml(nonNullActivity.getString(R.string.dependencyNames))
+        mTxtDependencies.text = Html.fromHtml(nonNullActivity.getString(R.string.dependencies))
+        mTextSourceLink.text = Html.fromHtml(nonNullActivity.getString(R.string.source))
+
         mTxtAbout.movementMethod = movementMethod
         mTxtDependencyNames.movementMethod = movementMethod
+        mTxtDependencies.movementMethod = movementMethod
         mTextSourceLink.movementMethod = movementMethod
+
         if (BuildConfig.DEBUG) LOGGER.debug("linkify() done")
     }
 
