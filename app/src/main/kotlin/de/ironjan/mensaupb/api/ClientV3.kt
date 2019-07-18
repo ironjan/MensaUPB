@@ -11,7 +11,7 @@ import java.io.StringWriter
 import java.io.Writer
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
-class ClientV3Implementation(val context: Context)  {
+class ClientV3(val context: Context)  {
 
     private val menusUri = baseUrl + menusPath
 
@@ -47,7 +47,7 @@ class ClientV3Implementation(val context: Context)  {
 
     private fun prepareRequest(url: String, forceReload: Boolean): B {
         val requestBuilder = Ion.with(context).load(url)
-//                .setLogging("ClientV3Implementation", Log.DEBUG)
+//                .setLogging("ClientV3", Log.DEBUG)
         return if (forceReload) {
             requestBuilder.noCache()
         } else {

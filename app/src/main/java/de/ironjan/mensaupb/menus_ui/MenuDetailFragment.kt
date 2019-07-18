@@ -15,7 +15,7 @@ import android.widget.Toast
 import com.koushikdutta.ion.Ion
 import de.ironjan.mensaupb.BuildConfig
 import de.ironjan.mensaupb.R
-import de.ironjan.mensaupb.api.ClientV3Implementation
+import de.ironjan.mensaupb.api.ClientV3
 import de.ironjan.mensaupb.api.model.Allergen
 import de.ironjan.mensaupb.api.model.Badge
 import de.ironjan.mensaupb.api.model.Menu
@@ -82,7 +82,7 @@ open class MenuDetailFragment : Fragment() {
         val nonNullContext = context ?: return
 
         val either =
-                ClientV3Implementation(nonNullContext)
+                ClientV3(nonNullContext)
                         .getMenu(restaurant, date, nameEn)
 
         if (either.isLeft()) {
