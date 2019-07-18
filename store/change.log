@@ -1,5 +1,11 @@
 # Unreleased
 
+# 2.23.0
+
+ * Fixed: Wochenende wird nun korrekt übersprungen. 
+ * Fixed: Fehler beim Betrachten einzelner Gerichte behoben. 
+ * Added: Schnelleres Laden der Gerichte.
+
 # 2.22.1
 
 Added: Schnelleres Laden der Gerichte (experimentel, opt-in), Fehler beim Laden werden in der UI angezeigt. Fixed: Wochenende wird nun korrekt übersprungen. 

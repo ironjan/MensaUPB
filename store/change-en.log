@@ -1,5 +1,11 @@
 # Unreleased
 
+# 2.23.0
+
+ * Fixed: Weekend is now correctly skipped.
+ * Fixed: error when viewing menu details.
+ * Added: Faster loading. 
+
 # 2.22.1
 
 Added: better menu loading (experimental, opt-in), loading errors are now shown in UI. Fixed: weekend is now correctly skipped.übersprungen. 
