@@ -83,52 +83,6 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
     }
 
 
-    void loadTest() {
-        final long t1 = System.currentTimeMillis();
-        final ClientV3Implementation client = new ClientV3Implementation(this);
-        Either<String, Menu[]> either = client.getMenus();
-
-        final long t2 = System.currentTimeMillis();
-
-        AtomicInteger requests = new AtomicInteger();
-        AtomicInteger discards = new AtomicInteger();
-
-        HashMap<String, Menu> menusByKey = new HashMap<>();
-        LinkedList<String> errors = new LinkedList<>();
-        if(either.isRight()){
-            either.map(menus -> {
-                LOGGER.warn(menus.length + " menus loaded via ion.");
-                for (Menu menu : menus) {
-                    final String key = menu.getKey();
-                    final Either<String, Menu> loadedMenuEither = client.getMenu(key);
-                    if(loadedMenuEither.isRight()) {
-                        loadedMenuEither.map(m -> {menusByKey.put(key,m); return m;});
-                    }else{
-                        loadedMenuEither.mapLeft(s -> {errors.add(s); return s;});
-                    }
-                    requests.getAndIncrement();
-                    LOGGER.debug("Did "+requests+"/"+menus.length+ " requests.");
-                }
-                return menus;
-            });
-        }else{
-            either.mapLeft(s -> {
-                LOGGER.warn(s);
-                return s;
-            });
-        }
-
-        final long t3 = System.currentTimeMillis();
-
-        long originalRequestTime = t2-t1;
-        long singleMenusRequestsTime = t3-t2;
-
-        int errorCount = errors.size();
-        int successCount = menusByKey.size();
-
-        LOGGER.warn("Timing. orignal request = " + originalRequestTime + "ms. single menus = "+singleMenusRequestsTime+"ms. " + requests+ " requests and " + discards + " discards. Successes: "+ successCount+", Errors: "+errorCount);
-    }
-
     @Trace
     @UiThread
     void initActionBar() {
