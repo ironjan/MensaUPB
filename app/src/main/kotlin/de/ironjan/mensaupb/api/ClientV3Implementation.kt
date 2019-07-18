@@ -75,6 +75,20 @@ class ClientV3Implementation(val context: Context) : ClientV3 {
         return Either.left(sw.toString())
     }
 
+
+    fun getMenu(restaurant: String, date: String, nameEn:String): Either<String, Menu> {
+        val allMenusRequest = prepareRequest(constructMenusUriWithParams(restaurant, date), false)
+
+        return try {
+            val resp = tryMenusRequestExecution(allMenusRequest)
+            val right = resp.first { it.name_en == nameEn }
+            return Either.right(right)
+        } catch (e: java.lang.Exception){
+            wrapException(e)
+        }
+    }
+
+
     override fun getMenu(key: String): Either<String, Menu> {
         val (date, restaurant) = splitMenuKey(key)
 

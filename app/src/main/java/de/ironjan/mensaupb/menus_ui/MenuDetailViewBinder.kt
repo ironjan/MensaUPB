@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import de.ironjan.mensaupb.R
 import de.ironjan.mensaupb.api.model.Badge
-import de.ironjan.mensaupb.api.model.LocalizedMenu
+import de.ironjan.mensaupb.api.model.Menu
 import java.util.ArrayList
 import java.util.Locale
 
@@ -13,7 +13,7 @@ import java.util.Locale
  */
 object MenuDetailViewBinder {
 
-    fun setViewValue(view: View?, menu: LocalizedMenu?): Boolean {
+    fun setViewValue(view: View?, menu: Menu?): Boolean {
         if (view == null || menu == null) {
             return false
         }
@@ -22,16 +22,17 @@ object MenuDetailViewBinder {
             return false
         }
 
+        val isEnglish = Locale.getDefault().language.startsWith(Locale.ENGLISH.toString())
 
         val id = view.id
         val tv: TextView = view
         when (id) {
             R.id.textName -> {
-                tv.text = menu.name
+                tv.text = menu.localizedName(isEnglish)
                 return true
             }
             R.id.textCategory -> {
-                tv.text = menu.getCategory()
+                tv.text = menu.localizedCategory(isEnglish)
                 return true
             }
             R.id.textPrice -> {
@@ -53,12 +54,12 @@ object MenuDetailViewBinder {
         }
     }
 
-    private fun bindPrice(tv: TextView, menu: LocalizedMenu) {
+    private fun bindPrice(tv: TextView, menu: Menu) {
         tv.text = String.format(Locale.GERMAN, "%.2f €", menu.price)
     }
 
 
-    private fun bindPricePer100g(view: TextView, menu: LocalizedMenu) {
+    private fun bindPricePer100g(view: TextView, menu: Menu) {
         view.text =
                 if (menu.isWeighted) {
                     "/100g"
@@ -67,7 +68,7 @@ object MenuDetailViewBinder {
                 }
     }
 
-    private fun bindBadges(textView: TextView, menu: LocalizedMenu) {
+    private fun bindBadges(textView: TextView, menu: Menu) {
         val badgesArray = menu.badges
         val badges = ArrayList<Badge>(badgesArray.size)
         for (s in badgesArray) {

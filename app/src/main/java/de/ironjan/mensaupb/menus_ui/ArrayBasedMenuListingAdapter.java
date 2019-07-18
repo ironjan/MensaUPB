@@ -10,21 +10,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import java.util.List;
+import java.util.Locale;
 
 import de.ironjan.mensaupb.R;
-import de.ironjan.mensaupb.api.model.LocalizedMenu;
+import de.ironjan.mensaupb.api.model.Menu;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
  * An adapter to load the list of menus for a MenuListingFragment.
  */
 public class ArrayBasedMenuListingAdapter
-        extends ArrayAdapter<LocalizedMenu>
+        extends ArrayAdapter<Menu>
         implements StickyListHeadersAdapter {
     @NonNull
     private final Context context;
 
-    public ArrayBasedMenuListingAdapter(@NonNull Context context, @NonNull List<LocalizedMenu> menus) {
+    public ArrayBasedMenuListingAdapter(@NonNull Context context, @NonNull List<Menu> menus) {
         super(context, R.layout.view_menu_list_item, menus);
         this.context = context;
     }
@@ -51,7 +52,7 @@ public class ArrayBasedMenuListingAdapter
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.view_menu_list_item, parent, false);
         }
 
-        LocalizedMenu menu = getItem(position);
+        Menu menu = getItem(position);
         MenuDetailViewBinder.INSTANCE.setViewValue(convertView.findViewById(R.id.textName), menu);
         MenuDetailViewBinder.INSTANCE.setViewValue(convertView.findViewById(R.id.textPrice), menu);
         MenuDetailViewBinder.INSTANCE.setViewValue(convertView.findViewById(R.id.textPricePer100g), menu);
@@ -68,9 +69,10 @@ public class ArrayBasedMenuListingAdapter
     }
 
     private String getLocalizedCategoryOfPosition(int pos) {
-        final LocalizedMenu item = getItem(pos);
+        final Menu item = getItem(pos);
         if (item != null) {
-            String category = item.getCategory();
+            boolean isEnglish = Locale.getDefault().getLanguage().startsWith(Locale.ENGLISH.toString());
+            String category = item.localizedCategory(isEnglish);
             if (category != null) {
                 return category;
             }

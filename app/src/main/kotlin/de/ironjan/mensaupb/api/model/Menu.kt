@@ -25,6 +25,18 @@ data class Menu(val date: String,
                 val pricetype: String,
                 val image: String,
                 val key: String) {
+
+    val isWeighted: Boolean
+            get() = "weighted" == pricetype
+
+    val price: Double
+            get() = priceStudents
+
+    fun localizedName(isEnglish: Boolean) = if(isEnglish) name_en else name_de
+    fun localizedDescription(isEnglish: Boolean) = if(isEnglish) description_en else description_de
+    fun localizedCategory(isEnglish: Boolean) = if(isEnglish) category_en else category_de
+    fun localizedSubCategory(isEnglish: Boolean) = if(isEnglish) subcategory_en else subcategory_de
+
     class Deserializer : ResponseDeserializable<Menu> {
         override fun deserialize(reader: Reader): Menu {
             return customDateFormatGson

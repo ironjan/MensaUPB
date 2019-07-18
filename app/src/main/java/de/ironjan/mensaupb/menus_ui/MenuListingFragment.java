@@ -20,14 +20,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import arrow.core.Either;
 import de.ironjan.mensaupb.BuildConfig;
 import de.ironjan.mensaupb.R;
 import de.ironjan.mensaupb.api.ClientImplementationFactory;
-import de.ironjan.mensaupb.api.model.LocalizedMenu;
 import de.ironjan.mensaupb.api.model.Menu;
 import de.ironjan.mensaupb.prefs.InternalKeyValueStore_;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -146,12 +144,8 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
 
     @UiThread
     void showMenusV2(Menu[] menus) {
-        List<LocalizedMenu> localizedMenus = new ArrayList<>(menus.length);
-        for (Menu m : menus) {
-            localizedMenus.add(new LocalizedMenu(m, isEnglish()));
-        }
         adapter.clear();
-        adapter.addAll(localizedMenus);
+        adapter.addAll(menus);
     }
 
     @UiThread
@@ -177,7 +171,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     void listItemClicked(int pos) {
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({})", pos);
 
-        navigationCallback.showMenu(adapter.getKey(pos));
+        navigationCallback.showMenu(adapter.getItem(pos));
 
         if (BuildConfig.DEBUG) LOGGER.debug("listItemClicked({}) done", pos);
     }

@@ -18,7 +18,6 @@ import de.ironjan.mensaupb.R
 import de.ironjan.mensaupb.api.ClientImplementationFactory
 import de.ironjan.mensaupb.api.model.Allergen
 import de.ironjan.mensaupb.api.model.Badge
-import de.ironjan.mensaupb.api.model.LocalizedMenu
 import de.ironjan.mensaupb.api.model.Menu
 import de.ironjan.mensaupb.api.model.Restaurant
 import org.androidannotations.annotations.AfterViews
@@ -28,7 +27,6 @@ import org.androidannotations.annotations.UiThread
 import org.androidannotations.annotations.ViewById
 import org.androidannotations.annotations.res.StringRes
 import org.slf4j.LoggerFactory
-import java.text.SimpleDateFormat
 import java.util.ArrayList
 import java.util.Locale
 import java.util.concurrent.ExecutionException
@@ -70,11 +68,38 @@ open class MenuDetailFragment : Fragment() {
 
         val key = arguments!!.getString(ARG_KEY)
 
-        loadMenu(key)
+        loadMenu(arguments!!)
 
         if (BuildConfig.DEBUG)
             LOGGER.debug("bindData() done")
     }
+
+    private fun loadMenu(arguments: Bundle) {
+        loadMenu(arguments.getString(ARG_RESTAURANT)!!,
+                arguments.getString(ARG_DATE)!!,
+                arguments.getString(ARG_NAME_EN)!!)
+    }
+
+    private fun loadMenu(restaurant: String, date: String, nameEn: String) {
+        val nonNullContext = context ?: return
+
+        val either =
+                ClientImplementationFactory.getClient(nonNullContext)
+                        .getMenu(restaurant, date, nameEn)
+
+        if (either.isLeft()) {
+            either.mapLeft { s ->
+                showError(s)
+                s
+            }
+        } else {
+            either.map { menu ->
+                showMenu(menu)
+                menu
+            }
+        }
+    }
+
 
     @Background
     internal open fun loadMenu(key: String?) {
@@ -107,12 +132,11 @@ open class MenuDetailFragment : Fragment() {
     @UiThread
     internal open fun bindMenuDataToViews(menu: Menu) {
         val isEnglish = Locale.getDefault().language.startsWith(Locale.ENGLISH.toString())
-        val localizedMenu = LocalizedMenu(menu, isEnglish)
 
-        textName.text = localizedMenu.name
-        textCategory.text = localizedMenu.getCategory()
+        textName.text = menu.localizedName(isEnglish)
+        textCategory.text = menu.localizedCategory(isEnglish)
 
-        bindDescription(localizedMenu.description)
+        bindDescription(menu.localizedDescription(isEnglish))
 
         val activity = activity as AppCompatActivity?
         if (activity != null) {
@@ -120,12 +144,12 @@ open class MenuDetailFragment : Fragment() {
             if (supportActionBar != null) supportActionBar.title = ""
         }
 
-        bindRestaurant(localizedMenu)
-        bindDate(localizedMenu)
-        bindPrice(localizedMenu)
-        bindAllergens(localizedMenu)
-        bindBadges(localizedMenu)
-        loadImage(localizedMenu, false)
+        bindRestaurant(menu)
+        bindDate(menu)
+        bindPrice(menu)
+        bindAllergens(menu)
+        bindBadges(menu)
+        loadImage(menu, false)
     }
 
     private fun bindDescription(description: String?) {
@@ -136,7 +160,7 @@ open class MenuDetailFragment : Fragment() {
         }
     }
 
-    private fun bindBadges(stwMenu: LocalizedMenu) {
+    private fun bindBadges(stwMenu: Menu) {
         val badges = ArrayList<Badge>()
 
         val badgesAsString = stwMenu.badges
@@ -158,21 +182,17 @@ open class MenuDetailFragment : Fragment() {
         textBadges.text = stringBuilder.toString()
     }
 
-    private fun bindRestaurant(stwMenu: LocalizedMenu) {
+    private fun bindRestaurant(stwMenu: Menu) {
         val restaurantId = stwMenu.restaurant
         val restaurantNameId = Restaurant.fromKey(restaurantId).restaurantName
         textRestaurant.setText(restaurantNameId)
     }
 
-    private fun bindDate(stwMenu: LocalizedMenu) {
-        val sdf = SimpleDateFormat(localizedDatePattern, Locale.GERMAN)
-        val date = stwMenu.getDate()
-        if (date != null) {
-            textDate.text = sdf.format(date)
-        }
+    private fun bindDate(stwMenu: Menu) {
+        textDate.text = stwMenu.date
     }
 
-    private fun bindPrice(stwMenu: LocalizedMenu) {
+    private fun bindPrice(stwMenu: Menu) {
         val price = stwMenu.priceStudents!!
         val priceAsString = String.format(Locale.GERMAN, "%.2f €", price)
 
@@ -182,7 +202,7 @@ open class MenuDetailFragment : Fragment() {
         }
     }
 
-    private fun bindAllergens(stwMenu: LocalizedMenu) {
+    private fun bindAllergens(stwMenu: Menu) {
         val allergens = ArrayList<Allergen>()
         for (allergenKey in stwMenu.allergens) {
             allergens.add(Allergen.fromString(allergenKey))
@@ -224,7 +244,7 @@ open class MenuDetailFragment : Fragment() {
      * @param stwMenu The menu to load a image for
      */
     @Background
-    internal open fun loadImage(stwMenu: LocalizedMenu, forced: Boolean) {
+    internal open fun loadImage(stwMenu: Menu, forced: Boolean) {
         setProgressVisibility(View.VISIBLE)
 
         LOGGER.debug("loadImage()")
@@ -286,8 +306,34 @@ open class MenuDetailFragment : Fragment() {
     companion object {
 
         const val ARG_KEY = "ARG_KEY"
+        const val ARG_RESTAURANT = "ARG_RESTAURANT"
+        const val ARG_DATE = "ARG_DATE"
+        const val ARG_NAME_EN = "ARG_NAME_EN"
+
         const val URI_NO_IMAGE_FILE = "file:///android_asset/menu_has_no_image.png"
         private val LOGGER = LoggerFactory.getLogger(MenuDetailFragment::class.java.simpleName)
+
+        fun newInstance(restaurant: String, date: String, nameEn:String): MenuDetailFragment_ {
+            if (BuildConfig.DEBUG)
+                LOGGER.debug("newInstance({},{},{})", restaurant, date, nameEn)
+
+            val args = Bundle()
+            args.putString(ARG_RESTAURANT,restaurant)
+            args.putString(ARG_DATE,date)
+            args.putString(ARG_NAME_EN,nameEn)
+
+            val menuDetailFragment_ = MenuDetailFragment_()
+            menuDetailFragment_.arguments = args
+
+
+            if (BuildConfig.DEBUG)
+                LOGGER.debug("Created new MenuDetailFragment ({},{},{})", restaurant, date, nameEn)
+
+            if (BuildConfig.DEBUG)
+                LOGGER.debug("newInstance({},{},{}) done", restaurant, date, nameEn)
+
+            return menuDetailFragment_
+        }
 
         fun newInstance(key: String): MenuDetailFragment {
             if (BuildConfig.DEBUG)

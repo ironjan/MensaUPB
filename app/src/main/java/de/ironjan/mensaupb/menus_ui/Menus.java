@@ -219,7 +219,18 @@ public class Menus extends AppCompatActivity implements ActionBar.OnNavigationLi
 
     @Override
     public void showMenu(String key) {
-        MenuDetails_.intent(this).menuKey(key).start();
+        MenuDetails_.intent(this)
+                .menuKey(key)
+                .start();
+    }
+
+    @Override
+    public void showMenu(Menu m) {
+        MenuDetails_.intent(this)
+                .restaurant(m.getRestaurant())
+                .date(m.getDate())
+                .nameEn(m.getName_en())
+                .start();
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.NavUtils
 import android.support.v7.app.AppCompatActivity
 import de.ironjan.mensaupb.R
+import de.ironjan.mensaupb.menus_ui.MenuDetailFragment.Companion
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.Extra
@@ -18,12 +19,20 @@ import org.androidannotations.annotations.OptionsItem
 open class MenuDetails : AppCompatActivity() {
     @Extra(value = MenuDetailFragment.ARG_KEY)
     internal lateinit var menuKey: String
+
+    @Extra(value = MenuDetailFragment.ARG_RESTAURANT)
+    internal lateinit var restaurant: String
+    @Extra(value = MenuDetailFragment.ARG_DATE)
+    internal lateinit var date: String
+    @Extra(value = MenuDetailFragment.ARG_NAME_EN)
+    internal lateinit var nameEn: String
+
     private var mFragment: MenuDetailFragment? = null
 
     @AfterViews
     internal fun bindFragment() {
         val ft = supportFragmentManager.beginTransaction()
-        mFragment = MenuDetailFragment.newInstance(menuKey!!)
+        mFragment = Companion.newInstance(restaurant, date, nameEn)
         ft.replace(R.id.fragmentMenuDetails, mFragment!!, "mFragment")
         ft.commit()
     }
