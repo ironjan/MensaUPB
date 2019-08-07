@@ -1,6 +1,7 @@
 # Unreleased
 
  * Added: closed restaurant handling
+ * Internal: dependency cleanup
 
 # 2.23.1
 

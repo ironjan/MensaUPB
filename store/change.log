@@ -1,6 +1,7 @@
 # Unreleased
 
  * Added: geschlossene Einrichtungen werden als geschlossen angezeigt
+ * Internal: dependency cleanup
 
 # 2.23.1
 
