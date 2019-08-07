@@ -52,6 +52,11 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     ProgressBar mProgressBar;
     @ViewById(R.id.txtError)
     TextView txtError;
+    @ViewById(R.id.txtClosed)
+    TextView txtClosed;
+    @ViewById(R.id.emptyExplanation)
+    View emptyExplanation;
+
 
     @Pref
     InternalKeyValueStore_ mInternalKeyValueStore;
@@ -105,7 +110,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     @Background
     void loadContent(boolean noCache) {
         Context nonNullContext = getContext();
-        if(nonNullContext==null){
+        if (nonNullContext == null) {
             return;
         }
 
@@ -124,6 +129,7 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
             });
         }
     }
+
     @UiThread
     void prepareListForRefresh() {
         final Context context = getContext();
@@ -146,7 +152,16 @@ public class MenuListingFragment extends Fragment implements SwipeRefreshLayout.
     void showMenusV2(Menu[] menus) {
         adapter.clear();
         adapter.addAll(menus);
+
+        if (menus.length == 0) {
+            txtClosed.setVisibility(View.VISIBLE);
+            emptyExplanation.setVisibility(View.GONE);
+        }else {
+            txtClosed.setVisibility(View.GONE);
+            emptyExplanation.setVisibility(View.VISIBLE);
+        }
     }
+
 
     @UiThread
     void showError(String msg) {

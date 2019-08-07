@@ -1,5 +1,7 @@
 # Unreleased
 
+ * Added: geschlossene Einrichtungen werden als geschlossen angezeigt
+
 # 2.23.1
 
  * Fixed: Wochenende wird nun korrekt übersprungen. 

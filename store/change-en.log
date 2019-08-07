@@ -1,5 +1,7 @@
 # Unreleased
 
+ * Added: closed restaurant handling
+
 # 2.23.1
 
  * Fixed: Weekend is now correctly skipped.

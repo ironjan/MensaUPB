@@ -78,5 +78,6 @@ The following Open Source libraries are used:]]></string>
     <string name="close">Close</string>
     <string name="imade_description_menu_image">A picture of the menu</string>
     <string name="menus_listing_could_not_load_menus">Could not load the menus for this day. Please check your internet connection and also check if the restaurant is open on the currently selected date.</string>
+    <string name="restaurantClosed">Restaurant is most likely closed on this day.</string>
 
 </resources>

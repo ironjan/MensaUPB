@@ -50,6 +50,15 @@
                 android:text="@string/menusLoading2" />
         </LinearLayout>
 
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/txtClosed"
+            android:layout_margin="16dp"
+            android:text="@string/restaurantClosed"
+            android:visibility="gone"/>
+
         <LinearLayout
             android:id="@+id/could_not_load_view"
             android:layout_width="match_parent"
@@ -72,4 +81,6 @@
         </LinearLayout>
 
     </FrameLayout>
+
+
 </FrameLayout>
